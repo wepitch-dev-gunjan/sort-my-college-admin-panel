@@ -3,11 +3,11 @@ import axios from "axios";
 import "./style.scss";
 import { backend_url } from "../../../../config";
 import { NotificationContext } from "../../../../context/NotificationContext";
-import { UserContext } from "../../../../context/UserContext";
+import { AdminContext } from "../../../../context/AdminContext";
 
 const Notification = ({ title, message, read, index, notificationId }) => {
   const { notifications, setNotifications } = useContext(NotificationContext);
-  const { user } = useContext(UserContext);
+  const { admin } = useContext(AdminContext);
   const [isRead, setIsRead] = useState(read);
 
   const handleNotificationClick = async () => {
@@ -19,7 +19,7 @@ const Notification = ({ title, message, read, index, notificationId }) => {
           { read: true },
           {
             headers: {
-              Athorization: user.token,
+              Athorization: admin.token,
             },
           }
         );

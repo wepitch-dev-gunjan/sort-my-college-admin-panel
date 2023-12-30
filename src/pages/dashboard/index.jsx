@@ -4,7 +4,7 @@ import Summary from "../../components/dashboardComponents/summary";
 import Widget from "../../components/dashboardComponents/widget";
 import "./style.scss";
 import { MediaQueryContext } from "../../context/MediaQueryContext";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../context/AdminContext";
 import axios from "axios";
 import { backend_url } from "../../config";
 import { DashboardContext } from "../../context/DashboardContext";

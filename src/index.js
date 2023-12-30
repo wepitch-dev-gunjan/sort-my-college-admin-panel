@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
-import { UserProvider } from "./context/UserContext";
+import { AdminProvider } from "./context/AdminContext";
 import { BrowserRouter } from "react-router-dom";
 import { MediaQueryProvider } from "./context/MediaQueryContext";
 import { NotificationProvider } from "./context/NotificationContext";
@@ -14,11 +14,11 @@ root.render(
   <LocalizationProvider dateAdapter={AdapterDayjs}>
     <BrowserRouter>
       <MediaQueryProvider>
-        <UserProvider>
+        <AdminProvider>
           <NotificationProvider>
             <App />
           </NotificationProvider>
-        </UserProvider>
+        </AdminProvider>
       </MediaQueryProvider>
     </BrowserRouter>
   </LocalizationProvider>

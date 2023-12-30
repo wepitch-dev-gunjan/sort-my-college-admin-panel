@@ -1,5 +1,5 @@
 import { NotificationContext } from "../../../context/NotificationContext";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../../../context/AdminContext";
 import Notification from "./notification";
 import RecentSession from "./recentSession";
 import RecentUser from "./recentUser";
