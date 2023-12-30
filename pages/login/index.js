@@ -3,10 +3,7 @@ import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./style.scss";
 import Logo from "../../assets/logo.svg";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
 import { backend_url } from "../../config";
-import { DatePicker } from "@mui/x-date-pickers";
-import axios from "axios";
 
 const Login = () => {
   const [isLoadingLogin, setIsLoadingLogin] = useState(false);
@@ -18,15 +15,13 @@ const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dob, setDob] = useState("");
   const [nameError, setNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
-  const [dobError, setDobError] = useState(null);
 
   const handleGoogleLogin = () => {
     setIsLoadingLoginGoogle(true);
-    window.location.href = `${backend_url}/counsellor/auth/google`;
+    window.location.href = `${backend_url}/admin/auth/google`;
   };
 
   const togglePasswordVisibility = () => {
@@ -68,12 +63,6 @@ const Login = () => {
       setPasswordError(null);
     }
 
-    if (!dob) {
-      setDobError("Date of Birth is required.");
-      isValid = false;
-    } else {
-      setDobError(null);
-    }
 
     return isValid;
   };
@@ -238,16 +227,7 @@ const Login = () => {
               }}
             />
           )}
-          {signUpEnable && (
-            <DatePicker
-              label="Date of Birth"
-              value={dob}
-              onChange={(date) => setDob(date)}
-              onBlur={() => !dob && setDobError("Date of Birth is required.")}
-              error={!!dobError}
-              helperText={dobError}
-            />
-          )}
+
           {forgotPasswordEnable && (
             <div className="buttons">
               <button

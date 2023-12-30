@@ -4,13 +4,10 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { UserProvider } from "./context/UserContext";
 import { BrowserRouter } from "react-router-dom";
-import { SessionProvider } from "./context/SessionContext";
-import { ProfileProvider } from "./context/ProfileContext";
 import { MediaQueryProvider } from "./context/MediaQueryContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { FeedbackProvider } from "./context/FeedbackContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,15 +15,9 @@ root.render(
     <BrowserRouter>
       <MediaQueryProvider>
         <UserProvider>
-          <ProfileProvider>
-            <SessionProvider>
-              <NotificationProvider>
-                <FeedbackProvider>
-                  <App />
-                </FeedbackProvider>
-              </NotificationProvider>
-            </SessionProvider>
-          </ProfileProvider>
+          <NotificationProvider>
+            <App />
+          </NotificationProvider>
         </UserProvider>
       </MediaQueryProvider>
     </BrowserRouter>
