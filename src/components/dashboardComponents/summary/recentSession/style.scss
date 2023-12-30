@@ -1,0 +1,14 @@
+.RecentSession-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--primary-dark);
+  border-radius: 20px;
+  min-width: 200px;
+  width: 100%;
+  padding: 40px 40px;
+  color: white;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -1,0 +1,22 @@
+.Notification-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-bottom: 1px solid #11111124;
+  cursor: pointer;
+  h4 {
+    font-weight: 600;
+  }
+  p {
+    font-weight: 300;
+  }
+}
+.read {
+  h4 {
+    font-weight: 800;
+  }
+  p {
+    font-weight: 500;
+  }
+}
