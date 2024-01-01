@@ -1,10 +1,8 @@
 import { useContext } from "react";
 import RecentPayments from "../../components/dashboardComponents/RecentPayments";
-import Summary from "../../components/dashboardComponents/summary";
 import Widget from "../../components/dashboardComponents/widget";
 import "./style.scss";
 import { MediaQueryContext } from "../../context/MediaQueryContext";
-import { DashboardContext } from "../../context/DashboardContext";
 
 const Dashboard = () => {
   // const { followersCount } = useContext(DashboardContext)
@@ -25,7 +23,6 @@ const Dashboard = () => {
         {/* recent payments */}
         <RecentPayments />
       </div>
-      <div className="summary">{!smallScreen && <Summary />}</div>
     </div>
   );
 };
