@@ -460,7 +460,10 @@ const CounsellorProfile = ({
               onChange={handleCancellationReasonChange}
               placeholder="Write your reason for rejection..."
             ></textarea>
-            <button onClick={handleRejectConfirm}>Confirm</button>
+            <div className="btns">
+            <button>Confirm</button>
+            <button onClick={handleRejectConfirm}>Cancel</button>
+            </div>
           </div>
         </div>
       )}

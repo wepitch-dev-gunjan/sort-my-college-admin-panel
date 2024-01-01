@@ -116,12 +116,19 @@
   
     .dialog-content {
       background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       max-width: 400px;
       width: 100%;
-  
+  .btns{
+    display: flex;
+    gap: 8px;
+  }
       h3 {
         font-size: 1.2rem;
         margin-bottom: 10px;
