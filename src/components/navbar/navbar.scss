@@ -1,0 +1,35 @@
+.navbar{
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.295);
+    .wrapper{
+        .UserName{
+            font-weight: 800;
+            font-size: 18px;
+        }
+    }
+    .LeftItems{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .item{
+            margin: 9px;
+            cursor: pointer;
+            .navIcon{
+                color: black;
+            }
+            &:hover{
+                .navIcon{
+                    color: blue;
+                }
+            }
+            .profile{
+                height: 35px;
+                width: 35px;
+            }
+        }
+    }
+}

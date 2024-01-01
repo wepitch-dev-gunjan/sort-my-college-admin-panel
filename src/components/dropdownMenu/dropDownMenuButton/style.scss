@@ -1,0 +1,21 @@
+.DropDownMenuButton-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  z-index: 999;
+  cursor: pointer;
+  a {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+  .inner-container {
+    display: flex;
+    gap: 8px;
+  }
+  &:hover {
+    background-color: var(--background-color);
+  }
+}

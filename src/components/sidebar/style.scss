@@ -1,0 +1,19 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  // position: absolute;
+  max-height: 100%;
+  border-right: 1px solid #1111111a;
+  // height: calc(100% - 82px);
+  background-color: var(--primary-light);
+  transition: all 0.3s ease;
+  .sidebar-container {
+    transform: translateY(60px);
+    transition: all 0.3s ease;
+  }
+}
+
+.right-left-arrow {
+  position: relative;
+}

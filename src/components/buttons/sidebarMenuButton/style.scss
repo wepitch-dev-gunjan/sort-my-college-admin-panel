@@ -1,0 +1,25 @@
+.SidebarMenuButton-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  .inner-container {
+    display: flex;
+    gap: 8px;
+  }
+  a {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+  &:hover {
+    background-color: var(--background-color);
+  }
+}
+
+.active {
+  border-left: 4px solid var(--accent-dark);
+  background-color: var(--background-dark);
+}

@@ -1,0 +1,14 @@
+.RightLeftArrow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: var(--background-color);
+  }
+}

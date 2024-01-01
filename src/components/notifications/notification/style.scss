@@ -1,0 +1,48 @@
+.Notification-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-bottom: 1px solid #11111124;
+  // background-color: var(--background-color);
+  cursor: pointer;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translate(50%, -50%);
+    width: 8px; /* Adjust size as needed */
+    height: 8px; /* Adjust size as needed */
+    border-radius: 50%;
+    background-color: var(--primary-dark);
+  }
+
+  h4 {
+    font-weight: 800;
+  }
+  p {
+    font-weight: 500;
+  }
+}
+.read {
+  background-color: var(--background-light);
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translate(50%, -50%);
+    width: 8px; /* Adjust size as needed */
+    height: 8px; /* Adjust size as needed */
+    border-radius: 50%;
+    background-color: var(--background-light);
+  }
+  h4 {
+    font-weight: 800;
+  }
+  p {
+    font-weight: 500;
+  }
+}

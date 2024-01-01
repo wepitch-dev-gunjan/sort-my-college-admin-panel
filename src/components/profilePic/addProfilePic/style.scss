@@ -1,0 +1,91 @@
+.AddProfilePic-container {
+  z-index: 99999999;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px); /* Adjust the value based on your preference */
+  background-color: #11111140;
+  .drop-area-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 524px;
+    height: 524px;
+    background-color: var(--browse-bg);
+    .drop-area {
+      color: var(--browse-file);
+      gap: 20px;
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
+      border: 4px dashed var(--browse-file);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 2px 2px 80px #11111183;
+      cursor: pointer;
+      .browse-button {
+        color: var(--browse-file);
+        cursor: pointer;
+        padding: 20px 32px;
+        border: 4px solid var(--browse-file);
+      }
+    }
+  }
+
+  .middle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+    align-items: center;
+  }
+  .bottom {
+    display: flex;
+    padding: 20px;
+    gap: 12px;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 20px;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--text-light);
+      background-color: var(--primary-dark);
+      transition: all 0.3s ease;
+      &:hover {
+        background-color: #755cc7;
+      }
+    }
+  }
+
+  input[type="range"] {
+    /* Rotate the slider vertically */
+    writing-mode: bt-lr; /* for IE/Edge */
+    writing-mode: lr-bt;
+    -webkit-appearance: slider-vertical;
+    height: 500px; /* Set the height as needed */
+    width: 10px; /* Set the width as needed */
+    margin: 0 10px; /* Adjust the margin as needed */
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+.avatar-editor-container {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid var(--border-light);
+  border-radius: 5px;
+  box-shadow: 2px 2px 40px #11111165;
+}

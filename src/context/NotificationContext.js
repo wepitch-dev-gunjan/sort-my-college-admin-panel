@@ -20,7 +20,7 @@ export const NotificationProvider = ({ children }) => {
       setNotificationsLoading(true);
       const { data } = await axios.get(`${backend_url}/notification`, {
         params: {
-          admin_id: admin._id,
+          user_id: admin._id,
           page,
           limit: 10,
         },

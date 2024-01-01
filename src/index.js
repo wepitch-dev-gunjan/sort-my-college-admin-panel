@@ -8,6 +8,8 @@ import { MediaQueryProvider } from "./context/MediaQueryContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ProfileProvider } from "./context/ProfileContext";
+import { DashboardProvider } from "./context/DashboardContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,15 +17,15 @@ root.render(
     <BrowserRouter>
       <MediaQueryProvider>
         <AdminProvider>
-          <NotificationProvider>
-            <App />
-          </NotificationProvider>
+          <ProfileProvider>
+            <DashboardProvider>
+              <NotificationProvider>
+                <App />
+              </NotificationProvider>
+            </DashboardProvider>
+          </ProfileProvider>
         </AdminProvider>
       </MediaQueryProvider>
     </BrowserRouter>
-  </LocalizationProvider>
+  </LocalizationProvider >
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

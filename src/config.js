@@ -4,7 +4,7 @@ module.exports = {
   frontend_url:
     NODE_ENV === "production"
       ? "https://admin.sortmycollege.com"
-      : "https://localhost:9000/counsellor",
+      : "http://localhost:3000/",
   backend_url:
     NODE_ENV === "production"
       ? "https://server.sortmycollege.com"
