@@ -1,5 +1,4 @@
-
-.all-dashboard{
+.all-dashboard {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -19,6 +18,7 @@
       padding: 20px;
       .widgets-container {
         display: flex;
+        width: 100%;
         justify-content: space-between;
         gap: 32px;
       }

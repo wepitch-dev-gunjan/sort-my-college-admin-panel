@@ -18,36 +18,32 @@ const Sidebar = () => {
         <RightLeftArrow expand={expand} />
       </div>
       <div className="sidebar-container">
-        {
-          (<>
-            <SidebarMenuButton
-              href="/"
-              icon={DashboardIcon}
-              text="Dashboard"
-              expand={expand}
-            />
-             <SidebarMenuButton
-              href="/user"
-              icon={GroupIcon}
-              text="Users"
-              expand={expand}
-            />
-            <SidebarMenuButton
-              href="/payment"
-              icon={PaymentIcon}
-              text="Payments"
-              expand={expand}
-            />
-           
-            <SidebarMenuButton
-              href="/counsellor"
-              icon={GroupIcon}
-              text="Counsellors"
-              expand={expand}
-            />
-          </>)
+        <SidebarMenuButton
+          href="/"
+          icon={DashboardIcon}
+          text="Dashboard"
+          expand={expand}
+        />
+        <SidebarMenuButton
+          href="/user"
+          icon={GroupIcon}
+          text="Users"
+          expand={expand}
+        />
+        <SidebarMenuButton
+          href="/payment"
+          icon={PaymentIcon}
+          text="Payments"
+          expand={expand}
+        />
 
-        }
+        <SidebarMenuButton
+          href="/counsellor"
+          icon={GroupIcon}
+          text="Counsellors"
+          expand={expand}
+        />
+
 
         <SidebarMenuButton
           href="/profile"

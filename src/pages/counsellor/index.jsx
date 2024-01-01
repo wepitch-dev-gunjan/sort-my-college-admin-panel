@@ -59,12 +59,12 @@ const User = () => {
       email: 'DEMO@GMAIL.COM ',
       profile_link: 'fsdf/dfd'
     },
-    
-    
-    
+
+
+
   ]);
-  
- 
+
+
   return (
     <div className="Payments-container">
       <div className="heading sticky">
@@ -80,16 +80,16 @@ const User = () => {
         <div className="table">
           {counsellors.map((counsellor, i) => (
             <div className='row' key={i}>
-            <div className="col">
-            <img src={counsellor.profile_pic} alt="user avatar" />
-          </div>
+              <div className="col">
+                <img src={counsellor.profile_pic} alt="user avatar" />
+              </div>
               <div className='col'>{counsellor.name}</div>
               <div className='col'>{counsellor.email}</div>
               <div className='col'>
                 <Link to={counsellor.profile_link}>
-                 <p>View Profile</p>
+                  <p>View Profile</p>
                 </Link>
-                </div>
+              </div>
             </div>
           ))}
         </div>
