@@ -16,6 +16,7 @@ export const AdminProvider = ({ children }) => {
 
   const storedToken = localStorage.getItem('token') || '';
   const storedAdmin = JSON.parse(JSON.parse(localStorage.getItem('admin'))) || {}; // Parsing stored admin data
+  console.log(storedAdmin);
 
   useEffect(() => {
     if (storedAdmin && storedToken) {
