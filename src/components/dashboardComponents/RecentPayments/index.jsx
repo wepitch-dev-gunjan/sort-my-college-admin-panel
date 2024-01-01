@@ -9,7 +9,7 @@ const RecentPayments = () => {
       service: 'Group session',
       date: '24 May 2024',
       payment: '$1,000',
-      status: 'Delivered' // Corrected the typo here
+      status: 'Delivered' 
     },
     {
       id: '12354',
@@ -24,6 +24,13 @@ const RecentPayments = () => {
       date: '24 May 2024',
       payment: '$1,000',
       status: 'Pending'
+    },
+    {
+      id: '12354',
+      service: 'Group session',
+      date: '24 May 2024',
+      payment: '$1,000',
+      status: 'Cancelled'
     },
     {
       id: '12354',

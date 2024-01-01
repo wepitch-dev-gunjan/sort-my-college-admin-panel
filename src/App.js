@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef } from 'react';
+import { useRef } from "react";
 import "./style.scss";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./pages/login";
@@ -10,12 +10,14 @@ import { useContext } from "react";
 import { AdminContext } from "./context/AdminContext";
 import { ToastContainer } from "react-toastify";
 import { Notifications } from "@mui/icons-material";
-import Header from './components/header'
-import Sidebar from './components/sidebar'
+import Header from "./components/header";
+import Sidebar from "./components/sidebar";
 import { NotificationContext } from "./context/NotificationContext";
-import useClickOutside from './customHooks/useClickOutside';
+import useClickOutside from "./customHooks/useClickOutside";
 import { ProfileContext } from "./context/ProfileContext";
-import AddProfilePic from './components/profilePic/addProfilePic';
+import AddProfilePic from "./components/profilePic/addProfilePic";
+import User from "./pages/user";
+import Counsellor from "./pages/counsellor";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -57,12 +59,13 @@ function App() {
 
         {isLoggedIn && <Sidebar />}
         <div className={`${isLoggedIn && "main-content"}`}>
-
           <Routes>
             {isLoggedIn ? (
               <>
                 <Route path="/login" element={<Navigate replace to="/" />} />
                 <Route path="/payment" element={<Payment />} />
+                <Route path="/user" element={<User />} />
+                <Route path="/counsellor" element={<Counsellor />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
               </>

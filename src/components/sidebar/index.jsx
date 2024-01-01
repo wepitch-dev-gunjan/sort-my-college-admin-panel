@@ -6,8 +6,7 @@ import SidebarMenuButton from "../buttons/sidebarMenuButton";
 import RightLeftArrow from "../buttons/rightLeftArrow";
 import PersonIcon from "@mui/icons-material/Person";
 import { ProfileContext } from "../../context/ProfileContext";
-
-
+import GroupIcon from '@mui/icons-material/Group';
 
 const Sidebar = () => {
   const [expand, setExpand] = useState(true);
@@ -27,10 +26,23 @@ const Sidebar = () => {
               text="Dashboard"
               expand={expand}
             />
+             <SidebarMenuButton
+              href="/user"
+              icon={GroupIcon}
+              text="Users"
+              expand={expand}
+            />
             <SidebarMenuButton
               href="/payment"
               icon={PaymentIcon}
-              text="My Payments"
+              text="Payments"
+              expand={expand}
+            />
+           
+            <SidebarMenuButton
+              href="/counsellor"
+              icon={GroupIcon}
+              text="Counsellors"
               expand={expand}
             />
           </>)
