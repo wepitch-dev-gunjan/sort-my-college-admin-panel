@@ -4,6 +4,8 @@ import "./style.scss";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./pages/login";
 import Dashboard from "./pages/dashboard";
+import Payment from "./pages/payment";
+import Profile from "./pages/profile/Profile";
 import { useContext } from "react";
 import { AdminContext } from "./context/AdminContext";
 import { ToastContainer } from "react-toastify";
@@ -60,6 +62,8 @@ function App() {
             {isLoggedIn ? (
               <>
                 <Route path="/login" element={<Navigate replace to="/" />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
               </>
             ) : (
