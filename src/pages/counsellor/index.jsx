@@ -6,58 +6,72 @@ import { useState } from 'react';
 const User = () => {
   const [counsellors, setCounsellors] = useState([
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfdgfg/f/gf/f/gf/'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfd'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
+    },{
+      
+      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
+      name: 'XYZ',
+      email: 'DEMO@GMAIL.COM ',
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfd'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
+    },{
+      
+      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
+      name: 'XYZ',
+      email: 'DEMO@GMAIL.COM ',
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfd'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfd'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfd'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfdgd'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
     {
+      
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfd'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      profile_link: 'fsdf/dfd'
+      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
 
 
@@ -86,7 +100,7 @@ const User = () => {
               <div className='col'>{counsellor.name}</div>
               <div className='col'>{counsellor.email}</div>
               <div className='col'>
-                <Link to={counsellor.profile_link}>
+                <Link to='/counsellors/counsellor-profile'>
                   <p>View Profile</p>
                 </Link>
               </div>

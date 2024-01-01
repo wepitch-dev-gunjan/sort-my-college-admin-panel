@@ -38,7 +38,7 @@ const Sidebar = () => {
         />
 
         <SidebarMenuButton
-          href="/counsellor"
+          href="/counsellors"
           icon={GroupIcon}
           text="Counsellors"
           expand={expand}
