@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import RecentPayments from "../../components/dashboardComponents/RecentPayments";
 import Summary from "../../components/dashboardComponents/summary";
 import Widget from "../../components/dashboardComponents/widget";
@@ -17,7 +17,8 @@ const Dashboard = () => {
           <div className="widgets-container">
             {/* <Widget heading="USERS" value={followersCount} /> */}
             <Widget heading="INCOME" value="$10000" />
-            <Widget heading="SESSIONS" value="1000" />
+            <Widget heading="USERS" value="1000" />
+            <Widget heading="COUNSELLORS" value="1000" />
           </div>
         </div>
 
