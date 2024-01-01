@@ -23,8 +23,6 @@ function App() {
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode } =
     useContext(ProfileContext);
-  const { coverImageEditMode, setCoverImageEditMode } =
-    useContext(ProfileContext);
 
   const navigate = useNavigate();
 
@@ -43,38 +41,37 @@ function App() {
     setNotificationsEnable(false);
   });
   return (
-
-    <div>9
+    <div>
       {isLoggedIn && <Header handleLogout={handleLogout} />}
+      {profilePicEditMode && (
+        <div className="add-profile-pic-panel">
+          <AddProfilePic ref={addProfilePicRef} />
+        </div>
+      )}
       <div className="main">
         <ToastContainer />
 
         {notificationsEnable && <Notifications />}
 
         {isLoggedIn && <Sidebar />}
+        <div className={`${isLoggedIn && "main-content"}`}>
 
-        {profilePicEditMode && (
-          <div className="add-profile-pic-panel">
-            <AddProfilePic ref={addProfilePicRef} />
-          </div>
-        )}
-
-        <div className={`${isLoggedIn && "main-content"}`}></div>
-        <Routes>
-          {isLoggedIn ? (
-            <>
-              <Route path="/login" element={<Navigate replace to="/" />} />
-              <Route path="/" element={<Dashboard />} />
-            </>
-          ) : (
-            <>
-              <Route path="*" element={<Navigate replace to="/login" />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Login />} />
-              <Route path="/password-reset" element={<Login />} />
-            </>
-          )}
-        </Routes>
+          <Routes>
+            {isLoggedIn ? (
+              <>
+                <Route path="/login" element={<Navigate replace to="/" />} />
+                <Route path="/" element={<Dashboard />} />
+              </>
+            ) : (
+              <>
+                <Route path="*" element={<Navigate replace to="/login" />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Login />} />
+                <Route path="/password-reset" element={<Login />} />
+              </>
+            )}
+          </Routes>
+        </div>
       </div>
     </div>
   );
