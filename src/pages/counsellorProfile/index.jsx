@@ -29,6 +29,9 @@ const CounsellorProfile = ({
     courses_focused: []
   })
 
+  const [showReasonDialog, setShowReasonDialog] = useState(false);
+  const [cancellationReason, setCancellationReason] = useState("");
+
 
   const handleDateChange = (date) => {
     setProfile((prev) => ({
@@ -62,6 +65,31 @@ const CounsellorProfile = ({
   const formatDate = (date) => {
     return dayjs(date).format('YYYY-MM-DD');
   };
+
+
+
+  const handleRejectClick = () => {
+    setShowReasonDialog(true);
+  };
+
+  const handleReasonDialogClose = () => {
+    setShowReasonDialog(false);
+  };
+
+  const handleCancellationReasonChange = (e) => {
+    setCancellationReason(e.target.value);
+  };
+
+  const handleRejectConfirm = () => {
+    // Perform the rejection logic here
+    console.log("Reason for rejection:", cancellationReason);
+
+    // Close the dialog
+    setShowReasonDialog(false);
+  };
+
+
+
   return (
     <div className="BasicInfo-container">
       <div className="basic-info">
@@ -412,13 +440,32 @@ const CounsellorProfile = ({
         </div>
 
         <div className="bottom">
-          <div className="accept">Accept</div>
-          <div className="reject">Reject</div>
+            <div className="accept">Accept</div>
+            <div className="reject" onClick={handleRejectClick}>
+              Reject
+            </div>
+          </div>
         </div>
       </div>
+
+      {showReasonDialog && (
+        <div className="reason-dialog">
+          <div className="dialog-content">
+            <span onClick={handleReasonDialogClose} className="close-button">
+              &times;
+            </span>
+            <h3>Reason for Rejection</h3>
+            <textarea
+              value={cancellationReason}
+              onChange={handleCancellationReasonChange}
+              placeholder="Write your reason for rejection..."
+            ></textarea>
+            <button onClick={handleRejectConfirm}>Confirm</button>
+          </div>
+        </div>
+      )}
       </div>
      
-    </div >
   );
 };
 
