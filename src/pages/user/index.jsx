@@ -71,7 +71,6 @@ const User = () => {
     },    
   ]);
   
- 
   return (
     <div className="Payments-container">
       <div className="heading sticky">
