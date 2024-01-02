@@ -9,7 +9,7 @@ import Profile from "./pages/profile/Profile";
 import { useContext } from "react";
 import { AdminContext } from "./context/AdminContext";
 import { ToastContainer } from "react-toastify";
-import { Notifications } from "@mui/icons-material";
+import Notifications from "./components/notifications";
 import Header from "./components/header";
 import Sidebar from "./components/sidebar";
 import { NotificationContext } from "./context/NotificationContext";

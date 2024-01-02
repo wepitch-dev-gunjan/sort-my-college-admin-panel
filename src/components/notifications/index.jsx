@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import "./style.scss";
 import Notification from "./notification";
 import { NotificationContext } from "../../context/NotificationContext";
-import { UserContext } from "../../context/UserContext";
 import axios from "axios";
 import { backend_url } from "../../config";
 import { ImSpinner3 } from "react-icons/im";
+import { AdminContext } from "../../context/AdminContext";
 
 const Notifications = () => {
   const { notifications, setNotifications, notificationsRef, getNotifications, page, setPage, notificationsLoading, allNotificationsFetched } = useContext(NotificationContext);
-  const { user } = useContext(UserContext);
+  const { admin } = useContext(AdminContext);
 
   const handleScroll = (e) => {
     const element = e.target;
@@ -31,7 +31,7 @@ const Notifications = () => {
           null,
           {
             params: {
-              user_id: user._id
+              user_id: admin._id
             }
           }
         );

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './style.scss';
-// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
