@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { AdminContext } from "../../context/AdminContext";
 
 const Profile = () => {
-  const { user } = useContext(AdminContext);
+  const { admin } = useContext(AdminContext);
   const { profile, setProfile } = useContext(ProfileContext);
   const [initialUserProfileBackup, setInitialUserProfileBackup] =
     useState(profile);
@@ -20,11 +20,11 @@ const Profile = () => {
   // Function to handle saving changes
   const handleSave = async () => {
     try {
-      const endpointUrl = `${backend_url}/counsellor/${user._id}`; // Replace with your actual endpoint URL
+      const endpointUrl = `${backend_url}/counsellor/${admin._id}`; // Replace with your actual endpoint URL
 
       const response = await axios.put(endpointUrl, profile, {
         headers: {
-          Authorization: user.token
+          Authorization: admin.token
         }
       });
       setProfile(response.data);

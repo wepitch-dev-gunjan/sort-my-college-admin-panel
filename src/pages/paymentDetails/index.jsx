@@ -16,7 +16,7 @@ const PaymentDetails = () => {
           session_date: '12-8-2023',
           session_time: '12:00pm',
           session_duration: '60 min',
-          session_type: ['Personal', 'Group']          ,
+          session_type: ['Personal', 'Group'],
           session_fee: '500',
           session_status: ['Cancelled', 'Attended', 'NotAttended', 'Rescheduled', 'Booked', 'Available'],
           session_slots: '50',
@@ -28,14 +28,13 @@ const PaymentDetails = () => {
       <div className="basic-info">
       <div className="heading">
          <h2>Session Details</h2>
-        {/* <button>Edit session</button>  */}
       </div>     
 
       <div className="info">
       <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Counsellor name: </p>
+              <p>Counsellor name </p>
             </div>
             <div className="info-value">
                 <p>{session.session_counsellor}</p>
@@ -46,7 +45,7 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>User name: </p>
+              <p>User name </p>
             </div>
             <div className="info-value">
                 <p>{session.session_user}</p>           
@@ -57,7 +56,7 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Date of session:</p>
+              <p>Date of session</p>
             </div>
             <div className="info-value">
                 <p>{session.session_date}</p>
@@ -68,7 +67,7 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Time:</p>
+              <p>Session Time</p>
             </div>
             <div className="info-value">   
             <p>{session.session_time}</p>             
@@ -79,7 +78,7 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Duration:</p>
+              <p>Session Duration</p>
             </div>
             <div className="info-value">   
             <p>{session.session_duration}</p>             
@@ -90,7 +89,7 @@ const PaymentDetails = () => {
         <div className="row">
             <div className="col">
                  <div className="info-field">
-                     <p>Session Type: </p>
+                     <p>Session Type</p>
                  </div>
         <div className="info-value">
         {session.session_type?.map((type, i) => (
@@ -103,7 +102,7 @@ const PaymentDetails = () => {
 <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Fee:</p>
+              <p>Session Fee</p>
             </div>
             <div className="info-value">   
             <p>{session.session_fee}</p>             
@@ -114,7 +113,7 @@ const PaymentDetails = () => {
         <div className="row">
             <div className="col">
                  <div className="info-field">
-                     <p>Session Status: </p>
+                     <p>Session Status </p>
                  </div>
         <div className="info-value">
         {session.session_status?.map((status, i) => (
@@ -127,7 +126,7 @@ const PaymentDetails = () => {
 <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Slots:</p>
+              <p>Session Slots</p>
             </div>
             <div className="info-value">   
             <p>{session.session_slots}</p>             
@@ -138,7 +137,7 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Available Slots:</p>
+              <p>Session Available Slots</p>
             </div>
             <div className="info-value">   
             <p>{session.session_available_slots}</p>             
