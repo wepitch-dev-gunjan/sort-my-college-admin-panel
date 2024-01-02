@@ -51,6 +51,7 @@ const Profile = () => {
         <div className="profile-pic">
           <ProfilePic src={profile.profile_pic} />
         </div>
+
         <div className="edit-profile">
           <div
             className="edit-profile-button"
@@ -60,10 +61,10 @@ const Profile = () => {
           </div>
         </div>
         <br />
+
         <div className="profile-info">
           <div className="top">
             <h1>{profile.name}</h1>
-            <h3>{profile.designation}</h3>
           </div>
           <div className="middle">
             <BasicInfo
