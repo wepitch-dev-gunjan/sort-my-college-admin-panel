@@ -29,9 +29,6 @@ const CounsellorProfile = ({
     navigate('/counsellors');
   };
 
-
-
-
   const handleBackClick = () => {
     // Navigate back to the payment page or the previous route
     navigate('/counsellors'); // Replace '/payment' with the actual path you want to go back to
