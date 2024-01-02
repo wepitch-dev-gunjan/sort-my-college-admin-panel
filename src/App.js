@@ -20,6 +20,7 @@ import User from "./pages/user";
 import Counsellor from "./pages/counsellor";
 import CounsellorProfile from "./pages/counsellorProfile";
 import PaymentDetails from "./pages/paymentDetails";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const addProfilePicRef = useRef(null);

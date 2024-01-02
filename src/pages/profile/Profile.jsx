@@ -20,7 +20,7 @@ const Profile = () => {
   // Function to handle saving changes
   const handleSave = async () => {
     try {
-      const endpointUrl = `${backend_url}/counsellor/${admin._id}`; // Replace with your actual endpoint URL
+      const endpointUrl = `${backend_url}/admin/${admin._id}`; // Replace with your actual endpoint URL
 
       const response = await axios.put(endpointUrl, profile, {
         headers: {
