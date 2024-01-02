@@ -18,7 +18,7 @@ export const NotificationProvider = ({ children }) => {
   const getNotifications = async (page) => {
     try {
       setNotificationsLoading(true);
-      const { data } = await axios.get(`${backend_url}/notification`, {
+      const { data } = await axios.get(`${backend_url}/notification/`, {
         params: {
           user_id: admin._id,
           page,

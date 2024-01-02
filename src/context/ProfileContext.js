@@ -11,19 +11,22 @@ export const ProfileProvider = ({ children }) => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get(`${backend_url}/admin/${admin._id}`,
+      const response = await axios.get(`${backend_url}/admin/`,
+        // null,
         {
           headers: {
             Authorization: admin.token
           }
         });
-      setProfile(response.data[0])
+      setProfile(response.data);
+      console.log('chalo sutta pilake lau tumhe' + response);
     } catch (err) {
       console.error('Error fetching profile:', err);
     }
   };
 
   useEffect(() => {
+    console.log(admin)
     if (admin && admin.isLoggedIn)
       fetchProfile();
   }, [admin]);
