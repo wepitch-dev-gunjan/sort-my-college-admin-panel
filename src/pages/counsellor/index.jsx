@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import "./style.scss"
 import { useState } from 'react';
 
-
 const Counsellor = () => {
 
   const updateCounsellorStatus = (counsellorId, newStatus) => {

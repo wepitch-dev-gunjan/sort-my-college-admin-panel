@@ -1,30 +1,30 @@
 import "./profile.scss";
 import { useContext, useState } from "react";
 import ProfilePic from "../../components/profilePic";
-import { AdminContext } from "../../context/AdminContext";
 import BasicInfo from "../../components/basicInfo";
 import { ProfileContext } from "../../context/ProfileContext";
-
 import { backend_url } from "../../config";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { AdminContext } from "../../context/AdminContext";
 
 const Profile = () => {
-  const { admin } = useContext(AdminContext);
+  const { user } = useContext(AdminContext);
   const { profile, setProfile } = useContext(ProfileContext);
   const [initialUserProfileBackup, setInitialUserProfileBackup] =
     useState(profile);
   const { editProfileEnable, setEditProfileEnable } =
     useContext(ProfileContext);
 
+
   // Function to handle saving changes
   const handleSave = async () => {
     try {
-      const endpointUrl = `${backend_url}/counsellor/${admin._id}`; // Replace with your actual endpoint URL
+      const endpointUrl = `${backend_url}/counsellor/${user._id}`; // Replace with your actual endpoint URL
 
       const response = await axios.put(endpointUrl, profile, {
         headers: {
-          Authorization: admin.token
+          Authorization: user.token
         }
       });
       setProfile(response.data);
