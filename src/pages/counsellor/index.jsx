@@ -3,7 +3,17 @@ import "./style.scss"
 import { useState } from 'react';
 
 
-const User = () => {
+const Counsellor = () => {
+
+  const updateCounsellorStatus = (counsellorId, newStatus) => {
+    // Find the counsellor in the state and update its status
+    setCounsellors((prevCounsellors) => {
+      return prevCounsellors.map((counsellor) =>
+        counsellor._id === counsellorId ? { ...counsellor, status: newStatus } : counsellor
+      );
+    });
+  };
+  
   const [counsellors, setCounsellors] = useState([
     {
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
@@ -137,4 +147,4 @@ const User = () => {
   )
 }
 
-export default User
+export default Counsellor

@@ -3,6 +3,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./style.scss";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { useNavigate } from 'react-router-dom';
+
 import { handleInput } from "../../utilities";
 import TagsInput from "react-tagsinput";
 import { FaIndianRupeeSign } from "react-icons/fa6";
@@ -11,10 +13,29 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 const CounsellorProfile = ({ 
   // profile, 
   editProfileEnable, 
+  updateCounsellorStatus,
   // setProfile 
 }) => {
 
+  const navigate = useNavigate();
 
+  const handleAcceptClick = () => {
+    // Perform the acceptance logic here
+  
+    // Update the status in the parent component (Counsellor)
+    updateCounsellorStatus(profile._id, 'Verified');
+  
+    // Navigate back to the counsellors page
+    navigate('/counsellors');
+  };
+  
+
+
+
+  const handleBackClick = () => {
+      // Navigate back to the payment page or the previous route
+      navigate('/counsellors'); // Replace '/payment' with the actual path you want to go back to
+    };
   const [profile, setProfile] = useState({
     name: 'abc',
     email: 'demo@gmail.com',
@@ -94,7 +115,7 @@ const CounsellorProfile = ({
     <div className="BasicInfo-container">
       <div className="basic-info">
       <div className="heading">
-        <h2></h2>
+        <button onClick={handleBackClick}>Back</button>
         <button>Edit Profile</button>
       </div>
 
@@ -440,7 +461,7 @@ const CounsellorProfile = ({
         </div>
 
         <div className="bottom">
-            <div className="accept">Accept</div>
+            <div className="accept" onClick={handleAcceptClick}>Accept</div>
             <div className="reject" onClick={handleRejectClick}>
               Reject
             </div>
