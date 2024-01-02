@@ -18,6 +18,7 @@ import { ProfileContext } from "./context/ProfileContext";
 import AddProfilePic from "./components/profilePic/addProfilePic";
 import User from "./pages/user";
 import Counsellor from "./pages/counsellor";
+import CounsellorProfile from "./pages/counsellorProfile";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -65,7 +66,11 @@ function App() {
                 <Route path="/login" element={<Navigate replace to="/" />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/user" element={<User />} />
-                <Route path="/counsellor" element={<Counsellor />} />
+                <Route path="/counsellors" element={<Counsellor />} />
+                <Route
+                  path="/counsellors/counsellor-profile"
+                  element={<CounsellorProfile />}
+                />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
               </>
