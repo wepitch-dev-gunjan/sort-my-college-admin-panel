@@ -16,6 +16,14 @@
       flex-direction: column;
       gap: 40px;
       padding: 20px;
+      .chart-row {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        .col {
+          width: 100%;
+        }
+      }
       .widgets-container {
         display: flex;
         width: 100%;
