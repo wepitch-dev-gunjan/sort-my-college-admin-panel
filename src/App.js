@@ -19,6 +19,7 @@ import AddProfilePic from "./components/profilePic/addProfilePic";
 import User from "./pages/user";
 import Counsellor from "./pages/counsellor";
 import CounsellorProfile from "./pages/counsellorProfile";
+import PaymentDetails from "./pages/paymentDetails";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -65,6 +66,10 @@ function App() {
               <>
                 <Route path="/login" element={<Navigate replace to="/" />} />
                 <Route path="/payment" element={<Payment />} />
+                <Route
+                  path="/payment/payment-details"
+                  element={<PaymentDetails />}
+                />
                 <Route path="/user" element={<User />} />
                 <Route path="/counsellors" element={<Counsellor />} />
                 <Route

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./style.scss"
 import { useState } from 'react';
 
@@ -108,6 +109,8 @@ const Payment = () => {
           <div className="col"><h4>DATE</h4></div>
           <div className="col"><h4>PAYMENT</h4></div>
           <div className="col"><h4>STATUS</h4></div>
+          <div className="col"><h4>DETAILS</h4></div>
+
         </div>
       </div>
       <div className='RecentPayments-container'>
@@ -122,6 +125,11 @@ const Payment = () => {
                 payment.status === 'Delivered' ? 'green' :
                   payment.status === 'Pending' ? 'blue' : ''
                 }`}>{payment.status}</div>
+                <div className='col'>
+                <Link to='/payment/payment-details'>
+                  <p>View Details</p>
+                </Link>
+              </div>
             </div>
           ))}
         </div>

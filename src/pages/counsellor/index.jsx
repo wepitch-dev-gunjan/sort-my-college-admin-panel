@@ -96,9 +96,6 @@ const User = () => {
       status: 'Verified',
       _id: 'fsdf/dfdgfg/f/gf/f/gf/'
     },
-
-
-
   ]);
 
 
