@@ -68,12 +68,9 @@ const User = () => {
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
       name: 'XYZ',
       email: 'DEMO@GMAIL.COM ',
-    },
-    
-    
+    },    
   ]);
   
- 
   return (
     <div className="Payments-container">
       <div className="heading sticky">

@@ -98,7 +98,6 @@ const Payment = () => {
     }
   ]);
   
- 
   return (
     <div className="Payments-container">
       <div className="heading sticky">
@@ -110,7 +109,6 @@ const Payment = () => {
           <div className="col"><h4>PAYMENT</h4></div>
           <div className="col"><h4>STATUS</h4></div>
           <div className="col"><h4>DETAILS</h4></div>
-
         </div>
       </div>
       <div className='RecentPayments-container'>

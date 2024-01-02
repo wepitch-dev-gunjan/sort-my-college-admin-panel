@@ -63,7 +63,11 @@ const Dashboard = () => {
       <div className="Dashboard-container">
         <div className="business-dashbaord">
           <h1>Business Dashboard</h1>
-          {/* <div className="widgets-container"> */}
+           <div className="widgets-container"> 
+            <Widget heading="INCOME" value="$10000" />
+            <Widget heading="USERS" value="1000" />
+            <Widget heading="COUNSELLORS" value="1000" /> 
+           </div> 
           <div className="chart-row">
             <div className="col">
               <LineChart data={earningsData} />
@@ -77,10 +81,7 @@ const Dashboard = () => {
             <BarChart data={counsellorData} text='Counsellors' />
           </div>
 
-          {/* <Widget heading="INCOME" value="$10000" />
-            <Widget heading="USERS" value="1000" />
-            <Widget heading="COUNSELLORS" value="1000" /> */}
-          {/* </div> */}
+         
         </div>
 
         {/* recent payments */}

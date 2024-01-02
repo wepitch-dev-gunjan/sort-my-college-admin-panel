@@ -1,0 +1,63 @@
+.filter-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding-bottom: 24px;
+  padding-top: 12px;
+  border-bottom: 1px solid grey;
+  .fees {
+    p {
+      font-weight: 600;
+      padding-bottom: 4px;
+      font-size: 16px;
+    }
+
+    .values {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+  .date-range {
+    p {
+      font-weight: 600;
+      padding-bottom: 4px;
+      font-size: 16px;
+    }
+  }
+  .duration {
+    p {
+      font-weight: 600;
+      padding-bottom: 4px;
+      font-size: 16px;
+    }
+  }
+  .type {
+    p {
+      font-weight: 600;
+      padding-bottom: 4px;
+      font-size: 16px;
+    }
+    select{
+      border: none;
+      padding: 4px;
+      width: 120px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+  }
+  .status {
+    p {
+      font-weight: 600;
+      padding-bottom: 4px;
+      font-size: 16px;
+    }
+    select{
+      border: none;
+      padding: 4px;
+      width: 120px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+  }
+}
