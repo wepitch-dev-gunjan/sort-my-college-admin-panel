@@ -123,15 +123,7 @@ const CounsellorProfile = ({
 
       <div className="left-profile-middle">
         <div className="info">
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-              </div>
-              <div className="info-value">
-
-              </div>
-            </div>
-          </div>
+       
           <div className="row">
             <div className="col">
               <div className="info-field">
