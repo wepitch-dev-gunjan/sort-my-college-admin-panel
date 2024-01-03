@@ -1,4 +1,4 @@
-.Payments-container {
+.User-container {
   width: 100%;
   overflow-y: auto;
   .heading {
@@ -30,14 +30,14 @@
   position: sticky !important;
   top: 0;
 }
-.RecentPayments-container {
+.user-table-container {
   display: flex;
   flex-direction: column;
   gap: 40px;
   padding: 20px;
   width: 100%;
 
-  .pagination{
+  .pagination {
     display: flex;
     justify-content: center;
   }
@@ -58,7 +58,7 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        font-size: 20px;
+        font-size: 16px;
         color: var(--text-dark);
         img {
           border-radius: 50%;

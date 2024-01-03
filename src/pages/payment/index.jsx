@@ -97,11 +97,11 @@ const Payment = () => {
       status: 'Delivered'
     }
   ]);
-  
+
   return (
     <div className="Payments-container">
       <div className="heading sticky">
-        <h1>All Payments</h1>
+        {/* <h1>All Payments</h1> */}
         <div className="row">
           <div className="col"><h4>ID</h4></div>
           <div className="col"><h4>SERVICE</h4></div>
@@ -123,7 +123,7 @@ const Payment = () => {
                 payment.status === 'Delivered' ? 'green' :
                   payment.status === 'Pending' ? 'blue' : ''
                 }`}>{payment.status}</div>
-                <div className='col'>
+              <div className='col'>
                 <Link to='/payment/payment-details'>
                   <p>View Details</p>
                 </Link>

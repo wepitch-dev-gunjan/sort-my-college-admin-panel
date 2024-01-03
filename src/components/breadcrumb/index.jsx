@@ -22,7 +22,7 @@ const Breadcrumb = () => {
             ) : (
               <IoIosCheckmarkCircleOutline style={{ color: '#6ae6be' }} size={20} />
             )}
-            <span>home</span>
+            <span style={{ fontWeight: routes.length === 0 ? '700' : '400' }}>home</span>
           </div>
         </Link>
       </span>
@@ -38,7 +38,7 @@ const Breadcrumb = () => {
                 ) : (
                   <IoIosCheckmarkCircleOutline style={{ color: '#6ae6be' }} size={20} />
                 )}
-                <span>{route.breadcrumbName}</span>
+                <span style={{ fontWeight: isCurrentRoute ? '700' : '400' }}>{route.breadcrumbName}</span>
               </div>
             </Link>
           </span>

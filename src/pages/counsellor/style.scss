@@ -1,6 +1,7 @@
-.Payments-container {
+.Counsellors-container {
   width: 100%;
   overflow-y: auto;
+  font-size: 16px;
   .heading {
     background-color: var(--primary-light);
     padding: 20px 20px 0 20px;
@@ -60,7 +61,6 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        font-size: 20px;
         color: var(--text-dark);
         p {
           border: 1px solid black;

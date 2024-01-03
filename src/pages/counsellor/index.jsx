@@ -12,7 +12,7 @@ const Counsellor = () => {
       );
     });
   };
-  
+
   const [counsellors, setCounsellors] = useState([
     {
       profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
@@ -109,9 +109,8 @@ const Counsellor = () => {
 
 
   return (
-    <div className="Payments-container">
+    <div className="Counsellors-container">
       <div className="heading sticky">
-        <h1>All COUNSELLORS</h1>
         <div className="row">
           <div className="col"><h4>IMAGE</h4></div>
           <div className="col"><h4>NAME</h4></div>
