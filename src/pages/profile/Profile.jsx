@@ -32,10 +32,8 @@ const Profile = () => {
       setEditProfileEnable(false);
       toast('Profile successfully saved');
     } catch (error) {
-      // Handle errors if the request fails
       toast(error.message)
       console.error("Error while saving:", error);
-      // You might want to handle the error state here
     }
   };
 

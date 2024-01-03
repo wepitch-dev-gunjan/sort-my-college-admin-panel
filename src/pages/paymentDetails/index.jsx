@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import './style.scss'
 
 const PaymentDetails = () => {
 
@@ -24,7 +25,7 @@ const PaymentDetails = () => {
       })
 
   return (
-    <div className="BasicInfo-container">
+    <div className="PaymentDetails-container">
       <div className="basic-info">
       <div className="heading">
          <h2>Session Details</h2>
