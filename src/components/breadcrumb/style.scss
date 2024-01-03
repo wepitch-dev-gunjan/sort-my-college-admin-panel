@@ -3,8 +3,9 @@
   font-size: 12px;
 
   .breadcrumb {
+    color: var(--text-light);
     background-color: var(--primary-dark);
-    padding: 12px 20px 12px 32px;
+    padding: 9px 20px 9px 32px;
     display: flex;
     gap: 8px;
     justify-content: center;
@@ -16,9 +17,9 @@
       width: 0;
       border-top: 19px solid transparent;
       border-bottom: 19px solid transparent;
-      border-left: 18px solid var(--primary-dark);
+      border-left: 18px solid var(--primary-light);
       position: absolute;
-      right: -17px;
+      right: -18px;
       top: 0px;
       bottom: 0;
       z-index: 1;
