@@ -19,7 +19,6 @@ export const ProfileProvider = ({ children }) => {
           }
         });
       setProfile(response.data);
-      console.log('chalo sutta pilake lau tumhe' + response);
     } catch (err) {
       console.error('Error fetching profile:', err);
     }

@@ -4,10 +4,11 @@ import "./style.scss";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useNavigate } from 'react-router-dom';
-
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { handleInput } from "../../utilities";
 import TagsInput from "react-tagsinput";
 import { FaIndianRupeeSign } from "react-icons/fa6";
+import ProfilePic from "../../components/profilePic";
 
 
 const CounsellorProfile = ({
@@ -41,7 +42,9 @@ const CounsellorProfile = ({
     approach_of_counselling: 'Online',
     degree_focused: [],
     locations_focused: [],
-    courses_focused: []
+    courses_focused: [],
+    rating: '5',
+    total_session_attended: '50'
   })
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
@@ -107,17 +110,18 @@ const CounsellorProfile = ({
 
   return (
     <div className="CounsellorProfile-container">
-      <div className="basic-info">
-        <div className="heading">
-          <button>Edit Profile</button>
-        </div>
 
-        <div className="info-img">
-          <div className="name">
-            <img src="http://www.clker.com/cliparts/a/e/c/c/1364125264782739178passport.jpg" alt="" />
-          </div>
-        </div>
+    <div className="all">
 
+      <div className="left-profile">
+      <div className="info-img">
+       <div className="profile-pic">
+          <ProfilePic src={profile.profile_pic} />
+        </div>
+        </div>
+        <br />
+
+      <div className="left-profile-middle">
         <div className="info">
           <div className="row">
             <div className="col">
@@ -232,8 +236,13 @@ const CounsellorProfile = ({
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="row">
+      <div className="left-profile-bottom">          
+        <div className="info">
+
+           <div className="row">
             <div className="col">
               <div className="info-field">
                 <p>Industrial Experience</p>
@@ -312,7 +321,29 @@ const CounsellorProfile = ({
             </div>
           </div>
 
-          <div className="row">
+        
+
+        </div>
+      </div>
+
+      </div>
+
+      <div className="right-profile">
+      
+      <div className="right-profile-buttons">     
+        <div className="info">
+            <div className="accept" onClick={handleAcceptClick}>Accept</div>
+            <div className="reject" onClick={handleRejectClick}>
+              Reject
+            </div>
+            <MoreVertIcon />
+          
+        </div>
+      </div>
+
+      <div className="right-profile-info">
+        <div className="info">     
+        <div className="row">
             <div className="col">
               <div className="info-field">
                 <p>Approach of counselling</p>
@@ -452,13 +483,10 @@ const CounsellorProfile = ({
             </div>
           </div>
 
-          <div className="bottom">
-            <div className="accept" onClick={handleAcceptClick}>Accept</div>
-            <div className="reject" onClick={handleRejectClick}>
-              Reject
-            </div>
-          </div>
         </div>
+      </div>
+
+      </div>
       </div>
 
       {showReasonDialog && (

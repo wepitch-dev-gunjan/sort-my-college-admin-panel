@@ -83,13 +83,13 @@ const PaymentDetails = () => {
                  <div className="info-field">
                      <p>Session Type</p>
                  </div>
-        <div className="info-value">
-        {session.session_type?.map((type, i) => (
-        <p key={i}>{`${type}${i < session.session_type.length - 1 ? "," : ""}`}</p>
-      ))}
-    </div>
-  </div>
-</div>
+          <div className="info-value">
+            {session.session_type?.map((type, i) => (
+            <p key={i}>{`${type}${i < session.session_type.length - 1 ? "," : ""}`}</p>
+             ))}
+          </div>
+       </div>
+     </div>
 
         <div className="row">
           <div className="col">
@@ -107,13 +107,13 @@ const PaymentDetails = () => {
                  <div className="info-field">
                      <p>Session Status </p>
                  </div>
-            <div className="info-value">
-               {session.session_status?.map((status, i) => (
-               <p key={i}>{`${status}${i < session.session_status.length - 1 ? "," : ""}`}</p>
-            ))}
-         </div>
-       </div>
-      </div>
+                 <div className="info-value">
+                   {session.session_status?.map((status, i) => (
+                   <p key={i}>{`${status}${i < session.session_status.length - 1 ? "," : ""}`}</p>
+                   ))}
+                  </div>
+            </div>
+        </div>
 
         <div className="row">
           <div className="col">
