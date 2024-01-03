@@ -29,10 +29,7 @@ const CounsellorProfile = ({
     navigate('/counsellors');
   };
 
-  const handleBackClick = () => {
-    // Navigate back to the payment page or the previous route
-    navigate('/counsellors'); // Replace '/payment' with the actual path you want to go back to
-  };
+  
   const [profile, setProfile] = useState({
     name: 'abc',
     email: 'demo@gmail.com',
@@ -112,7 +109,6 @@ const CounsellorProfile = ({
     <div className="CounsellorProfile-container">
       <div className="basic-info">
         <div className="heading">
-          <button onClick={handleBackClick}>Back</button>
           <button>Edit Profile</button>
         </div>
 

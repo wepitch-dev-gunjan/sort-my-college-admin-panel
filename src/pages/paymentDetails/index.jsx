@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import './style.scss'
 
 const PaymentDetails = () => {
 
-    const navigate = useNavigate();
-
-    const handleBackClick = () => {
-        // Navigate back to the payment page or the previous route
-        navigate('/payment'); // Replace '/payment' with the actual path you want to go back to
-      };
+   
 
     const [session, setSession] = useState({
         session_counsellor: 'abc',
@@ -144,10 +138,6 @@ const PaymentDetails = () => {
             <p>{session.session_available_slots}</p>             
             </div>
           </div>
-        </div>
-
-        <div className="button-back">
-            <button onClick={handleBackClick}>Back</button>
         </div>
         </div>
       </div>
