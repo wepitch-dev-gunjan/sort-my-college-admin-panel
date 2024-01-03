@@ -5,6 +5,8 @@ import BasicInfo from "../../components/basicInfo";
 import { ProfileContext } from "../../context/ProfileContext";
 import { backend_url } from "../../config";
 import axios from "axios";
+import { handleInput } from "../../utilities";
+
 import { toast } from "react-toastify";
 import { AdminContext } from "../../context/AdminContext";
 
@@ -62,7 +64,15 @@ const Profile = () => {
 
         <div className="profile-info">
           <div className="top">
+          {editProfileEnable ? (
+                <input
+                  type="text"
+                  value={profile.name}
+                  onChange={(e) => handleInput("name", e.target.value, setProfile)}
+                />
+              ) : (
             <h1>{profile.name}</h1>
+              )}
           </div>
           <div className="middle">
             <BasicInfo
