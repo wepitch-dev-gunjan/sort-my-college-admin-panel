@@ -118,7 +118,6 @@ const CounsellorProfile = ({
           </div>
         </div>
 
-
         <div className="info">
           <div className="row">
             <div className="col">
@@ -178,9 +177,9 @@ const CounsellorProfile = ({
                     <label className="gender-text">
                       <input
                         type="radio"
-                        value="Male"
-                        checked={profile.gender === "Male"}
-                        onChange={(e) => handleInput("gender", e.target.value, setProfile)}
+                          value="Male"
+                            checked={profile.gender === "Male"}
+                          onChange={(e) => handleInput("gender", e.target.value, setProfile)}
                       />
                       Male
                     </label>
