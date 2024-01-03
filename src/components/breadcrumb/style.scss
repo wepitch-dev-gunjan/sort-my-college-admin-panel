@@ -1,0 +1,40 @@
+.Breadcrumb-container {
+  display: flex;
+  font-size: 12px;
+
+  .breadcrumb {
+    background-color: var(--primary-dark);
+    padding: 12px 20px 12px 32px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 0;
+      border-top: 19px solid transparent;
+      border-bottom: 19px solid transparent;
+      border-left: 18px solid var(--primary-dark);
+      position: absolute;
+      right: -17px;
+      top: 0px;
+      bottom: 0;
+      z-index: 1;
+    }
+
+    &::before {
+      content: "";
+      width: 0;
+      border-top: 19px solid transparent;
+      border-bottom: 19px solid transparent;
+      border-left: 18px solid var(--primary-dark);
+      position: absolute;
+      right: -17px;
+      top: 0px;
+      bottom: 0;
+      z-index: 2;
+    }
+  }
+}

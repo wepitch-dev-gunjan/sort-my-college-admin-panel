@@ -21,6 +21,7 @@ import Counsellor from "./pages/counsellor";
 import CounsellorProfile from "./pages/counsellorProfile";
 import PaymentDetails from "./pages/paymentDetails";
 import 'react-toastify/dist/ReactToastify.css';
+import Breadcrumb from "./components/breadcrumb";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -62,6 +63,9 @@ function App() {
 
         {isLoggedIn && <Sidebar />}
         <div className={`${isLoggedIn && "main-content"}`}>
+          <div className="breadcrumb-main">
+            <Breadcrumb />
+          </div>
           <Routes>
             {isLoggedIn ? (
               <>

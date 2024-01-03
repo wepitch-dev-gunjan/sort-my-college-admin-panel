@@ -101,8 +101,12 @@ input {
 
 .main {
   display: flex;
+  .breadcrumb-main {
+    display: flex;
+  }
   .main-content {
     display: flex;
+    flex-direction: column;
     height: calc(100vh - 98px);
     width: 100%;
   }
