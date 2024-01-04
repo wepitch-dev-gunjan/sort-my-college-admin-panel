@@ -80,8 +80,6 @@ const Dashboard = () => {
             <BarChart data={userData} text='Users' />
             <BarChart data={counsellorData} text='Counsellors' />
           </div>
-
-         
         </div>
 
         {/* recent payments */}
