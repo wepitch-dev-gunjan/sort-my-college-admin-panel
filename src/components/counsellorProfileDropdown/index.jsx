@@ -1,6 +1,6 @@
 // Dropdown.jsx
 
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss'
 // import useClickOutside from '../../../customHooks/useClickOutside';

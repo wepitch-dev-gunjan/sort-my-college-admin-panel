@@ -3,20 +3,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./style.scss";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { useNavigate } from 'react-router-dom';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { handleInput } from "../../utilities";
 import TagsInput from "react-tagsinput";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import ProfilePic from "../../components/profilePic";
-import { Container } from "@mui/material";
 import CounsellorProfileDropdown from "../../components/counsellorProfileDropdown";
 import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
 
 
-const CounsellorProfile = ({
-}) => {
+const CounsellorProfile = () => {
   const {editCounsellorProfileEnable, setEditCounsellorProfileEnable} = useContext(ProfileContext)
 
   const [profile, setProfile] = useState({
@@ -94,6 +90,10 @@ const CounsellorProfile = ({
   const handleRejectConfirm = () => {
     console.log("Reason for rejection:", cancellationReason);
     setShowReasonDialog(false);
+  };
+
+  const handleSaveClick = () => {
+    setEditCounsellorProfileEnable(false);
   };
 
   return (
@@ -311,7 +311,7 @@ const CounsellorProfile = ({
           <>
           <div className="right-profile-buttons">
             <div className="left">
-              <div className="save" >Save</div>
+              <div className="save" onClick={handleSaveClick}>Save</div>
               <div className="save" onClick={handleCancelClick}>Cancel</div>
             </div>
             <div className="right">
@@ -477,7 +477,6 @@ const CounsellorProfile = ({
 
             </div>
           </div>
-
         </div>
 
         {showReasonDialog && (
