@@ -10,6 +10,8 @@ import ProfilePic from "../../components/profilePic";
 import CounsellorProfileDropdown from "../../components/counsellorProfileDropdown";
 import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 
 const CounsellorProfile = () => {
@@ -97,7 +99,7 @@ const CounsellorProfile = () => {
   };
 
   return (
-    <div className="CounsellorProfile-container">
+      <div className="CounsellorProfile-container">
      
         <div className="left-profile">
           <div className="info-img">
@@ -311,8 +313,10 @@ const CounsellorProfile = () => {
           <>
           <div className="right-profile-buttons">
             <div className="left">
-              <div className="save" onClick={handleSaveClick}>Save</div>
-              <div className="save" onClick={handleCancelClick}>Cancel</div>
+              <div className="save" onClick={handleSaveClick}>
+               Save</div>
+              <div className="save" onClick={handleCancelClick}>
+                Cancel</div>
             </div>
             <div className="right">
           <CounsellorProfileDropdown />

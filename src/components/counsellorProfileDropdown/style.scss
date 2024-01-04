@@ -11,6 +11,9 @@
         border-radius: 20px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         .edit{
+            display: flex;
+            justify-content: center;
+            gap: 8px;
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 10px;
@@ -19,6 +22,9 @@
               }
         }
         .delete{
+            display: flex;
+            justify-content: center;
+            gap: 8px;
             padding: 8px 12px;
             cursor: pointer;
             border-radius: 10px;

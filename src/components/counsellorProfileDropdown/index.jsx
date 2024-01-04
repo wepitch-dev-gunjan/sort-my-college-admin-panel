@@ -7,6 +7,8 @@ import './style.scss'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import useClickOutside from '../../customHooks/useClickOutside';
 import { ProfileContext } from '../../context/ProfileContext';
+import { MdDeleteOutline } from 'react-icons/md';
+import { FaEdit } from 'react-icons/fa';
 
 const CounsellorProfileDropdown = ({ options, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,10 +30,15 @@ useClickOutside(dropdownRef, () => {
       </div>
       {isOpen && (
         <div className="dropdown-options">
-            <option className='edit' value="edit"
+            <div className='edit' value="edit"
             onClick={() => setEditCounsellorProfileEnable(true)}
-            >Edit Profile</option>
-            <option className='delete' value="delete">Delete</option>
+            > 
+            {/* <div className="button"> */}
+                <FaEdit />
+                Edit Profile
+            {/* </div> */}
+             </div>
+            <div className='delete' value="delete"> <MdDeleteOutline /> Delete</div>
         </div>
       )}
     </div>
