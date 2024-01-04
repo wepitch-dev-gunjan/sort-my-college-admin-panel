@@ -9,6 +9,7 @@ import { handleInput } from "../../utilities";
 import TagsInput from "react-tagsinput";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import ProfilePic from "../../components/profilePic";
+import { Container } from "@mui/material";
 
 
 const CounsellorProfile = ({
@@ -30,7 +31,7 @@ const CounsellorProfile = ({
     navigate('/counsellors');
   };
 
-  
+
   const [profile, setProfile] = useState({
     name: 'abc',
     email: 'demo@gmail.com',
@@ -49,8 +50,6 @@ const CounsellorProfile = ({
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
   const [cancellationReason, setCancellationReason] = useState("");
-
-
   const handleDateChange = (date) => {
     setProfile((prev) => ({
       ...prev,
@@ -64,7 +63,6 @@ const CounsellorProfile = ({
       : [...profile.locations_focused, value];
     handleInput(fieldName, updatedLocations, setProfile);
   };
-
 
   const handleCheckboxChange = (fieldName, value) => {
     const updatedDegrees = profile.degree_focused.includes(value)
@@ -84,8 +82,6 @@ const CounsellorProfile = ({
     return dayjs(date).format('YYYY-MM-DD');
   };
 
-
-
   const handleRejectClick = () => {
     setShowReasonDialog(true);
   };
@@ -99,409 +95,401 @@ const CounsellorProfile = ({
   };
 
   const handleRejectConfirm = () => {
-    // Perform the rejection logic here
     console.log("Reason for rejection:", cancellationReason);
-
-    // Close the dialog
     setShowReasonDialog(false);
   };
 
-
-
   return (
     <div className="CounsellorProfile-container">
-
-    <div className="all">
-
-      <div className="left-profile">
-      <div className="info-img">
-       <div className="profile-pic">
-          <ProfilePic src={profile.profile_pic} />
-        </div>
-        </div>
-        <br />
-
-      <div className="left-profile-middle">
-        <div className="info">
-       
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Name</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <input
-                    type="text"
-                    value={profile.name}
-                    onChange={(e) => handleInput("name", e.target.value, setProfile)}
-                  />
-                ) : (
-                  <p>{profile.name}</p>
-                )}
-              </div>
+      <Container sx={{
+        flexDirection: 'column',
+      }}>
+        <div className="left-profile">
+          <div className="info-img">
+            <div className="profile-pic">
+              <ProfilePic src={profile.profile_pic} />
             </div>
           </div>
+          <br />
 
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Email</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <input
-                    type="text"
-                    value={profile.email}
-                    onChange={(e) => handleInput("email", e.target.value, setProfile)}
-                  />
-                ) : (
-                  <p>{profile.email}</p>
-                )}
-              </div>
-            </div>
-          </div>
+          <div className="left-profile-middle">
+            <div className="info">
 
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Gender</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <div className="gender-radio">
-                    <label className="gender-text">
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Name</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
                       <input
-                        type="radio"
-                          value="Male"
+                        type="text"
+                        value={profile.name}
+                        onChange={(e) => handleInput("name", e.target.value, setProfile)}
+                      />
+                    ) : (
+                      <p>{profile.name}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Email</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <input
+                        type="text"
+                        value={profile.email}
+                        onChange={(e) => handleInput("email", e.target.value, setProfile)}
+                      />
+                    ) : (
+                      <p>{profile.email}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Gender</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <div className="gender-radio">
+                        <label className="gender-text">
+                          <input
+                            type="radio"
+                            value="Male"
                             checked={profile.gender === "Male"}
-                          onChange={(e) => handleInput("gender", e.target.value, setProfile)}
-                      />
-                      Male
-                    </label>
-                    <label>
-                      <div className="gender-text">
-                        <input
-                          type="radio"
-                          value="Female"
-                          checked={profile.gender === "Female"}
-                          onChange={(e) => handleInput("gender", e.target.value, setProfile)}
-                        />
-                        Female
+                            onChange={(e) => handleInput("gender", e.target.value, setProfile)}
+                          />
+                          Male
+                        </label>
+                        <label>
+                          <div className="gender-text">
+                            <input
+                              type="radio"
+                              value="Female"
+                              checked={profile.gender === "Female"}
+                              onChange={(e) => handleInput("gender", e.target.value, setProfile)}
+                            />
+                            Female
+                          </div>
+                        </label>
+                        <label>
+                          <div className="gender-text">
+                            <span><input
+                              type="radio"
+                              value="Other"
+                              checked={profile.gender === "Other"}
+                              onChange={(e) => handleInput("gender", e.target.value, setProfile)}
+                            />
+                            </span>
+                            Other
+                          </div>
+                        </label>
                       </div>
-                    </label>
-                    <label>
-                      <div className="gender-text">
-                        <span><input
-                          type="radio"
-                          value="Other"
-                          checked={profile.gender === "Other"}
-                          onChange={(e) => handleInput("gender", e.target.value, setProfile)}
+                    ) : (
+                      <p>{profile.gender}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Date of birth</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+
+                      <DatePicker label="Date of birth"
+                        defaultValue={dayjs(profile.date_of_birth)}
+                        onChange={(date) => handleDateChange(date)}
+                      />
+                    ) : (
+                      <p>{formatDate(profile.date_of_birth)}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="left-profile-bottom">
+            <div className="info">
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Industrial Experience</p>
+                  </div>
+
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <>
+                        <input
+                          type="text"
+                          value={profile.experience_in_years}
+                          onChange={e => handleInput('experience_in_years', e.target.value, setProfile)}
                         />
-                        </span>
-                        Other
+                      </>
+                    ) : (
+                      <p>{`${profile.experience_in_years}+ years`}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Languages I know</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <TagsInput
+                        value={profile.languages_spoken}
+                        onChange={(newTags) => setProfile({ ...profile, languages_spoken: newTags })}
+                      />
+                    ) : (
+                      profile.languages_spoken?.map((language, i) => (
+                        <p key={i}>{`${language}${i < profile.languages_spoken.length - 1 ? "," : ""
+                          }`}</p>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Nationality</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <>
+                        <div className="ug">
+                          <label className="ug-text">
+                            <input
+                              type="radio"
+                              value="Indian"
+                              checked={profile.nationality === 'Indian'}
+                              onChange={handleRadioChange}
+                            />
+                            Indian
+                          </label>
+                          <label className="ug-text">
+                            <input
+                              type="radio"
+                              value="Foreign"
+                              checked={profile.nationality === 'Foreign'}
+                              onChange={handleRadioChange}
+                            />
+                            Foreign
+                          </label>
+                        </div>
+                      </>
+                    ) : (
+                      <p>{profile.nationality}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+        </div>
+
+        <div className="right-profile">
+          <div className="right-profile-buttons">
+            <div className="left">
+              <div className="accept" onClick={handleAcceptClick}>Accept</div>
+              <div className="reject" onClick={handleRejectClick}>Reject</div>
+            </div>
+            <div className="right">
+              <MoreVertIcon />
+            </div>
+          </div>
+
+          <div className="right-profile-info">
+            <div className="info">
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Approach of counselling</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <input
+                        type="text"
+                        value={profile.approach_of_counselling}
+                        onChange={(e) => handleInput("approach_of_counselling", e.target.value, setProfile)}
+                      />
+                    ) : (
+                      <p>{profile.approach_of_counselling}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Degree focused</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <>
+                        <div className="ug">
+                          <label className="ug-text">
+                            <input
+                              type="checkbox"
+                              value="UG"
+                              checked={profile.degree_focused.includes("UG")}
+                              onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
+                            />
+                            UG
+                          </label>
+                          <label className="ug-text">
+                            <input
+                              type="checkbox"
+                              value="PG"
+                              checked={profile.degree_focused.includes("PG")}
+                              onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
+                            />
+                            PG
+                          </label>
+                        </div>
+                      </>
+                    ) : (
+                      <p>{Array.isArray(profile.degree_focused) ? profile.degree_focused.join(", ") : ''}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Locations focused</p>
+                  </div>
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <div className="ug">
+                        <label className="ug-text">
+                          <input
+                            type="checkbox"
+                            value="India"
+                            checked={profile.locations_focused.includes("India")}
+                            onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
+                          />
+                          India
+                        </label>
+                        <label className="ug-text">
+                          <input
+                            type="checkbox"
+                            value="Abroad"
+                            checked={profile.locations_focused.includes("Abroad")}
+                            onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
+                          />
+                          Abroad
+                        </label>
                       </div>
-                    </label>
+                    ) : (
+                      profile.locations_focused?.map((location, i) => (
+                        <p key={i}>{`${location}${i < profile.locations_focused.length - 1 ? "," : ""}`}</p>
+                      ))
+                    )}
                   </div>
-                ) : (
-                  <p>{profile.gender}</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Date of birth</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-
-                  <DatePicker label="Date of birth"
-                    defaultValue={dayjs(profile.date_of_birth)}
-                    onChange={(date) => handleDateChange(date)}
-                  />
-                ) : (
-                  <p>{formatDate(profile.date_of_birth)}</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="left-profile-bottom">          
-        <div className="info">
-
-           <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Industrial Experience</p>
+                </div>
               </div>
 
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <>
-                    <input
-                      type="text"
-                      value={profile.experience_in_years}
-                      onChange={e => handleInput('experience_in_years', e.target.value, setProfile)}
-                    />
-                  </>
-                ) : (
-                  <p>{`${profile.experience_in_years}+ years`}</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Languages I know</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <TagsInput
-                    value={profile.languages_spoken}
-                    onChange={(newTags) => setProfile({ ...profile, languages_spoken: newTags })}
-                  />
-                ) : (
-                  profile.languages_spoken?.map((language, i) => (
-                    <p key={i}>{`${language}${i < profile.languages_spoken.length - 1 ? "," : ""
-                      }`}</p>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Nationality</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <>
-                    <div className="ug">
-                      <label className="ug-text">
-                        <input
-                          type="radio"
-                          value="Indian"
-                          checked={profile.nationality === 'Indian'}
-                          onChange={handleRadioChange}
-                        />
-                        Indian
-                      </label>
-                      <label className="ug-text">
-                        <input
-                          type="radio"
-                          value="Foreign"
-                          checked={profile.nationality === 'Foreign'}
-                          onChange={handleRadioChange}
-                        />
-                        Foreign
-                      </label>
-                    </div>
-                  </>
-                ) : (
-                  <p>{profile.nationality}</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-        
-
-        </div>
-      </div>
-
-      </div>
-
-      <div className="right-profile">
-      
-      <div className="right-profile-buttons">     
-        <div className="info">
-            <div className="accept" onClick={handleAcceptClick}>Accept</div>
-            <div className="reject" onClick={handleRejectClick}>
-              Reject
-            </div>
-            <MoreVertIcon />
-          
-        </div>
-      </div>
-
-      <div className="right-profile-info">
-        <div className="info">     
-        <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Approach of counselling</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <input
-                    type="text"
-                    value={profile.approach_of_counselling}
-                    onChange={(e) => handleInput("approach_of_counselling", e.target.value, setProfile)}
-                  />
-                ) : (
-                  <p>{profile.approach_of_counselling}</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Degree focused</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <>
-                    <div className="ug">
-                      <label className="ug-text">
-                        <input
-                          type="checkbox"
-                          value="UG"
-                          checked={profile.degree_focused.includes("UG")}
-                          onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
-                        />
-                        UG
-                      </label>
-                      <label className="ug-text">
-                        <input
-                          type="checkbox"
-                          value="PG"
-                          checked={profile.degree_focused.includes("PG")}
-                          onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
-                        />
-                        PG
-                      </label>
-                    </div>
-                  </>
-                ) : (
-                  <p>{Array.isArray(profile.degree_focused) ? profile.degree_focused.join(", ") : ''}</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Locations focused</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <div className="ug">
-                    <label className="ug-text">
-                      <input
-                        type="checkbox"
-                        value="India"
-                        checked={profile.locations_focused.includes("India")}
-                        onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
-                      />
-                      India
-                    </label>
-                    <label className="ug-text">
-                      <input
-                        type="checkbox"
-                        value="Abroad"
-                        checked={profile.locations_focused.includes("Abroad")}
-                        onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
-                      />
-                      Abroad
-                    </label>
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Courses focused</p>
                   </div>
-                ) : (
-                  profile.locations_focused?.map((location, i) => (
-                    <p key={i}>{`${location}${i < profile.locations_focused.length - 1 ? "," : ""}`}</p>
-                  ))
-                )}
+                  <div className="info-value">
+                    {editProfileEnable ? (
+                      <TagsInput
+                        value={profile.courses_focused}
+                        onChange={(newTags) => setProfile({ ...profile, courses_focused: newTags })}
+                      />
+                    ) : (
+                      profile.courses_focused?.map((courses_focused, i) => (
+                        <p key={i}>{`${courses_focused}${i < profile.courses_focused.length - 1 ? "," : ""}`}</p>
+                      ))
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Courses focused</p>
-              </div>
-              <div className="info-value">
-                {editProfileEnable ? (
-                  <TagsInput
-                    value={profile.courses_focused}
-                    onChange={(newTags) => setProfile({ ...profile, courses_focused: newTags })}
-                  />
-                ) : (
-                  profile.courses_focused?.map((courses_focused, i) => (
-                    <p key={i}>{`${courses_focused}${i < profile.courses_focused.length - 1 ? "," : ""}`}</p>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
 
 
 
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Group session price</p>
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Group session price</p>
+                  </div>
+                  <div className="info-value">
+                    <p>
+                      <FaIndianRupeeSign /> {profile.group_session_price}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="info-value">
-                <p>
-                  <FaIndianRupeeSign /> {profile.group_session_price}
-                </p>
-              </div>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="col">
-              <div className="info-field">
-                <p>Personal session price</p>
+              <div className="row">
+                <div className="col">
+                  <div className="info-field">
+                    <p>Personal session price</p>
+                  </div>
+                  <div className="info-value">
+                    <p>
+                      <FaIndianRupeeSign /> {profile.personal_session_price}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="info-value">
-                <p>
-                  <FaIndianRupeeSign /> {profile.personal_session_price}
-                </p>
-              </div>
+
             </div>
           </div>
 
         </div>
-      </div>
 
-      </div>
-      </div>
-
-      {showReasonDialog && (
-        <div className="reason-dialog">
-          <div className="dialog-content">
-            <span onClick={handleReasonDialogClose} className="close-button">
-              &times;
-            </span>
-            <h3>Reason for Rejection</h3>
-            <textarea
-              value={cancellationReason}
-              onChange={handleCancellationReasonChange}
-              placeholder="Write your reason for rejection..."
-            ></textarea>
-            <div className="btns">
-              <button>Confirm</button>
-              <button onClick={handleRejectConfirm}>Cancel</button>
+        {showReasonDialog && (
+          <div className="reason-dialog">
+            <div className="dialog-content">
+              <span onClick={handleReasonDialogClose} className="close-button">
+                &times;
+              </span>
+              <h3>Reason for Rejection</h3>
+              <textarea
+                value={cancellationReason}
+                onChange={handleCancellationReasonChange}
+                placeholder="Write your reason for rejection..."
+              ></textarea>
+              <div className="btns">
+                <button>Confirm</button>
+                <button onClick={handleRejectConfirm}>Cancel</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Container>
     </div>
-
   );
 };
 

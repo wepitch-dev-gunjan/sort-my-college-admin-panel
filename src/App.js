@@ -22,6 +22,7 @@ import CounsellorProfile from "./pages/counsellorProfile";
 import PaymentDetails from "./pages/paymentDetails";
 import 'react-toastify/dist/ReactToastify.css';
 import Breadcrumb from "./components/breadcrumb";
+import MuiCounsellorProfile from "./pages/muiCounsellorProfile";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -79,7 +80,10 @@ function App() {
                 <Route path="/counsellors" element={<Counsellor />} />
                 <Route
                   path="/counsellors/counsellor-profile"
-                  element={<CounsellorProfile />}
+                  element={
+                    <CounsellorProfile />
+                    // <MuiCounsellorProfile />
+                  }
                 />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />

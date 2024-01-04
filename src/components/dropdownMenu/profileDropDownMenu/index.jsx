@@ -22,7 +22,6 @@ const ProfileDropDownMenu = ({ name, image, onClick }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
-
   return (
     <div className="ProfileDropDownMenu-container" onClick={toggleDropdown}>
       <div className="left">
