@@ -20,7 +20,7 @@ import User from "./pages/user";
 import Counsellor from "./pages/counsellor";
 import CounsellorProfile from "./pages/counsellorProfile";
 import PaymentDetails from "./pages/paymentDetails";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Breadcrumb from "./components/breadcrumb";
 import MuiCounsellorProfile from "./pages/muiCounsellorProfile";
 
@@ -64,9 +64,11 @@ function App() {
 
         {isLoggedIn && <Sidebar />}
         <div className={`${isLoggedIn && "main-content"}`}>
-          <div className="breadcrumb-main">
-            <Breadcrumb />
-          </div>
+          {isLoggedIn && (
+            <div className="breadcrumb-main">
+              <Breadcrumb />
+            </div>
+          )}
           <Routes>
             {isLoggedIn ? (
               <>
