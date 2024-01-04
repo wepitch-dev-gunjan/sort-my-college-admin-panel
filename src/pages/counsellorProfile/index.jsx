@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.scss";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -11,27 +11,13 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import ProfilePic from "../../components/profilePic";
 import { Container } from "@mui/material";
 import CounsellorProfileDropdown from "../../components/counsellorProfileDropdown";
+import useClickOutside from "../../customHooks/useClickOutside";
+import { ProfileContext } from "../../context/ProfileContext";
 
 
 const CounsellorProfile = ({
-  // profile, 
-  editProfileEnable,
-  updateCounsellorStatus,
-  // setProfile 
 }) => {
-
-  const navigate = useNavigate();
-
-  const handleAcceptClick = () => {
-    // Perform the acceptance logic here
-
-    // Update the status in the parent component (Counsellor)
-    updateCounsellorStatus(profile._id, 'Verified');
-
-    // Navigate back to the counsellors page
-    navigate('/counsellors');
-  };
-
+  const {editCounsellorProfileEnable, setEditCounsellorProfileEnable} = useContext(ProfileContext)
 
   const [profile, setProfile] = useState({
     name: 'abc',
@@ -51,12 +37,18 @@ const CounsellorProfile = ({
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
   const [cancellationReason, setCancellationReason] = useState("");
+  const reasonDialogRef = useRef(null);
+
   const handleDateChange = (date) => {
     setProfile((prev) => ({
       ...prev,
       date_of_birth: formatDate(date),
     }));
   };
+
+  useClickOutside(reasonDialogRef, () => {
+    setShowReasonDialog(false);
+  });
 
   const handleLocationCheckboxChange = (fieldName, value) => {
     const updatedLocations = profile.locations_focused.includes(value)
@@ -91,6 +83,10 @@ const CounsellorProfile = ({
     setShowReasonDialog(false);
   };
 
+  const handleCancelClick = () => {
+    setEditCounsellorProfileEnable(false);
+  };
+  
   const handleCancellationReasonChange = (e) => {
     setCancellationReason(e.target.value);
   };
@@ -120,7 +116,7 @@ const CounsellorProfile = ({
                     <p>Name</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <input
                         type="text"
                         value={profile.name}
@@ -139,7 +135,7 @@ const CounsellorProfile = ({
                     <p>Email</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <input
                         type="text"
                         value={profile.email}
@@ -158,7 +154,7 @@ const CounsellorProfile = ({
                     <p>Gender</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <div className="gender-radio">
                         <label className="gender-text">
                           <input
@@ -206,7 +202,7 @@ const CounsellorProfile = ({
                     <p>Date of birth</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
 
                       <DatePicker label="Date of birth"
                         defaultValue={dayjs(profile.date_of_birth)}
@@ -231,7 +227,7 @@ const CounsellorProfile = ({
                   </div>
 
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <>
                         <input
                           type="text"
@@ -252,7 +248,7 @@ const CounsellorProfile = ({
                     <p>Languages I know</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <TagsInput
                         value={profile.languages_spoken}
                         onChange={(newTags) => setProfile({ ...profile, languages_spoken: newTags })}
@@ -273,7 +269,7 @@ const CounsellorProfile = ({
                     <p>Nationality</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <>
                         <div className="ug">
                           <label className="ug-text">
@@ -311,19 +307,31 @@ const CounsellorProfile = ({
         </div>
 
         <div className="right-profile">
+        {editCounsellorProfileEnable ? (
+          <>
           <div className="right-profile-buttons">
             <div className="left">
-              <div className="accept" onClick={handleAcceptClick}>Accept</div>
+              <div className="save" >Save</div>
+              <div className="save" onClick={handleCancelClick}>Cancel</div>
+            </div>
+            <div className="right">
+          <CounsellorProfileDropdown />
+        </div>
+          </div>
+          </>
+          ) : (
+            <>
+            <div className="right-profile-buttons">
+            <div className="left">
+              <div className="accept" >Accept</div>
               <div className="reject" onClick={handleRejectClick}>Reject</div>
             </div>
             <div className="right">
-          <CounsellorProfileDropdown
-            options={['Edit Profile', 'Delete']}
-            // onEditProfile={handleEditProfile}
-            // onDelete={handleDelete}
-          />
+          <CounsellorProfileDropdown />
         </div>
           </div>
+          </>
+        )}
 
           <div className="right-profile-info">
             <div className="info">
@@ -333,7 +341,7 @@ const CounsellorProfile = ({
                     <p>Approach of counselling</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <input
                         type="text"
                         value={profile.approach_of_counselling}
@@ -352,7 +360,7 @@ const CounsellorProfile = ({
                     <p>Degree focused</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <>
                         <div className="ug">
                           <label className="ug-text">
@@ -389,7 +397,7 @@ const CounsellorProfile = ({
                     <p>Locations focused</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <div className="ug">
                         <label className="ug-text">
                           <input
@@ -425,7 +433,7 @@ const CounsellorProfile = ({
                     <p>Courses focused</p>
                   </div>
                   <div className="info-value">
-                    {editProfileEnable ? (
+                    {editCounsellorProfileEnable ? (
                       <TagsInput
                         value={profile.courses_focused}
                         onChange={(newTags) => setProfile({ ...profile, courses_focused: newTags })}
@@ -474,7 +482,7 @@ const CounsellorProfile = ({
 
         {showReasonDialog && (
           <div className="reason-dialog">
-            <div className="dialog-content">
+            <div ref={reasonDialogRef} className="dialog-content">
               <span onClick={handleReasonDialogClose} className="close-button">
                 &times;
               </span>

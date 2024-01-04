@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { AdminContext } from './AdminContext';
-import axios from 'axios';
-import { backend_url } from '../config';
+import { createContext, useContext, useEffect, useState } from "react";
+import { AdminContext } from "./AdminContext";
+import axios from "axios";
+import { backend_url } from "../config";
 
 export const ProfileContext = createContext();
 
@@ -11,26 +11,29 @@ export const ProfileProvider = ({ children }) => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get(`${backend_url}/admin/`,
+      const response = await axios.get(
+        `${backend_url}/admin/`,
         // null,
         {
           headers: {
-            Authorization: admin.token
-          }
-        });
+            Authorization: admin.token,
+          },
+        }
+      );
       setProfile(response.data);
     } catch (err) {
-      console.error('Error fetching profile:', err);
+      console.error("Error fetching profile:", err);
     }
   };
 
   useEffect(() => {
-    console.log(admin)
-    if (admin && admin.isLoggedIn)
-      fetchProfile();
+    console.log(admin);
+    if (admin && admin.isLoggedIn) fetchProfile();
   }, [admin]);
 
-  const [editProfileEnable, setEditProfileEnable] = useState(false)
+  const [editProfileEnable, setEditProfileEnable] = useState(false);
+  const [editCounsellorProfileEnable, setEditCounsellorProfileEnable] =
+    useState(false);
   const [profilePicEditMode, setProfilePicEditMode] = useState(false);
   const [coverImageEditMode, setCoverImageEditMode] = useState(false);
   return (
@@ -44,7 +47,9 @@ export const ProfileProvider = ({ children }) => {
         setProfilePicEditMode,
         setEditProfileEnable,
         editProfileEnable,
-        fetchProfile
+        fetchProfile,
+        editCounsellorProfileEnable,
+        setEditCounsellorProfileEnable,
       }}
     >
       {children}
