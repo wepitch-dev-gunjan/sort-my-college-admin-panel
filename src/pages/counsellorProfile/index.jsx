@@ -10,6 +10,7 @@ import TagsInput from "react-tagsinput";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import ProfilePic from "../../components/profilePic";
 import { Container } from "@mui/material";
+import CounsellorProfileDropdown from "../../components/counsellorProfileDropdown";
 
 
 const CounsellorProfile = ({
@@ -101,9 +102,7 @@ const CounsellorProfile = ({
 
   return (
     <div className="CounsellorProfile-container">
-      <Container sx={{
-        flexDirection: 'column',
-      }}>
+     
         <div className="left-profile">
           <div className="info-img">
             <div className="profile-pic">
@@ -318,8 +317,12 @@ const CounsellorProfile = ({
               <div className="reject" onClick={handleRejectClick}>Reject</div>
             </div>
             <div className="right">
-              <MoreVertIcon />
-            </div>
+          <CounsellorProfileDropdown
+            options={['Edit Profile', 'Delete']}
+            // onEditProfile={handleEditProfile}
+            // onDelete={handleDelete}
+          />
+        </div>
           </div>
 
           <div className="right-profile-info">
@@ -488,7 +491,6 @@ const CounsellorProfile = ({
             </div>
           </div>
         )}
-      </Container>
     </div>
   );
 };
