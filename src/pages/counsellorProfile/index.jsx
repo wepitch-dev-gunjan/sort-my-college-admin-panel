@@ -245,7 +245,7 @@ const CounsellorProfile = () => {
               <div className="row">
                 <div className="col">
                   <div className="info-field">
-                    <p>Languages I know</p>
+                    <p>Languages spoken</p>
                   </div>
                   <div className="info-value">
                     {editCounsellorProfileEnable ? (
