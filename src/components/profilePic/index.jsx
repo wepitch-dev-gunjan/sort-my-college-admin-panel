@@ -17,6 +17,7 @@ const ProfilePic = ({ src }) => {
     <>
       <div className="ProfilePic-container">
         <img src={src} alt="Profile" />
+        
         <Tooltip
           title={
             <Typography style={{ fontSize: "16px" }}>

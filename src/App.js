@@ -22,7 +22,6 @@ import CounsellorProfile from "./pages/counsellorProfile";
 import PaymentDetails from "./pages/paymentDetails";
 import "react-toastify/dist/ReactToastify.css";
 import Breadcrumb from "./components/breadcrumb";
-import MuiCounsellorProfile from "./pages/muiCounsellorProfile";
 
 function App() {
   const addProfilePicRef = useRef(null);

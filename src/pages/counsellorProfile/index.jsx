@@ -10,8 +10,6 @@ import ProfilePic from "../../components/profilePic";
 import CounsellorProfileDropdown from "../../components/counsellorProfileDropdown";
 import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
-import { FaEdit } from "react-icons/fa";
-import { MdDeleteOutline } from "react-icons/md";
 
 
 const CounsellorProfile = () => {
