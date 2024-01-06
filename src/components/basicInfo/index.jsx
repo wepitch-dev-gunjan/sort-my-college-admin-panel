@@ -22,7 +22,6 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
       <div className="heading">
         <h2>Basic info</h2>
       </div>
-
       <div className="info">
         <div className="row">
           <div className="col">
@@ -98,7 +97,6 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
             </div>
             <div className="info-value">
               {editProfileEnable ? (
-
                 <DatePicker label="Date of birth"
                   defaultValue={dayjs(profile.date_of_birth)}
                   onChange={(date) => handleDateChange(date)}

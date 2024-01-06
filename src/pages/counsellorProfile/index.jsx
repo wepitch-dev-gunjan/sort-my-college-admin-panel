@@ -109,7 +109,6 @@ const CounsellorProfile = () => {
 
           <div className="left-profile-middle">
             <div className="info">
-
               <div className="row">
                 <div className="col">
                   <div className="info-field">
@@ -298,9 +297,6 @@ const CounsellorProfile = () => {
                   </div>
                 </div>
               </div>
-
-
-
             </div>
           </div>
 
@@ -448,9 +444,7 @@ const CounsellorProfile = () => {
                   </div>
                 </div>
               </div>
-
-
-
+              
               <div className="row">
                 <div className="col">
                   <div className="info-field">

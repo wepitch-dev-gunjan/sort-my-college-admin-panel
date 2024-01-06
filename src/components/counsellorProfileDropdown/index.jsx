@@ -31,14 +31,11 @@ useClickOutside(dropdownRef, () => {
       {isOpen && (
         <div className="dropdown-options">
             <div className='edit' value="edit"
-            onClick={() => setEditCounsellorProfileEnable(true)}
-            > 
-            {/* <div className="button"> */}
+            onClick={() => setEditCounsellorProfileEnable(true)}> 
                 <FaEdit />
                 Edit Profile
-            {/* </div> */}
              </div>
-            <div className='delete' value="delete"> <MdDeleteOutline /> Delete</div>
+            <div className='delete' value="delete"><MdDeleteOutline />Delete</div>
         </div>
       )}
     </div>
