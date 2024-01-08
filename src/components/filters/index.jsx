@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './style.scss';
 import { Box, Slider } from '@mui/material';
 import { FaIndianRupeeSign } from "react-icons/fa6";
@@ -14,7 +14,6 @@ const Filters = ({ webinarFilters, setWebinarFilters }) => {
       setWebinarFilters(prev => ({ ...prev, webinar_fee: [newValue[0] - 100, newValue[1]] }));
     }
   };
-
   
 
   const handleTypeChange = (event) => {

@@ -6,6 +6,7 @@ import NotificationButton from "../notificationButton";
 import { NotificationContext } from "../../context/NotificationContext";
 import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
+import AddWebinarButton from "../buttons/addWebinarButton";
 
 const Header = ({ handleLogout }) => {
   const notificationRef = useRef(null);
@@ -21,6 +22,8 @@ const Header = ({ handleLogout }) => {
         <img src={logo} alt="" />
       </div>
       <div className="rightSide">
+      <AddWebinarButton />
+
         <NotificationButton
           ref={notificationRef}
           onClick={() => setNotificationsEnable((prev) => !prev)}
