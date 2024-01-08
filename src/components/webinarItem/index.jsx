@@ -199,7 +199,7 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
           <td>{webinar.session_fee}</td>
         </tr>
         <tr>
-          <td>Status:</td>
+          <td>Status:</td> 
           <td>{webinar.session_status}</td>
         </tr>
         <tr>
