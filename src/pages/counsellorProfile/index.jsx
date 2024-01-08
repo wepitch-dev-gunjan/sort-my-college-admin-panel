@@ -378,7 +378,7 @@ const CounsellorProfile = () => {
                               onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
                             />
                             PG
-                          </label>
+                          </label> 
                         </div>
                       </>
                     ) : (
@@ -470,7 +470,6 @@ const CounsellorProfile = () => {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

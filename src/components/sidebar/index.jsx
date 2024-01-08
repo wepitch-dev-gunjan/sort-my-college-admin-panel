@@ -7,6 +7,8 @@ import RightLeftArrow from "../buttons/rightLeftArrow";
 import PersonIcon from "@mui/icons-material/Person";
 import { ProfileContext } from "../../context/ProfileContext";
 import GroupIcon from '@mui/icons-material/Group';
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+
 
 const Sidebar = () => {
   const [expand, setExpand] = useState(true);
@@ -41,6 +43,13 @@ const Sidebar = () => {
           href="/counsellors"
           icon={GroupIcon}
           text="Counsellors"
+          expand={expand}
+        />
+
+        <SidebarMenuButton
+          href="/webinar"
+          icon={AccessTimeIcon}
+          text="Webinars"
           expand={expand}
         />
 

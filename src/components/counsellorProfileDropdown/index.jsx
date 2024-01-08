@@ -1,9 +1,6 @@
-// Dropdown.jsx
-
 import React, { useRef, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss'
-// import useClickOutside from '../../../customHooks/useClickOutside';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import useClickOutside from '../../customHooks/useClickOutside';
 import { ProfileContext } from '../../context/ProfileContext';
@@ -35,7 +32,7 @@ useClickOutside(dropdownRef, () => {
                 <FaEdit />
                 Edit Profile
              </div>
-            <div className='delete' value="delete"><MdDeleteOutline />Delete</div>
+            <div className='delete' value="delete"><MdDeleteOutline/>Delete</div>
         </div>
       )}
     </div>

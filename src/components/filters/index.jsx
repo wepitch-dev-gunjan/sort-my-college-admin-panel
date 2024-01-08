@@ -7,26 +7,26 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import DateRangePicker from './dateRangePicker';
 
-const Filters = ({ sessionFilters, setSessionFilters }) => {
+const Filters = ({ webinarFilters, setWebinarFilters }) => {
   const handleFeeChange = (e, newValue) => {
-    setSessionFilters(prev => ({ ...prev, session_fee: newValue }));
+    setWebinarFilters(prev => ({ ...prev, webinar_fee: newValue }));
     if (newValue[0] >= newValue[1]) {
-      setSessionFilters(prev => ({ ...prev, session_fee: [newValue[0] - 100, newValue[1]] }));
+      setWebinarFilters(prev => ({ ...prev, webinar_fee: [newValue[0] - 100, newValue[1]] }));
     }
   };
 
   
 
   const handleTypeChange = (event) => {
-    setSessionFilters((prev) => ({ ...prev, session_type: event.target.value }));
+    setWebinarFilters((prev) => ({ ...prev, webinar_type: event.target.value }));
   };
 
   const handleStatusChange = (event) => {
-    setSessionFilters(prev => ({ ...prev, session_status: event.target.value }));
+    setWebinarFilters(prev => ({ ...prev, webinar_status: event.target.value }));
   };
 
   const handleDurationChange = (event) => {
-    setSessionFilters(prev => ({ ...prev, session_duration: event.target.value }))
+    setWebinarFilters(prev => ({ ...prev, webinar_duration: event.target.value }))
   }
 
   const marks = [
@@ -63,25 +63,25 @@ const Filters = ({ sessionFilters, setSessionFilters }) => {
   return (
     <div className="filter-container">
       <div className="type">
-        <p>Session Type</p>
-        <select value={sessionFilters.session_type} onChange={handleTypeChange}>
+        <p>Webinar Type</p>
+        <select value={webinarFilters.webinar_type} onChange={handleTypeChange}>
           <option value="Personal">Personal</option>
           <option value="Group">Group</option>
           <option value="All">All</option>
         </select>
       </div>
       <div className="fees">
-        <p>Session Fee</p>
+        <p>Webinar Fee</p>
         <Box sx={{ width: 200 }}>
           <Slider
-            value={sessionFilters.session_fee}
+            value={webinarFilters.webinar_fee}
             onChange={handleFeeChange}
             min={0}
             max={5000}
             step={100}
           />
           <div className="values">
-            {sessionFilters.session_fee.map((element, i) => (
+            {webinarFilters.webinar_fee.map((element, i) => (
               <span key={i}><FaIndianRupeeSign />{element}</span>
             ))}
           </div>
@@ -89,14 +89,14 @@ const Filters = ({ sessionFilters, setSessionFilters }) => {
       </div>
       <div className="date-range">
         <p>Select Date Range</p>
-        <DateRangePicker sessionFilters={sessionFilters} setSessionFilters={setSessionFilters} />
+        <DateRangePicker webinarFilters={webinarFilters} setWebinarFilters={setWebinarFilters} />
       </div>
       <div className="duration">
-        <p>Session duration</p>
+        <p>Webinar duration</p>
         <Box sx={{ width: 250 }}>
           <Slider
             aria-label="Duration"
-            defaultValue={sessionFilters.session_duration}
+            defaultValue={webinarFilters.webinar_duration}
             getAriaValueText={valuetext}
             step={null}
             marks={marks}
@@ -107,8 +107,8 @@ const Filters = ({ sessionFilters, setSessionFilters }) => {
         </Box>
       </div>
       <div className="status">
-        <p>Session Status</p>
-        <select value={sessionFilters.session_status} onChange={handleStatusChange}>
+        <p>Webinar Status</p>
+        <select value={webinarFilters.webinar_status} onChange={handleStatusChange}>
           <option value="All">All</option>
           <option value="Available">Available</option>
           <option value="Booked">Booked</option>
