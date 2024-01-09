@@ -6,10 +6,11 @@ import { useContext, useState } from "react"
 import { backend_url } from "../../config"
 import { useEffect } from "react"
 import Filters from "../../components/filters"
+import { toast } from "react-toastify"
 
 const Webinar = () => {
   const [webinars, setWebinars] = useState([]);
-  const { user } = useContext(AdminContext);
+  const { admin } = useContext(AdminContext);
 
   const today = new Date();
   const startDate = new Date();
@@ -17,7 +18,7 @@ const Webinar = () => {
 
   startDate.setDate(today.getDate() - 10);
   endDate.setDate(today.getDate() + 0);
-  const defaultWebinarFilters = 
+  const defaultWebinarFilters =
   {
     webinar_type: 'All',
     webinar_dates: [startDate, endDate],
@@ -32,13 +33,18 @@ const Webinar = () => {
   };
 
   const getResponse = async () => {
-    const { data } = await axios.get(`${backend_url}/counsellor/${user._id}/webinarsforcounsellor`, {
-      params: webinarFilters,
-      headers: {
-        Authorization: user.token
-      }
-    });
-    setWebinars(data);
+    try {
+      const { data } = await axios.get(`${backend_url}/webinars/webinarsforadmin`, {
+        params: webinarFilters,
+        headers: {
+          Authorization: admin.token
+        }
+      });
+      setWebinars(data);
+    } catch (error) {
+      console.log(error)
+      toast('Error fetching webinars: ' + error.message)
+    }
   }
 
   useEffect(() => {

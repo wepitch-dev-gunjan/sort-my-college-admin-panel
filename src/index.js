@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ProfileProvider } from "./context/ProfileContext";
 import { DashboardProvider } from "./context/DashboardContext";
+import { WebinarProvider } from "./context/WebinarContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,9 +20,11 @@ root.render(
         <AdminProvider>
           <ProfileProvider>
             <DashboardProvider>
-              <NotificationProvider>
-                <App />
-              </NotificationProvider>
+              <WebinarProvider>
+                <NotificationProvider>
+                  <App />
+                </NotificationProvider>
+              </WebinarProvider>
             </DashboardProvider>
           </ProfileProvider>
         </AdminProvider>

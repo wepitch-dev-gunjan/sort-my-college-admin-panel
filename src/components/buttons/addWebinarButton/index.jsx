@@ -14,8 +14,8 @@ const AddWebinarButton = () => {
 
   return (
     <div className='AddWebinarButton-container'>
-      <div className='primary-button add-webinar-button' 
-      onClick={handleClick}
+      <div className='primary-button add-webinar-button'
+        onClick={handleClick}
       >
         Add Webinar
       </div>
