@@ -86,21 +86,6 @@ const Filters = ({ webinarFilters, setWebinarFilters }) => {
         <p>Select Date Range</p>
         <DateRangePicker webinarFilters={webinarFilters} setWebinarFilters={setWebinarFilters} />
       </div>
-      <div className="duration">
-        <p>Webinar duration</p>
-        <Box sx={{ width: 250 }}>
-          <Slider
-            aria-label="Duration"
-            defaultValue={webinarFilters.webinar_duration}
-            getAriaValueText={valuetext}
-            step={null}
-            marks={marks}
-            min={45}
-            max={120}
-            onChange={handleDurationChange}
-          />
-        </Box>
-      </div>
     </div>
   );
 };
