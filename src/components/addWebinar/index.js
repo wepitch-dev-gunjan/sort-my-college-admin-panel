@@ -76,13 +76,27 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
     setWebinarDetails({
       webinar_date: formatDate(getTomorrowDate()),
       webinar_time: getCurrentTime(),
-      webinar_duration: "60",
-      webinar_type: "Group",
       webinar_fee: "0",
+      webinar_title: "webinar title",
       webinar_status: "Available",
+      webinar_slots: "10",
       webinar_available_slots: "5",
     });
     setAddMode(false);
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+
+    // Assuming you want to do something with the uploaded file
+    // For example, log the file name and size
+    console.log(`File Name: ${file.name}, File Size: ${file.size} bytes`);
+
+    // You can save the file in the state if needed
+    setWebinarDetails({
+      ...webinarDetails,
+      uploadedFile: file, // Add this line to save the file in state
+    });
   };
 
   return (
@@ -98,7 +112,30 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
       {!webinarLoading && (
         <form onSubmit={handleCreateWebinar} className="edit-mode-form">
           <div className="edit-mode-fields">
-            <div></div>
+            <div>
+              <label>Upload thumbnail</label>
+              <input
+                type="file"
+                onChange={(e) => handleFileUpload(e)}
+                accept="image/*"
+              />
+            </div>
+
+            <div>
+              <label>Title:</label>
+              <input
+                type="text"
+                value={webinarDetails.webinar_title}
+                onChange={(e) =>
+                  setWebinarDetails({
+                    ...webinarDetails,
+                    webinar_title: e.target.value,
+                  })
+                }
+                required
+              />
+            </div>
+
             <div>
               <label>Date:</label>
               <input
@@ -145,24 +182,6 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
               />
             </div>
             <div>
-              <div>
-                <label>Type:</label>
-                <select
-                  value={webinarDetails.webinar_type}
-                  onChange={(e) =>
-                    setWebinarDetails({
-                      ...webinarDetails,
-                      webinar_type: e.target.value,
-                    })
-                  }
-                  required
-                >
-                  <option value="Personal">Personal</option>
-                  <option value="Group">Group</option>
-                </select>
-              </div>
-            </div>
-            <div>
               <label>Fee:</label>
               <input
                 type="number"
@@ -179,36 +198,32 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
               />
             </div>
             <div>
-              <label>Status:</label>
+              <label>Total Slots:</label>
               <input
-                type="text"
-                value={webinarDetails.webinar_status}
+                type="number"
+                value={webinarDetails.webinar_slots}
                 onChange={(e) =>
                   setWebinarDetails({
                     ...webinarDetails,
-                    webinar_status: e.target.value,
+                    webinar_slots: e.target.value,
                   })
                 }
                 required
               />
             </div>
             <div>
-              {webinarDetails.webinar_type === "Group" && (
-                <>
-                  <label>Available Slots:</label>
-                  <input
-                    type="number"
-                    value={webinarDetails.webinar_available_slots}
-                    onChange={(e) =>
-                      setWebinarDetails({
-                        ...webinarDetails,
-                        webinar_available_slots: e.target.value,
-                      })
-                    }
-                    required
-                  />
-                </>
-              )}
+              <label>Available Slots:</label>
+              <input
+                type="number"
+                value={webinarDetails.webinar_available_slots}
+                onChange={(e) =>
+                  setWebinarDetails({
+                    ...webinarDetails,
+                    webinar_available_slots: e.target.value,
+                  })
+                }
+                required
+              />
             </div>
           </div>
           <div className="edit-mode-bottom">

@@ -30,7 +30,8 @@ function App() {
   const addProfilePicRef = useRef(null);
   const { admin, setAdmin } = useContext(AdminContext);
   const { isLoggedIn } = admin;
-  const { addmode, webinars, setWebinars, setAddMode } = useContext(WebinarContext)
+  const { addMode, webinars, setWebinars, setAddMode } =
+    useContext(WebinarContext);
   const { notificationsEnable, setNotificationsEnable, notificationsRef } =
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode } =
