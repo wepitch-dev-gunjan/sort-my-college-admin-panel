@@ -15,50 +15,6 @@ const Filters = ({ webinarFilters, setWebinarFilters }) => {
       setWebinarFilters(prev => ({ ...prev, webinar_fee: [newValue[0] - 100, newValue[1]] }));
     }
   };
-  
-
-  const handleTypeChange = (event) => {
-    setWebinarFilters((prev) => ({ ...prev, webinar_type: event.target.value }));
-  };
-
-  const handleStatusChange = (event) => {
-    setWebinarFilters(prev => ({ ...prev, webinar_status: event.target.value }));
-  };
-
-  const handleDurationChange = (event) => {
-    setWebinarFilters(prev => ({ ...prev, webinar_duration: event.target.value }))
-  }
-
-  const marks = [
-    {
-      value: 45,
-      label: '45m ',
-    },
-    {
-      value: 60,
-      label: '60m ',
-    },
-    {
-      value: 75,
-      label: '75m',
-    },
-    {
-      value: 90,
-      label: '90m',
-    },
-    {
-      value: 105,
-      label: '105m',
-    },
-    {
-      value: 120,
-      label: '120m',
-    },
-  ];
-
-  function valuetext(value) {
-    return `${value}m`;
-  }
 
   return (
     <div className="filter-container">

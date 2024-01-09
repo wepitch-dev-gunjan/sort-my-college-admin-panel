@@ -20,10 +20,8 @@ const Webinar = () => {
   endDate.setDate(today.getDate() + 0);
   const defaultWebinarFilters =
   {
-    webinar_type: 'All',
+    search: '',
     webinar_dates: [startDate, endDate],
-    webinar_duration: 60,
-    webinar_status: 'All',
     webinar_fee: [0, 5000]
   };
   const [webinarFilters, setWebinarFilters] = useState(defaultWebinarFilters);
@@ -34,12 +32,13 @@ const Webinar = () => {
 
   const getResponse = async () => {
     try {
-      const { data } = await axios.get(`${backend_url}/webinars/webinarsforadmin`, {
+      const { data } = await axios.get(`${backend_url}/webinars/webinar/get-webinars-for-admin`, {
         params: webinarFilters,
         headers: {
           Authorization: admin.token
         }
       });
+      console.log(data)
       setWebinars(data);
     } catch (error) {
       console.log(error)
@@ -65,9 +64,9 @@ const Webinar = () => {
         </div>
         <div className="webinarContainer">
           <div className="webinarList">
-            {webinars?.map((webinar) => (
+            {/* {webinars?.map((webinar) => (
               <WebinarItem key={webinar._id} webinar={webinar} setWebinars={setWebinars} getResponse={getResponse} />
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
