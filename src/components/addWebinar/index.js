@@ -100,7 +100,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
   };
 
   return (
-    <div ref={Ref} className="webinar-item">
+    <div ref={Ref} className="Add-webinar">
       {webinarLoading && (
         <div className="spinner-container">
           <div className="spinner">
@@ -115,6 +115,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
             <div>
               <label>Upload thumbnail</label>
               <input
+                className="upload"
                 type="file"
                 onChange={(e) => handleFileUpload(e)}
                 accept="image/*"

@@ -6,7 +6,22 @@
     transform: rotate(360deg);
   }
 }
-
+.Add-webinar{
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  border-radius: 20px;
+  background-color: var(--background-light);
+  width: 400px;
+  height: 500px;
+  padding: 20px;
+  .edit-mode-form{
+    .edit-mode-fields{
+      .upload{
+        width: 100%;
+      }
+    }
+  }
 .spinner-container {
   display: flex;
   justify-content: center;
@@ -25,4 +40,7 @@
     animation: rotate 1s linear infinite; /* Apply the animation */
   }
   
+}
+
+
 }
