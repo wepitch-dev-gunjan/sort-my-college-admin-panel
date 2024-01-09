@@ -6,6 +6,7 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import DateRangePicker from './dateRangePicker';
+import SearchBar from './searchBar';
 
 const Filters = ({ webinarFilters, setWebinarFilters }) => {
   const handleFeeChange = (e, newValue) => {
@@ -61,13 +62,8 @@ const Filters = ({ webinarFilters, setWebinarFilters }) => {
 
   return (
     <div className="filter-container">
-      <div className="type">
-        <p>Webinar Type</p>
-        <select value={webinarFilters.webinar_type} onChange={handleTypeChange}>
-          <option value="Personal">Personal</option>
-          <option value="Group">Group</option>
-          <option value="All">All</option>
-        </select>
+      <div className="search">
+        <SearchBar />
       </div>
       <div className="fees">
         <p>Webinar Fee</p>
@@ -105,20 +101,9 @@ const Filters = ({ webinarFilters, setWebinarFilters }) => {
           />
         </Box>
       </div>
-      <div className="status">
-        <p>Webinar Status</p>
-        <select value={webinarFilters.webinar_status} onChange={handleStatusChange}>
-          <option value="All">All</option>
-          <option value="Available">Available</option>
-          <option value="Booked">Booked</option>
-          <option value="Attended">Attended</option>
-          <option value="NotAttended">Not-Attended</option>
-          <option value="Rescheduled">Rescheduled</option>
-          <option value="Cancelled">Cancelled</option>
-        </select>
-      </div>
     </div>
   );
 };
 
 export default Filters;
+
