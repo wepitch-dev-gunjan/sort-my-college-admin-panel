@@ -1,0 +1,28 @@
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+  .spinner {
+    color: #2200ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Set the desired width */
+    height: 40px; /* Set the desired height */
+    margin: 0 auto; /* Adjust margin as needed */
+    animation: rotate 1s linear infinite; /* Apply the animation */
+  }
+  
+}

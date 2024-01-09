@@ -22,6 +22,7 @@ const Header = ({ handleLogout }) => {
         <img src={logo} alt="" />
       </div>
       <div className="rightSide">
+        
       <AddWebinarButton />
 
         <NotificationButton
