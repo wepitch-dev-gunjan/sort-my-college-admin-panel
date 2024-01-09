@@ -12,7 +12,7 @@ import { ImSpinner8 } from "react-icons/im";
 
 const AddWebinar = ({ setWebinars, setAddMode }) => {
   const Ref = useRef(null);
-  const { user } = useContext(AdminContext);
+  const { admin } = useContext(AdminContext);
   const { webinarLoading, setWebinarLoading } = useContext(WebinarContext);
 
   const formatDate = (date) => {
@@ -36,20 +36,9 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
   const [webinarDetails, setWebinarDetails] = useState({
     webinar_date: formatDate(getTomorrowDate()),
     webinar_time: getCurrentTime(),
-    webinar_duration: "60",
-    webinar_type: "Group",
     webinar_fee: "0",
-    webinar_status: "Available",
-    webinar_available_slots: "5",
+    webinar_available_slots: "500",
   });
-
-  useEffect(() => {
-    const updatedWebinarDetails = {
-      ...webinarDetails,
-      webinar_fee: webinarDetails.webinar_type === "Personal" ? "500" : "1000",
-    };
-    setWebinarDetails(updatedWebinarDetails);
-  }, [webinarDetails.webinar_type]);
 
   useClickOutside(Ref, () => setAddMode(false));
 
@@ -62,11 +51,11 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
         `${backend_url}/counsellor/webinars`,
         {
           ...webinarDetails,
-          counsellor_id: user.id,
+          webinar_host: admin._id,
         },
         {
           headers: {
-            Authorization: user.token,
+            Authorization: admin.token,
           },
         }
       );

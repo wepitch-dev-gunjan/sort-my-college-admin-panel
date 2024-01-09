@@ -23,11 +23,14 @@ import PaymentDetails from "./pages/paymentDetails";
 import "react-toastify/dist/ReactToastify.css";
 import Breadcrumb from "./components/breadcrumb";
 import Webinar from "./pages/webinar";
+import AddWebinar from "./components/addWebinar";
+import { WebinarContext } from "./context/WebinarContext";
 
 function App() {
   const addProfilePicRef = useRef(null);
   const { admin, setAdmin } = useContext(AdminContext);
   const { isLoggedIn } = admin;
+  const { addmode, webinars, setWebinars, setAddMode } = useContext(WebinarContext)
   const { notificationsEnable, setNotificationsEnable, notificationsRef } =
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode } =
@@ -51,6 +54,15 @@ function App() {
   });
   return (
     <div>
+      {addMode && (
+        <div className="add-session-container">
+          <AddWebinar
+            webinars={webinars}
+            setWebinars={setWebinars}
+            setAddMode={setAddMode}
+          />
+        </div>
+      )}
       {isLoggedIn && <Header handleLogout={handleLogout} />}
       {profilePicEditMode && (
         <div className="add-profile-pic-panel">
