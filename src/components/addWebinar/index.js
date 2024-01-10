@@ -112,18 +112,10 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
       {!webinarLoading && (
         <form onSubmit={handleCreateWebinar} className="edit-mode-form">
           <div className="edit-mode-fields">
-            <div>
-              <label>Upload thumbnail</label>
-              <input
-                className="upload"
-                type="file"
-                onChange={(e) => handleFileUpload(e)}
-                accept="image/*"
-              />
-            </div>
-
-            <div>
-              <label>Title:</label>
+            <div className="add-fields">
+              <div className="title">
+                <label>Title:</label>
+              </div>
               <input
                 type="text"
                 value={webinarDetails.webinar_title}
@@ -137,7 +129,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
               />
             </div>
 
-            <div>
+            <div className="add-fields">
               <label>Date:</label>
               <input
                 type="date"
@@ -151,7 +143,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
+            <div className="add-fields">
               <label>Time:</label>
               <input
                 type="time"
@@ -165,7 +157,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
+            <div className="add-fields">
               <label>Duration (in minutes):</label>
               <input
                 type="number"
@@ -182,7 +174,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
+            <div className="add-fields">
               <label>Fee:</label>
               <input
                 type="number"
@@ -198,7 +190,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
+            <div className="add-fields">
               <label>Total Slots:</label>
               <input
                 type="number"
@@ -212,7 +204,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
+            <div className="add-fields">
               <label>Available Slots:</label>
               <input
                 type="number"
@@ -226,12 +218,22 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
+
+            <label>Upload thumbnail:</label>
+            <div>
+              <input
+                className="upload"
+                type="file"
+                onChange={(e) => handleFileUpload(e)}
+                accept="image/*"
+              />
+            </div>
           </div>
-          <div className="edit-mode-bottom">
-            <button type="submit">Create Webinar</button>
-            <button type="button" onClick={handleCancel}>
+          <div className="add-web-buttons">
+            <div className="create">Create Webinar</div>
+            <div onClick={handleCancel} className="cancel">
               Cancel
-            </button>
+            </div>
           </div>
         </form>
       )}
