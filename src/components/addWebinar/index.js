@@ -76,17 +76,31 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
     setWebinarDetails({
       webinar_date: formatDate(getTomorrowDate()),
       webinar_time: getCurrentTime(),
-      webinar_duration: "60",
-      webinar_type: "Group",
       webinar_fee: "0",
+      webinar_title: "webinar title",
       webinar_status: "Available",
+      webinar_slots: "10",
       webinar_available_slots: "5",
     });
     setAddMode(false);
   };
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+
+    // Assuming you want to do something with the uploaded file
+    // For example, log the file name and size
+    console.log(`File Name: ${file.name}, File Size: ${file.size} bytes`);
+
+    // You can save the file in the state if needed
+    setWebinarDetails({
+      ...webinarDetails,
+      uploadedFile: file, // Add this line to save the file in state
+    });
+  };
+
   return (
-    <div ref={Ref} className="webinar-item">
+    <div ref={Ref} className="Add-webinar">
       {webinarLoading && (
         <div className="spinner-container">
           <div className="spinner">
@@ -98,8 +112,24 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
       {!webinarLoading && (
         <form onSubmit={handleCreateWebinar} className="edit-mode-form">
           <div className="edit-mode-fields">
-            <div></div>
-            <div>
+            <div className="add-fields">
+              <div className="title">
+                <label>Title:</label>
+              </div>
+              <input
+                type="text"
+                value={webinarDetails.webinar_title}
+                onChange={(e) =>
+                  setWebinarDetails({
+                    ...webinarDetails,
+                    webinar_title: e.target.value,
+                  })
+                }
+                required
+              />
+            </div>
+
+            <div className="add-fields">
               <label>Date:</label>
               <input
                 type="date"
@@ -113,7 +143,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
+            <div className="add-fields">
               <label>Time:</label>
               <input
                 type="time"
@@ -127,7 +157,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
+            <div className="add-fields">
               <label>Duration (in minutes):</label>
               <input
                 type="number"
@@ -144,25 +174,7 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
-              <div>
-                <label>Type:</label>
-                <select
-                  value={webinarDetails.webinar_type}
-                  onChange={(e) =>
-                    setWebinarDetails({
-                      ...webinarDetails,
-                      webinar_type: e.target.value,
-                    })
-                  }
-                  required
-                >
-                  <option value="Personal">Personal</option>
-                  <option value="Group">Group</option>
-                </select>
-              </div>
-            </div>
-            <div>
+            <div className="add-fields">
               <label>Fee:</label>
               <input
                 type="number"
@@ -178,44 +190,53 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
                 required
               />
             </div>
-            <div>
-              <label>Status:</label>
+            <div className="add-fields">
+              <label>Total Slots:</label>
               <input
-                type="text"
-                value={webinarDetails.webinar_status}
+                type="number"
+                value={webinarDetails.webinar_slots}
                 onChange={(e) =>
                   setWebinarDetails({
                     ...webinarDetails,
-                    webinar_status: e.target.value,
+                    webinar_slots: e.target.value,
                   })
                 }
                 required
               />
             </div>
+            <div className="add-fields">
+              <label>Available Slots:</label>
+              <input
+                type="number"
+                value={webinarDetails.webinar_available_slots}
+                onChange={(e) =>
+                  setWebinarDetails({
+                    ...webinarDetails,
+                    webinar_available_slots: e.target.value,
+                  })
+                }
+                required
+              />
+            </div>
+
+            <label>Upload thumbnail:</label>
             <div>
-              {webinarDetails.webinar_type === "Group" && (
-                <>
-                  <label>Available Slots:</label>
-                  <input
-                    type="number"
-                    value={webinarDetails.webinar_available_slots}
-                    onChange={(e) =>
-                      setWebinarDetails({
-                        ...webinarDetails,
-                        webinar_available_slots: e.target.value,
-                      })
-                    }
-                    required
-                  />
-                </>
-              )}
+              <label className="custom-upload-button">
+                <input
+                  className="input-upload"
+                  type="file"
+                  onChange={(e) => handleFileUpload(e)}
+                  accept="image/*"
+                />
+                Choose File
+              </label>
             </div>
           </div>
-          <div className="edit-mode-bottom">
-            <button type="submit">Create Webinar</button>
-            <button type="button" onClick={handleCancel}>
+          <div className="add-web-buttons">
+            <div className="create">Create Webinar</div>
+            <div onClick={handleCancel} className="cancel">
               Cancel
-            </button>
+            </div>
           </div>
         </form>
       )}
