@@ -3,11 +3,13 @@ import axios from 'axios';
 import { CiMenuKebab } from 'react-icons/ci';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import "./style.scss";
+import { MdDateRange } from "react-icons/md";
 import { AdminContext } from '../../context/AdminContext';
 import { backend_url } from '../../config';
 import useClickOutside from '../../customHooks/useClickOutside';
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
+import { Divider } from '@mui/material';
 
 const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
   const menuRef = useRef(null)
@@ -24,9 +26,21 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
     return dayjs(date).format('YYYY-MM-DD');
   };
 
+  const goodDateFormat = (inputDate) => {
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const [year, month, day] = inputDate.split('-');
+    const monthIndex = parseInt(month, 10) - 1;
+
+    return `${parseInt(day, 10)} ${months[monthIndex]} ${year}`;
+  }
+
   const handleSave = async () => {
     try {
-      const response = await axios.put(`${backend_url}/counsellor/webinars/${webinarDetails._id}`, webinarDetails, {
+      const response = await axios.put(`${backend_url}/webinars/${webinarDetails._id}`, webinarDetails, {
         headers: {
           Authorization: admin.token
         }
@@ -68,10 +82,10 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
     }
   };
 
+  console.log(webinarDetails.webinar_thumbnail)
   return (
-    <div className="webinar-item">
-
-      {<div ref={menuRef} className={`${showMenu && 'display-active'} drop-down-menu`}>
+    <div className="WebinarCard-container">
+      {/* {<div ref={menuRef} className={`${showMenu && 'display-active'} drop-down-menu`}>
         <div onClick={() => setEditMode(true)} className="menu-item">
           <AiOutlineEdit />
           <span>Edit</span>
@@ -80,55 +94,50 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
           <AiOutlineDelete />
           <span>Delete</span>
         </div>
-      </div>}
-
+      </div>} */}
       {editMode ? (
-        <form className='edit-mode-form' onSubmit={handleSave}>
-          <table className='edit-mode-table'>
-            <tbody>
-              <tr>
-                <td>Date:</td>
-                <td>
-                  <input
-                    type="date"
-                    value={webinarDetails.webinar_date}
-                    onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_date: formatDate(e.target.value) })}
-                    required
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Time:</td>
-                <td>
-                  <input
-                    type="time"
-                    value={webinarDetails.webinar_time}
-                    onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_time: e.target.value })}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Fees:</td>
-                <td>
-                  <input
-                    type="number"
-                    value={webinarDetails.webinar_fee}
-                    onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_fee: e.target.value })}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Available Slots:</td>
-                <td>
-                  <input
-                    type="number"
-                    value={webinarDetails.webinar_available_slots}
-                    onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_available_slots: e.target.value })}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="edit-mode-container">
+          <tr>
+            <td>Date:</td>
+            <td>
+              <input
+                type="date"
+                value={webinarDetails.webinar_date}
+                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_date: formatDate(e.target.value) })}
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Time:</td>
+            <td>
+              <input
+                type="time"
+                value={webinarDetails.webinar_time}
+                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_time: e.target.value })}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Fees:</td>
+            <td>
+              <input
+                type="number"
+                value={webinarDetails.webinar_fee}
+                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_fee: e.target.value })}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Available Slots:</td>
+            <td>
+              <input
+                type="number"
+                value={webinarDetails.webinar_available_slots}
+                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_available_slots: e.target.value })}
+              />
+            </td>
+          </tr>
           <div className="edit-mode-bottom">
             <button onClick={handleSave} type="submit">
               Save
@@ -137,33 +146,35 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
               Cancel
             </button>
           </div>
-        </form>
+        </div>
       ) : (
-        <>
-          <table className="display-mode-table">
-            <tbody>
-              <tr>
-                <td>Date:</td>
-                <td>{formatDate(webinar.webinar_date)}</td>
-              </tr>
-              <tr>
-                <td>Time:</td>
-                <td>{webinar.webinar_time}</td>
-              </tr>
-              <tr>
-                <td>Fee:</td>
-                <td>{webinar.webinar_fee}</td>
-              </tr>
-              <tr>
-                <td>Available Slots:</td>
-                <td>{webinar.webinar_available_slots}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="bottom">
-            <button onClick={handleJoinNow}>Join Now</button>
+        <div className='webinar-container'>
+          <div className="webinar-top">
+            <img src={webinarDetails.webinar_thumbnail} alt="this is an image of webinar" />
           </div>
-        </>
+          <div className="webinar-mid">
+            <h2>{webinarDetails.webinar_title}</h2>
+            <div className='row'>
+              <div className="col date"><MdDateRange /></div>
+              <div className='col date'>{goodDateFormat(formatDate(webinar.webinar_date))}</div>
+            </div>
+            <div className='row'>
+              <div className='col'>{webinar.webinar_time}</div>
+            </div>
+            <div className='row'>
+              <div className='col'>{webinar.webinar_fee}</div>
+              <span>₹</span>
+            </div>
+            <div className='row'>
+              <div className='col'>{webinar.webinar_available_slots}</div>
+            </div>
+          </div>
+          <Divider />
+          <div className="webinar-bottom">
+            <div className='button' onClick={handleJoinNow}>Join Now</div>
+            <div className='button' onClick={handleJoinNow}>View detials</div>
+          </div>
+        </div>
       )}
     </div>
   );

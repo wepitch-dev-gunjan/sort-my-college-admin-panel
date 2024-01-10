@@ -27,7 +27,6 @@ export const ProfileProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(admin);
     if (admin && admin.isLoggedIn) fetchProfile();
   }, [admin]);
 

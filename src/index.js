@@ -11,18 +11,21 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ProfileProvider } from "./context/ProfileContext";
 import { DashboardProvider } from "./context/DashboardContext";
 import { WebinarProvider } from "./context/WebinarContext";
+import { CounsellorProvider } from "./context/CounsellorContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true }}>
       <MediaQueryProvider>
         <AdminProvider>
           <ProfileProvider>
             <DashboardProvider>
               <WebinarProvider>
                 <NotificationProvider>
-                  <App />
+                  <CounsellorProvider>
+                    <App />
+                  </CounsellorProvider>
                 </NotificationProvider>
               </WebinarProvider>
             </DashboardProvider>

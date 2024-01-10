@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import "./style.scss"
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { CounsellorContext } from "../../context/CounsellorContext";
+import { AdminContext } from "../../context/AdminContext";
+import axios from "axios";
+import { backend_url } from "../../config";
 
 const Counsellor = () => {
 
@@ -12,102 +16,31 @@ const Counsellor = () => {
       );
     });
   };
-
-  const [counsellors, setCounsellors] = useState([
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Pending',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Rejected',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Rejected',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Pending',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-    {
-      profile_pic: 'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
-      name: 'XYZ',
-      email: 'DEMO@GMAIL.COM ',
-      status: 'Verified',
-      _id: 'fsdf/dfdgfg/f/gf/f/gf/'
-    },
-  ]);
+  const { admin } = useContext(AdminContext)
 
 
+  const getCounsellors = async () => {
+    try {
+      const { data } = await axios.get(`${backend_url}/counsellor/counsellor-for-admin`,
+        // null,
+        {
+          headers: {
+            Authorization: admin.token
+          }
+        }
+      )
+      console.log(data)
+      setCounsellors(data);
+    } catch (error) {
+      console.log(error);
+      // toast(error.message)
+    }
+  }
+  useEffect(() => {
+    if (admin.token)
+      getCounsellors()
+  }, [admin])
+  const { counsellors, setCounsellors } = useContext(CounsellorContext);
   return (
     <div className="Counsellors-container">
       <div className="heading sticky">
@@ -133,7 +66,7 @@ const Counsellor = () => {
                   counsellor.status === 'Pending' ? 'blue' : ''
                 }`}>{counsellor.status}</div>
               <div className='col'>
-                <Link to='/counsellors/counsellor-profile'>
+                <Link to={`/counsellors/counsellor-profile/${counsellor._id}`}>
                   <p>View Profile</p>
                 </Link>
               </div>

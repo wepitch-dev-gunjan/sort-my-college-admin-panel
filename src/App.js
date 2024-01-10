@@ -30,7 +30,7 @@ function App() {
   const addProfilePicRef = useRef(null);
   const { admin, setAdmin } = useContext(AdminContext);
   const { isLoggedIn } = admin;
-  const { addmode, webinars, setWebinars, setAddMode } = useContext(WebinarContext)
+  const { addMode, webinars, setWebinars, setAddMode } = useContext(WebinarContext)
   const { notificationsEnable, setNotificationsEnable, notificationsRef } =
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode } =
@@ -93,10 +93,9 @@ function App() {
                 <Route path="/user" element={<User />} />
                 <Route path="/counsellors" element={<Counsellor />} />
                 <Route
-                  path="/counsellors/counsellor-profile"
+                  path="/counsellors/counsellor-profile/:counsellor_id"
                   element={
                     <CounsellorProfile />
-                    // <MuiCounsellorProfile />
                   }
                 />
                 <Route path="/webinar" element={<Webinar />} />

@@ -64,9 +64,9 @@ const Webinar = () => {
         </div>
         <div className="webinarContainer">
           <div className="webinarList">
-            {/* {webinars?.map((webinar) => (
+            {webinars?.map((webinar) => (
               <WebinarItem key={webinar._id} webinar={webinar} setWebinars={setWebinars} getResponse={getResponse} />
-            ))} */}
+            ))}
           </div>
         </div>
       </div>
