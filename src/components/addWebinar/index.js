@@ -221,12 +221,15 @@ const AddWebinar = ({ setWebinars, setAddMode }) => {
 
             <label>Upload thumbnail:</label>
             <div>
-              <input
-                className="upload"
-                type="file"
-                onChange={(e) => handleFileUpload(e)}
-                accept="image/*"
-              />
+              <label className="custom-upload-button">
+                <input
+                  className="input-upload"
+                  type="file"
+                  onChange={(e) => handleFileUpload(e)}
+                  accept="image/*"
+                />
+                Choose File
+              </label>
             </div>
           </div>
           <div className="add-web-buttons">

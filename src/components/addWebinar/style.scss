@@ -13,7 +13,7 @@
   border-radius: 20px;
   background-color: var(--background-light);
   width: 600px;
-  height: 850px;
+  height: 860px;
   padding: 20px;
   
   .edit-mode-form{
@@ -29,9 +29,28 @@
       }
     }
     }
-    input{
+    .input-upload{
+      display: none;
       width: 100%;
     }
+    
+    .custom-upload-button {
+      display: inline-block;
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #3498db;
+      border: 1px solid #3498db;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .custom-upload-button:hover {
+      background-color: #2980b9;
+      border: 1px solid #2980b9;
+    }
+    
       .add-web-buttons{
         display: flex;
         gap: 8px;
