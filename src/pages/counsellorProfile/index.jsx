@@ -41,9 +41,6 @@ const CounsellorProfile = () => {
     }
   }
 
-  useEffect(() => {
-    getCounsellor()
-  }, [admin])
   const [profile, setProfile] = useState({
     name: 'abc',
     email: 'demo@gmail.com',
@@ -121,8 +118,22 @@ const CounsellorProfile = () => {
     setShowReasonDialog(false);
   };
 
-  const handleSaveClick = () => {
-    setEditCounsellorProfileEnable(false);
+  const handleSaveClick = async () => {
+    try {
+      const { data } = await axios.put(`${backend_url}/counsellor/${counsellor_id}`, {
+        ...profile
+      }, {
+        headers: {
+          Authorization: admin.token
+        }
+      })
+      setEditCounsellorProfileEnable(false);
+      toast('Counsellor successfully updated.');
+
+    } catch (error) {
+      console.log('Error updating counsellor : ' + error);
+      toast(error.message)
+    }
   };
 
   const handleAccept = async () => {
@@ -134,12 +145,17 @@ const CounsellorProfile = () => {
             Authorization: admin.token
           }
         })
+      setProfile({ ...profile, verified: true })
       toast('Counsellor verified successfully')
     } catch (error) {
       console.log(error);
-      toast(error.message)
+      toast(error.response.data.error)
     }
   }
+
+  useEffect(() => {
+    getCounsellor()
+  }, [admin])
 
   return (
     <div className="CounsellorProfile-container">
@@ -366,7 +382,9 @@ const CounsellorProfile = () => {
           <>
             <div className="right-profile-buttons">
               <div className="left">
-                <div className="accept" onClick={handleAccept}>Accept</div>
+                {!profile.verified && (
+                  <div className="accept" onClick={handleAccept}>Accept</div>
+                )}
                 <div className="reject" onClick={handleRejectClick}>Reject</div>
               </div>
               <div className="right">

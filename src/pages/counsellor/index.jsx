@@ -48,11 +48,11 @@ const Counsellor = () => {
           <div className="col"><h4>IMAGE</h4></div>
           <div className="col"><h4>NAME</h4></div>
           <div className="col"><h4>EMAIL</h4></div>
-          <div className="col"><h4>STATUS</h4></div>
+          <div className="col"><h4>VERIFIED</h4></div>
           <div className="col"><h4>PROFILE LINK</h4></div>
         </div>
       </div>
-      <div className='RecentPayments-container'>
+      <div className='counsellor-container'>
         <div className="table">
           {counsellors.map((counsellor, i) => (
             <div className='row' key={i}>
@@ -61,10 +61,7 @@ const Counsellor = () => {
               </div>
               <div className='col'>{counsellor.name}</div>
               <div className='col'>{counsellor.email}</div>
-              <div className={`col ${counsellor.status === 'Rejected' ? 'red' :
-                counsellor.status === 'Verified' ? 'green' :
-                  counsellor.status === 'Pending' ? 'blue' : ''
-                }`}>{counsellor.status}</div>
+              <div className={`col ${counsellor.verified ? 'green' : 'red'}`}>{counsellor.verified ? 'Yes' : 'No'}</div>
               <div className='col'>
                 <Link to={`/counsellors/counsellor-profile/${counsellor._id}`}>
                   <p>View Profile</p>

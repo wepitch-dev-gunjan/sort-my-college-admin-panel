@@ -7,6 +7,8 @@ import RightLeftArrow from "../buttons/rightLeftArrow";
 import PersonIcon from "@mui/icons-material/Person";
 import { ProfileContext } from "../../context/ProfileContext";
 import GroupIcon from '@mui/icons-material/Group';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 
@@ -53,11 +55,17 @@ const Sidebar = () => {
           expand={expand}
         />
 
-
         <SidebarMenuButton
           href="/profile"
           icon={PersonIcon}
           text="Profile"
+          expand={expand}
+        />
+        <hr />
+        <SidebarMenuButton
+          href="/help"
+          icon={HelpOutlineIcon}
+          text="Help"
           expand={expand}
         />
       </div>

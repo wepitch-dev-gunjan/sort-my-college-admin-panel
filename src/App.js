@@ -25,6 +25,7 @@ import Breadcrumb from "./components/breadcrumb";
 import Webinar from "./pages/webinar";
 import AddWebinar from "./components/addWebinar";
 import { WebinarContext } from "./context/WebinarContext";
+import Help from "./pages/help";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -102,6 +103,7 @@ function App() {
                 <Route path="/webinar" element={<Webinar />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/help" element={<Help />} />
               </>
             ) : (
               <>

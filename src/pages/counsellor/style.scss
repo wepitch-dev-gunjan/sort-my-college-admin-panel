@@ -33,22 +33,12 @@
   position: sticky !important;
   top: 0;
 }
-.RecentPayments-container {
+.counsellor-container {
   display: flex;
   flex-direction: column;
   gap: 40px;
   padding: 20px;
   width: 100%;
-
-  .pagination {
-    display: flex;
-    justify-content: center;
-  }
-  .top {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
   .table {
     .row {
       display: flex;
