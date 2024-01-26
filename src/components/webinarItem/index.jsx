@@ -69,7 +69,7 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
   const handleDelete = async () => {
     try {
       // Send an axios request to the server to delete the webinar
-      const { data } = await axios.delete(`${backend_url}/counsellor/webinars/${webinar._id}`, {
+      const { data } = await axios.delete(`${backend_url}/counsellor/webinars /${webinar._id}`, {
         headers: {
           Authorization: admin.token
         }
@@ -85,7 +85,7 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
   console.log(webinarDetails.webinar_thumbnail)
   return (
     <div className="WebinarCard-container">
-      {/* {<div ref={menuRef} className={`${showMenu && 'display-active'} drop-down-menu`}>
+      {/* {<div ref={menuRef} className={${showMenu && 'display-active'} drop-down-menu}>
         <div onClick={() => setEditMode(true)} className="menu-item">
           <AiOutlineEdit />
           <span>Edit</span>

@@ -74,4 +74,4 @@ const Webinar = () => {
   )
 }
 
-export default Webinar  
+export default Webinar
