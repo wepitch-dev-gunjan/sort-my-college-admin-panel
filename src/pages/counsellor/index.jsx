@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./style.scss"
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { CounsellorContext } from "../../context/CounsellorContext";
 import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
@@ -49,6 +49,7 @@ const Counsellor = () => {
           <div className="col"><h4>NAME</h4></div>
           <div className="col"><h4>EMAIL</h4></div>
           <div className="col"><h4>STATUS</h4></div>
+          <div className="col"><h4>OUTSTANDING BALANCE</h4></div>
           <div className="col"><h4>PROFILE LINK</h4></div>
         </div>
       </div>
@@ -63,8 +64,9 @@ const Counsellor = () => {
               <div className='col'>{counsellor.email}</div>
               <div className={`col ${counsellor.status === 'Rejected' ? 'red' :
                 counsellor.status === 'Verified' ? 'green' :
-                  counsellor.status === 'Pending' ? 'blue' : ''
-                }`}>{counsellor.status}</div>
+                counsellor.status === 'Pending' ? 'blue' : ''
+              }`}>{counsellor.status}</div>
+              <div className='col'>{counsellor.balance}</div>
               <div className='col'>
                 <Link to={`/counsellors/counsellor-profile/${counsellor._id}`}>
                   <p>View Profile</p>
