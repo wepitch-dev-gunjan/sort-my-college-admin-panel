@@ -1,0 +1,33 @@
+.ChatBox-container {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.user {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  p {
+    border-radius: 20px;
+    background-color: rgb(217, 236, 239);
+    text-align: right;
+    padding: 8px 16px;
+    max-width: 285px;
+  }
+}
+
+.admin {
+  display: flex;
+  width: 100%;
+  p {
+    background-color: rgb(207, 220, 243);
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-align: left;
+    justify-content: flex-start; /* Updated property */
+    max-width: 285px;
+  }
+}
