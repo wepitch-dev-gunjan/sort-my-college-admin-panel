@@ -1,4 +1,4 @@
-const NODE_ENV = "production";
+const NODE_ENV = "development";
 
 module.exports = {
   frontend_url:

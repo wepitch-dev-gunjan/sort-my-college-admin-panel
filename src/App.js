@@ -26,6 +26,7 @@ import Webinar from "./pages/webinar";
 import AddWebinar from "./components/addWebinar";
 import { WebinarContext } from "./context/WebinarContext";
 import Help from "./pages/help";
+import JoinWebinar from "./pages/joinWebinar";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -100,7 +101,13 @@ function App() {
                     <CounsellorProfile />
                   }
                 />
-                <Route path="/webinar" element={<Webinar />} />
+                <Route
+                  path="/webinar"
+                  element={
+                    <JoinWebinar />
+                  }
+                />
+                {/* <Route path="/webinar" element={<Webinar />} /> */}
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/help" element={<Help />} />
