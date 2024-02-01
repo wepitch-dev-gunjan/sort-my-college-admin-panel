@@ -9,4 +9,16 @@ module.exports = {
     NODE_ENV === "production"
       ? "https://server.sortmycollege.com"
       : "http://localhost:9000",
+  ZOOM_CLIENT_ID:
+    NODE_ENV === "production"
+      ? "splqFa5rT6OuIYV0YRTcxg"
+      : "splqFa5rT6OuIYV0YRTcxg",
+  ZOOM_CLIENT_SECRET:
+    NODE_ENV === "production"
+      ? "splqFa5rT6OuIYV0YRTcxg"
+      : "splqFa5rT6OuIYV0YRTcxg",
+  REDIRECT_URI:
+    NODE_ENV === "production"
+      ? "admin.sortmycollege.com"
+      : "http://localhost:3000",
 };

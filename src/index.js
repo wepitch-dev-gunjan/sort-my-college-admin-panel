@@ -24,7 +24,6 @@ root.render(
           <ProfileProvider>
             <SocketProvider>
               <HelpProvider>
-
                 <DashboardProvider>
                   <WebinarProvider>
                     <NotificationProvider>
