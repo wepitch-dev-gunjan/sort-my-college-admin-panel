@@ -15,8 +15,8 @@ module.exports = {
       : "splqFa5rT6OuIYV0YRTcxg",
   ZOOM_CLIENT_SECRET:
     NODE_ENV === "production"
-      ? "splqFa5rT6OuIYV0YRTcxg"
-      : "splqFa5rT6OuIYV0YRTcxg",
+      ? "zqn8jZNLogibXPbMk0XjUQll2521jEXl"
+      : "zqn8jZNLogibXPbMk0XjUQll2521jEXl",
   REDIRECT_URI:
     NODE_ENV === "production"
       ? "admin.sortmycollege.com"
