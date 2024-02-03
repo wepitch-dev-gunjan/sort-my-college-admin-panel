@@ -1,72 +1,73 @@
 // import { useParams } from 'react-router-dom';
-import './style.scss'
-import { useContext, useState } from 'react';
+import './style.scss';
+import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AdminContext } from '../../context/AdminContext';
 import { backend_url } from '../../config';
 import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded';
+import { Helmet } from 'react-helmet';
 
-const JoinWebinar = () => {
-  // const { webinar_id } = useParams();
+const JoinWebinar = ({ meetingNumber, passWord }) => {
   const { admin } = useContext(AdminContext);
+  let sdkKey = 'splqFa5rT6OuIYV0YRTcxg';
+  let role = 0;
+  let userName = 'React';
+  let userEmail = admin.email;
+  let registrantToken = '';
+  let zakToken = '';
+  let leaveUrl = 'http://localhost:3000';
 
   const client = ZoomMtgEmbedded.createClient();
 
-  const startZoomMeeting = async (e) => {
-    var authEndpoint = ''
-    var sdkKey = 'splqFa5rT6OuIYV0YRTcxg'
-    var meetingNumber = '123456789'
-    var passWord = ''
-    var role = 0
-    var userName = 'React'
-    var userEmail = ''
-    var registrantToken = ''
-    var zakToken = ''
-    var leaveUrl = 'http://localhost:3000'
-
-    const startMeeting = async (signature) => {
-      try {
-        let meetingSDKElement = document.getElementById('meetingSDKElement');
-        client.init({ zoomAppRoot: meetingSDKElement, language: 'en-US', patchJsMedia: true }).then(() => {
-          client.join({
-            signature: signature,
-            sdkKey: sdkKey,
-            meetingNumber: meetingNumber,
-            password: passWord,
-            userName: userName,
-            userEmail: userEmail,
-            tk: registrantToken,
-            zak: zakToken
-          }).then(() => {
-            console.log('joined successfully')
-          }).catch((error) => {
-            console.log(error)
-          })
+  const startMeeting = async (signature) => {
+    try {
+      let meetingSDKElement = document.getElementById('meetingSDKElement');
+      // Initialize the Zoom client before using it
+      client.init({ zoomAppRoot: meetingSDKElement, language: 'en-US', patchJsMedia: true }).then(() => {
+        // Now, you can use the client object to join the meeting
+        client.join({
+          signature: signature,
+          sdkKey: sdkKey,
+          meetingNumber: meetingNumber,
+          password: passWord,
+          userName: userName,
+          userEmail: userEmail,
+          tk: registrantToken,
+          zak: zakToken
+        }).then(() => {
+          console.log('joined successfully');
         }).catch((error) => {
-          console.log(error)
-        })
-      } catch (error) {
-        throw new Error(error.message)
-      }
+          console.log(error);
+        });
+      }).catch((error) => {
+        console.log(error);
+      });
+    } catch (error) {
+      throw new Error(error);
     }
+  };
+
+  const startZoomMeeting = async (e) => {
     try {
       e.preventDefault();
       const { data } = await axios.post(
-        `${backend_url}/admin/webinar/generate-signature`, // Corrected the template string
+        `${backend_url}/admin/webinar/generate-signature`,
         {
-          meeting_number: '123456',
+          meeting_number: meetingNumber,
           role: 0
         },
         {
           headers: {
-            Authorization: admin.token
+            Authorization: admin.token,
+            'Content-Type': 'application/json'
           },
         }
       );
 
       console.log(data.signature);
-      await startMeeting(data.signature)
+      // Corrected function call
+      await startMeeting(data.signature);
 
     } catch (error) {
       console.log("error starting zoom meeting" + error);
@@ -74,14 +75,15 @@ const JoinWebinar = () => {
     }
   };
 
-
   return (
     <div className='JoinWebinar-container'>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Your App Title</title>
+      </Helmet>
       JoinWebinar
       <button onClick={(e) => startZoomMeeting(e)} >Start Meeting</button>
-      <div id="meetingSDKElement">
-
-      </div>
+      <div className='meeting' id="meetingSDKElement"></div>
     </div>
   );
 };

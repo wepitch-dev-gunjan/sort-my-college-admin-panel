@@ -27,6 +27,7 @@ import AddWebinar from "./components/addWebinar";
 import { WebinarContext } from "./context/WebinarContext";
 import Help from "./pages/help";
 import JoinWebinar from "./pages/joinWebinar";
+import Meeting from "./pages/meeting";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -104,7 +105,7 @@ function App() {
                 <Route
                   path="/webinar"
                   element={
-                    <JoinWebinar />
+                    <JoinWebinar meetingNumber='88403551733' passWord='E3C5Cz' />
                   }
                 />
                 {/* <Route path="/webinar" element={<Webinar />} /> */}
