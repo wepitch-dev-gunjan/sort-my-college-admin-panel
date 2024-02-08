@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useRef } from "react";
+// import 'rsuite/dist/rsuite-no-reset.min.css';
 import "./style.scss";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./pages/login";
@@ -28,6 +29,9 @@ import { WebinarContext } from "./context/WebinarContext";
 import Help from "./pages/help";
 import JoinWebinar from "./pages/joinWebinar";
 import Meeting from "./pages/meeting";
+import Banners from "./pages/banners";
+import AddBanner from "./pages/banners/addBanner";
+import { BannerContext } from "./context/BannerContext";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -39,6 +43,7 @@ function App() {
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode } =
     useContext(ProfileContext);
+  const { addBannerMode } = useContext(BannerContext)
 
   const navigate = useNavigate();
 
@@ -73,6 +78,12 @@ function App() {
           <AddProfilePic ref={addProfilePicRef} />
         </div>
       )}
+
+      {addBannerMode && (
+        <div classname='add-profile-pic-panel' >
+          <AddBanner />
+        </div>
+      )}
       <div className="main">
         <ToastContainer />
 
@@ -96,6 +107,7 @@ function App() {
                 />
                 <Route path="/user" element={<User />} />
                 <Route path="/counsellors" element={<Counsellor />} />
+                <Route path="/banners" element={<Banners />} />
                 <Route
                   path="/counsellors/counsellor-profile/:counsellor_id"
                   element={

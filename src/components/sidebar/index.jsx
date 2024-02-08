@@ -8,6 +8,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { ProfileContext } from "../../context/ProfileContext";
 import GroupIcon from '@mui/icons-material/Group';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { PiFlagBannerFill } from "react-icons/pi";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
@@ -66,6 +67,12 @@ const Sidebar = () => {
           href="/help"
           icon={HelpOutlineIcon}
           text="Help"
+          expand={expand}
+        />
+        <SidebarMenuButton
+          href="/banners"
+          icon={PiFlagBannerFill}
+          text="Banners"
           expand={expand}
         />
       </div>

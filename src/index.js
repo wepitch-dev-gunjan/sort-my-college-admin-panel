@@ -14,6 +14,7 @@ import { WebinarProvider } from "./context/WebinarContext";
 import { CounsellorProvider } from "./context/CounsellorContext";
 import { HelpProvider } from "./context/HelpContext";
 import { SocketProvider } from "./context/SocketContext";
+import { BannerProvider } from "./context/BannerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,13 +26,15 @@ root.render(
             <SocketProvider>
               <HelpProvider>
                 <DashboardProvider>
-                  <WebinarProvider>
-                    <NotificationProvider>
-                      <CounsellorProvider>
-                        <App />
-                      </CounsellorProvider>
-                    </NotificationProvider>
-                  </WebinarProvider>
+                  <BannerProvider>
+                    <WebinarProvider>
+                      <NotificationProvider>
+                        <CounsellorProvider>
+                          <App />
+                        </CounsellorProvider>
+                      </NotificationProvider>
+                    </WebinarProvider>
+                  </BannerProvider>
                 </DashboardProvider>
               </HelpProvider>
             </SocketProvider>

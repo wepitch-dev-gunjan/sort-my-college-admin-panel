@@ -1,0 +1,17 @@
+.Banners-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  overflow-y: auto;
+  width: 100%;
+  .banners-container-main {
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+  }
+  .add-banner-button-container {
+    position: absolute;
+    bottom: 20px;
+    right: 200px;
+  }
+}
