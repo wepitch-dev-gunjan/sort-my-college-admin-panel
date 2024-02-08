@@ -3,6 +3,7 @@ import './style.scss';
 import { MdDelete } from "react-icons/md";
 import { backend_url } from '../../../config';
 import axios from 'axios';
+import { formatDate } from '../../../utilities';
 
 const Banner = ({ banner, deleteCallBack }) => {
   const handleDelete = async () => {
@@ -21,7 +22,7 @@ const Banner = ({ banner, deleteCallBack }) => {
         <MdDelete color='white' size='30' />
       </div>
       <img src={banner.url} alt="" />
-      <p>{banner.createdAt}</p>
+      <p>{formatDate(banner.createdAt)}</p>
     </div>
   );
 };

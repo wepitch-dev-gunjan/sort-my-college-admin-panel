@@ -10,10 +10,18 @@ import { BannerContext } from '../../context/BannerContext';
 const Banners = () => {
   const { banners, setBanners, setAddBannerMode } = useContext(BannerContext);
 
+  const scrollTop = () => {
+    const container = document.querySelector('.banners-container-main');
+    if (container) {
+      container.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top with smooth behavior
+    }
+  };
+
   const getBanners = async () => {
     try {
       const response = await axios.get(`${backend_url}/admin/home-page-banner`);
       setBanners(response.data);
+      scrollTop()
     } catch (error) {
       console.error('Error fetching banners:', error);
       toast.error("Failed to fetch banners. Please try again later."); // Adjusted toast message
