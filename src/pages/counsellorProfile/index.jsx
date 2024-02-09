@@ -113,7 +113,25 @@ const CounsellorProfile = () => {
     setCancellationReason(e.target.value);
   };
 
-  const handleRejectConfirm = () => {
+  const handleRejectCounsellor = async () => {
+    try {
+      const { data } = await axios.put(`${backend_url}/counsellor/${counsellor_id}/reject`, {
+        reason: cancellationReason
+      }, {
+        headers: {
+          Authorization: admin.token
+        }
+      })
+      setShowReasonDialog(false);
+      setProfile({ ...profile, verified: false })
+      toast(data.message)
+    } catch (error) {
+      console.log(error);
+      toast('Error rejecting counsellor')
+    }
+  }
+
+  const handleCancelRejection = () => {
     console.log("Reason for rejection:", cancellationReason);
     setShowReasonDialog(false);
   };
@@ -550,8 +568,8 @@ const CounsellorProfile = () => {
               placeholder="Write your reason for rejection..."
             ></textarea>
             <div className="btns">
-              <button>Confirm</button>
-              <button onClick={handleRejectConfirm}>Cancel</button>
+              <button onClick={handleRejectCounsellor}>Confirm</button>
+              <button onClick={handleCancelRejection}>Cancel</button>
             </div>
           </div>
         </div>
