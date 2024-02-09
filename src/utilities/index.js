@@ -1,3 +1,5 @@
+import imageCompression from 'browser-image-compression';
+
 export const handleInput = (fieldName, value, setProfile) => {
   setProfile(prev => ({
     ...prev,
@@ -45,4 +47,24 @@ export const formatDate = (inputDate) => {
   const formattedDate = `${day} ${month} ${year}, ${dayOfWeek}`;
 
   return formattedDate;
+}
+
+export const compressImage = async (file) => {
+  console.log('originalFile instanceof Blob', file instanceof Blob); // true
+  console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  }
+  try {
+    const compressedFile = await imageCompression(file, options);
+    console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+    return compressedFile;
+  } catch (error) {
+    console.log(error);
+  }
 }

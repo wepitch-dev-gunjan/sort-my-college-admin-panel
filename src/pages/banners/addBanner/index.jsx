@@ -4,7 +4,7 @@ import './style.scss';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { backend_url } from '../../../config';
 import { AdminContext } from '../../../context/AdminContext';
-import { dataURLtoFile } from '../../../utilities'
+import { compressImage, dataURLtoFile } from '../../../utilities'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { BannerContext } from '../../../context/BannerContext';
@@ -35,9 +35,10 @@ const AddBanner = forwardRef((props, ref) => {
       const canvasScaled = editorRef.current.getImageScaledToCanvas();
       const file = dataURLtoFile(canvasScaled.toDataURL()); // Convert data URL to File object
 
+      const compressedImage = await compressImage(file);
       try {
         const formData = new FormData();
-        formData.append('images', file); // Append the File object to FormData
+        formData.append('images', compressedImage); // Append the File object to FormData
 
         const { data } = await axios.post(`${backend_url}/admin/home-page-banner`, formData, {
           headers: {
