@@ -60,6 +60,15 @@
         width: 100%;
         font-size: 16px;
         color: var(--text-dark);
+        button{
+          border: none;
+          background-color: transparent;
+          font-size: 16px;
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+        }
+      }
         img {
           border-radius: 50%;
           width: 48px;

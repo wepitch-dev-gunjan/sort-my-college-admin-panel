@@ -1,7 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
-import { backend_url } from "../config";
-import { AdminContext } from "./AdminContext";
+import { createContext, useState } from "react";
 
 export const DashboardContext = createContext();
 
@@ -45,7 +43,7 @@ export const DashboardProvider = ({ children }) => {
         // followersCount,
         // setFollowersCount,
         error,
-        loading
+        loading,
       }}
     >
       {children}

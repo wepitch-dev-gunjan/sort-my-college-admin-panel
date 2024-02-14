@@ -13,13 +13,17 @@
   border-radius: 20px;
   background-color: var(--background-light);
   width: 600px;
-  height: 870px;
+  height: 700px;
   padding: 20px;
 
   .edit-mode-form {
     .edit-mode-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       .add-fields {
         display: flex;
+        gap: 4px;
         flex-direction: column;
         input {
           border: 1px solid black;

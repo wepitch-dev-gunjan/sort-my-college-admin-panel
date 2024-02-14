@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import "./style.scss"
 import { useState } from 'react';
-
 
 const User = () => {
   const [users, setUsers] = useState([
@@ -78,6 +78,7 @@ const User = () => {
           <div className="col"><h4>PROFILE PIC</h4></div>
           <div className="col"><h4>NAME</h4></div>
           <div className="col"><h4>EMAIL</h4></div>
+          <div className="col"><h4>VIEW PROFILE</h4></div>
         </div>
       </div>
       <div className='user-table-container'>
@@ -89,6 +90,12 @@ const User = () => {
               </div>
               <div className='col'>{user.name}</div>
               <div className='col'>{user.email}</div>
+              <div className='col'>
+              <Link to='/user/user-details'>
+
+               <p>View Profile</p>
+               </Link>
+              </div>
             </div>
           ))}
         </div>

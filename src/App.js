@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useRef } from "react";
-// import 'rsuite/dist/rsuite-no-reset.min.css';
+// import "rsuite/dist/rsuite-no-reset.min.css";
 import "./style.scss";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Login from "./pages/login";
@@ -23,15 +23,14 @@ import CounsellorProfile from "./pages/counsellorProfile";
 import PaymentDetails from "./pages/paymentDetails";
 import "react-toastify/dist/ReactToastify.css";
 import Breadcrumb from "./components/breadcrumb";
-import Webinar from "./pages/webinar";
 import AddWebinar from "./components/addWebinar";
 import { WebinarContext } from "./context/WebinarContext";
 import Help from "./pages/help";
 import JoinWebinar from "./pages/joinWebinar";
-import Meeting from "./pages/meeting";
 import Banners from "./pages/banners";
 import AddBanner from "./pages/banners/addBanner";
 import { BannerContext } from "./context/BannerContext";
+import UserDetails from "./pages/userDetails";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -43,7 +42,7 @@ function App() {
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode } =
     useContext(ProfileContext);
-  const { addBannerMode } = useContext(BannerContext)
+  const { addBannerMode } = useContext(BannerContext);
 
   const navigate = useNavigate();
 
@@ -80,7 +79,7 @@ function App() {
       )}
 
       {addBannerMode && (
-        <div classname='add-profile-pic-panel' >
+        <div classname="add-profile-pic-panel">
           <AddBanner />
         </div>
       )}
@@ -106,18 +105,20 @@ function App() {
                   element={<PaymentDetails />}
                 />
                 <Route path="/user" element={<User />} />
+                <Route path="/user/user-details" element={<UserDetails />} />
                 <Route path="/counsellors" element={<Counsellor />} />
                 <Route path="/banners" element={<Banners />} />
                 <Route
                   path="/counsellors/counsellor-profile/:counsellor_id"
-                  element={
-                    <CounsellorProfile />
-                  }
+                  element={<CounsellorProfile />}
                 />
                 <Route
                   path="/webinar"
                   element={
-                    <JoinWebinar meetingNumber='88403551733' passWord='E3C5Cz' />
+                    <JoinWebinar
+                      meetingNumber="88403551733"
+                      passWord="E3C5Cz"
+                    />
                   }
                 />
                 {/* <Route path="/webinar" element={<Webinar />} /> */}
