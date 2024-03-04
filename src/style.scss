@@ -31,6 +31,15 @@
 
   --browse-file: #e7e7e7;
   --browse-bg: #31245c;
+  // font sizes 
+  --fs-xs : calc(1vh + 0.1vw);
+  --fs-sm: calc(1vh + 0.25vw);
+  --fs-m: calc(2.5vh + 0.5vw);
+  --fs-l: calc(3vh + 1.5vw);
+  --fs-xl: calc(6vh + 1.5vw);
+  --fs-xxl: calc(8vh + 2vw) ;
+  --fs-table-heading: calc(0.3vh + 1.5vw);
+  
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");

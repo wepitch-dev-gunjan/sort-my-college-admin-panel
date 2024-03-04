@@ -32,3 +32,13 @@
     }
   }
 }
+@media (max-width:680px){
+ .RecentPayments-container{
+  width: fit-content;
+  overflow-y: scroll;
+  .row{
+   width:700px;
+   gap:10px;
+  }
+ }
+}

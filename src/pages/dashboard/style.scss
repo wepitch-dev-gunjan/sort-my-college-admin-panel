@@ -17,6 +17,10 @@
       flex-direction: column;
       gap: 40px;
       padding: 20px;
+      // edited
+      h1{
+       font-size: var(--fs-l);
+      }
       .chart-row {
         display: flex;
         justify-content: center;
@@ -31,6 +35,13 @@
         justify-content: space-between;
         gap: 32px;
       }
+      @media (max-width:768px){
+       .widgets-container{
+        flex-direction: column;
+      
+       }
+      }
     }
   }
 }
+

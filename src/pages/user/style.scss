@@ -20,7 +20,7 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        font-size: 16px;
+        font-size: 12px;
         color: var(--text-dark);
       }
     }
@@ -58,7 +58,8 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        font-size: 16px;
+        // edited
+        font-size: var(--fs-sm);
         color: var(--text-dark);
         button{
           border: none;
@@ -77,4 +78,18 @@
       }
     }
   }
+}
+// edited
+@media (max-width: 860px){
+ .User-container{
+  width: fit-content;
+ }
+ .user-table-container{
+width: fit-content;
+overflow-y: scroll;
+
+ .row{
+  width: 700px;
+ }
+ }
 }
