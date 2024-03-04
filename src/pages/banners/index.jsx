@@ -30,7 +30,7 @@ const Banners = () => {
 
   useEffect(() => {
     getBanners();
-  }, [banners]); // Added missing dependency array
+  }, []); // Added missing dependency array
 
   const deleteBanner = (bannerId) => {
     setBanners(prevBanners => prevBanners.filter(banner => banner._id !== bannerId));
