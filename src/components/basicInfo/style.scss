@@ -10,6 +10,10 @@
   .heading {
     border-bottom: 1px solid #1111111a;
     padding-bottom: 12px;
+    h2{
+     font-size: var(--fs-m);
+     font-weight: unset;
+    }
   }
   .info {
     display: flex;
@@ -25,15 +29,23 @@
         .info-field {
           width: 100%;
           font-weight: 700;
+          p{
+           font-size: var(--fs-sm);
+           font-weight: unset;
+          }
         }
         .info-value {
           width: 100%;
+          p{
+           font-size: var(--fs-sm);
+          }
           .gender-radio {
             display: flex;
             gap: 24px;
             .gender-text {
               display: flex;
               gap: 8px;
+              font-size: 10px;
             }
           }
           input {
@@ -45,4 +57,9 @@
       }
     }
   }
+}
+@media (max-width:768px){
+ .BasicInfo-container{
+  display: block;
+ }
 }

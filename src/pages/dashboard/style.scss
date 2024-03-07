@@ -3,7 +3,7 @@
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  overflow-y: auto;
+  // overflow-y: auto;
   .Dashboard-container {
     display: flex;
     flex-direction: column;
@@ -35,10 +35,15 @@
         justify-content: space-between;
         gap: 32px;
       }
+      // edited
       @media (max-width:768px){
        .widgets-container{
         flex-direction: column;
+        gap: 4px;
       
+       }
+       .chart-row{
+        flex-direction: column;
        }
       }
     }

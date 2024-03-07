@@ -21,7 +21,7 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        font-size: 16px;
+        font-size: 15px;
         color: var(--text-dark);
       }
     }
@@ -68,6 +68,7 @@
 @media (max-width:768px){
  .Payments-container{
   width: fit-content;
+  overflow-y: scroll;
   gap: 10px;
  }
 }
