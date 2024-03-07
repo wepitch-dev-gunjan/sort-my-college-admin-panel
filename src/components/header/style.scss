@@ -6,7 +6,10 @@
   padding: 16px;
   border-bottom: 1px solid #8686863f;
   background-color: var(--primary-light);
+    //edited
+    // flex-wrap: wrap;
   .leftSide {
+   // max-width: 30%;
     img {
       height: 52px;
     }
