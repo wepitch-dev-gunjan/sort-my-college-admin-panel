@@ -1,4 +1,4 @@
-const NODE_ENV = "dev";
+const NODE_ENV = "production";
 
 module.exports = {
   frontend_url:
@@ -7,7 +7,7 @@ module.exports = {
       : "http://localhost:3000/",
   backend_url:
     NODE_ENV === "production"
-      ? "https://server.sortmycollege.com"
+      ? "https://sortmycollegeapp.com"
       : "http://localhost:9000",
   ZOOM_CLIENT_ID:
     NODE_ENV === "production"
