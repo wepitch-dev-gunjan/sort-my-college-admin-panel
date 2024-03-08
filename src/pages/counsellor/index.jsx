@@ -4,7 +4,8 @@ import { useContext, useEffect } from 'react';
 import { CounsellorContext } from "../../context/CounsellorContext";
 import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
-import { backend_url } from "../../config";
+import config from '@/config';
+const { backend_url } = config;
 
 const Counsellor = () => {
 

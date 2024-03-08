@@ -2,13 +2,14 @@ import React, { useContext, useRef, useState } from "react";
 import axios from "axios";
 import "./style.scss";
 import { AdminContext } from "../../context/AdminContext";
-import { backend_url } from "../../config";
+import config from '@/config';
 import useClickOutside from "../../customHooks/useClickOutside";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { WebinarContext } from "../../context/WebinarContext";
 import { ImSpinner8 } from "react-icons/im";
+const { backend_url } = config;
 
 const AddWebinar = ({ setWebinars, setAddMode }) => {
   const Ref = useRef(null);

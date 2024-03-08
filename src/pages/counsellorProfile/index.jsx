@@ -12,7 +12,7 @@ import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { backend_url } from "../../config";
+import { backend_url } from "../../config.dfsdf";
 import { AdminContext } from "../../context/AdminContext";
 import { useParams } from "react-router-dom";
 

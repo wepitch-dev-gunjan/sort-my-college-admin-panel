@@ -1,9 +1,10 @@
 import { toast } from 'react-toastify';
 import './style.scss';
 import { MdDelete } from "react-icons/md";
-import { backend_url } from '../../../config';
+import config from '@/config';
 import axios from 'axios';
 import { formatDate } from '../../../utilities';
+const { backend_url } = config;
 
 const Banner = ({ banner, deleteCallBack }) => {
   const handleDelete = async () => {

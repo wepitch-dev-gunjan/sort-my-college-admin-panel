@@ -3,7 +3,8 @@ import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./style.scss";
 import Logo from "../../assets/logo.svg";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
-import { backend_url } from "../../config";
+import config from '@/config';
+const { backend_url } = config;
 
 const Login = () => {
   const [isLoadingLogin, setIsLoadingLogin] = useState(false);

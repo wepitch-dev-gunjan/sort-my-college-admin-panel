@@ -3,11 +3,12 @@ import AvatarEditor from 'react-avatar-editor';
 import './style.scss';
 import { ProfileContext } from '../../../context/ProfileContext';
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { backend_url } from '../../../config';
+import config from '@/config';
 import { AdminContext } from '../../../context/AdminContext';
 import { dataURLtoFile } from '../../../utilities'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+const { backend_url } = config;
 
 const AddProfilePic = forwardRef((props, ref) => {
   const [image, setImage] = useState(null);

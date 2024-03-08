@@ -2,12 +2,13 @@ import React, { useState, useRef, useContext, forwardRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import './style.scss';
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { backend_url } from '../../../config';
+import config from '@/config';
 import { AdminContext } from '../../../context/AdminContext';
 import { compressImage, dataURLtoFile } from '../../../utilities'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { BannerContext } from '../../../context/BannerContext';
+const { backend_url } = config;
 
 const AddBanner = forwardRef((props, ref) => {
   const { setBanners } = useContext(BannerContext)

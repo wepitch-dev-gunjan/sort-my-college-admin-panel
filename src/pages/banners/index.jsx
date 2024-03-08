@@ -1,11 +1,12 @@
 import { toast } from 'react-toastify';
 import './style.scss';
-import { backend_url } from '../../config';
+import config from '@/config';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import Banner from './banner';
 import AddBannerButton from './addBannerButton';
 import { BannerContext } from '../../context/BannerContext';
+const { backend_url } = config;
 
 const Banners = () => {
   const { banners, setBanners, setAddBannerMode } = useContext(BannerContext);

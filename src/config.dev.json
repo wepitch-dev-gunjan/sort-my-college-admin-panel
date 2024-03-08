@@ -1,0 +1,7 @@
+{
+  "frontend_url": "http://localhost:3000",
+  "backend_url": "http://localhost:9000",
+  "ZOOM_CLIENT_ID": "splqFa5rT6OuIYV0YRTcxg",
+  "ZOOM_CLIENT_SECRET": "zqn8jZNLogibXPbMk0XjUQll2521jEXl",
+  "REDIRECT_URI": "http://localhost:3000"
+}

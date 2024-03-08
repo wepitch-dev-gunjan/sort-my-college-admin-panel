@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { AdminContext } from "./AdminContext";
 import axios from "axios";
-import { backend_url } from "../config";
+import config from '@/config';
+const { backend_url } = config;
 
 export const NotificationContext = createContext();
 

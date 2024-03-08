@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AdminContext } from "./AdminContext";
 import axios from "axios";
-import { backend_url } from "../config";
+import { backend_url } from "../config.dfsdf";
 
 export const ProfileContext = createContext();
 

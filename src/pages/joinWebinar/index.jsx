@@ -4,9 +4,10 @@ import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { AdminContext } from '../../context/AdminContext';
-import { backend_url } from '../../config';
+import config from '@/config';
 import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded';
 import { Helmet } from 'react-helmet';
+const { backend_url } = config;
 
 const JoinWebinar = ({ meetingNumber, passWord }) => {
   const { admin } = useContext(AdminContext);
