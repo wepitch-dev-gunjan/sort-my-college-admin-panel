@@ -40,7 +40,7 @@ const Counsellor = () => {
   useEffect(() => {
     if (admin.token)
       getCounsellors()
-  }, [admin])
+  }, [])
   const { counsellors, setCounsellors } = useContext(CounsellorContext);
   return (
     <div className="Counsellors-container">
