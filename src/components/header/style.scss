@@ -7,11 +7,15 @@
   border-bottom: 1px solid #8686863f;
   background-color: var(--primary-light);
     //edited
-    // flex-wrap: wrap;
+    flex-wrap: wrap;
   .leftSide {
-   // max-width: 30%;
+   max-width: 30%;
     img {
-      height: 52px;
+      // height: 52px;
+      width: 100%;
+      height: auto;
+      // edited
+      flex: 1;
     }
   }
   .rightSide {
@@ -19,5 +23,8 @@
     gap: 20px;
     align-items: center;
     border: none;
+     // edited
+     flex: 1;
+     justify-content: flex-end;
   }
 }

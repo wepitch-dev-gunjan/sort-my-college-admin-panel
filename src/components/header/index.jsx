@@ -7,6 +7,7 @@ import { NotificationContext } from "../../context/NotificationContext";
 import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
 import AddWebinarButton from "../buttons/addWebinarButton";
+import { MediaQueryContext } from "../../context/MediaQueryContext";
 
 const Header = ({ handleLogout }) => {
   const notificationRef = useRef(null);
@@ -15,20 +16,23 @@ const Header = ({ handleLogout }) => {
   })
   const { profile } = useContext(ProfileContext)
   const { setNotificationsEnable } = useContext(NotificationContext);
-
+const { xSmallScreen} =useContext(MediaQueryContext)
   return (
     <div className="header">
       <div className="leftSide">
         <img src={logo} alt="" />
       </div>
       <div className="rightSide">
-        
+        { !xSmallScreen &&
+        <>
       <AddWebinarButton />
 
         <NotificationButton
           ref={notificationRef}
           onClick={() => setNotificationsEnable((prev) => !prev)}
         />
+        </>
+}
         <ProfileDropDownMenu
           name={profile.name}
           image={profile.profile_pic}
