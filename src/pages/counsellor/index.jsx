@@ -5,10 +5,12 @@ import { CounsellorContext } from "../../context/CounsellorContext";
 import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
 import config from '@/config';
+import { useState } from "react";
+import { Button, TextField } from "@mui/material";
+import { BorderAll } from "@mui/icons-material";
 const { backend_url } = config;
 
 const Counsellor = () => {
-
   const updateCounsellorStatus = (counsellorId, newStatus) => {
     // Find the counsellor in the state and update its status
     setCounsellors((prevCounsellors) => {
@@ -18,8 +20,21 @@ const Counsellor = () => {
     });
   };
   const { admin } = useContext(AdminContext)
+  const [filterParams, setFilterParams] = useState({
+    locations_focused: [],
+    degree_focused: [],
+    courses_focused: [],
+  });
 
+  const handleFilterChange = (e) => {
+    setFilterParams({ ...filterParams, [e.target.name]: e.target.value });
+  };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      getCounsellors();
+    }
+  };
   const getCounsellors = async () => {
     try {
       const { data } = await axios.get(`${backend_url}/counsellor/counsellor-for-admin`,
@@ -27,7 +42,8 @@ const Counsellor = () => {
         {
           headers: {
             Authorization: admin.token
-          }
+          },
+          params: filterParams,
         }
       )
       setCounsellors(data);
@@ -41,8 +57,49 @@ const Counsellor = () => {
       getCounsellors()
   }, [admin])
   const { counsellors, setCounsellors } = useContext(CounsellorContext);
+
   return (
     <div className="Counsellors-container">
+        <div className="filters" style={{display:"flex",gap:"20px",  justifyContent:"center", padding:"20px", borderBottom:"1px solid black", marginBottom:"10px"}}>
+        <TextField
+        label="Location"
+        sx={{height:"50px" }}
+        variant="outlined"
+          type="text"
+          name="locations_focused"
+          placeholder="Locations Name"
+          value={filterParams.locations_focused}
+          onChange={handleFilterChange}
+          onKeyDown={handleKeyPress}
+        />
+        <TextField
+        sx={{marginRight:"10px",marginLeft:"10"}}
+        margin="20px"
+        label="Degree"
+        variant="outlined"
+          type="text"
+          name="degree_focused"
+          placeholder="Degree Name"
+          value={filterParams.degree_focused}
+          onChange={handleFilterChange}
+          onKeyDown={handleKeyPress}
+        />
+        <TextField
+        label="Courses"
+        variant="outlined"
+          type="text"
+          name="courses_focused"
+          placeholder="Courses Name"
+          value={filterParams.courses_focused}
+          onChange={handleFilterChange}
+          onKeyDown={handleKeyPress}
+        />
+        {/* <button onClick={getCounsellors}>Apply Filters</button> */}
+        <Button onClick={getCounsellors} 
+        sx={{height:"55 px" }}
+        variant="contained">Apply Filters</Button>
+      </div>
+       
       <div className="heading sticky">
         <div className="row">
           <div className="col"><h4>IMAGE</h4></div>

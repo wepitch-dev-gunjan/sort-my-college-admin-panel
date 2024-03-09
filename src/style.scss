@@ -113,8 +113,10 @@ input {
   .breadcrumb-main {
     display: flex;
     padding: 8px;
+    
   }
   .main-content {
+    overflow: auto;
     display: flex;
     flex-direction: column;
     height: calc(100vh - 98px);
