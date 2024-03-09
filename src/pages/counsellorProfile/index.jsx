@@ -24,7 +24,6 @@ const CounsellorProfile = () => {
 
   const getCounsellor = async () => {
     try {
-      console.log(admin.token)
       const { data } = await axios.get(`${backend_url}/counsellor/${counsellor_id}/counsellor-for-admin`,
         // null,
         {
@@ -33,7 +32,6 @@ const CounsellorProfile = () => {
           }
         }
       )
-      console.log('data : ' + data)
       setProfile(data);
     } catch (error) {
       console.log(error);

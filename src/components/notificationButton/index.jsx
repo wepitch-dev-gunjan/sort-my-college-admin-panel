@@ -8,7 +8,6 @@ const NotificationButton = ({ onClick }) => {
   const unreadNotifications = notifications.filter(
     (notification) => !notification.read
   ).length;
-  console.log(unreadNotifications);
   return (
     <Tooltip
       title={

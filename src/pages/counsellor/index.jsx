@@ -30,7 +30,6 @@ const Counsellor = () => {
           }
         }
       )
-      console.log(data)
       setCounsellors(data);
     } catch (error) {
       console.log(error);
