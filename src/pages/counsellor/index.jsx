@@ -11,8 +11,6 @@ import { BorderAll } from "@mui/icons-material";
 const { backend_url } = config;
 
 const Counsellor = () => {
-
-
   const updateCounsellorStatus = (counsellorId, newStatus) => {
     // Find the counsellor in the state and update its status
     setCounsellors((prevCounsellors) => {
@@ -37,8 +35,6 @@ const Counsellor = () => {
       getCounsellors();
     }
   };
-
-
   const getCounsellors = async () => {
     try {
       const { data } = await axios.get(`${backend_url}/counsellor/counsellor-for-admin`,
@@ -63,12 +59,12 @@ const Counsellor = () => {
   }, [admin])
   const { counsellors, setCounsellors } = useContext(CounsellorContext);
 
- 
   return (
     <div className="Counsellors-container">
-        <div className="filters" style={{display:"flex", justifyContent:"center", padding:"20px", borderBottom:"1px solid black", marginBottom:"10px"}}>
+        <div className="filters" style={{display:"flex",gap:"20px",  justifyContent:"center", padding:"20px", borderBottom:"1px solid black", marginBottom:"10px"}}>
         <TextField
         label="Location"
+        sx={{height:"50px" }}
         variant="outlined"
           type="text"
           name="locations_focused"
@@ -78,8 +74,8 @@ const Counsellor = () => {
           onKeyDown={handleKeyPress}
         />
         <TextField
-        sx={{marginRight:"10px",marginLeft:"10px"}}
-
+        sx={{marginRight:"10px",marginLeft:"10"}}
+        margin="20px"
         label="Degree"
         variant="outlined"
           type="text"
@@ -100,7 +96,9 @@ const Counsellor = () => {
           onKeyDown={handleKeyPress}
         />
         {/* <button onClick={getCounsellors}>Apply Filters</button> */}
-        <Button onClick={getCounsellors} variant="contained">Apply Filters</Button>
+        <Button onClick={getCounsellors} 
+        sx={{height:"55 px" }}
+        variant="contained">Apply Filters</Button>
       </div>
        
       <div className="heading sticky">
