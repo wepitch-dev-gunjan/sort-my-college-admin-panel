@@ -9,8 +9,8 @@ const { backend_url } = config;
 
 
 const Payment = () => {
-  const {admin}=useContext(AdminContext)
-  const [payments,setPayments]=useState([])
+  const { admin } = useContext(AdminContext)
+  const [payments, setPayments] = useState([])
   // const [payments, setPayments] = useState([
   //   {
   //     id: '12354',
@@ -104,25 +104,24 @@ const Payment = () => {
   //     status: 'Delivered'
   //   }
   // ]);
-  const FetchData = async ()=>{
+  const FetchData = async () => {
     try {
-      let {data} = await axios.get(`${backend_url}/admin/payments/create-payment`,{
+      let { data } = await axios.get(`${backend_url}/admin/payments/create-payment`, {
         headers: {
           Authorization: admin.token
         }
       }
       )
-      console.log(data);
       setPayments(data)
-      
+
     } catch (error) {
-      console.log(error ,"sdsdfdfsdfsd");
-      
+      console.log(error, "sdsdfdfsdfsd");
+
     }
   }
   useEffect(() => {
     if (admin.token)
-    FetchData()
+      FetchData()
   }, [admin])
 
 
@@ -143,7 +142,7 @@ const Payment = () => {
         <div className="table">
           {payments.map((payment, i) => (
             <div className='row' key={i}>
-              <div className='col'>{i+1}</div>
+              <div className='col'>{i + 1}</div>
               <div className='col'>{payment.description}</div>
               <div className='col'>{payment.created_at}</div>
               <div className='col'>{payment.amount}</div>
