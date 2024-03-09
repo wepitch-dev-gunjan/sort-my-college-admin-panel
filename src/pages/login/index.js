@@ -285,7 +285,7 @@ const Login = () => {
             </div>
           )}
 
-          {!signUpEnable && !forgotPasswordEnable && (
+          {/* {!signUpEnable && !forgotPasswordEnable && (
             <button
               className="Google-login-button"
               onClick={handleGoogleLogin}
@@ -294,7 +294,7 @@ const Login = () => {
               <FaGoogle className="Google-icon" />
               {isLoadingLoginGoogle ? "Logging in..." : "Login with Google"}
             </button>
-          )}
+          )} */}
           {!signUpEnable && !forgotPasswordEnable && <p className="or">Or</p>}
           {!signUpEnable && !forgotPasswordEnable && <hr />}
         </div>
