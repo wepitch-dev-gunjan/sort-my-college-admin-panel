@@ -3,7 +3,10 @@ import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./style.scss";
 import Logo from "../../assets/logo.svg";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
-import config from '@/config';
+import config from "@/config";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const { backend_url } = config;
 
 const Login = () => {
@@ -19,6 +22,7 @@ const Login = () => {
   const [nameError, setNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const navigate = useNavigate();
 
   const handleGoogleLogin = () => {
     setIsLoadingLoginGoogle(true);
@@ -29,13 +33,13 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const validateLoginFields = () => {
-    if (!email || !password) {
-      alert("Email and password are required.");
-      return false;
-    }
-    return true;
-  };
+  // const validateLoginFields = () => {
+  //   if (!email || !password) {
+  //     alert("Email and password are required.");
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   const validateSignUpFields = () => {
     let isValid = true;
@@ -64,13 +68,23 @@ const Login = () => {
       setPasswordError(null);
     }
 
-
     return isValid;
   };
 
-  const handleLogin = () => {
-    if (validateLoginFields()) {
+  const handleLogin = async () => {
+    let payload = { username: email, password };
+    try {
       setIsLoadingLogin(true);
+      const { data } = await axios.post(`${backend_url}/admin/login`, payload);
+      toast(data.message);
+      localStorage.setItem("token", data.token);
+      navigate("/");
+      setIsLoadingLogin(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoadingLogin(false);
+    }
+    if (true) {
       // Perform login action
     }
   };
@@ -82,15 +96,15 @@ const Login = () => {
     }
   };
 
-  const handleEmailBlur = () => {
-    if (!email) {
-      setEmailError("Email is required.");
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setEmailError("Invalid email format.");
-    } else {
-      setEmailError(null);
-    }
-  };
+  // const handleEmailBlur = () => {
+  //   if (!email) {
+  //     setEmailError("Email is required.");
+  //   } else if (!/\S+@\S+\.\S+/.test(email)) {
+  //     setEmailError("Invalid email format.");
+  //   } else {
+  //     setEmailError(null);
+  //   }
+  // };
 
   return (
     <div className="container">
@@ -112,11 +126,11 @@ const Login = () => {
                   setPassword(e.target.value);
                   setPasswordError(null);
                 }}
-                onBlur={() =>
-                  !password && setPasswordError("New password is required.")
-                }
-                error={!!passwordError}
-                helperText={passwordError}
+                // onBlur={() =>
+                //   !password && setPasswordError("New password is required.")
+                // }
+                // error={!!passwordError}
+                // helperText={passwordError}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -192,7 +206,7 @@ const Login = () => {
                 setEmail(e.target.value);
                 setEmailError(null);
               }}
-              onBlur={handleEmailBlur}
+              // onBlur={handleEmailBlur}
               error={!!emailError}
               helperText={emailError}
             />
