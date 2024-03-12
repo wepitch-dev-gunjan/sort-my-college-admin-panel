@@ -72,7 +72,7 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    let payload = { username: email, password };
+    let payload = { email, password };
     try {
       setIsLoadingLogin(true);
       const { data } = await axios.post(`${backend_url}/admin/login`, payload);
