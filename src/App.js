@@ -66,8 +66,6 @@ function App() {
       {addMode && (
         <div className="add-session-container">
           <AddWebinar
-            webinars={webinars}
-            setWebinars={setWebinars}
             setAddMode={setAddMode}
           />
         </div>

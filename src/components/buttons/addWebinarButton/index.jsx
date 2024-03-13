@@ -17,7 +17,7 @@ const AddWebinarButton = () => {
       <div className='primary-button add-webinar-button'
         onClick={handleClick}
       >
-<h5>Add Webinar</h5>
+        <h5>Add Webinar</h5>
       </div>
     </div>
   );

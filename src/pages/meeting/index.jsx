@@ -48,6 +48,7 @@ const Meeting = () => {
     ZoomMtg.init({
       leaveUrl: leaveUrl,
       patchJsMedia: true,
+      isSupportAV: true,
       success: (success) => {
         console.log(success)
 
