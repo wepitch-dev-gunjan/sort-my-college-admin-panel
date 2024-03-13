@@ -12,9 +12,9 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
       date_of_birth: formatDate(date),
     }));
   };
-
+  console.log(profile);
   const formatDate = (date) => {
-    return dayjs(date).format('YYYY-MM-DD');
+    return dayjs(date).format("YYYY-MM-DD");
   };
 
   return (
@@ -29,20 +29,22 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
               <p>Email</p>
             </div>
             <div className="info-value">
-              {editProfileEnable ? (
+              {/* {editProfileEnable ? (
                 <input
                   type="text"
                   value={profile.email}
-                  onChange={(e) => handleInput("email", e.target.value, setProfile)}
+                  onChange={(e) =>
+                    handleInput("email", e.target.value, setProfile)
+                  }
                 />
               ) : (
-                <p>{profile.email}</p>
-              )}
+              )} */}
+              <p>{profile.email}</p>
             </div>
           </div>
         </div>
 
-        <div className="row">
+        {/* <div className="row">
           <div className="col">
             <div className="info-field">
               <p>Gender</p>
@@ -88,7 +90,7 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row">
           <div className="col">
@@ -97,7 +99,8 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
             </div>
             <div className="info-value">
               {editProfileEnable ? (
-                <DatePicker label="Date of birth"
+                <DatePicker
+                  label="Date of birth"
                   defaultValue={dayjs(profile.date_of_birth)}
                   onChange={(date) => handleDateChange(date)}
                 />
@@ -108,7 +111,7 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

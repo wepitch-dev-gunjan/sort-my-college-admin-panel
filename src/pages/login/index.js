@@ -33,23 +33,16 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  // const validateLoginFields = () => {
-  //   if (!email || !password) {
-  //     alert("Email and password are required.");
-  //     return false;
-  //   }
-  //   return true;
-  // };
+  const validateLoginFields = () => {
+    if (!email || !password) {
+      alert("Email and password are required.");
+      return false;
+    }
+    return true;
+  };
 
   const validateSignUpFields = () => {
     let isValid = true;
-
-    if (!name) {
-      setNameError("Name is required.");
-      isValid = false;
-    } else {
-      setNameError(null);
-    }
 
     if (!email) {
       setEmailError("Email is required.");
@@ -95,15 +88,15 @@ const Login = () => {
     }
   };
 
-  // const handleEmailBlur = () => {
-  //   if (!email) {
-  //     setEmailError("Email is required.");
-  //   } else if (!/\S+@\S+\.\S+/.test(email)) {
-  //     setEmailError("Invalid email format.");
-  //   } else {
-  //     setEmailError(null);
-  //   }
-  // };s
+  const handleEmailBlur = () => {
+    if (!email) {
+      setEmailError("Email is required.");
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Invalid email format.");
+    } else {
+      setEmailError(null);
+    }
+  };
   return (
     <div className="container">
       <div className="Login-container">
@@ -124,11 +117,11 @@ const Login = () => {
                   setPassword(e.target.value);
                   setPasswordError(null);
                 }}
-                // onBlur={() =>
-                //   !password && setPasswordError("New password is required.")
-                // }
-                // error={!!passwordError}
-                // helperText={passwordError}
+                onBlur={() =>
+                  !password && setPasswordError("New password is required.")
+                }
+                error={!!passwordError}
+                helperText={passwordError}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -177,7 +170,7 @@ const Login = () => {
               />
             </>
           )}
-          {signUpEnable && (
+          {/* {signUpEnable && (
             <>
               <TextField
                 id="outlined-basic"
@@ -193,7 +186,7 @@ const Login = () => {
                 helperText={nameError}
               />
             </>
-          )}
+          )} */}
           {!forgotPasswordEnable && (
             <TextField
               id="outlined-basic"
@@ -204,7 +197,7 @@ const Login = () => {
                 setEmail(e.target.value);
                 setEmailError(null);
               }}
-              // onBlur={handleEmailBlur}
+              onBlur={handleEmailBlur}
               error={!!emailError}
               helperText={emailError}
             />
@@ -252,7 +245,7 @@ const Login = () => {
               </button>
             </div>
           )}
-          {signUpEnable && (
+          {/* {signUpEnable && (
             <div className="buttons">
               <button
                 className="Google-login-button"
@@ -262,7 +255,7 @@ const Login = () => {
                 {isLoadingSignup ? "Signing up..." : "Sign Up"}
               </button>
             </div>
-          )}
+          )} */}
           {(signUpEnable || forgotPasswordEnable) && (
             <div className="buttons">
               <button
@@ -307,10 +300,10 @@ const Login = () => {
               {isLoadingLoginGoogle ? "Logging in..." : "Login with Google"}
             </button>
           )} */}
-          {!signUpEnable && !forgotPasswordEnable && <p className="or">Or</p>}
-          {!signUpEnable && !forgotPasswordEnable && <hr />}
+          {/* {!signUpEnable && !forgotPasswordEnable && <p className="or">Or</p>}
+          {!signUpEnable && !forgotPasswordEnable && <hr />} */}
         </div>
-        {!signUpEnable && !forgotPasswordEnable && (
+        {/* {!signUpEnable && !forgotPasswordEnable && (
           <>
             <p>
               {`Don't have an account? `}
@@ -319,7 +312,7 @@ const Login = () => {
               </span>
             </p>
           </>
-        )}
+        )} */}
       </div>
     </div>
   );
