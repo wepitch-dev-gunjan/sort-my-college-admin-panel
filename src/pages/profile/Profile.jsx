@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import ProfilePic from "../../components/profilePic";
 import BasicInfo from "../../components/basicInfo";
 import { ProfileContext } from "../../context/ProfileContext";
-import config from '@/config';
+import config from "@/config";
 import axios from "axios";
 import { handleInput } from "../../utilities";
 
@@ -19,7 +19,6 @@ const Profile = () => {
   const { editProfileEnable, setEditProfileEnable } =
     useContext(ProfileContext);
 
-
   // Function to handle saving changes
   const handleSave = async () => {
     try {
@@ -27,15 +26,18 @@ const Profile = () => {
 
       const response = await axios.put(endpointUrl, profile, {
         headers: {
-          Authorization: admin.token
-        }
+          Authorization: admin.token,
+        },
       });
+      console.log(response);
+
       setProfile(response.data);
       setInitialUserProfileBackup(response.data);
       setEditProfileEnable(false);
-      toast('Profile successfully saved');
+      toast("Profile successfully saved");
     } catch (error) {
-      toast(error.message)
+      console.log("catch block");
+      toast(error.message);
       console.error("Error while saving:", error);
     }
   };
@@ -45,6 +47,7 @@ const Profile = () => {
     setProfile(initialUserProfileBackup);
     setEditProfileEnable(false);
   };
+  console.log(profile);
 
   return (
     <div className="Profile-container">
@@ -69,7 +72,9 @@ const Profile = () => {
               <input
                 type="text"
                 value={profile.name}
-                onChange={(e) => handleInput("name", e.target.value, setProfile)}
+                onChange={(e) =>
+                  handleInput("name", e.target.value, setProfile)
+                }
               />
             ) : (
               <h1>{profile.name}</h1>
