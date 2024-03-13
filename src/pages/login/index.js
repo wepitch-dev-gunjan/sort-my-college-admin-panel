@@ -70,7 +70,6 @@ const Login = () => {
 
     return isValid;
   };
-
   const handleLogin = async () => {
     let payload = { email, password };
     try {
@@ -104,8 +103,7 @@ const Login = () => {
   //   } else {
   //     setEmailError(null);
   //   }
-  // };
-
+  // };s
   return (
     <div className="container">
       <div className="Login-container">
