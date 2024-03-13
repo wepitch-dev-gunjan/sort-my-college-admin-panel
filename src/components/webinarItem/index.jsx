@@ -5,18 +5,35 @@ import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import "./style.scss";
 import { MdDateRange } from "react-icons/md";
 import { AdminContext } from '../../context/AdminContext';
-import { backend_url } from '../../config';
+import config from '@/config';
 import useClickOutside from '../../customHooks/useClickOutside';
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
 import { Divider } from '@mui/material';
+import { goodDateFormat } from '../../utilities';
+import { useNavigate } from 'react-router-dom';
+const { backend_url } = config;
 
-const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
+const WebinarItem = ({
+  webinar_id,
+  webinar_start_url,
+  webinar_title,
+  webinar_password,
+  webinar_by,
+  webinar_details,
+  webinar_date,
+  registered_participants,
+  atteded_participants,
+  webinar_available_slots,
+  webinar_image
+}) => {
   const menuRef = useRef(null)
   const { admin } = useContext(AdminContext);
   const [showMenu, setShowMenu] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [webinarDetails, setWebinarDetails] = useState(webinar);
+  const [webinarDetails, setWebinarDetails] = useState();
+
+  const navigate = useNavigate();
 
   useClickOutside(menuRef, () => {
     setShowMenu(false);
@@ -26,158 +43,54 @@ const WebinarCard = ({ webinar, setWebinars, getResponse }) => {
     return dayjs(date).format('YYYY-MM-DD');
   };
 
-  const goodDateFormat = (inputDate) => {
-    const months = [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ];
-
-    const [year, month, day] = inputDate.split('-');
-    const monthIndex = parseInt(month, 10) - 1;
-
-    return `${parseInt(day, 10)} ${months[monthIndex]} ${year}`;
-  }
-
-  const handleSave = async () => {
-    try {
-      const response = await axios.put(`${backend_url}/webinars/${webinarDetails._id}`, webinarDetails, {
-        headers: {
-          Authorization: admin.token
-        }
-      });
-      console.log('Webinar updated successfully', response.data);
-      setEditMode(false);
-      setWebinars(prev => prev.map(item => (item._id === webinarDetails._id ? item : response.data.webinar)));
-      // Perform any state updates or re-fetch the webinar list as needed
-
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
-  };
-
-  const handleCancel = () => {
-    setWebinarDetails(webinar);
-    setEditMode(false);
-  };
-
   const handleJoinNow = () => {
-    if (webinar.webinar_link) {
-      window.open(webinar.webinar_link, '_blank');
+    if (webinar_start_url) {
+      window.open(webinar_start_url, '_blank');
     }
   };
 
   const handleDelete = async () => {
     try {
       // Send an axios request to the server to delete the webinar
-      const { data } = await axios.delete(`${backend_url}/counsellor/webinars /${webinar._id}`, {
+      const { data } = await axios.delete(`${backend_url}/admin/webinar/${webinar_id}`, {
         headers: {
           Authorization: admin.token
         }
       });
       toast(data.message);
-      getResponse();
     } catch (error) {
       toast(error.message);
       console.error('An error occurred:', error);
     }
-  };
-
-  console.log(webinarDetails.webinar_thumbnail)
+  }
   return (
     <div className="WebinarCard-container">
-      {/* {<div ref={menuRef} className={${showMenu && 'display-active'} drop-down-menu}>
-        <div onClick={() => setEditMode(true)} className="menu-item">
-          <AiOutlineEdit />
-          <span>Edit</span>
+      <div className='webinar-container'>
+        <div className="webinar-top">
+          <img src={webinar_image} alt="this is an image of webinar" />
         </div>
-        <div onClick={handleDelete} className="menu-item">
-          <AiOutlineDelete />
-          <span>Delete</span>
-        </div>
-      </div>} */}
-      {editMode ? (
-        <div className="edit-mode-container">
-          <tr>
-            <td>Date:</td>
-            <td>
-              <input
-                type="date"
-                value={webinarDetails.webinar_date}
-                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_date: formatDate(e.target.value) })}
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Time:</td>
-            <td>
-              <input
-                type="time"
-                value={webinarDetails.webinar_time}
-                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_time: e.target.value })}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Fees:</td>
-            <td>
-              <input
-                type="number"
-                value={webinarDetails.webinar_fee}
-                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_fee: e.target.value })}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Available Slots:</td>
-            <td>
-              <input
-                type="number"
-                value={webinarDetails.webinar_available_slots}
-                onChange={(e) => setWebinarDetails({ ...webinarDetails, webinar_available_slots: e.target.value })}
-              />
-            </td>
-          </tr>
-          <div className="edit-mode-bottom">
-            <button onClick={handleSave} type="submit">
-              Save
-            </button>
-            <button type="button" onClick={handleCancel}>
-              Cancel
-            </button>
+        <div className="webinar-mid">
+          <h2>{webinar_title}</h2>
+          <div className='row'>
+            <div className="col date"><MdDateRange /></div>
+            <div className='col date'>{goodDateFormat(formatDate(webinar_date))}</div>
+          </div>
+          <div className='row'>
+            <div className='col'>{webinar_date}</div>
+          </div>
+
+          <div className='row'>
+            <div className='col'>{webinar_available_slots}</div>
           </div>
         </div>
-      ) : (
-        <div className='webinar-container'>
-          <div className="webinar-top">
-            <img src={webinarDetails.webinar_thumbnail} alt="this is an image of webinar" />
-          </div>
-          <div className="webinar-mid">
-            <h2>{webinarDetails.webinar_title}</h2>
-            <div className='row'>
-              <div className="col date"><MdDateRange /></div>
-              <div className='col date'>{goodDateFormat(formatDate(webinar.webinar_date))}</div>
-            </div>
-            <div className='row'>
-              <div className='col'>{webinar.webinar_time}</div>
-            </div>
-            <div className='row'>
-              <div className='col'>{webinar.webinar_fee}</div>
-              <span>₹</span>
-            </div>
-            <div className='row'>
-              <div className='col'>{webinar.webinar_available_slots}</div>
-            </div>
-          </div>
-          <Divider />
-          <div className="webinar-bottom">
-            <div className='button' onClick={handleJoinNow}>Join Now</div>
-            <div className='button' onClick={handleJoinNow}>View detials</div>
-          </div>
+        <Divider />
+        <div className="webinar-bottom">
+          <div className='button' onClick={handleJoinNow}>Join Now</div>
+          <div className='button' onClick={() => navigate(`/webinar/${webinar_id}`)}>View detials</div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
-export default WebinarCard;
+export default WebinarItem;

@@ -31,6 +31,7 @@ import Banners from "./pages/banners";
 import AddBanner from "./pages/banners/addBanner";
 import { BannerContext } from "./context/BannerContext";
 import UserDetails from "./pages/userDetails";
+import Webinar from "./pages/webinar";
 
 function App() {
   const addProfilePicRef = useRef(null);
@@ -115,10 +116,7 @@ function App() {
                 <Route
                   path="/webinar"
                   element={
-                    <JoinWebinar
-                      meetingNumber="88403551733"
-                      passWord="E3C5Cz"
-                    />
+                    <Webinar />
                   }
                 />
                 {/* <Route path="/webinar" element={<Webinar />} /> */}
