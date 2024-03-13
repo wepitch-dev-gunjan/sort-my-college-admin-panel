@@ -12,48 +12,50 @@ import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { backend_url } from "../../config.dfsdf";
+import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { useParams } from "react-router-dom";
-
+const { backend_url } = config;
 
 const CounsellorProfile = () => {
-  const { admin } = useContext(AdminContext)
-  const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } = useContext(ProfileContext)
+  const { admin } = useContext(AdminContext);
+  const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
+    useContext(ProfileContext);
   const { counsellor_id } = useParams();
 
   const getCounsellor = async () => {
     try {
-      const { data } = await axios.get(`${backend_url}/counsellor/${counsellor_id}/counsellor-for-admin`,
+      const { data } = await axios.get(
+        `${backend_url}/counsellor/${counsellor_id}/counsellor-for-admin`,
         // null,
         {
           headers: {
-            Authorization: admin.token
-          }
+            Authorization: admin.token,
+          },
         }
-      )
+      );
       setProfile(data);
     } catch (error) {
       console.log(error);
-      toast(error.message)
+      toast(error.message);
     }
-  }
+  };
 
   const [profile, setProfile] = useState({
-    name: 'abc',
-    email: 'demo@gmail.com',
-    gender: 'male',
-    date_of_birth: '12-5-2000',
-    experience_in_years: '5',
+    name: "abc",
+    email: "demo@gmail.com",
+    gender: "male",
+    date_of_birth: "12-5-2000",
+    experience_in_years: "5",
     languages_spoken: [],
-    nationality: 'Indian',
-    approach_of_counselling: 'Online',
+    nationality: "Indian",
+    approach_of_counselling: "Online",
     degree_focused: [],
     locations_focused: [],
     courses_focused: [],
-    rating: '5',
-    total_session_attended: '50'
-  })
+    rating: "5",
+    total_session_attended: "50",
+  });
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
   const [cancellationReason, setCancellationReason] = useState("");
@@ -92,7 +94,7 @@ const CounsellorProfile = () => {
   };
 
   const formatDate = (date) => {
-    return dayjs(date).format('YYYY-MM-DD');
+    return dayjs(date).format("YYYY-MM-DD");
   };
 
   const handleRejectClick = () => {
@@ -113,21 +115,25 @@ const CounsellorProfile = () => {
 
   const handleRejectCounsellor = async () => {
     try {
-      const { data } = await axios.put(`${backend_url}/counsellor/${counsellor_id}/reject`, {
-        reason: cancellationReason
-      }, {
-        headers: {
-          Authorization: admin.token
+      const { data } = await axios.put(
+        `${backend_url}/counsellor/${counsellor_id}/reject`,
+        {
+          reason: cancellationReason,
+        },
+        {
+          headers: {
+            Authorization: admin.token,
+          },
         }
-      })
+      );
       setShowReasonDialog(false);
-      setProfile({ ...profile, verified: false })
-      toast(data.message)
+      setProfile({ ...profile, verified: false });
+      toast(data.message);
     } catch (error) {
       console.log(error);
-      toast('Error rejecting counsellor')
+      toast("Error rejecting counsellor");
     }
-  }
+  };
 
   const handleCancelRejection = () => {
     console.log("Reason for rejection:", cancellationReason);
@@ -136,46 +142,50 @@ const CounsellorProfile = () => {
 
   const handleSaveClick = async () => {
     try {
-      const { data } = await axios.put(`${backend_url}/counsellor/${counsellor_id}`, {
-        ...profile
-      }, {
-        headers: {
-          Authorization: admin.token
+      const { data } = await axios.put(
+        `${backend_url}/counsellor/${counsellor_id}`,
+        {
+          ...profile,
+        },
+        {
+          headers: {
+            Authorization: admin.token,
+          },
         }
-      })
+      );
       setEditCounsellorProfileEnable(false);
-      toast('Counsellor successfully updated.');
-
+      toast("Counsellor successfully updated.");
     } catch (error) {
-      console.log('Error updating counsellor : ' + error);
-      toast(error.message)
+      console.log("Error updating counsellor : " + error);
+      toast(error.message);
     }
   };
 
   const handleAccept = async () => {
     try {
-      const response = await axios.put(`${backend_url}/counsellor/${counsellor_id}/verify`,
+      const response = await axios.put(
+        `${backend_url}/counsellor/${counsellor_id}/verify`,
         null,
         {
           headers: {
-            Authorization: admin.token
-          }
-        })
-      setProfile({ ...profile, verified: true })
-      toast('Counsellor verified successfully')
+            Authorization: admin.token,
+          },
+        }
+      );
+      setProfile({ ...profile, verified: true });
+      toast("Counsellor verified successfully");
     } catch (error) {
       console.log(error);
-      toast(error.response.data.error)
+      toast(error.response.data.error);
     }
-  }
+  };
 
   useEffect(() => {
-    getCounsellor()
-  }, [admin])
+    getCounsellor();
+  }, [admin]);
 
   return (
     <div className="CounsellorProfile-container">
-
       <div className="left-profile">
         <div className="info-img">
           <div className="profile-pic">
@@ -196,7 +206,9 @@ const CounsellorProfile = () => {
                     <input
                       type="text"
                       value={profile.name}
-                      onChange={(e) => handleInput("name", e.target.value, setProfile)}
+                      onChange={(e) =>
+                        handleInput("name", e.target.value, setProfile)
+                      }
                     />
                   ) : (
                     <p>{profile.name}</p>
@@ -215,7 +227,9 @@ const CounsellorProfile = () => {
                     <input
                       type="text"
                       value={profile.email}
-                      onChange={(e) => handleInput("email", e.target.value, setProfile)}
+                      onChange={(e) =>
+                        handleInput("email", e.target.value, setProfile)
+                      }
                     />
                   ) : (
                     <p>{profile.email}</p>
@@ -237,7 +251,9 @@ const CounsellorProfile = () => {
                           type="radio"
                           value="Male"
                           checked={profile.gender === "Male"}
-                          onChange={(e) => handleInput("gender", e.target.value, setProfile)}
+                          onChange={(e) =>
+                            handleInput("gender", e.target.value, setProfile)
+                          }
                         />
                         Male
                       </label>
@@ -247,19 +263,28 @@ const CounsellorProfile = () => {
                             type="radio"
                             value="Female"
                             checked={profile.gender === "Female"}
-                            onChange={(e) => handleInput("gender", e.target.value, setProfile)}
+                            onChange={(e) =>
+                              handleInput("gender", e.target.value, setProfile)
+                            }
                           />
                           Female
                         </div>
                       </label>
                       <label>
                         <div className="gender-text">
-                          <span><input
-                            type="radio"
-                            value="Other"
-                            checked={profile.gender === "Other"}
-                            onChange={(e) => handleInput("gender", e.target.value, setProfile)}
-                          />
+                          <span>
+                            <input
+                              type="radio"
+                              value="Other"
+                              checked={profile.gender === "Other"}
+                              onChange={(e) =>
+                                handleInput(
+                                  "gender",
+                                  e.target.value,
+                                  setProfile
+                                )
+                              }
+                            />
                           </span>
                           Other
                         </div>
@@ -279,8 +304,8 @@ const CounsellorProfile = () => {
                 </div>
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
-
-                    <DatePicker label="Date of birth"
+                    <DatePicker
+                      label="Date of birth"
                       defaultValue={dayjs(profile.date_of_birth)}
                       onChange={(date) => handleDateChange(date)}
                     />
@@ -295,7 +320,6 @@ const CounsellorProfile = () => {
 
         <div className="left-profile-bottom">
           <div className="info">
-
             <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -308,7 +332,13 @@ const CounsellorProfile = () => {
                       <input
                         type="text"
                         value={profile.experience_in_years}
-                        onChange={e => handleInput('experience_in_years', e.target.value, setProfile)}
+                        onChange={(e) =>
+                          handleInput(
+                            "experience_in_years",
+                            e.target.value,
+                            setProfile
+                          )
+                        }
                       />
                     </>
                   ) : (
@@ -327,12 +357,15 @@ const CounsellorProfile = () => {
                   {editCounsellorProfileEnable ? (
                     <TagsInput
                       value={profile.languages_spoken}
-                      onChange={(newTags) => setProfile({ ...profile, languages_spoken: newTags })}
+                      onChange={(newTags) =>
+                        setProfile({ ...profile, languages_spoken: newTags })
+                      }
                     />
                   ) : (
                     profile.languages_spoken?.map((language, i) => (
-                      <p key={i}>{`${language}${i < profile.languages_spoken.length - 1 ? "," : ""
-                        }`}</p>
+                      <p key={i}>{`${language}${
+                        i < profile.languages_spoken.length - 1 ? "," : ""
+                      }`}</p>
                     ))
                   )}
                 </div>
@@ -352,7 +385,7 @@ const CounsellorProfile = () => {
                           <input
                             type="radio"
                             value="Indian"
-                            checked={profile.nationality === 'Indian'}
+                            checked={profile.nationality === "Indian"}
                             onChange={handleRadioChange}
                           />
                           Indian
@@ -361,7 +394,7 @@ const CounsellorProfile = () => {
                           <input
                             type="radio"
                             value="Foreign"
-                            checked={profile.nationality === 'Foreign'}
+                            checked={profile.nationality === "Foreign"}
                             onChange={handleRadioChange}
                           />
                           Foreign
@@ -376,7 +409,6 @@ const CounsellorProfile = () => {
             </div>
           </div>
         </div>
-
       </div>
 
       <div className="right-profile">
@@ -385,9 +417,11 @@ const CounsellorProfile = () => {
             <div className="right-profile-buttons">
               <div className="left">
                 <div className="save" onClick={handleSaveClick}>
-                  Save</div>
+                  Save
+                </div>
                 <div className="save" onClick={handleCancelClick}>
-                  Cancel</div>
+                  Cancel
+                </div>
               </div>
               <div className="right">
                 <CounsellorProfileDropdown />
@@ -399,9 +433,13 @@ const CounsellorProfile = () => {
             <div className="right-profile-buttons">
               <div className="left">
                 {!profile.verified && (
-                  <div className="accept" onClick={handleAccept}>Accept</div>
+                  <div className="accept" onClick={handleAccept}>
+                    Accept
+                  </div>
                 )}
-                <div className="reject" onClick={handleRejectClick}>Reject</div>
+                <div className="reject" onClick={handleRejectClick}>
+                  Reject
+                </div>
               </div>
               <div className="right">
                 <CounsellorProfileDropdown />
@@ -422,7 +460,13 @@ const CounsellorProfile = () => {
                     <input
                       type="text"
                       value={profile.approach_of_counselling}
-                      onChange={(e) => handleInput("approach_of_counselling", e.target.value, setProfile)}
+                      onChange={(e) =>
+                        handleInput(
+                          "approach_of_counselling",
+                          e.target.value,
+                          setProfile
+                        )
+                      }
                     />
                   ) : (
                     <p>{profile.approach_of_counselling}</p>
@@ -445,7 +489,12 @@ const CounsellorProfile = () => {
                             type="checkbox"
                             value="UG"
                             checked={profile.degree_focused.includes("UG")}
-                            onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
+                            onChange={(e) =>
+                              handleCheckboxChange(
+                                "degree_focused",
+                                e.target.value
+                              )
+                            }
                           />
                           UG
                         </label>
@@ -454,19 +503,27 @@ const CounsellorProfile = () => {
                             type="checkbox"
                             value="PG"
                             checked={profile.degree_focused.includes("PG")}
-                            onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
+                            onChange={(e) =>
+                              handleCheckboxChange(
+                                "degree_focused",
+                                e.target.value
+                              )
+                            }
                           />
                           PG
                         </label>
                       </div>
                     </>
                   ) : (
-                    <p>{Array.isArray(profile.degree_focused) ? profile.degree_focused.join(", ") : ''}</p>
+                    <p>
+                      {Array.isArray(profile.degree_focused)
+                        ? profile.degree_focused.join(", ")
+                        : ""}
+                    </p>
                   )}
                 </div>
               </div>
             </div>
-
 
             <div className="row">
               <div className="col">
@@ -481,7 +538,12 @@ const CounsellorProfile = () => {
                           type="checkbox"
                           value="India"
                           checked={profile.locations_focused.includes("India")}
-                          onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
+                          onChange={(e) =>
+                            handleLocationCheckboxChange(
+                              "locations_focused",
+                              e.target.value
+                            )
+                          }
                         />
                         India
                       </label>
@@ -490,14 +552,21 @@ const CounsellorProfile = () => {
                           type="checkbox"
                           value="Abroad"
                           checked={profile.locations_focused.includes("Abroad")}
-                          onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
+                          onChange={(e) =>
+                            handleLocationCheckboxChange(
+                              "locations_focused",
+                              e.target.value
+                            )
+                          }
                         />
                         Abroad
                       </label>
                     </div>
                   ) : (
                     profile.locations_focused?.map((location, i) => (
-                      <p key={i}>{`${location}${i < profile.locations_focused.length - 1 ? "," : ""}`}</p>
+                      <p key={i}>{`${location}${
+                        i < profile.locations_focused.length - 1 ? "," : ""
+                      }`}</p>
                     ))
                   )}
                 </div>
@@ -513,11 +582,15 @@ const CounsellorProfile = () => {
                   {editCounsellorProfileEnable ? (
                     <TagsInput
                       value={profile.courses_focused}
-                      onChange={(newTags) => setProfile({ ...profile, courses_focused: newTags })}
+                      onChange={(newTags) =>
+                        setProfile({ ...profile, courses_focused: newTags })
+                      }
                     />
                   ) : (
                     profile.courses_focused?.map((courses_focused, i) => (
-                      <p key={i}>{`${courses_focused}${i < profile.courses_focused.length - 1 ? "," : ""}`}</p>
+                      <p key={i}>{`${courses_focused}${
+                        i < profile.courses_focused.length - 1 ? "," : ""
+                      }`}</p>
                     ))
                   )}
                 </div>
@@ -576,4 +649,4 @@ const CounsellorProfile = () => {
   );
 };
 
-export default CounsellorProfile
+export default CounsellorProfile;

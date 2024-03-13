@@ -47,7 +47,6 @@ const Profile = () => {
     setProfile(initialUserProfileBackup);
     setEditProfileEnable(false);
   };
-  console.log(profile);
 
   return (
     <div className="Profile-container">

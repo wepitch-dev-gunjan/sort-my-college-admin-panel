@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AdminContext } from "./AdminContext";
 import axios from "axios";
-import { backend_url } from "../config.dfsdf";
+import config from "@/config";
+const { backend_url } = config;
 
 export const ProfileContext = createContext();
 
@@ -12,8 +13,8 @@ export const ProfileProvider = ({ children }) => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        `${backend_url}/admin/`,
-        // null,
+        `${backend_url}/admin`,
+        //  null,
         {
           headers: {
             Authorization: admin.token,

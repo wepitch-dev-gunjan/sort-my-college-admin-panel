@@ -12,7 +12,6 @@ const BasicInfo = ({ profile, editProfileEnable, setProfile }) => {
       date_of_birth: formatDate(date),
     }));
   };
-  console.log(profile);
   const formatDate = (date) => {
     return dayjs(date).format("YYYY-MM-DD");
   };
