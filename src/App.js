@@ -33,6 +33,8 @@ import { BannerContext } from "./context/BannerContext";
 import UserDetails from "./pages/userDetails";
 import Webinar from "./pages/webinar";
 
+// import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
+// import QuestionForum from "./pages/questionForum";
 function App() {
   const addProfilePicRef = useRef(null);
   const { admin, setAdmin } = useContext(AdminContext);
@@ -117,6 +119,9 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/help" element={<Help />} />
+                {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
+                {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
+
               </>
             ) : (
               <>

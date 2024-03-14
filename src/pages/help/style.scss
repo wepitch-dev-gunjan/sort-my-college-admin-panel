@@ -1,31 +1,104 @@
-.Help-container {
-  width: 100%;
-  // edited
-  overflow-y: scroll;
-  .help-search {
-    background-color: whitesmoke;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    padding: 10% 5%;
-    // edited
-    h1{
-     font-size:30px ;
-    }
-  }
-  .chat-help {
-    display: flex;
-    position: absolute;
-    height: 60px;
-    width: 60px;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: var(--primary-dark);
-    right: 20px;
-    bottom: 20px;
-  }
+div{
+ h3{
+  text-align: center;
+ }
 }
+
+// .Help-container {
+//  width: 100%;
+//  // edited
+// overflow-y: auto;
+//  .help-search {
+//      display: flex;
+//      flex-direction: column;
+//      justify-content: center;
+//      align-items: center;
+//      gap: 12px;
+//      padding: 10% 5%; /* Adjusted padding for responsiveness */
+
+//      h1 {
+//          font-size: var(--fs-m);
+//      }
+
+//      .input {
+//          display: flex;
+//          justify-content: center;
+//          background-color: white;
+//          align-items: center;
+//          width: 100%;
+//          padding: 12px;
+//          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+//          input {
+//              width: 100%;
+//              padding: 12px;
+//              font-size: var(--fs-sm);
+//          }
+//      }
+//  }
+
+//  .help-section {
+//      display: flex;
+//      flex-wrap: wrap; /* Allow items to wrap to the next row */
+//      justify-content: space-between; /* Distribute items evenly across the container */
+//      padding: 0 5%; /* Adjusted padding for responsiveness */
+//      gap: 24px;
+
+//      .key-feature,
+//      .faq,
+//      .guide {
+//          display: flex;
+//          flex-direction: column;
+//          justify-content: center;
+//          align-items: center;
+//          gap: 24px;
+//          width: calc(33.33% - 16px); /* Adjust width to fit 3 items in a row with gaps */
+//          padding: 5% 0; /* Adjusted padding for responsiveness */
+//          cursor: pointer;
+//          border-radius: 12px;
+//          background-color: white;
+//          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+//          .feature-text {
+//              display: flex;
+//              justify-content: center;
+//              flex-direction: column;
+//              align-items: center;
+//              gap: 4px;
+//          }
+//      }
+//  }
+
+//  .chat-help {
+//      display: flex;
+//      position: fixed;
+//      height: 60px;
+//      width: 60px;
+//      justify-content: center;
+//      align-items: center;
+//      cursor: pointer;
+//      border-radius: 50%;
+//      background-color: var(--primary-dark);
+//      right: 20px;
+//      bottom: 20px;
+//  }
+// // edited
+//  /* Media query for smaller screens */
+//  @media screen and (max-width: 768px) {
+//      .help-search {
+//          padding: 8% 5%; /* Adjusted padding for smaller screens */
+//      }
+
+//      .help-section {
+//          flex-direction: column; /* Display items in a column on smaller screens */
+//          padding: 0 3%; /* Adjusted padding for smaller screens */
+
+//          .key-feature,
+//          .faq,
+//          .guide {
+//              width: 100%; /* Set width to full for single column layout */
+//              padding: 3% 0; /* Adjusted padding for smaller screens */
+//             }
+
+//      }
+//  }
+// }
