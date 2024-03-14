@@ -32,13 +32,10 @@ const Webinar = () => {
 
   const getWebinars = async () => {
     try {
-      const { data } = await axios.get(`${backend_url}/admin/webinar/`, {
-        params: webinarFilters,
-        headers: {
-          Authorization: admin.token
-        }
+      const { data } = await axios.get(`${backend_url}/admin/webinar`, {
+        // params: webinarFilters,
       });
-      console.log(data)
+      console.log('webinars')
       setWebinars(data);
     } catch (error) {
       console.log(error)
@@ -48,7 +45,7 @@ const Webinar = () => {
 
   useEffect(() => {
     getWebinars();
-  }, [webinarFilters]);
+  }, []);
 
   return (
     <>

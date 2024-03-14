@@ -7,14 +7,98 @@
   background-color: #2423231d;
   .main-container {
     background-color: #fff;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    .webinar-image {
-      width: 200px;
-      height: auto;
-      img {
+    gap: 20px;
+    padding: 20px;
+    .overflow-container {
+      overflow-y: auto;
+      height: 500px;
+      .top-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        .webinar-image {
+          position: relative;
+          width: 390px;
+          height: 212px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid #11111134;
+          background-color: #ebebeb;
+          border-radius: 10px;
+          cursor: pointer;
+          &:hover {
+            background-color: #e3e3e3;
+          }
+          .upload-icon {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            flex-direction: column;
+            position: absolute;
+            bottom: 60px;
+          }
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+          }
+        }
+        .left-section {
+          align-items: start;
+          width: 100%;
+        }
+        .right-section {
+          width: 100%;
+        }
+        input {
+          padding: 12px;
+          width: 100%;
+          border: 1px solid #1111111d;
+          &:focus {
+            border-color: #007bff; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+          }
+        }
+        textarea {
+          width: 100%;
+          height: 80px; /* Adjust the height as needed */
+          // border-radius: 8px;
+          border: 1px solid #1111111d; /* Set the border style */
+          padding: 8px; /* Add padding for better appearance */
+          resize: none; /* Allow vertical resizing */
+          &:focus {
+            border-color: #007bff; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+          }
+        }
+
+        /* Optional: Change border color and focus style */
+
+        .webinar-section {
+          display: flex;
+          width: 100%;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      width: 100%;
+      gap: 8px;
+      button {
+        cursor: pointer;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
+        padding: 12px;
+        color: #fff;
+        background-color: var(--primary-color);
       }
     }
   }
