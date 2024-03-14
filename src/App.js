@@ -65,9 +65,7 @@ function App() {
     <div>
       {addMode && (
         <div className="add-session-container">
-          <AddWebinar
-            setAddMode={setAddMode}
-          />
+          <AddWebinar setAddMode={setAddMode} />
         </div>
       )}
       {isLoggedIn && <Header handleLogout={handleLogout} />}
@@ -104,19 +102,17 @@ function App() {
                   element={<PaymentDetails />}
                 />
                 <Route path="/user" element={<User />} />
-                <Route path="/user/user-details" element={<UserDetails />} />
+                <Route
+                  path="/user/user-details/:user_id"
+                  element={<UserDetails />}
+                />
                 <Route path="/counsellors" element={<Counsellor />} />
                 <Route path="/banners" element={<Banners />} />
                 <Route
                   path="/counsellors/counsellor-profile/:counsellor_id"
                   element={<CounsellorProfile />}
                 />
-                <Route
-                  path="/webinar"
-                  element={
-                    <Webinar />
-                  }
-                />
+                <Route path="/webinar" element={<Webinar />} />
                 {/* <Route path="/webinar" element={<Webinar />} /> */}
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
