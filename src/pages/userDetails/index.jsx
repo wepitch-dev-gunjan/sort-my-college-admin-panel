@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.scss";
 import axios from "axios";
 import config from "@/config";
@@ -20,7 +20,9 @@ const UserDetails = () => {
       console.log(error);
     }
   };
-  getSingleUser();
+  useEffect(() => {
+    getSingleUser();
+  }, [user]);
 
   return (
     <div className="UserDetails-container">

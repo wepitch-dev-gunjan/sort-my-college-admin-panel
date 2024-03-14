@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./style.scss";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import config from "@/config";
 const { backend_url } = config;
@@ -16,9 +16,10 @@ const User = () => {
       console.error(" error:", error);
     }
   };
-  const viewUser = (id) => {};
 
-  getUsers();
+  useEffect(() => {
+    getUsers();
+  }, [users]);
 
   return (
     <div className="User-container">
