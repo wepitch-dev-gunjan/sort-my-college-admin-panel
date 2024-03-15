@@ -32,6 +32,7 @@ import AddBanner from "./pages/banners/addBanner";
 import { BannerContext } from "./context/BannerContext";
 import UserDetails from "./pages/userDetails";
 import Webinar from "./pages/webinar";
+import WebinarProfile from "./pages/webinarProfile";
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -114,6 +115,10 @@ function App() {
                   path="/counsellors/counsellor-profile/:counsellor_id"
                   element={<CounsellorProfile />}
                 />
+                <Route
+                  path="/webinar/:webinar_id"
+                  element={<WebinarProfile />}
+                />
                 <Route path="/webinar" element={<Webinar />} />
                 {/* <Route path="/webinar" element={<Webinar />} /> */}
                 <Route path="/profile" element={<Profile />} />
@@ -121,7 +126,6 @@ function App() {
                 <Route path="/help" element={<Help />} />
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
-
               </>
             ) : (
               <>

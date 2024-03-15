@@ -1,7 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
 import axios from "axios";
-import { CiMenuKebab } from "react-icons/ci";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import "./style.scss";
 import { MdDateRange } from "react-icons/md";
 import { AdminContext } from "../../context/AdminContext";
@@ -112,15 +110,8 @@ const WebinarItem = ({
 
         <Divider />
         <div className="webinar-bottom">
-          <div className="button" onClick={handleJoinNow}>
-            Join Now
-          </div>
-          <div
-            className="button"
-            onClick={() => navigate(`/webinar/${webinar_id}`)}
-          >
-            View detials
-          </div>
+          <div className='button' onClick={handleJoinNow}>Join Now</div>
+          <div className='button' onClick={() => navigate(`/webinar/${webinar_id}/`)}>View detials</div>
         </div>
       </div>
     </div>
