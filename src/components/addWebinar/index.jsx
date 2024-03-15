@@ -49,33 +49,47 @@ const AddWebinar = ({ setAddMode }) => {
   }
 
   const [webinarDetails, setWebinarDetails] = useState(initialState);
+  const [imageFile, setImageFile] = useState(null)
 
   useClickOutside(Ref, () => handleCancel());
 
   const handleSubmit = async () => {
     try {
-      setWebinarLoading(true)
-      const response = await axios.post(`${backend_url}/admin/webinar`, webinarDetails, {
+      setWebinarLoading(true);
+
+      const webinarSubmitDetails = {
+        ...webinarDetails,
+        webinar_image: imageFile
+      }
+      // Create FormData object to send all data including the file
+      const formData = new FormData();
+      Object.entries(webinarSubmitDetails).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      const response = await axios.post(`${backend_url}/admin/webinar`, formData, {
         headers: {
+          'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
           Authorization: admin.token
         }
-      }); // Assuming the API endpoint is '/api/webinars' and you are sending the data as JSON
+      });
+
       console.log('Webinar saved:', response.data);
-      // Optionally, you can reset the form here
-      setWebinarLoading(false)
+      setWebinarLoading(false);
       handleCancel();
-      toast.success("Webinar added successfully")
+      toast.success("Webinar added successfully");
     } catch (error) {
       console.error('Error saving webinar:', error);
     }
   };
+
 
   const handleCancel = () => {
     setWebinarDetails(initialState);
     setAddMode(false);
   };
 
-  const handleFileUpload = (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -85,6 +99,7 @@ const AddWebinar = ({ setAddMode }) => {
       });
     };
     reader.readAsDataURL(file);
+    setImageFile(file);
   };
 
   const handleChange = (e) => {
@@ -116,7 +131,7 @@ const AddWebinar = ({ setAddMode }) => {
               id="fileInput"
               accept="image/*"
               style={{ display: "none" }}
-              onChange={handleFileUpload}
+              onChange={handleFileChange}
             />
             <div className="webinar-section">
               <div className="left-section">

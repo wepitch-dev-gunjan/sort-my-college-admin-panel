@@ -35,7 +35,7 @@ const Webinar = () => {
       const { data } = await axios.get(`${backend_url}/admin/webinar`, {
         // params: webinarFilters,
       });
-      console.log('webinars')
+      console.log(data)
       setWebinars(data);
     } catch (error) {
       console.log(error)
@@ -61,7 +61,7 @@ const Webinar = () => {
         </div>
         <div className="webinarContainer">
           <div className="webinarList">
-            {/* {webinars?.map((webinar) => (
+            {webinars?.map((webinar) => (
               <WebinarItem
                 key={webinar._id}
                 webinar_id={webinar._id}
@@ -76,7 +76,7 @@ const Webinar = () => {
                 registered_participants={webinar.registered_participants.length}
                 attended_participants={webinar.attended_participants.length}
               />
-            ))} */}
+            ))}
           </div>
         </div>
       </div>

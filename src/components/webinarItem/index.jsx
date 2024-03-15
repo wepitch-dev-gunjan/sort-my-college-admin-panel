@@ -83,13 +83,15 @@ const WebinarItem = ({
             <div className='col'>{webinar_available_slots}</div>
           </div>
         </div>
+
+
         <Divider />
         <div className="webinar-bottom">
           <div className='button' onClick={handleJoinNow}>Join Now</div>
           <div className='button' onClick={() => navigate(`/webinar/${webinar_id}`)}>View detials</div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
