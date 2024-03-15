@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./style.scss";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import config from "@/config";
 const { backend_url } = config;
@@ -11,7 +11,6 @@ const User = () => {
     try {
       const { data } = await axios.get(`${backend_url}/user/users-for-admin`);
       setUsers(data);
-      console.log("Response data:", data);
     } catch (error) {
       console.error(" error:", error);
     }
