@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import "./style.scss";
 import { AdminContext } from "../../context/AdminContext";
-import config from '@/config';
+import config from "@/config";
 import useClickOutside from "../../customHooks/useClickOutside";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
@@ -34,22 +34,22 @@ const AddWebinar = ({ setAddMode }) => {
     const minutes = Math.ceil(now.getMinutes() / 30) * 30; // Round to nearest 30 minutes
     const currentTime = `${hours}:${minutes.toString().padStart(2, "0")}`;
     return currentTime;
-  }, [])
+  }, []);
 
   const initialState = {
     webinar_image: "",
     webinar_title: `Webinar-${formatDate(getTomorrowDate())} at ${currentTime}`,
-    webinar_details: '',
-    what_will_you_learn: '',
+    webinar_details: "",
+    what_will_you_learn: "",
     webinar_date: formatDate(getTomorrowDate()),
     webinar_time: currentTime,
-    speaker_profile: '',
-    webinar_by: 'Sort My College',
+    speaker_profile: "",
+    webinar_by: "Sort My College",
     webinar_total_slots: 500,
-  }
+  };
 
   const [webinarDetails, setWebinarDetails] = useState(initialState);
-  const [imageFile, setImageFile] = useState(null)
+  const [imageFile, setImageFile] = useState(null);
 
   useClickOutside(Ref, () => handleCancel());
 
@@ -59,30 +59,34 @@ const AddWebinar = ({ setAddMode }) => {
 
       const webinarSubmitDetails = {
         ...webinarDetails,
-        webinar_image: imageFile
-      }
+        webinar_image: imageFile,
+      };
       // Create FormData object to send all data including the file
       const formData = new FormData();
       Object.entries(webinarSubmitDetails).forEach(([key, value]) => {
         formData.append(key, value);
       });
 
-      const response = await axios.post(`${backend_url}/admin/webinar`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
-          Authorization: admin.token
+      const response = await axios.post(
+        `${backend_url}/admin/webinar`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+            Authorization: admin.token,
+          },
         }
-      });
+      );
 
-      console.log('Webinar saved:', response.data);
+      console.log("Webinar saved:", response.data);
       setWebinarLoading(false);
       handleCancel();
       toast.success("Webinar added successfully");
     } catch (error) {
-      console.error('Error saving webinar:', error);
+      setWebinarLoading(false);
+      console.error("Error saving webinar:", error);
     }
   };
-
 
   const handleCancel = () => {
     setWebinarDetails(initialState);
@@ -114,14 +118,16 @@ const AddWebinar = ({ setAddMode }) => {
     <div className="AddWebinar-container">
       <div ref={Ref} className="main-container">
         <div className="overflow-container">
-
           <div className="top-container">
-            <div className="webinar-image" onClick={() => document.getElementById("fileInput").click()}>
+            <div
+              className="webinar-image"
+              onClick={() => document.getElementById("fileInput").click()}
+            >
               {webinarDetails.webinar_image ? (
                 <img src={webinarDetails.webinar_image} alt="Webinar Image" />
               ) : (
                 <div className="upload-icon">
-                  <MdCloudUpload size='50' />
+                  <MdCloudUpload size="50" />
                   <p>Click to Upload Image</p>
                 </div>
               )}
@@ -162,7 +168,9 @@ const AddWebinar = ({ setAddMode }) => {
             </div>
             <div className="webinar-section">
               <div className="left-section">
-                <label htmlFor="what_will_you_learn">What will you learn:</label>
+                <label htmlFor="what_will_you_learn">
+                  What will you learn:
+                </label>
               </div>
               <div className="right-section">
                 <textarea
@@ -235,12 +243,12 @@ const AddWebinar = ({ setAddMode }) => {
               </div>
               <div className="right-section">
                 <input
-                  type="number"  // Change the type to "number"
+                  type="number" // Change the type to "number"
                   id="webinar_total_slots"
                   name="webinar_total_slots"
                   value={webinarDetails.webinar_total_slots}
                   onChange={handleChange}
-                  step="50"  // Set the step value to 50
+                  step="50" // Set the step value to 50
                 />
               </div>
             </div>
@@ -248,7 +256,7 @@ const AddWebinar = ({ setAddMode }) => {
         </div>
         <div className="buttons">
           <button onClick={handleSubmit}>
-            {webinarLoading ? <Spinner /> : 'Save'}
+            {webinarLoading ? <Spinner /> : "Save"}
           </button>
           <button onClick={handleCancel}>Cancel</button>
         </div>
