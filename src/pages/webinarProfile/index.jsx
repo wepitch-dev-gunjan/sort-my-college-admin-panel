@@ -15,13 +15,22 @@ import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { useParams } from "react-router-dom";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 const { backend_url } = config;
 
+
 const WebinarProfile = () => {
+  const menuRef = useRef(null)
   const { admin } = useContext(AdminContext);
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
   const { webinar_id } = useParams();
+  const [showMenu, setShowMenu] = useState(false);
+
+  useClickOutside(menuRef, () => {
+    setShowMenu(false);
+  });
 
   const getWebinar = async () => {
     try {
@@ -42,10 +51,14 @@ const WebinarProfile = () => {
   };
 
   const [profile, setProfile] = useState({
-    name: "abc",
-    email: "demo@gmail.com",
-    gender: "male",
-    degree_focused: [],
+    title: "abc",
+    details: "demo@gmail.com",
+    what_will_you_learn: "male",
+    date: "12 may",
+    time: "5:00am",
+    speaker_profile: "mnm",
+    webinar_by: "nmn",
+    slots: "50"
   });
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
@@ -93,10 +106,6 @@ const WebinarProfile = () => {
     setEditCounsellorProfileEnable(false);
   };
 
-  const handleCancelRejection = () => {
-    console.log("Reason for rejection:", cancellationReason);
-    setShowReasonDialog(false);
-  };
 
   const handleSaveClick = async () => {
     try {
@@ -125,365 +134,95 @@ const WebinarProfile = () => {
 
   return (
     <div className="WebinarProfile-container">
-      <div className="left-profile">
+      <div className="webinar-profile">
+        <div className="hamburger" onClick={() => setShowMenu(true)}>
+        <BsThreeDotsVertical color="white"/>
+        </div>
+
+        {<div ref={menuRef} className={`${showMenu && 'display-active'} drop-down-menu`}>
+        <div 
+        // onClick={() => setEditMode(true)} 
+        className="menu-item">
+          <AiOutlineEdit />
+          <span>Edit</span>
+        </div>
+        <div 
+        // onClick={handleDelete}
+         className="menu-item">
+          <AiOutlineDelete />
+          <span>Delete</span>
+        </div>
+      </div>}
+      
         <div className="info-img">
           <div className="profile-pic">
-            <ProfilePic src={profile.profile_pic} />
+            <img src="https://assets-global.website-files.com/5fac161927bf86485ba43fd0/64705e02614808a894d7dd3a_Blog-Cover-2022_03_Webinar-Glossary-(1).jpeg" alt="" />
           </div>
         </div>
-        <br />
-
-        <div className="left-profile-middle">
-          <div className="info">
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Name</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <input
-                      type="text"
-                      value={profile.name}
-                      onChange={(e) =>
-                        handleInput("name", e.target.value, setProfile)
-                      }
-                    />
-                  ) : (
-                    <p>{profile.name}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Date of birth</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <DatePicker
-                      label="Date of birth"
-                      defaultValue={dayjs(profile.date_of_birth)}
-                      onChange={(date) => handleDateChange(date)}
-                    />
-                  ) : (
-                    <p>{formatDate(profile.date_of_birth)}</p>
-                  )}
-                </div>
-              </div>
-            </div>
+        <div className="webinar-details">
+          <div className="detail">
+          <label htmlFor="">
+          Webinar Title  
+          </label>
+          <input type="text" value={profile.title}/>
           </div>
-        </div>
-
-        <div className="left-profile-bottom">
-          <div className="info">
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Industrial Experience</p>
-                </div>
-
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <>
-                      <input
-                        type="text"
-                        value={profile.experience_in_years}
-                        onChange={(e) =>
-                          handleInput(
-                            "experience_in_years",
-                            e.target.value,
-                            setProfile
-                          )
-                        }
-                      />
-                    </>
-                  ) : (
-                    <p>{`${profile.experience_in_years}+ years`}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Languages spoken</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
-                      value={profile.languages_spoken}
-                      onChange={(newTags) =>
-                        setProfile({ ...profile, languages_spoken: newTags })
-                      }
-                    />
-                  ) : (
-                    profile.languages_spoken?.map((language, i) => (
-                      <p key={i}>{`${language}${
-                        i < profile.languages_spoken.length - 1 ? "," : ""
-                      }`}</p>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Nationality</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <>
-                      <div className="ug">
-                        <label className="ug-text">
-                          <input
-                            type="radio"
-                            value="Indian"
-                            checked={profile.nationality === "Indian"}
-                            onChange={handleRadioChange}
-                          />
-                          Indian
-                        </label>
-                        <label className="ug-text">
-                          <input
-                            type="radio"
-                            value="Foreign"
-                            checked={profile.nationality === "Foreign"}
-                            onChange={handleRadioChange}
-                          />
-                          Foreign
-                        </label>
-                      </div>
-                    </>
-                  ) : (
-                    <p>{profile.nationality}</p>
-                  )}
-                </div>
-              </div>
-            </div>
+          <div className="detail">
+          <label htmlFor="">
+          Webinar Details 
+          </label>
+          <input type="text"
+          value={profile.details}
+          />
           </div>
-        </div>
-      </div>
-
-      <div className="right-profile">
-        {editCounsellorProfileEnable ? (
-          <>
-            <div className="right-profile-buttons">
-              <div className="left">
-                <div className="save" onClick={handleSaveClick}>
-                  Save
-                </div>
-                <div className="save" onClick={handleCancelClick}>
-                  Cancel
-                </div>
-              </div>
-              <div className="right">
-                <CounsellorProfileDropdown />
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="right-profile-buttons">
-              <div className="left">
-                {!profile.verified && (
-                  <div className="accept">
-                    Accept
-                  </div>
-                )}
-                <div className="reject">
-                  Reject
-                </div>
-              </div>
-              <div className="right">
-                <CounsellorProfileDropdown />
-              </div>
-            </div>
-          </>
-        )}
-
-        <div className="right-profile-info">
-          <div className="info">
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Approach of counselling</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <input
-                      type="text"
-                      value={profile.approach_of_counselling}
-                      onChange={(e) =>
-                        handleInput(
-                          "approach_of_counselling",
-                          e.target.value,
-                          setProfile
-                        )
-                      }
-                    />
-                  ) : (
-                    <p>{profile.approach_of_counselling}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Degree focused</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <>
-                      <div className="ug">
-                        <label className="ug-text">
-                          <input
-                            type="checkbox"
-                            value="UG"
-                            checked={profile.degree_focused.includes("UG")}
-                            onChange={(e) =>
-                              handleCheckboxChange(
-                                "degree_focused",
-                                e.target.value
-                              )
-                            }
-                          />
-                          UG
-                        </label>
-                        <label className="ug-text">
-                          <input
-                            type="checkbox"
-                            value="PG"
-                            checked={profile.degree_focused.includes("PG")}
-                            onChange={(e) =>
-                              handleCheckboxChange(
-                                "degree_focused",
-                                e.target.value
-                              )
-                            }
-                          />
-                          PG
-                        </label>
-                      </div>
-                    </>
-                  ) : (
-                    <p>
-                      {Array.isArray(profile.degree_focused)
-                        ? profile.degree_focused.join(", ")
-                        : ""}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Locations focused</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <div className="ug">
-                      <label className="ug-text">
-                        <input
-                          type="checkbox"
-                          value="India"
-                          checked={profile.locations_focused.includes("India")}
-                          onChange={(e) =>
-                            handleLocationCheckboxChange(
-                              "locations_focused",
-                              e.target.value
-                            )
-                          }
-                        />
-                        India
-                      </label>
-                      <label className="ug-text">
-                        <input
-                          type="checkbox"
-                          value="Abroad"
-                          checked={profile.locations_focused.includes("Abroad")}
-                          onChange={(e) =>
-                            handleLocationCheckboxChange(
-                              "locations_focused",
-                              e.target.value
-                            )
-                          }
-                        />
-                        Abroad
-                      </label>
-                    </div>
-                  ) : (
-                    profile.locations_focused?.map((location, i) => (
-                      <p key={i}>{`${location}${
-                        i < profile.locations_focused.length - 1 ? "," : ""
-                      }`}</p>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Courses focused</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
-                      value={profile.courses_focused}
-                      onChange={(newTags) =>
-                        setProfile({ ...profile, courses_focused: newTags })
-                      }
-                    />
-                  ) : (
-                    profile.courses_focused?.map((courses_focused, i) => (
-                      <p key={i}>{`${courses_focused}${
-                        i < profile.courses_focused.length - 1 ? "," : ""
-                      }`}</p>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Group session price</p>
-                </div>
-                <div className="info-value">
-                  <p>
-                    <FaIndianRupeeSign /> {profile.group_session_price}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Personal session price</p>
-                </div>
-                <div className="info-value">
-                  <p>
-                    <FaIndianRupeeSign /> {profile.personal_session_price}
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="detail">
+          <label htmlFor="">
+          What will you learn  
+          </label>
+          <input type="text" 
+          value={profile.what_will_you_learn}
+          />
           </div>
+          <div className="detail">
+          <label htmlFor="">
+          Webinar Date  
+          </label>
+          <input type="text" 
+          value={profile.date}
+          />
+          </div>
+          <div className="detail">
+          <label htmlFor="">
+          Webinar Time  
+          </label>
+          <input type="text" 
+          value={profile.time}
+          />
+          </div>
+          <div className="detail">
+          <label htmlFor="">
+          Speaker Profile  
+          </label>
+          <input type="text" 
+          value={profile.speaker_profile}
+          />
+          </div>
+          <div className="detail">
+          <label htmlFor="">
+          Webinar By  
+          </label>
+          <input type="text" 
+          value={profile.webinar_by}
+          />
+          </div>
+          <div className="detail">
+          <label htmlFor="">
+          Total Slots  
+          </label>
+          <input type="text" value={profile.slots}/>
+          </div>
+          
         </div>
-      </div>
+    </div>
     </div>
   );
 };
