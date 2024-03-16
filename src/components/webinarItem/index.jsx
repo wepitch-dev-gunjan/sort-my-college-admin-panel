@@ -69,14 +69,22 @@ const WebinarItem = ({
     // Convert timestamp string to Date object
     const dateObj = new Date(timestamp);
 
-    // Get time portion in 12-hour format
-    const timeWithoutDate = dateObj.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
+    // Get hour portion
+    const hour = dateObj.getHours();
 
-    return timeWithoutDate;
+    // Check if hour is greater than or equal to 13
+    if (hour >= 13) {
+      // Get time portion in 12-hour format
+      const timeWithoutDate = dateObj.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+      return timeWithoutDate;
+    } else {
+      // If hour is less than 13, return the timestamp as it is
+      return timestamp;
+    }
   }
 
   const formatTime = (time) => {
@@ -110,8 +118,15 @@ const WebinarItem = ({
 
         <Divider />
         <div className="webinar-bottom">
-          <div className='button' onClick={handleJoinNow}>Join Now</div>
-          <div className='button' onClick={() => navigate(`/webinar/${webinar_id}/`)}>View detials</div>
+          <div className="button" onClick={handleJoinNow}>
+            Join Now
+          </div>
+          <div
+            className="button"
+            onClick={() => navigate(`/webinar/${webinar_id}/`)}
+          >
+            View detials
+          </div>
         </div>
       </div>
     </div>
