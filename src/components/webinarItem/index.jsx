@@ -65,30 +65,56 @@ const WebinarItem = ({
     }
   };
 
-  function convertTo12HourFormat(timestamp) {
-    // Convert timestamp string to Date object
-    const dateObj = new Date(timestamp);
+  // function convertTo12HourFormat(timestamp) {
+  //   // Convert timestamp string to Date object
+  //   const dateObj = new Date(timestamp);
 
-    // Get hour portion
-    const hour = dateObj.getHours();
+  //   // Get hour portion
+  //   const hour = dateObj.getHours();
 
-    // Check if hour is greater than or equal to 13
-    if (hour >= 13) {
-      // Get time portion in 12-hour format
-      const timeWithoutDate = dateObj.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      });
-      return timeWithoutDate;
-    } else {
-      // If hour is less than 13, return the timestamp as it is
-      return timestamp;
+  //   // Check if hour is greater than or equal to 13
+  //   if (hour >= 13) {
+  //     // Get time portion in 12-hour format
+  //     const timeWithoutDate = dateObj.toLocaleTimeString("en-US", {
+  //       hour: "2-digit",
+  //       minute: "2-digit",
+  //       hour12: true,
+  //     });
+  //     return timeWithoutDate;
+  //   } else {
+  //     // If hour is less than 13, return the timestamp as it is
+  //     return timestamp;
+  //   }
+  // }
+  function convertTimestampTo12HourFormat(timestamp) {
+    function convert24To12(time24) {
+      let [hours, minutes] = time24.split(":");
+      hours = parseInt(hours, 10);
+      let meridiem = "AM";
+      if (hours >= 12) {
+        meridiem = "PM";
+        if (hours > 12) {
+          hours -= 12;
+        }
+      }
+      if (hours === 0) {
+        hours = 12;
+      }
+      return `${hours}:${minutes} ${meridiem}`;
     }
+
+    const date = new Date(timestamp);
+    const hours24 = date.getUTCHours().toString().padStart(2, "0");
+    const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+    const time24 = `${hours24}:${minutes}`;
+    return convert24To12(time24);
   }
 
+  const timestamp = "2024-03-16T15:30:00.000Z";
+  const time12 = convertTimestampTo12HourFormat(timestamp);
+
   const formatTime = (time) => {
-    return convertTo12HourFormat(time);
+    convertTimestampTo12HourFormat(time);
   };
 
   return (
