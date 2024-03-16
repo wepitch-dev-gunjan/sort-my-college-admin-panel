@@ -86,6 +86,7 @@ const WebinarItem = ({
   //     return timestamp;
   //   }
   // }
+
   function convertTimestampTo12HourFormat(timestamp) {
     function convert24To12(time24) {
       let [hours, minutes] = time24.split(":");
@@ -107,14 +108,12 @@ const WebinarItem = ({
     const hours24 = date.getUTCHours().toString().padStart(2, "0");
     const minutes = date.getUTCMinutes().toString().padStart(2, "0");
     const time24 = `${hours24}:${minutes}`;
+    console.log(time24);
     return convert24To12(time24);
   }
 
-  const timestamp = "2024-03-16T15:30:00.000Z";
-  const time12 = convertTimestampTo12HourFormat(timestamp);
-
   const formatTime = (time) => {
-    convertTimestampTo12HourFormat(time);
+    return convertTimestampTo12HourFormat(time);
   };
 
   return (
