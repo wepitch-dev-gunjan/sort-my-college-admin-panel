@@ -60,7 +60,7 @@ const UserDetails = () => {
                 <p>Phone Number</p>
               </div>
               <div className="info-value">
-                <p>{user.user_phone}</p>
+                <p>{user.phone_number}</p>
               </div>
             </div>
           </div>

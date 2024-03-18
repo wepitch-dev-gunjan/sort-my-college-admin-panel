@@ -25,10 +25,22 @@ const ProfileDropDownMenu = ({ name, image, onClick }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
+  // generate Avatar Using Name
+  const generateAvatar = (name)=> {
+   if(!name)return ""
+   const partsName = name.split(" ")
+   const firstName = partsName[0].charAt(0).toUpperCase()
+   // const lastName = partsName[partsName.length -1].charAt(0).toUpperCase();
+   return `${firstName}`
+  }
   return (
     <div className="ProfileDropDownMenu-container" onClick={toggleDropdown}>
       <div className="left">
-        <img src={image} alt="" />
+       {image ? (
+        <img src={image} alt="Admin Profile" />
+       ):(
+        <div className="Avatar">{generateAvatar(name)}</div>
+       )}
       </div>
       {/* edited */}
       { !xSmallScreen && <div className="mid">
