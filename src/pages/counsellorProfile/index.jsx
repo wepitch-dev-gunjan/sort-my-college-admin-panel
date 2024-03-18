@@ -183,6 +183,7 @@ const CounsellorProfile = () => {
   useEffect(() => {
     getCounsellor();
   }, [admin]);
+  console.log(profile);
 
   return (
     <div className="CounsellorProfile-container">
@@ -619,6 +620,36 @@ const CounsellorProfile = () => {
                   <p>
                     <FaIndianRupeeSign /> {profile.personal_session_price}
                   </p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Name of Bank</p>
+                </div>
+                <div className="info-value">
+                  <p>{profile.bank_name}</p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Name of Bank</p>
+                </div>
+                <div className="info-value">
+                  <p>{profile.branch}</p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Name of Bank</p>
+                </div>
+                <div className="info-value">
+                  <p>{profile.account_number}</p>
                 </div>
               </div>
             </div>
