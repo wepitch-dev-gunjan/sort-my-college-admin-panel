@@ -37,7 +37,17 @@
   gap: 40px;
   padding: 20px;
   width: 100%;
-
+  .avatar {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   background-color: #f1edf7; /* Default background color */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 20px;
+   color: black; /* Text color */
+ }
   .pagination {
     display: flex;
     justify-content: center;

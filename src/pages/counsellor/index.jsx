@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import "./style.scss";
-import { useContext, useEffect } from "react";
+import "./style.scss"
+import { useContext, useEffect } from 'react';
 import { CounsellorContext } from "../../context/CounsellorContext";
 import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
-import config from "@/config";
+import config from '@/config';
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import { BorderAll } from "@mui/icons-material";
@@ -15,13 +15,11 @@ const Counsellor = () => {
     // Find the counsellor in the state and update its status
     setCounsellors((prevCounsellors) => {
       return prevCounsellors.map((counsellor) =>
-        counsellor._id === counsellorId
-          ? { ...counsellor, status: newStatus }
-          : counsellor
+        counsellor._id === counsellorId ? { ...counsellor, status: newStatus } : counsellor
       );
     });
   };
-  const { admin } = useContext(AdminContext);
+  const { admin } = useContext(AdminContext)
   const [filterParams, setFilterParams] = useState({
     locations_focused: [],
     degree_focused: [],
@@ -39,45 +37,33 @@ const Counsellor = () => {
   };
   const getCounsellors = async () => {
     try {
-      const { data } = await axios.get(
-        `${backend_url}/counsellor/counsellor-for-admin`,
+      const { data } = await axios.get(`${backend_url}/counsellor/counsellor-for-admin`,
         // null,
         {
           headers: {
-            Authorization: admin.token,
+            Authorization: admin.token
           },
           params: filterParams,
         }
-      );
-      console.log(data);
+      )
       setCounsellors(data);
     } catch (error) {
       console.log(error);
       // toast(error.message)
     }
-  };
+  }
   useEffect(() => {
-    if (admin.token) getCounsellors();
-  }, [admin]);
+    if (admin.token)
+      getCounsellors()
+  }, [admin])
   const { counsellors, setCounsellors } = useContext(CounsellorContext);
-
   return (
     <div className="Counsellors-container">
-      <div
-        className="filters"
-        style={{
-          display: "flex",
-          gap: "20px",
-          justifyContent: "center",
-          padding: "20px",
-          borderBottom: "1px solid black",
-          marginBottom: "10px",
-        }}
-      >
+        <div className="filters" style={{display:"flex",gap:"20px",  justifyContent:"center", padding:"20px", borderBottom:"1px solid black", marginBottom:"10px"}}>
         <TextField
-          label="Location"
-          sx={{ height: "50px" }}
-          variant="outlined"
+        label="Location"
+        sx={{height:"50px" }}
+        variant="outlined"
           type="text"
           name="locations_focused"
           placeholder="Locations Name"
@@ -86,10 +72,10 @@ const Counsellor = () => {
           onKeyDown={handleKeyPress}
         />
         <TextField
-          sx={{ marginRight: "10px", marginLeft: "10" }}
-          margin="20px"
-          label="Degree"
-          variant="outlined"
+        sx={{marginRight:"10px",marginLeft:"10"}}
+        margin="20px"
+        label="Degree"
+        variant="outlined"
           type="text"
           name="degree_focused"
           placeholder="Degree Name"
@@ -98,8 +84,8 @@ const Counsellor = () => {
           onKeyDown={handleKeyPress}
         />
         <TextField
-          label="Courses"
-          variant="outlined"
+        label="Courses"
+        variant="outlined"
           type="text"
           name="courses_focused"
           placeholder="Courses Name"
@@ -108,61 +94,36 @@ const Counsellor = () => {
           onKeyDown={handleKeyPress}
         />
         {/* <button onClick={getCounsellors}>Apply Filters</button> */}
-        <Button
-          onClick={getCounsellors}
-          sx={{ height: "55 px" }}
-          variant="contained"
-        >
-          Apply Filters
-        </Button>
+        <Button onClick={getCounsellors} 
+        sx={{height:"55 px" }}
+        variant="contained">Apply Filters</Button>
       </div>
-
+       
       <div className="heading sticky">
         <div className="row">
-          <div className="col">
-            <h4>IMAGE</h4>
-          </div>
-          <div className="col">
-            <h4>NAME</h4>
-          </div>
-          <div className="col">
-            <h4>EMAIL</h4>
-          </div>
-          <div className="col">
-            <h4>STATUS</h4>
-          </div>
-          <div className="col">
-            <h4>OUTSTANDING BALANCE</h4>
-          </div>
-          <div className="col">
-            <h4>PROFILE LINK</h4>
-          </div>
+          <div className="col"><h4>IMAGE</h4></div>
+          <div className="col"><h4>NAME</h4></div>
+          <div className="col"><h4>EMAIL</h4></div>
+          <div className="col"><h4>STATUS</h4></div>
+          <div className="col"><h4>OUTSTANDING BALANCE</h4></div>
+          <div className="col"><h4>PROFILE LINK</h4></div>
         </div>
       </div>
-      <div className="counsellor-container">
+      <div className='counsellor-container'>
         <div className="table">
           {counsellors.map((counsellor, i) => (
-            <div className="row" key={i}>
+            <div className='row' key={i}>
               <div className="col">
-                <img src={counsellor.profile_pic} alt="user avatar" />
+    <img src={counsellor.profile_pic} alt="user avatar" />
               </div>
-              <div className="col">{counsellor.name}</div>
-              <div className="col">{counsellor.email}</div>
-              <div
-                className={`col ${
-                  counsellor.status === "Rejected"
-                    ? "red"
-                    : counsellor.status === "Verified"
-                    ? "green"
-                    : counsellor.status === "Pending"
-                    ? "blue"
-                    : ""
-                }`}
-              >
-                {counsellor.status}
-              </div>
-              <div className="col">{counsellor.balance}</div>
-              <div className="col">
+              <div className='col'>{counsellor.name}</div>
+              <div className='col'>{counsellor.email}</div>
+              <div className={`col ${counsellor.status === 'Rejected' ? 'red' :
+                counsellor.status === 'Verified' ? 'green' :
+                  counsellor.status === 'Pending' ? 'blue' : ''
+                }`}>{counsellor.status}</div>
+              <div className='col'>{counsellor.balance}</div>
+              <div className='col'>
                 <Link to={`/counsellors/counsellor-profile/${counsellor._id}`}>
                   <p>View Profile</p>
                 </Link>
@@ -172,7 +133,7 @@ const Counsellor = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Counsellor;
+export default Counsellor
