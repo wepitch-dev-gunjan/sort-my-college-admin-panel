@@ -22,13 +22,28 @@ const UserDetails = () => {
   };
   useEffect(() => {
     getSingleUser();
+    console.log(user);
   }, [user]);
+  const generateAvatar = (user) => {
+    if (!user.name) return "";
+    const nameParts = user.name.split("");
+    const firstName = nameParts[0].charAt(0).toUpperCase();
+    return `${firstName}`;
+  };
 
   return (
     <div className="UserDetails-container">
       <div className="basic-info">
         <div className="user_image">
-          <img src={user.user_image} alt="" />
+          {user.profile_pic ? (
+            <img
+              style={{ border: "2px solid black" }}
+              src={user.user_image}
+              alt=""
+            />
+          ) : (
+            <div className="user-avatar">{generateAvatar(user)}</div>
+          )}
         </div>
 
         <div className="info">
@@ -72,6 +87,17 @@ const UserDetails = () => {
               </div>
               <div className="info-value">
                 <p>{user.user_dob}</p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <div className="info-field">
+                <p>Level of Education</p>
+              </div>
+
+              <div className="info-value">
+                <p>{user.education_level}</p>
               </div>
             </div>
           </div>
