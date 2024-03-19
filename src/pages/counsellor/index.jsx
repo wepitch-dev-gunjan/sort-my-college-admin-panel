@@ -9,11 +9,7 @@ import { useState } from "react";
 import {
   Button,
   Checkbox,
-  FormControl,
   FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
 import { BorderAll } from "@mui/icons-material";
@@ -179,11 +175,11 @@ const Counsellor = () => {
               <div className="col">{counsellor.email}</div>
               <div
                 className={`col ${
-                  counsellor.status === "Rejected"
+                  counsellor.status === "REJECTED"
                     ? "red"
-                    : counsellor.status === "Verified"
+                    : counsellor.status === "APPROVED"
                     ? "green"
-                    : counsellor.status === "Pending"
+                    : counsellor.status === "PENDING"
                     ? "blue"
                     : ""
                 }`}
