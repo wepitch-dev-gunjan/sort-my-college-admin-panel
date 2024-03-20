@@ -9,102 +9,10 @@ const { backend_url } = config;
 const Payment = () => {
   const { admin } = useContext(AdminContext);
   const [payments, setPayments] = useState([]);
-  // const [payments, setPayments] = useState([
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered' // Corrected the typo here
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Pending'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Pending'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Cancelled'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   },
-  //   {
-  //     id: '12354',
-  //     service: 'Group session',
-  //     date: '24 May 2024',
-  //     payment: '$1,000',
-  //     status: 'Delivered'
-  //   }
-  // ]);
-  const FetchData = async () => {
+
+  const fetchData = async () => {
     try {
-      let { data } = await axios.get(
+      const { data } = await axios.get(
         `${backend_url}/admin/payments/create-payment`,
         {
           headers: {
@@ -112,20 +20,26 @@ const Payment = () => {
           },
         }
       );
-
       setPayments(data);
     } catch (error) {
       console.log(error, "sdsdfdfsdfsd");
     }
   };
+
   useEffect(() => {
-    if (admin.token) FetchData();
+    if (admin.token) fetchData();
   }, [admin]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString();
+    const formattedTime = date.toLocaleTimeString();
+    return { date: formattedDate, time: formattedTime };
+  };
 
   return (
     <div className="Payments-container">
       <div className="heading sticky">
-        {/* <h1>All Payments</h1> */}
         <div className="row">
           <div className="col">
             <h4>ID</h4>
@@ -135,6 +49,9 @@ const Payment = () => {
           </div>
           <div className="col">
             <h4>DATE</h4>
+          </div>
+          <div className="col">
+            <h4>TIME</h4>
           </div>
           <div className="col">
             <h4>PAYMENT</h4>
@@ -153,8 +70,10 @@ const Payment = () => {
             <div className="row" key={i}>
               <div className="col">{i + 1}</div>
               <div className="col">{payment.description}</div>
-              <div className="col">{payment.created_at}</div>
+              <div className="col">{formatDate(payment.created_at).date}</div>
+              <div className="col">{formatDate(payment.created_at).time}</div>
               <div className="col">{payment.amount}</div>
+
               <div
                 className={`col ${
                   payment.status === "Cancelled"

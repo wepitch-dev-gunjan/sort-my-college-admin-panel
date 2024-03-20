@@ -19,13 +19,12 @@ const User = () => {
   useEffect(() => {
     getUsers();
   }, [users]);
-const generateAvatar =(user) =>{
- if(!user.name) return ""
- const nameParts = user.name.split("")
-const firstName = nameParts[0].charAt(0).toUpperCase();
-return `${firstName}`
-
-}
+  const generateAvatar = (user) => {
+    if (!user.name) return "";
+    const nameParts = user.name.split("");
+    const firstName = nameParts[0].charAt(0).toUpperCase();
+    return `${firstName}`;
+  };
 
   return (
     <div className="User-container">
@@ -50,12 +49,11 @@ return `${firstName}`
           {users.map((user, i) => (
             <div className="row" key={i}>
               <div className="col">
-               {user.profile_pic ? (
-                <img src={user.profile_pic} alt="user avatar" />
-
-               ):(
-                <div className="avatar">{generateAvatar(user)}</div>
-               )}
+                {user.profile_pic ? (
+                  <img src={user.profile_pic} alt="user avatar" />
+                ) : (
+                  <div className="avatar">{generateAvatar(user)}</div>
+                )}
               </div>
               <div className="col">{user.name}</div>
               <div className="col">{user.phone_number}</div>
