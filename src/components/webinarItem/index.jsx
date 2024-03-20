@@ -150,7 +150,7 @@ const WebinarItem = ({
             className="button"
             onClick={() => navigate(`/webinar/${webinar_id}/`)}
           >
-            View detials
+            View Details
           </div>
         </div>
       </div>
