@@ -155,16 +155,18 @@ const WebinarProfile = () => {
                 </div>
                 <div className="webinar-profile-dets">
                   <div className="wp-dets-first">
-                    {!editWebinarEnable ? 
+                        <h3>{profile.webinar_title}</h3>
+                        <p>60 min</p>
+                    {/* {!editWebinarEnable ? 
                       <>
                         <h3>{profile.webinar_title}</h3>
                         <p>60 min</p>
                       </>
                     :
                       <textarea name="" id="" >{profile.webinar_title}</textarea>
-                    }
+                    } */}
                   </div>
-                  <p>Webinar by <span>Allen Career Institute</span></p>
+                  <p className="textarea-b">Webinar by <span>Allen Career Institute</span> </p>
                   <div className="wp-dets-time">
                     <div className="wp-dets-time-1">
                       <CiClock2 />
@@ -211,15 +213,15 @@ const WebinarProfile = () => {
 
                 </div>
               </div>
-              {!editWebinarEnable ? 
+              
 
               <div className="wp-dets-edit-now">
                     <button onClick={() => setEditWebinarEnable(true)}>
-                      Edit Webinar
+                      Delete Webinar
                     </button>
                 </div>
-                :
-                <>
+                
+                {/* <>
                 <div className="wp-dets-edit-now wpde-save-cancel">
                   <button onClick={() => setEditWebinarEnable(false)}>
                     Save
@@ -228,8 +230,8 @@ const WebinarProfile = () => {
                     Cancel
                   </button>
                 </div>
-                </>
-              }
+                </> */}
+              
           </div>
 
 

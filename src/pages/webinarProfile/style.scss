@@ -15,6 +15,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
+    font-size: 0.8em;
     button{
       font-size: 1.1em;
       border-radius: 5px;
@@ -23,15 +24,15 @@
       align-items: center;
       padding: 1em 2em 1em 2em;
       background-color: #ffffff;
-      border: 1px solid #ffffff;
-      color: #1F0A68;
+      border: 1px solid #ff2f2f;
+      color: #ff4646;
       cursor: pointer;
       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     }
     button:hover{
-      background-color: #1F0A68;
+      background-color: #fc4747;
       color: #ffffff;
-      border: 1px solid #1F0A68;
+      border: 1px solid #ff4444;
       transition: all ease 0.3s;
 
     }
@@ -91,7 +92,8 @@
           color: #1111118e;
         }
         textarea{
-
+          resize: none;
+          padding: 0.5em;
           width: 100%;
         }
       }
