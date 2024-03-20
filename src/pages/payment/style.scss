@@ -38,6 +38,19 @@
   padding: 20px;
   width: 100%;
 
+  .rpc-view-det-btn{
+    a{
+      color: blue;
+
+    }
+    a:hover{
+      text-decoration: underline;
+      transition: all 0.3s ease;
+    }
+
+    
+  }
+
   .pagination {
     display: flex;
     justify-content: center;

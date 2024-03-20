@@ -1,3 +1,7 @@
+.PaymentDetails-container-parent{
+  padding: 40px;
+}
+
 .PaymentDetails-container {
     width: 100%;
     display: flex;
@@ -67,6 +71,11 @@
               } 
               .info-value {
                 width: 100%;
+                a{
+                  color: blue;
+                  text-decoration: underline;
+                  font-size: 0.9em;
+                }
                 .gender-radio{
                   display: flex;
                   gap: 24px;

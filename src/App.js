@@ -101,7 +101,7 @@ function App() {
                 <Route path="/login" element={<Navigate replace to="/" />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route
-                  path="/payment/payment-details"
+                  path="/payment/payment-details/:payment_id"
                   element={<PaymentDetails />}
                 />
                 <Route path="/user" element={<User />} />

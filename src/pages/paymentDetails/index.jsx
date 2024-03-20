@@ -1,35 +1,50 @@
-import React, { useState } from 'react'
-import './style.scss'
+import React, { useEffect, useState } from 'react';
+import './style.scss';
+import { Link, useParams } from 'react-router-dom';
+import config from "@/config";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { AdminContext } from "../../context/AdminContext";
+const { backend_url } = config;
+
 
 const PaymentDetails = () => {
-    const [session, setSession] = useState({
-        session_counsellor: 'abc',
-          session_user: 'xyz',
-          session_date: '12-8-2023',
-          session_time: '12:00pm',
-          session_duration: '60 min',
-          session_type: ['Personal', 'Group'],
-          session_fee: '500',
-          session_status: ['Cancelled', 'Attended', 'NotAttended', 'Rescheduled', 'Booked', 'Available'],
-          session_slots: '50',
-          session_available_slots: '5',
-      })
+  
+    const { payment_id } = useParams();
+    const [payment, setPayment] = useState({})
+    useEffect(() => {
+      getPayment()
+    }, [payment_id])
+
+    const getPayment = async() => {
+      try {
+        const {data} = await axios.get(`${backend_url}/admin/payments/get-payment/${payment_id}`);
+        setPayment(data);
+        console.log(data);
+      } catch(error){
+        console.log(error);
+        toast(error.message);
+        console.log("errrorrrr");
+      }
+    }
+
+
 
   return (
-    <div className="PaymentDetails-container">
+    <div className="PaymentDetails-container PaymentDetails-container-parent">
       <div className="basic-info">
       <div className="heading">
-         <h2>Session Details</h2>
+         <h2>Payment Details</h2>
       </div>     
 
       <div className="info">
       <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Counsellor name </p>
+              <p>Counsellor Id</p>
             </div>
             <div className="info-value">
-                <p>{session.session_counsellor}</p>
+                <p>{payment.payment_to} <Link to={`/counsellors/counsellor-profile/${payment.payment_to}`}>View Profile</Link></p>
             </div>
           </div>
         </div>
@@ -37,10 +52,10 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>User name </p>
+              <p>User Id</p>
             </div>
             <div className="info-value">
-                <p>{session.session_user}</p>           
+                <p>{payment.payment_from} <Link to={`/user/user-details/${payment.payment_from}`}>View Profile</Link></p>           
             </div>
           </div>
         </div>
@@ -48,10 +63,10 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Date of session</p>
+              <p>Order Id</p>
             </div>
             <div className="info-value">
-                <p>{session.session_date}</p>
+                <p>{payment.order_id}</p>
             </div>
           </div>
         </div>
@@ -59,10 +74,10 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Time</p>
+              <p>Payment Id</p>
             </div>
             <div className="info-value">   
-            <p>{session.session_time}</p>             
+            <p>{payment.payment_id}</p>             
             </div>
           </div>
         </div>
@@ -70,10 +85,10 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Duration</p>
+              <p>Amount</p>
             </div>
             <div className="info-value">   
-            <p>{session.session_duration}</p>             
+            <p>Rs {(payment.amount + payment.gst + payment.convenience_charges) / 100} </p>             
             </div>
           </div>
         </div>
@@ -81,12 +96,10 @@ const PaymentDetails = () => {
         <div className="row">
             <div className="col">
                  <div className="info-field">
-                     <p>Session Type</p>
+                     <p>Amount Due</p>
                  </div>
           <div className="info-value">
-            {session.session_type?.map((type, i) => (
-            <p key={i}>{`${type}${i < session.session_type.length - 1 ? "," : ""}`}</p>
-             ))}
+            <p>Rs {payment.amount_due / 100}</p>
           </div>
        </div>
      </div>
@@ -94,10 +107,32 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Fee</p>
+              <p>Amount Paid</p>
             </div>
             <div className="info-value">   
-            <p>{session.session_fee}</p>             
+            <p>Rs {payment.amount_paid}</p>             
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col">
+            <div className="info-field">
+              <p>GST</p>
+            </div>
+            <div className="info-value">   
+            <p>Rs {(payment.amount * 0.18) / 100}</p>             
+            </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col">
+            <div className="info-field">
+              <p>Convenience Charges</p>
+            </div>
+            <div className="info-value">   
+            <p>Rs {(payment.amount + (payment.amount * 0.18)) * 0.05/100}</p>             
             </div>
           </div>
         </div>
@@ -105,12 +140,10 @@ const PaymentDetails = () => {
         <div className="row">
             <div className="col">
                  <div className="info-field">
-                     <p>Session Status </p>
+                     <p>Currency</p>
                  </div>
                  <div className="info-value">
-                   {session.session_status?.map((status, i) => (
-                   <p key={i}>{`${status}${i < session.session_status.length - 1 ? "," : ""}`}</p>
-                   ))}
+                      <p>{payment.currency}</p>
                   </div>
             </div>
         </div>
@@ -118,24 +151,17 @@ const PaymentDetails = () => {
         <div className="row">
           <div className="col">
             <div className="info-field">
-              <p>Session Slots</p>
+              <p>Payment Date</p>
             </div>
             <div className="info-value">   
-            <p>{session.session_slots}</p>             
+            <p>{payment.created_at}</p>             
             </div>
           </div>
         </div>
 
-        <div className="row">
-          <div className="col">
-            <div className="info-field">
-              <p>Session Available Slots</p>
-            </div>
-            <div className="info-value">   
-            <p>{session.session_available_slots}</p>             
-            </div>
-          </div>
-        </div>
+
+
+
         </div>
       </div>
       </div>

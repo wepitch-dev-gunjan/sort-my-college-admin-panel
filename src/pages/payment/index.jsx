@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+   import { Link } from "react-router-dom";
 import "./style.scss";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -168,9 +168,9 @@ const Payment = () => {
               >
                 {payment.status}
               </div>
-              <div className="col">
-                <Link to="/payment/payment-details">
-                  <p>View Details</p>
+              <div className="col rpc-view-det-btn">
+                <Link to={`/payment/payment-details/${payment._id}`}>
+                  View Details
                 </Link>
               </div>
             </div>
