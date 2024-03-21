@@ -16,14 +16,15 @@ import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { Link, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
 // import webinar_img from "../../assets/webinar-img.jpg";
 const { backend_url } = config;
 
 const WebinarProfile = () => {
-  const menuRef = useRef(null)
+  const menuRef = useRef(null);
   const { admin } = useContext(AdminContext);
+  const [profile, setProfile] = useState({});
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
   const { webinar_id } = useParams();
@@ -46,15 +47,12 @@ const WebinarProfile = () => {
         }
       );
       setProfile(data);
-      console.log("Dataaaa", data)
+      console.log("Dataaaa", data);
     } catch (error) {
       console.log(error);
       toast(error.message);
     }
   };
-
-  const [profile, setProfile] = useState({});
-  
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
   const [cancellationReason, setCancellationReason] = useState("");
@@ -96,11 +94,9 @@ const WebinarProfile = () => {
   //   return dayjs(date).format("YYYY-MM-DD");
   // };
 
-
   const handleCancelClick = () => {
     setEditCounsellorProfileEnable(false);
   };
-
 
   const handleSaveClick = async () => {
     try {
@@ -127,7 +123,6 @@ const WebinarProfile = () => {
     getWebinar();
   }, [admin]);
 
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = date.toLocaleDateString();
@@ -135,18 +130,46 @@ const WebinarProfile = () => {
     return { date: formattedDate, time: formattedTime };
   };
 
+  function convertTimestampTo12HourFormat(timestamp) {
+    function convert24To12(time24) {
+      let [hours, minutes] = time24.split(":");
+      hours = parseInt(hours, 10);
+      let meridiem = "AM";
+      if (hours >= 12) {
+        meridiem = "PM";
+        if (hours > 12) {
+          hours -= 12;
+        }
+      }
+      if (hours === 0) {
+        hours = 12;
+      }
+      return `${hours}:${minutes} ${meridiem}`;
+    }
+
+    const date = new Date(timestamp);
+    const hours24 = date.getUTCHours().toString().padStart(2, "0");
+    const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+    const time24 = `${hours24}:${minutes}`;
+    console.log(time24);
+    return convert24To12(time24);
+  }
+
+  const formatTime = (time) => {
+    return convertTimestampTo12HourFormat(time);
+  };
 
   return (
-          <div className="webinar-profile-parent">
-              <div className="webinar-profile-child">
-                <div className="webinar-profile-image">
-                  <img src={profile.webinar_image} alt="" />
-                </div>
-                <div className="webinar-profile-dets">
-                  <div className="wp-dets-first">
-                        <h3>{profile.webinar_title}</h3>
-                        <p>60 min</p>
-                    {/* {!editWebinarEnable ? 
+    <div className="webinar-profile-parent">
+      <div className="webinar-profile-child">
+        <div className="webinar-profile-image">
+          <img src={profile.webinar_image} alt="" />
+        </div>
+        <div className="webinar-profile-dets">
+          <div className="wp-dets-first">
+            <h3>{profile.webinar_title}</h3>
+            <p>60 min</p>
+            {/* {!editWebinarEnable ? 
                       <>
                         <h3>{profile.webinar_title}</h3>
                         <p>60 min</p>
@@ -154,59 +177,63 @@ const WebinarProfile = () => {
                     :
                       <textarea name="" id="" >{profile.webinar_title}</textarea>
                     } */}
-                  </div>
-                  <p className="textarea-b">Webinar by <span>{profile.webinar_by}</span> </p>
-                  <div className="wp-dets-time">
-                    <div className="wp-dets-time-1">
-                      <CiClock2 />
-                    </div>
-                    <div className="wp-dets-time-2">
-                      <p>{formatDate(profile.webinar_date).time}</p>
-                      <p>{formatDate(profile.webinar_date).date}</p>
-                    </div>
-                  </div>
-                  <div className="wp-dets-details">
-                    <h3>Details</h3>
-                    <p>{profile.webinar_details}</p>
-                  </div>
-                  <div className="wp-dets-learn">
-                    <h3>What will you Learn?</h3>
-                    <div className="wp-dets-learn-blocks">
-                      <div className="wpdl-blocks-child">
-                        <p><span>1.</span></p>
-                        <p>Uncover the mysteries</p>
-                      </div>
-                      <div className="wpdl-blocks-child">
-                        <p><span>2.</span></p>
-                        <p>Hands-on experience</p>
-                      </div>
-                      <div className="wpdl-blocks-child">
-                        <p><span>3.</span></p>
-                        <p>AI is being applied</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="wp-dets-speaker">
-                    <h3>Speaker Profile</h3>
-                    <p>{profile.speaker_profile}</p>
-                  </div>
-
-                  <div className="wp-dets-btn">
-                    <a href={profile.webinar_start_url} >Start</a>
-                  </div>
-                  
-                </div>
+          </div>
+          <p className="textarea-b">
+            Webinar by <span>{profile.webinar_by}</span>{" "}
+          </p>
+          <div className="wp-dets-time">
+            <div className="wp-dets-time-1">
+              <CiClock2 />
+            </div>
+            <div className="wp-dets-time-2">
+              <p>{formatTime(profile.webinar_date)}</p>
+              <p>{formatDate(profile.webinar_date).date}</p>
+            </div>
+          </div>
+          <div className="wp-dets-details">
+            <h3>Details</h3>
+            <p>{profile.webinar_details}</p>
+          </div>
+          <div className="wp-dets-learn">
+            <h3>What will you Learn?</h3>
+            <div className="wp-dets-learn-blocks">
+              <div className="wpdl-blocks-child">
+                <p>
+                  <span>1.</span>
+                </p>
+                <p>Uncover the mysteries</p>
               </div>
-              
+              <div className="wpdl-blocks-child">
+                <p>
+                  <span>2.</span>
+                </p>
+                <p>Hands-on experience</p>
+              </div>
+              <div className="wpdl-blocks-child">
+                <p>
+                  <span>3.</span>
+                </p>
+                <p>AI is being applied</p>
+              </div>
+            </div>
+          </div>
 
-              <div className="wp-dets-edit-now">
-                    <button>
-                      Delete Webinar
-                    </button>
-                </div>
-                
-                {/* <>
+          <div className="wp-dets-speaker">
+            <h3>Speaker Profile</h3>
+            <p>{profile.speaker_profile}</p>
+          </div>
+
+          <div className="wp-dets-btn">
+            <a href={profile.webinar_start_url}>Start</a>
+          </div>
+        </div>
+      </div>
+
+      <div className="wp-dets-edit-now">
+        <button>Delete Webinar</button>
+      </div>
+
+      {/* <>
                 <div className="wp-dets-edit-now wpde-save-cancel">
                   <button onClick={() => setEditWebinarEnable(false)}>
                     Save
@@ -216,9 +243,7 @@ const WebinarProfile = () => {
                   </button>
                 </div>
                 </> */}
-              
-          </div>
-
+    </div>
 
     // <div className="WebinarProfile-container">
     //   <div className="webinar-profile">
@@ -227,20 +252,20 @@ const WebinarProfile = () => {
     //     </div>
 
     //     {<div ref={menuRef} className={`${showMenu && 'display-active'} drop-down-menu`}>
-    //     <div 
-    //     // onClick={() => setEditMode(true)} 
+    //     <div
+    //     // onClick={() => setEditMode(true)}
     //     className="menu-item">
     //       <AiOutlineEdit />
     //       <span>Edit</span>
     //     </div>
-    //     <div 
+    //     <div
     //     // onClick={handleDelete}
     //      className="menu-item">
     //       <AiOutlineDelete />
     //       <span>Delete</span>
     //     </div>
     //   </div>}
-      
+
     //     <div className="info-img">
     //       <div className="profile-pic">
     //         <img src="https://assets-global.website-files.com/5fac161927bf86485ba43fd0/64705e02614808a894d7dd3a_Blog-Cover-2022_03_Webinar-Glossary-(1).jpeg" alt="" />
@@ -255,7 +280,7 @@ const WebinarProfile = () => {
     //       </div>
     //       <div className="detail">
     //       <label htmlFor="">
-    //       Webinar Details 
+    //       Webinar Details
     //       </label>
     //       <input type="text"
     //       value={profile.details}
@@ -263,51 +288,51 @@ const WebinarProfile = () => {
     //       </div>
     //       <div className="detail">
     //       <label htmlFor="">
-    //       What will you learn  
+    //       What will you learn
     //       </label>
-    //       <input type="text" 
+    //       <input type="text"
     //       value={profile.what_will_you_learn}
     //       />
     //       </div>
     //       <div className="detail">
     //       <label htmlFor="">
-    //       Webinar Date  
+    //       Webinar Date
     //       </label>
-    //       <input type="text" 
+    //       <input type="text"
     //       value={profile.date}
     //       />
     //       </div>
     //       <div className="detail">
     //       <label htmlFor="">
-    //       Webinar Time  
+    //       Webinar Time
     //       </label>
-    //       <input type="text" 
+    //       <input type="text"
     //       value={profile.time}
     //       />
     //       </div>
     //       <div className="detail">
     //       <label htmlFor="">
-    //       Speaker Profile  
+    //       Speaker Profile
     //       </label>
-    //       <input type="text" 
+    //       <input type="text"
     //       value={profile.speaker_profile}
     //       />
     //       </div>
     //       <div className="detail">
     //       <label htmlFor="">
-    //       Webinar By  
+    //       Webinar By
     //       </label>
-    //       <input type="text" 
+    //       <input type="text"
     //       value={profile.webinar_by}
     //       />
     //       </div>
     //       <div className="detail">
     //       <label htmlFor="">
-    //       Total Slots  
+    //       Total Slots
     //       </label>
     //       <input type="text" value={profile.slots}/>
     //       </div>
-          
+
     //     </div>
     // </div>
     // </div>

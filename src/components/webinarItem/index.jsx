@@ -30,7 +30,7 @@ const WebinarItem = ({
   const [showMenu, setShowMenu] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [webinarDetails, setWebinarDetails] = useState();
-
+  console.log(webinar_date, "hi");
   const navigate = useNavigate();
 
   useClickOutside(menuRef, () => {
@@ -101,6 +101,7 @@ const WebinarItem = ({
       if (hours === 0) {
         hours = 12;
       }
+      console.log(hours, minutes, meridiem);
       return `${hours}:${minutes} ${meridiem}`;
     }
 
