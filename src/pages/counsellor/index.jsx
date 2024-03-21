@@ -6,7 +6,16 @@ import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
 import config from "@/config";
 import { useState } from "react";
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 const { backend_url } = config;
 
 const Counsellor = () => {
@@ -26,13 +35,27 @@ const Counsellor = () => {
     degree_focused: [],
     courses_focused: [],
     Search: "",
+    status: "",
   });
+  // Inside your Counsellor component
+
+  // Modify the handleFilterChange function to handle the universal search
   const handleFilterChange = (e) => {
     const { name, value, checked } = e.target;
-    setFilterParams((prevState) => ({
-      ...prevState,
-      [name]: checked ? value : "",
-    }));
+
+    if (name === "search") {
+      // For universal search, update the 'search' filter parameter directly
+      setFilterParams((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else {
+      // For other filters, handle them as before
+      setFilterParams((prevState) => ({
+        ...prevState,
+        [name]: checked ? value : "",
+      }));
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -133,6 +156,20 @@ const Counsellor = () => {
           }
           label="PG"
         />
+        {/* <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={filterParams.status}
+            label="Age"
+            onChange={handleFilterChange}
+          >
+            <MenuItem value="PENDING">PENDING</MenuItem>
+            <MenuItem value="APPROVED">APPROVED</MenuItem>
+            <MenuItem value="REJECTED">REJECTED</MenuItem>
+          </Select>
+        </FormControl> */}
         {/* <button onClick={getCounsellors}>Apply Filters</button> */}
         <Button
           onClick={getCounsellors}
