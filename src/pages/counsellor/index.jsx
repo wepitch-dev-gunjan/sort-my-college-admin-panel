@@ -7,7 +7,6 @@ import axios from "axios";
 import config from "@/config";
 import { useState } from "react";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import { BorderAll } from "@mui/icons-material";
 const { backend_url } = config;
 
 const Counsellor = () => {
@@ -53,6 +52,8 @@ const Counsellor = () => {
           params: filterParams,
         }
       );
+      data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setCounsellors(data);
       setCounsellors(data);
     } catch (error) {
       console.log(error);
@@ -166,38 +167,43 @@ const Counsellor = () => {
       </div>
       <div className="counsellor-container">
         <div className="table">
-          {counsellors.map((counsellor, i) => (
-            <div className="row" key={i}>
-              <div className="col">
-                {counsellor.profile_pic ? (
-                  <img src={counsellor.profile_pic} alt="Counsellor avatar" />
-                ) : (
-                  <div className="avatar">{generateAvatar(counsellor)}</div>
-                )}
+          {counsellors
+            .slice(0)
+            .reverse()
+            .map((counsellor, i) => (
+              <div className="row" key={i}>
+                <div className="col">
+                  {counsellor.profile_pic ? (
+                    <img src={counsellor.profile_pic} alt="Counsellor avatar" />
+                  ) : (
+                    <div className="avatar">{generateAvatar(counsellor)}</div>
+                  )}
+                </div>
+                <div className="col">{counsellor.name}</div>
+                <div className="col">{counsellor.email}</div>
+                <div
+                  className={`col ${
+                    counsellor.status === "REJECTED"
+                      ? "red"
+                      : counsellor.status === "APPROVED"
+                      ? "green"
+                      : counsellor.status === "PENDING"
+                      ? "blue"
+                      : ""
+                  }`}
+                >
+                  {counsellor.status}
+                </div>
+                <div className="col">{counsellor.outstanding_balance}</div>
+                <div className="col">
+                  <Link
+                    to={`/counsellors/counsellor-profile/${counsellor._id}`}
+                  >
+                    <p>View Profile</p>
+                  </Link>
+                </div>
               </div>
-              <div className="col">{counsellor.name}</div>
-              <div className="col">{counsellor.email}</div>
-              <div
-                className={`col ${
-                  counsellor.status === "REJECTED"
-                    ? "red"
-                    : counsellor.status === "APPROVED"
-                    ? "green"
-                    : counsellor.status === "PENDING"
-                    ? "blue"
-                    : ""
-                }`}
-              >
-                {counsellor.status}
-              </div>
-              <div className="col">{counsellor.outstanding_balance}</div>
-              <div className="col">
-                <Link to={`/counsellors/counsellor-profile/${counsellor._id}`}>
-                  <p>View Profile</p>
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
