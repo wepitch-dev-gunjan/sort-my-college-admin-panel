@@ -10,10 +10,10 @@
   .wp-dets-edit-now{
     display: flex;
     justify-content: flex-end;
-    width: 100%;
+    // width: 100%;
     padding: 1em;
     position: absolute;
-    left: 0;
+    right: 0;
     bottom: 0;
     font-size: 0.8em;
     button{
@@ -184,8 +184,8 @@
 
       .wp-dets-btn{
         width: 100%;
-        padding-top: 1em;
-        button{
+        
+        a{
           width: 100%;
           border-radius: 10px;
           display: flex;
@@ -197,8 +197,9 @@
           font-weight: bold;
           cursor: pointer;
           border: 1px solid #1F0A68;
+
         }
-        button:hover{
+        a:hover{
           background-color: #ffffff;
           border: 1px solid #1F0A68;
           transition: all ease 0.3s;

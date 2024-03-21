@@ -14,11 +14,11 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { CiClock2 } from "react-icons/ci";
-import webinar_img from "../../assets/webinar-img.jpg";
+// import webinar_img from "../../assets/webinar-img.jpg";
 const { backend_url } = config;
 
 const WebinarProfile = () => {
@@ -37,7 +37,7 @@ const WebinarProfile = () => {
   const getWebinar = async () => {
     try {
       const { data } = await axios.get(
-        `${backend_url}/webinar/${webinar_id}`,
+        `${backend_url}/admin/webinar/${webinar_id}`,
         // null,
         {
           headers: {
@@ -46,34 +46,14 @@ const WebinarProfile = () => {
         }
       );
       setProfile(data);
+      console.log("Dataaaa", data)
     } catch (error) {
       console.log(error);
       toast(error.message);
     }
   };
 
-  const [profile, setProfile] = useState({
-    webinar_title: "Unlocking the Secrets of AI: A Journey into Machine Learning",
-    webinar_details: "Join us for an insightful exploration into the fascinating world of artificial intelligence and machine learning. In this webinar, we will delve into the fundamental concepts and advanced techniques that drive the development of AI technologies. From understanding machine learning algorithms to exploring deep learning frameworks, participants will gain invaluable knowledge about the inner workings of AI. Additionally, we will examine practical applications of AI across various industries, showcasing its transformative potential in solving complex problems and driving innovation.",
-    what_will_you_learn: "By attending this webinar, participants will embark on a journey to uncover the mysteries of AI and emerge with a deeper understanding of its principles and practices. They will learn about the different types of machine learning algorithms and gain hands-on experience with popular frameworks such as TensorFlow and PyTorch. Moreover, through real-world case studies and examples, participants will discover how AI is being applied in diverse fields, empowering organizations to make data-driven decisions and achieve breakthrough results.",
-    webinar_date: "2024-04-15",
-    speaker_profile: "Dr. Jane Smith - Lead AI Researcher at TechGenius",
-    webinar_by: "Sort My College",
-    webinar_image: "https://example.com/webinar_image.jpg",
-    webinar_start_url: "https://example.com/start",
-    // webinar_join_url: "https://example.com/join",
-    webinar_password: "AI1234",
-    webinar_total_slots: "100",
-    registered_participants: [
-      "participant1@example.com",
-      "participant2@example.com",
-      "participant3@example.com"
-    ],
-    attended_participants: [
-      "participant1@example.com"
-    ],
-    webinar_available_slots: 97
-  });
+  const [profile, setProfile] = useState({});
   
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
@@ -112,9 +92,9 @@ const WebinarProfile = () => {
     }));
   };
 
-  const formatDate = (date) => {
-    return dayjs(date).format("YYYY-MM-DD");
-  };
+  // const formatDate = (date) => {
+  //   return dayjs(date).format("YYYY-MM-DD");
+  // };
 
 
   const handleCancelClick = () => {
@@ -147,11 +127,20 @@ const WebinarProfile = () => {
     getWebinar();
   }, [admin]);
 
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString();
+    const formattedTime = date.toLocaleTimeString();
+    return { date: formattedDate, time: formattedTime };
+  };
+
+
   return (
           <div className="webinar-profile-parent">
               <div className="webinar-profile-child">
                 <div className="webinar-profile-image">
-                  <img src={webinar_img} alt="" />
+                  <img src={profile.webinar_image} alt="" />
                 </div>
                 <div className="webinar-profile-dets">
                   <div className="wp-dets-first">
@@ -166,14 +155,14 @@ const WebinarProfile = () => {
                       <textarea name="" id="" >{profile.webinar_title}</textarea>
                     } */}
                   </div>
-                  <p className="textarea-b">Webinar by <span>Allen Career Institute</span> </p>
+                  <p className="textarea-b">Webinar by <span>{profile.webinar_by}</span> </p>
                   <div className="wp-dets-time">
                     <div className="wp-dets-time-1">
                       <CiClock2 />
                     </div>
                     <div className="wp-dets-time-2">
-                      <p>02:00 PM Onwards</p>
-                      <p>15 September</p>
+                      <p>{formatDate(profile.webinar_date).time}</p>
+                      <p>{formatDate(profile.webinar_date).date}</p>
                     </div>
                   </div>
                   <div className="wp-dets-details">
@@ -204,19 +193,15 @@ const WebinarProfile = () => {
                   </div>
 
                   <div className="wp-dets-btn">
-                    <button>
-                      Start Now
-                    </button>
+                    <a href={profile.webinar_start_url} >Start</a>
                   </div>
-
-
-
+                  
                 </div>
               </div>
               
 
               <div className="wp-dets-edit-now">
-                    <button onClick={() => setEditWebinarEnable(true)}>
+                    <button>
                       Delete Webinar
                     </button>
                 </div>
