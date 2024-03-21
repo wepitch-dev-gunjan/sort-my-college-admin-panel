@@ -46,24 +46,27 @@ const User = () => {
       </div>
       <div className="user-table-container">
         <div className="table">
-          {users.map((user, i) => (
-            <div className="row" key={i}>
-              <div className="col">
-                {user.profile_pic ? (
-                  <img src={user.profile_pic} alt="user avatar" />
-                ) : (
-                  <div className="avatar">{generateAvatar(user)}</div>
-                )}
+          {users
+            .slice(0)
+            .reverse()
+            .map((user, i) => (
+              <div className="row" key={i}>
+                <div className="col">
+                  {user.profile_pic ? (
+                    <img src={user.profile_pic} alt="user avatar" />
+                  ) : (
+                    <div className="avatar">{generateAvatar(user)}</div>
+                  )}
+                </div>
+                <div className="col">{user.name}</div>
+                <div className="col">{user.phone_number}</div>
+                <div className="col">
+                  <Link to={`/user/user-details/${user._id}`}>
+                    <p>View Profile</p>
+                  </Link>
+                </div>
               </div>
-              <div className="col">{user.name}</div>
-              <div className="col">{user.phone_number}</div>
-              <div className="col">
-                <Link to={`/user/user-details/${user._id}`}>
-                  <p>View Profile</p>
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
