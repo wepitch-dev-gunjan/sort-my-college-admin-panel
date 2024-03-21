@@ -1,4 +1,4 @@
-   import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./style.scss";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -66,34 +66,37 @@ const Payment = () => {
       </div>
       <div className="RecentPayments-container">
         <div className="table">
-          {payments.map((payment, i) => (
-            <div className="row" key={i}>
-              <div className="col">{i + 1}</div>
-              <div className="col">{payment.description}</div>
-              <div className="col">{formatDate(payment.created_at).date}</div>
-              <div className="col">{formatDate(payment.created_at).time}</div>
-              <div className="col">{payment.amount}</div>
+          {payments
+            .slice(0)
+            .reverse()
+            .map((payment, i) => (
+              <div className="row" key={i}>
+                <div className="col">{i + 1}</div>
+                <div className="col">{payment.description}</div>
+                <div className="col">{formatDate(payment.created_at).date}</div>
+                <div className="col">{formatDate(payment.created_at).time}</div>
+                <div className="col">{payment.amount}</div>
 
-              <div
-                className={`col ${
-                  payment.status === "Cancelled"
-                    ? "red"
-                    : payment.status === "Delivered"
-                    ? "green"
-                    : payment.status === "Pending"
-                    ? "blue"
-                    : ""
-                }`}
-              >
-                {payment.status}
+                <div
+                  className={`col ${
+                    payment.status === "Cancelled"
+                      ? "red"
+                      : payment.status === "Delivered"
+                      ? "green"
+                      : payment.status === "Pending"
+                      ? "blue"
+                      : ""
+                  }`}
+                >
+                  {payment.status}
+                </div>
+                <div className="col rpc-view-det-btn">
+                  <Link to={`/payment/payment-details/${payment._id}`}>
+                    View Details
+                  </Link>
+                </div>
               </div>
-              <div className="col rpc-view-det-btn">
-                <Link to={`/payment/payment-details/${payment._id}`}>
-                  View Details
-                </Link>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
