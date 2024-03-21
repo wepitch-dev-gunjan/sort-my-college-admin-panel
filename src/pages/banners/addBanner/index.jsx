@@ -39,7 +39,7 @@ const AddBanner = forwardRef((props, ref) => {
       const compressedImage = await compressImage(file);
       try {
         const formData = new FormData();
-        formData.append('images', compressedImage); // Append the File object to FormData
+        formData.append('banner', compressedImage); // Append the File object to FormData
 
         const { data } = await axios.post(`${backend_url}/admin/home-page-banner`, formData, {
           headers: {
