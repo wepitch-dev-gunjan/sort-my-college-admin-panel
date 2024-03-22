@@ -128,6 +128,8 @@ const CounsellorProfile = () => {
       );
       setShowReasonDialog(false);
       setProfile({ ...profile, verified: false });
+      console.log(profile);
+
       toast(data.message);
     } catch (error) {
       console.log(error);

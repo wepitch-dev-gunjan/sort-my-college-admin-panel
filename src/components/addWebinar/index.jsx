@@ -14,7 +14,6 @@ import Spinner from "../spinner/Index";
 import { FiPlus } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-
 const { backend_url } = config;
 
 const AddWebinar = ({ setAddMode }) => {
@@ -160,7 +159,7 @@ const AddWebinar = ({ setAddMode }) => {
     setWebinarDetails(initialState);
     setAddMode(false);
   };
-  
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -233,18 +232,25 @@ const AddWebinar = ({ setAddMode }) => {
                 </label>
               </div>
               <div className="right-section wwyl-inputs">
-              {webinarDetails.what_will_you_learn.map((learning, index) => (
-                <div key={index} className="learning-item">
-                  <textarea
-                    value={learning}
-                    onChange={(e) => handleChange(index, e)}
-                  />
-                  <button className="wwyl-delete-btn" onClick={() => handleRemoveLearning(index)}>
-                    <span role="img" aria-label="Delete"><RiDeleteBin6Line /></span>
-                  </button>
-                </div>
-              ))}
-              <button className="wwyl-add-btn" onClick={handleAddLearning}><FiPlus /></button>
+                {webinarDetails.what_will_you_learn.map((learning, index) => (
+                  <div key={index} className="learning-item">
+                    <textarea
+                      value={learning}
+                      onChange={(e) => handleChange(index, e)}
+                    />
+                    <button
+                      className="wwyl-delete-btn"
+                      onClick={() => handleRemoveLearning(index)}
+                    >
+                      <span role="img" aria-label="Delete">
+                        <RiDeleteBin6Line />
+                      </span>
+                    </button>
+                  </div>
+                ))}
+                <button className="wwyl-add-btn" onClick={handleAddLearning}>
+                  <FiPlus />
+                </button>
               </div>
             </div>
             <div className="webinar-section">

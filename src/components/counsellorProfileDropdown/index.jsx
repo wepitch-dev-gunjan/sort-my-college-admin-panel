@@ -1,11 +1,11 @@
-import React, { useRef, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import './style.scss'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import useClickOutside from '../../customHooks/useClickOutside';
-import { ProfileContext } from '../../context/ProfileContext';
-import { MdDeleteOutline } from 'react-icons/md';
-import { FaEdit } from 'react-icons/fa';
+import React, { useRef, useState, useContext } from "react";
+import PropTypes from "prop-types";
+import "./style.scss";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import useClickOutside from "../../customHooks/useClickOutside";
+import { ProfileContext } from "../../context/ProfileContext";
+import { MdDeleteOutline } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 const CounsellorProfileDropdown = ({ options, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const CounsellorProfileDropdown = ({ options, onSelect }) => {
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
 
-useClickOutside(dropdownRef, () => {
+  useClickOutside(dropdownRef, () => {
     setIsOpen(false);
   });
   const toggleDropdown = () => {
@@ -27,12 +27,18 @@ useClickOutside(dropdownRef, () => {
       </div>
       {isOpen && (
         <div className="dropdown-options">
-            <div className='edit' value="edit"
-            onClick={() => setEditCounsellorProfileEnable(true)}> 
-                <FaEdit />
-                Edit Profile
-             </div>
-            <div className='delete' value="delete"><MdDeleteOutline/>Delete</div>
+          <div
+            className="edit"
+            value="edit"
+            onClick={() => setEditCounsellorProfileEnable(true)}
+          >
+            <FaEdit />
+            Edit Profile
+          </div>
+          <div className="delete" value="delete">
+            <MdDeleteOutline />
+            Delete
+          </div>
         </div>
       )}
     </div>

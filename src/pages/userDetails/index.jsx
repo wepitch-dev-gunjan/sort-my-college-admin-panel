@@ -93,6 +93,16 @@ const UserDetails = () => {
           <div className="row">
             <div className="col">
               <div className="info-field">
+                <p>Gender</p>
+              </div>
+              <div className="info-value">
+                <p>{user.gender}</p>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <div className="info-field">
                 <p>Level of Education</p>
               </div>
 
