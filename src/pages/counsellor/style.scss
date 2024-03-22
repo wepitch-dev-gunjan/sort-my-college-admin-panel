@@ -10,9 +10,9 @@
    margin-bottom: "10px";
    gap:20px
   }
-  Button{
-   height: 40px;
-   padding: 5px;
+  .btn_main{
+   display: flex;
+   gap: 20px;
   }
   .heading {
     background-color: var(--primary-light);
@@ -31,6 +31,7 @@
       text-align: start;
       align-items: center;
       justify-content: space-between;
+      gap: 40px;
       .col {
         display: flex;
         justify-content: space-between;
@@ -60,6 +61,7 @@
       margin: 29px;
       text-align: start;
       justify-content: space-between;
+      gap: 40px;
       .col {
         display: flex;
         justify-content: space-between;
@@ -79,4 +81,18 @@
       }
     }
   }
+}
+// edited
+@media (max-width: 860px){
+ .Counsellors-container{
+  width: fit-content;
+ }
+ .counsellor-table-container{
+width: fit-content;
+overflow-y: scroll;
+
+ .row{
+  width: 700px;
+ }
+ }
 }

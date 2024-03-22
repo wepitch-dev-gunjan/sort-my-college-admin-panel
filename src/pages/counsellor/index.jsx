@@ -34,29 +34,69 @@ const Counsellor = () => {
     locations_focused: [],
     degree_focused: [],
     courses_focused: [],
-    Search: "",
+    search: "",
     status: "",
   });
+
+  // Function to reset all filter parameters
+ // Function to reset all filter parameters and fetch all counsellors data
+ const resetFilters = async () => {
+  try {
+    // Reset filter parameters
+    setFilterParams({
+      locations_focused: [],
+      degree_focused: [],
+      courses_focused: [],
+      search: "",
+      status: "",
+    });
+
+    // Fetch all counsellors data without any filters applied
+    const { data } = await axios.get(
+      `${backend_url}/counsellor/counsellor-for-admin`,
+      {
+        headers: {
+          Authorization: admin.token,
+        },
+      }
+    );
+
+    // Sort and set the counsellors data
+    data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    setCounsellors(data);
+  } catch (error) {
+    console.log(error);
+    // Handle error
+  }
+};
   // Inside your Counsellor component
 
-  // Modify the handleFilterChange function to handle the universal search
+   // handle the universal search and status
   const handleFilterChange = (e) => {
-    const { name, value, checked } = e.target;
-
-    if (name === "search") {
-      // For universal search, update the 'search' filter parameter directly
-      setFilterParams((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    } else {
-      // For other filters, handle them as before
-      setFilterParams((prevState) => ({
-        ...prevState,
-        [name]: checked ? value : "",
-      }));
-    }
-  };
+   const { name, value, checked } = e.target;
+ 
+   if (name === "search") {
+     // , update the 'search' 
+     setFilterParams((prevState) => ({
+       ...prevState,
+       [name]: value,
+     }));
+   } else if (name === "status") {
+     // Ensure value is not undefined
+     const newValue = value || ''; // If value is undefined, set it to an empty string
+     setFilterParams((prevState) => ({
+       ...prevState,
+       [name]: newValue,
+     }));
+   } else {
+     // For other filters, handle them as before
+     setFilterParams((prevState) => ({
+       ...prevState,
+       [name]: checked ? value : "",
+     }));
+   }
+ };
+ 
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -95,6 +135,7 @@ const Counsellor = () => {
     return `${firstName}`;
   };
   console.log(counsellors);
+
   return (
     <div className="Counsellors-container">
       <div className="filters">
@@ -105,6 +146,7 @@ const Counsellor = () => {
           variant="outlined"
           type="text"
           name="search"
+          value={filterParams.search}
           placeholder="Search by all fields"
           onChange={handleFilterChange}
           onKeyDown={handleKeyPress}
@@ -139,6 +181,7 @@ const Counsellor = () => {
             <Checkbox
               name="degree_focused"
               value="UG"
+              checked={filterParams.degree_focused === "UG"}
               onChange={handleFilterChange}
               onKeyDown={handleKeyPress}
             />
@@ -150,34 +193,46 @@ const Counsellor = () => {
             <Checkbox
               name="degree_focused"
               value="PG"
+              checked={filterParams.degree_focused === "PG"}
               onChange={handleFilterChange}
               onKeyDown={handleKeyPress}
             />
           }
           label="PG"
         />
-        {/* <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        {/* dropdown */}
+        <FormControl style={{ width: "100px" }}>
+          <InputLabel>Status</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
+            name="status"
             value={filterParams.status}
-            label="Age"
+            label="status"
             onChange={handleFilterChange}
           >
+            <MenuItem value="ALL">ALL</MenuItem>
             <MenuItem value="PENDING">PENDING</MenuItem>
             <MenuItem value="APPROVED">APPROVED</MenuItem>
             <MenuItem value="REJECTED">REJECTED</MenuItem>
           </Select>
-        </FormControl> */}
+        </FormControl>
         {/* <button onClick={getCounsellors}>Apply Filters</button> */}
-        <Button
-          onClick={getCounsellors}
-          sx={{ height: "55 px" }}
-          variant="contained"
-        >
-          Apply Filters
-        </Button>
+        <div className="btn_main">
+          {" "}
+          <Button
+            onClick={getCounsellors}
+            sx={{ height: "55 px" }}
+            variant="contained"
+          >
+            Apply Filters
+          </Button>
+          <Button
+  onClick={resetFilters}
+  sx={{ height: "55 px" }}
+  variant="contained"
+>
+  Reset Filters
+</Button>
+        </div>
       </div>
 
       <div className="heading sticky">
@@ -203,44 +258,50 @@ const Counsellor = () => {
         </div>
       </div>
       <div className="counsellor-container">
-        <div className="table">
-          {counsellors
-            .slice(0)
-            .reverse()
-            .map((counsellor, i) => (
-              <div className="row" key={i}>
-                <div className="col">
-                  {counsellor.profile_pic ? (
-                    <img src={counsellor.profile_pic} alt="Counsellor avatar" />
-                  ) : (
-                    <div className="avatar">{generateAvatar(counsellor)}</div>
-                  )}
-                </div>
-                <div className="col">{counsellor.name}</div>
-                <div className="col">{counsellor.email}</div>
-                <div
-                  className={`col ${
-                    counsellor.status === "REJECTED"
-                      ? "red"
-                      : counsellor.status === "APPROVED"
-                      ? "green"
-                      : counsellor.status === "PENDING"
-                      ? "blue"
-                      : ""
-                  }`}
-                >
-                  {counsellor.status}
-                </div>
-                <div className="col">{counsellor.outstanding_balance}</div>
-                <div className="col">
-                  <Link
-                    to={`/counsellors/counsellor-profile/${counsellor._id}`}
+        <div className="counsellor-container-table">
+          {" "}
+          <div className="table">
+            {counsellors
+              .slice(0)
+              .reverse()
+              .map((counsellor, i) => (
+                <div className="row" key={i}>
+                  <div className="col">
+                    {counsellor.profile_pic ? (
+                      <img
+                        src={counsellor.profile_pic}
+                        alt="Counsellor avatar"
+                      />
+                    ) : (
+                      <div className="avatar">{generateAvatar(counsellor)}</div>
+                    )}
+                  </div>
+                  <div className="col">{counsellor.name}</div>
+                  <div className="col">{counsellor.email}</div>
+                  <div
+                    className={`col ${
+                      counsellor.status === "REJECTED"
+                        ? "red"
+                        : counsellor.status === "APPROVED"
+                        ? "green"
+                        : counsellor.status === "PENDING"
+                        ? "blue"
+                        : ""
+                    }`}
                   >
-                    <p>View Profile</p>
-                  </Link>
+                    {counsellor.status}
+                  </div>
+                  <div className="col">{counsellor.outstanding_balance}</div>
+                  <div className="col">
+                    <Link
+                      to={`/counsellors/counsellor-profile/${counsellor._id}`}
+                    >
+                      <p>View Profile</p>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
       </div>
     </div>
