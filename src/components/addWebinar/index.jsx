@@ -56,7 +56,15 @@ const AddWebinar = ({ setAddMode }) => {
 
   useClickOutside(Ref, () => handleCancel());
 
-  const handleChange = (index, e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setWebinarDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  const handleAddWahtWillYouLearn = (index, e) => {
     const { value } = e.target;
     const newLearnings = [...webinarDetails.what_will_you_learn];
     newLearnings[index] = value;
@@ -236,7 +244,7 @@ const AddWebinar = ({ setAddMode }) => {
                   <div key={index} className="learning-item">
                     <textarea
                       value={learning}
-                      onChange={(e) => handleChange(index, e)}
+                      onChange={(e) => handleAddWahtWillYouLearn(index, e)}
                     />
                     <button
                       className="wwyl-delete-btn"
