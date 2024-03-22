@@ -117,7 +117,6 @@ const Counsellor = () => {
       );
       data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setCounsellors(data);
-      setCounsellors(data);
     } catch (error) {
       console.log(error);
       // toast(error.message)
@@ -134,7 +133,11 @@ const Counsellor = () => {
     const firstName = nameParts[0].charAt(0).toUpperCase();
     return `${firstName}`;
   };
-  console.log(counsellors);
+ 
+
+  // useEffect(() =>{
+  //  console.log(filterParams)
+  // }, [filterParams])
 
   return (
     <div className="Counsellors-container">
