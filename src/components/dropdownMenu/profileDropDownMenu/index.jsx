@@ -11,13 +11,14 @@ import { MediaQueryContext } from "../../../context/MediaQueryContext";
 import { GrAdd } from "react-icons/gr";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { NotificationContext } from "../../../context/NotificationContext";
+import { WebinarContext } from "../../../context/WebinarContext";
 const ProfileDropDownMenu = ({ name, image, onClick }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const { setNotificationsEnable } = useContext(NotificationContext);
   const { smallScreen, xSmallScreen} = useContext(MediaQueryContext);
-
+  const { setAddMode } = useContext(WebinarContext);
   useClickOutside(dropdownRef, () => {
     setIsDropdownOpen(false);
   });
@@ -33,6 +34,11 @@ const ProfileDropDownMenu = ({ name, image, onClick }) => {
    // const lastName = partsName[partsName.length -1].charAt(0).toUpperCase();
    return `${firstName}`
   }
+
+  const handleClick = () => {
+   setAddMode(prev => !prev);
+   navigate('/webinar')
+ }
   return (
     <div className="ProfileDropDownMenu-container" onClick={toggleDropdown}>
       <div className="left">
@@ -72,7 +78,7 @@ const ProfileDropDownMenu = ({ name, image, onClick }) => {
           {xSmallScreen && (
            <>
            <DropDownMenuButton
-           onClick={() => navigate("/webinar")}
+           onClick={handleClick}
            icon = {GrAdd}
            text = "Add Webinar"
            />

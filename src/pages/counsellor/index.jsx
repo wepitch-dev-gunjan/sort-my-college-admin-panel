@@ -133,7 +133,6 @@ const Counsellor = () => {
     const firstName = nameParts[0].charAt(0).toUpperCase();
     return `${firstName}`;
   };
- 
 
   // useEffect(() =>{
   //  console.log(filterParams)
@@ -212,9 +211,8 @@ const Counsellor = () => {
             label="status"
             onChange={handleFilterChange}
           >
-            <MenuItem value="ALL">ALL</MenuItem>
-            <MenuItem value="PENDING">PENDING</MenuItem>
             <MenuItem value="APPROVED">APPROVED</MenuItem>
+            <MenuItem value="PENDING">PENDING</MenuItem>
             <MenuItem value="REJECTED">REJECTED</MenuItem>
           </Select>
         </FormControl>

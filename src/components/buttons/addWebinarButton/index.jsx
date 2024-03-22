@@ -11,7 +11,6 @@ const AddWebinarButton = () => {
     setAddMode(prev => !prev);
     navigate('/webinar')
   }
-
   return (
     <div className='AddWebinarButton-container'>
       <div className='primary-button add-webinar-button'
