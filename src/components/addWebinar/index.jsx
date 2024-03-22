@@ -11,6 +11,10 @@ import { WebinarContext } from "../../context/WebinarContext";
 import { ImSpinner8 } from "react-icons/im";
 import { MdCloudUpload } from "react-icons/md";
 import Spinner from "../spinner/Index";
+import { FiPlus } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+
 const { backend_url } = config;
 
 const AddWebinar = ({ setAddMode }) => {
@@ -40,7 +44,7 @@ const AddWebinar = ({ setAddMode }) => {
     webinar_image: "",
     webinar_title: `Webinar-${formatDate(getTomorrowDate())} at ${currentTime}`,
     webinar_details: "",
-    what_will_you_learn: "",
+    what_will_you_learn: [""],
     webinar_date: formatDate(getTomorrowDate()),
     webinar_time: currentTime,
     speaker_profile: "",
@@ -53,6 +57,65 @@ const AddWebinar = ({ setAddMode }) => {
 
   useClickOutside(Ref, () => handleCancel());
 
+  const handleChange = (index, e) => {
+    const { value } = e.target;
+    const newLearnings = [...webinarDetails.what_will_you_learn];
+    newLearnings[index] = value;
+    setWebinarDetails((prevDetails) => ({
+      ...prevDetails,
+      what_will_you_learn: newLearnings,
+    }));
+  };
+
+  const handleAddLearning = () => {
+    setWebinarDetails((prevDetails) => ({
+      ...prevDetails,
+      what_will_you_learn: [...prevDetails.what_will_you_learn, ""],
+    }));
+  };
+
+  const handleRemoveLearning = (index) => {
+    const newLearnings = [...webinarDetails.what_will_you_learn];
+    newLearnings.splice(index, 1);
+    setWebinarDetails((prevDetails) => ({
+      ...prevDetails,
+      what_will_you_learn: newLearnings,
+    }));
+  };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     setWebinarLoading(true);
+
+  //     const webinarSubmitDetails = {
+  //       ...webinarDetails,
+  //       webinar_image: imageFile,
+  //     };
+  //     // Create FormData object to send all data including the file
+  //     const formData = new FormData();
+  //     Object.entries(webinarSubmitDetails).forEach(([key, value]) => {
+  //       formData.append(key, value);
+  //     });
+
+  //     const response = await axios.post(
+  //       `${backend_url}/admin/webinar`,
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+  //           Authorization: admin.token,
+  //         },
+  //       }
+  //     );
+  //     console.log("Webinar saved:", response.data);
+  //     setWebinarLoading(false);
+  //     handleCancel();
+  //     toast.success("Webinar added successfully");
+  //   } catch (error) {
+  //     setWebinarLoading(false);
+  //     console.error("Error saving webinar:", error);
+  //   }
+  // };
   const handleSubmit = async () => {
     try {
       setWebinarLoading(true);
@@ -61,10 +124,15 @@ const AddWebinar = ({ setAddMode }) => {
         ...webinarDetails,
         webinar_image: imageFile,
       };
-      // Create FormData object to send all data including the file
       const formData = new FormData();
       Object.entries(webinarSubmitDetails).forEach(([key, value]) => {
-        formData.append(key, value);
+        if (key === "what_will_you_learn") {
+          value.forEach((item, index) => {
+            formData.append(`${key}[${index}]`, item);
+          });
+        } else {
+          formData.append(key, value);
+        }
       });
 
       const response = await axios.post(
@@ -72,7 +140,7 @@ const AddWebinar = ({ setAddMode }) => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+            "Content-Type": "multipart/form-data",
             Authorization: admin.token,
           },
         }
@@ -92,7 +160,7 @@ const AddWebinar = ({ setAddMode }) => {
     setWebinarDetails(initialState);
     setAddMode(false);
   };
-
+  
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -104,14 +172,6 @@ const AddWebinar = ({ setAddMode }) => {
     };
     reader.readAsDataURL(file);
     setImageFile(file);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setWebinarDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
   };
 
   return (
@@ -172,13 +232,19 @@ const AddWebinar = ({ setAddMode }) => {
                   What will you learn:
                 </label>
               </div>
-              <div className="right-section">
-                <textarea
-                  id="what_will_you_learn"
-                  name="what_will_you_learn"
-                  value={webinarDetails.what_will_you_learn}
-                  onChange={handleChange}
-                />
+              <div className="right-section wwyl-inputs">
+              {webinarDetails.what_will_you_learn.map((learning, index) => (
+                <div key={index} className="learning-item">
+                  <textarea
+                    value={learning}
+                    onChange={(e) => handleChange(index, e)}
+                  />
+                  <button className="wwyl-delete-btn" onClick={() => handleRemoveLearning(index)}>
+                    <span role="img" aria-label="Delete"><RiDeleteBin6Line /></span>
+                  </button>
+                </div>
+              ))}
+              <button className="wwyl-add-btn" onClick={handleAddLearning}><FiPlus /></button>
               </div>
             </div>
             <div className="webinar-section">

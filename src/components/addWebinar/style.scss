@@ -6,6 +6,56 @@
     transform: rotate(360deg);
   }
 }
+
+.AddWebinar-container{
+  .wwyl-inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.5em;
+    padding-bottom: 1em;
+
+    .learning-item{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0.3em;
+      width: 100%;
+      textarea{
+        width: 100%;
+      }
+    }
+    button{
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    button.wwyl-add-btn{
+      padding: 0.5em 0.7em 0.5em 0.7em; 
+      background-color: #1F0A68;
+      color: #ffffff;
+      border-radius: 5px;
+      width: 100%;
+      text-align: center;
+    }
+    .wwyl-delete-btn{
+      background-color: rgba(255, 0, 0, 0.842);
+      border-radius: 5px;
+      padding: 0.3em 0.5em 0.3em 0.5em;
+      span{
+        color: #ffffff;
+
+        svg{
+          height: 1.2em;
+          width: 1.2em;
+          
+        }
+      }
+    }
+  }
+}
 .Add-webinar {
   display: flex;
   flex-direction: column;
