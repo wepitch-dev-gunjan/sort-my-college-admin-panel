@@ -30,6 +30,8 @@ const Counsellor = () => {
     });
   };
   const { admin } = useContext(AdminContext);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortBy, setSortBy] = useState("outstanding_balance");
   const [filterParams, setFilterParams] = useState({
     locations_focused: [],
     degree_focused: [],
@@ -37,66 +39,76 @@ const Counsellor = () => {
     search: "",
     status: "",
   });
+  const toggleSortOrder = () => {
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+  const handleSort = (field) => {
+    if (field === sortBy) {
+      toggleSortOrder();
+    } else {
+      setSortBy(field);
+      setSortOrder("asc");
+    }
+  };
 
   // Function to reset all filter parameters
- // Function to reset all filter parameters and fetch all counsellors data
- const resetFilters = async () => {
-  try {
-    // Reset filter parameters
-    setFilterParams({
-      locations_focused: [],
-      degree_focused: [],
-      courses_focused: [],
-      search: "",
-      status: "",
-    });
+  // Function to reset all filter parameters and fetch all counsellors data
+  const resetFilters = async () => {
+    try {
+      // Reset filter parameters
+      setFilterParams({
+        locations_focused: [],
+        degree_focused: [],
+        courses_focused: [],
+        search: "",
+        status: "",
+      });
 
-    // Fetch all counsellors data without any filters applied
-    const { data } = await axios.get(
-      `${backend_url}/counsellor/counsellor-for-admin`,
-      {
-        headers: {
-          Authorization: admin.token,
-        },
-      }
-    );
+      // Fetch all counsellors data without any filters applied
+      const { data } = await axios.get(
+        `${backend_url}/counsellor/counsellor-for-admin`,
+        {
+          headers: {
+            Authorization: admin.token,
+          },
+        }
+      );
 
-    // Sort and set the counsellors data
-    data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    setCounsellors(data);
-  } catch (error) {
-    console.log(error);
-    // Handle error
-  }
-};
+      // Sort and set the counsellors data
+      data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setCounsellors(data);
+    } catch (error) {
+      console.log(error);
+      // Handle error
+    }
+  };
   // Inside your Counsellor component
 
-   // handle the universal search and status
+  // handle the universal search and status
   const handleFilterChange = (e) => {
-   const { name, value, checked } = e.target;
- 
-   if (name === "search") {
-     // , update the 'search' 
-     setFilterParams((prevState) => ({
-       ...prevState,
-       [name]: value,
-     }));
-   } else if (name === "status") {
-     // Ensure value is not undefined
-     const newValue = value || ''; // If value is undefined, set it to an empty string
-     setFilterParams((prevState) => ({
-       ...prevState,
-       [name]: newValue,
-     }));
-   } else {
-     // For other filters, handle them as before
-     setFilterParams((prevState) => ({
-       ...prevState,
-       [name]: checked ? value : "",
-     }));
-   }
- };
- 
+    const { name, value, checked } = e.target;
+
+    if (name === "search") {
+      // , update the 'search'
+      setFilterParams((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else if (name === "status") {
+      // Ensure value is not undefined
+      const newValue = value || ""; // If value is undefined, set it to an empty string
+      setFilterParams((prevState) => ({
+        ...prevState,
+        [name]: newValue,
+      }));
+    } else {
+      // For other filters, handle them as before
+      setFilterParams((prevState) => ({
+        ...prevState,
+        [name]: checked ? value : "",
+      }));
+    }
+  };
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -107,24 +119,32 @@ const Counsellor = () => {
     try {
       const { data } = await axios.get(
         `${backend_url}/counsellor/counsellor-for-admin`,
-        // null,
         {
           headers: {
             Authorization: admin.token,
           },
-          params: filterParams,
+          params: { ...filterParams, sortBy, sortOrder },
         }
       );
-      data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      data.sort((a, b) =>
+        sortOrder === "asc"
+          ? a.outstanding_balance - b.outstanding_balance
+          : b.outstanding_balance - a.outstanding_balance
+      );
       setCounsellors(data);
     } catch (error) {
       console.log(error);
       // toast(error.message)
     }
   };
+  const handleSortByOutstandingBalance = () => {
+    // Toggle sorting order
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+  };
   useEffect(() => {
     if (admin.token) getCounsellors();
-  }, [admin]);
+  }, [admin, sortOrder, sortBy]);
   const { counsellors, setCounsellors } = useContext(CounsellorContext);
 
   const generateAvatar = (counsellor) => {
@@ -227,12 +247,12 @@ const Counsellor = () => {
             Apply Filters
           </Button>
           <Button
-  onClick={resetFilters}
-  sx={{ height: "55 px" }}
-  variant="contained"
->
-  Reset Filters
-</Button>
+            onClick={resetFilters}
+            sx={{ height: "55 px" }}
+            variant="contained"
+          >
+            Reset Filters
+          </Button>
         </div>
       </div>
 
@@ -250,7 +270,7 @@ const Counsellor = () => {
           <div className="col">
             <h4>STATUS</h4>
           </div>
-          <div className="col">
+          <div onClick={handleSortByOutstandingBalance} className="col">
             <h4>OUTSTANDING BALANCE</h4>
           </div>
           <div className="col">
@@ -262,46 +282,40 @@ const Counsellor = () => {
         <div className="counsellor-container-table">
           {" "}
           <div className="table">
-            {counsellors
-              .slice(0)
-              .reverse()
-              .map((counsellor, i) => (
-                <div className="row" key={i}>
-                  <div className="col">
-                    {counsellor.profile_pic ? (
-                      <img
-                        src={counsellor.profile_pic}
-                        alt="Counsellor avatar"
-                      />
-                    ) : (
-                      <div className="avatar">{generateAvatar(counsellor)}</div>
-                    )}
-                  </div>
-                  <div className="col">{counsellor.name}</div>
-                  <div className="col">{counsellor.email}</div>
-                  <div
-                    className={`col ${
-                      counsellor.status === "REJECTED"
-                        ? "red"
-                        : counsellor.status === "APPROVED"
-                        ? "green"
-                        : counsellor.status === "PENDING"
-                        ? "blue"
-                        : ""
-                    }`}
-                  >
-                    {counsellor.status}
-                  </div>
-                  <div className="col">{counsellor.outstanding_balance}</div>
-                  <div className="col">
-                    <Link
-                      to={`/counsellors/counsellor-profile/${counsellor._id}`}
-                    >
-                      <p>View Profile</p>
-                    </Link>
-                  </div>
+            {counsellors.map((counsellor, i) => (
+              <div className="row" key={i}>
+                <div className="col">
+                  {counsellor.profile_pic ? (
+                    <img src={counsellor.profile_pic} alt="Counsellor avatar" />
+                  ) : (
+                    <div className="avatar">{generateAvatar(counsellor)}</div>
+                  )}
                 </div>
-              ))}
+                <div className="col">{counsellor.name}</div>
+                <div className="col">{counsellor.email}</div>
+                <div
+                  className={`col ${
+                    counsellor.status === "REJECTED"
+                      ? "red"
+                      : counsellor.status === "APPROVED"
+                      ? "green"
+                      : counsellor.status === "PENDING"
+                      ? "blue"
+                      : ""
+                  }`}
+                >
+                  {counsellor.status}
+                </div>
+                <div className="col">{counsellor.outstanding_balance}</div>
+                <div className="col">
+                  <Link
+                    to={`/counsellors/counsellor-profile/${counsellor._id}`}
+                  >
+                    <p>View Profile</p>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
