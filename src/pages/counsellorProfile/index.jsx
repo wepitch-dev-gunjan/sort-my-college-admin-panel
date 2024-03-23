@@ -638,7 +638,7 @@ const CounsellorProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Name of Bank</p>
+                  <p>Name of Branch</p>
                 </div>
                 <div className="info-value">
                   <p>{profile.branch}</p>
@@ -648,7 +648,7 @@ const CounsellorProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Name of Bank</p>
+                  <p>Bank account_number</p>
                 </div>
                 <div className="info-value">
                   <p>{profile.account_number}</p>
