@@ -43,16 +43,20 @@ const CounsellorProfile = () => {
 
   const handleClearOutstandingBalance = async () => {
     try {
-      const { data } = await axios.put(`${backend_url}/counsellor/${counsellor_id}/clear-outstanding-balance`, null, {
-        headers: {
-          Authorization: admin.token
+      const { data } = await axios.put(
+        `${backend_url}/counsellor/${counsellor_id}/clear-outstanding-balance`,
+        null,
+        {
+          headers: {
+            Authorization: admin.token,
+          },
         }
-      })
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.success(error.message);
     }
-  }
+  };
 
   const [profile, setProfile] = useState({
     name: "abc",
@@ -379,8 +383,9 @@ const CounsellorProfile = () => {
                     />
                   ) : (
                     profile.languages_spoken?.map((language, i) => (
-                      <p key={i}>{`${language}${i < profile.languages_spoken.length - 1 ? "," : ""
-                        }`}</p>
+                      <p key={i}>{`${language}${
+                        i < profile.languages_spoken.length - 1 ? "," : ""
+                      }`}</p>
                     ))
                   )}
                 </div>
@@ -421,6 +426,13 @@ const CounsellorProfile = () => {
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="documentsDetails">
+          <div className="info">
+            <div className="row">
+              <div className="col">hiii</div>
             </div>
           </div>
         </div>
@@ -585,8 +597,9 @@ const CounsellorProfile = () => {
                     </div>
                   ) : (
                     profile.locations_focused?.map((location, i) => (
-                      <p key={i}>{`${location}${i < profile.locations_focused.length - 1 ? "," : ""
-                        }`}</p>
+                      <p key={i}>{`${location}${
+                        i < profile.locations_focused.length - 1 ? "," : ""
+                      }`}</p>
                     ))
                   )}
                 </div>
@@ -608,8 +621,9 @@ const CounsellorProfile = () => {
                     />
                   ) : (
                     profile.courses_focused?.map((courses_focused, i) => (
-                      <p key={i}>{`${courses_focused}${i < profile.courses_focused.length - 1 ? "," : ""
-                        }`}</p>
+                      <p key={i}>{`${courses_focused}${
+                        i < profile.courses_focused.length - 1 ? "," : ""
+                      }`}</p>
                     ))
                   )}
                 </div>
