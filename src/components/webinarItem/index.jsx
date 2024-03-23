@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./style.scss";
 import { MdDateRange } from "react-icons/md";
@@ -30,6 +30,7 @@ const WebinarItem = ({
   const [showMenu, setShowMenu] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [webinarDetails, setWebinarDetails] = useState();
+  const [remainingTime, setRemainingTime] = useState('')
   console.log(webinar_date, "hi");
   const navigate = useNavigate();
 
@@ -46,6 +47,42 @@ const WebinarItem = ({
       window.open(webinar_start_url, "_blank");
     }
   };
+
+  const getRemainingTime = () => {
+    // Parse the webinar date string to a Date object
+    const webinarDateTime = new Date(webinar_date);
+
+    webinarDateTime.setHours(webinarDateTime.getHours() - 5); // Adjust for UTC+5 hours
+    webinarDateTime.setMinutes(webinarDateTime.getMinutes() - 30); // Adjust for UTC+30 minutes
+
+    // Create a new Date object for the current time in the Indian timezone
+    const currentDate = new Date();
+    // Calculate the time difference in milliseconds
+    const timeDifference = webinarDateTime.getTime() - currentDate.getTime();
+
+    if (timeDifference > 0) {
+      // Convert the time difference to hours, minutes, and seconds
+      let remainingHours = Math.floor(timeDifference / (1000 * 60 * 60));
+      let remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      let remainingSeconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      // Format the remaining time as a string
+      const formattedTime = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+
+      // Set the remaining time
+      setRemainingTime(formattedTime);
+    } else {
+      setRemainingTime("Time Exceeded");
+    }
+  }
+
+  useEffect(() => {
+    const timerId = setInterval(getRemainingTime, 1000)
+
+    return () => {
+      clearInterval(timerId)
+    }
+  }, [])
 
   const handleDelete = async () => {
     try {
@@ -64,28 +101,6 @@ const WebinarItem = ({
       console.error("An error occurred:", error);
     }
   };
-
-  // function convertTo12HourFormat(timestamp) {
-  //   // Convert timestamp string to Date object
-  //   const dateObj = new Date(timestamp);
-
-  //   // Get hour portion
-  //   const hour = dateObj.getHours();
-
-  //   // Check if hour is greater than or equal to 13
-  //   if (hour >= 13) {
-  //     // Get time portion in 12-hour format
-  //     const timeWithoutDate = dateObj.toLocaleTimeString("en-US", {
-  //       hour: "2-digit",
-  //       minute: "2-digit",
-  //       hour12: true,
-  //     });
-  //     return timeWithoutDate;
-  //   } else {
-  //     // If hour is less than 13, return the timestamp as it is
-  //     return timestamp;
-  //   }
-  // }
 
   function convertTimestampTo12HourFormat(timestamp) {
     function convert24To12(time24) {
@@ -139,6 +154,10 @@ const WebinarItem = ({
 
           <div className="row">
             <div className="col">{webinar_available_slots}</div>
+          </div>
+
+          <div className="remaining-time">
+            {remainingTime}
           </div>
         </div>
 
