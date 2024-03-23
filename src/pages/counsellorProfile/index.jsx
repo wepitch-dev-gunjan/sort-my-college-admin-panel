@@ -625,6 +625,10 @@ const CounsellorProfile = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="bankDetails">
+          <div className="info">
             <div className="row">
               <div className="col">
                 <div className="info-field">

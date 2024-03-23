@@ -11,7 +11,7 @@
   gap: 40px;
   height: 100%;
   padding: 50px 200px 50px 200px;
-  .info-img{
+  .info-img {
     height: 100%;
   }
   .left-profile {
@@ -31,7 +31,7 @@
       padding: 24px;
       border-radius: 20px;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-       .info {
+      .info {
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -129,7 +129,7 @@
       .left {
         display: flex;
         gap: 12px;
-        .save{
+        .save {
           background-color: var(--primary-color);
           border-radius: 20px;
           color: white;
@@ -198,6 +198,34 @@
                 border-bottom: 1px solid #111;
               }
             }
+          }
+        }
+      }
+    }
+    .bankDetails {
+      border: 1px solid #1111111a;
+      padding: 24px;
+      border-radius: 20px;
+      height: 100%;
+      background-color: var(--background-light);
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .row {
+      display: flex;
+      justify-content: start;
+      .col {
+        width: 100%;
+        display: flex;
+        .info-field {
+          width: 100%;
+          font-weight: 700;
+          .info-value {
+            width: 100%;
           }
         }
       }
