@@ -32,7 +32,7 @@ const Webinar = () => {
 
   const getWebinars = async () => {
     try {
-      const { data } = await axios.get(`${backend_url}/admin/webinar`, {
+      const { data } = await axios.get(`${backend_url}/admin/webinar/webinar-for-admin`, {
         // params: webinarFilters,
       });
       console.log(data)
