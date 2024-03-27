@@ -1,0 +1,41 @@
+.admin-ep-main{
+    width: 100%;
+    height: 100%;
+    background-color: #F7F4FF;
+
+    .admin-ep-child{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px;
+
+        .aepc-left, .aepc-right{
+            cursor: pointer;
+            width: 49%;
+            height: 70%;
+            background-color: #ffffff;
+            padding: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .aepc-links{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            h1{
+                color: #111111a8;
+            }
+        }
+        // .aepc-left{
+        //     background-color: rgba(207, 250, 239, 0.418);
+        // }
+        // .aepc-right{
+        //     background-color: rgba(250, 214, 220, 0.377);
+        // }
+    }
+}

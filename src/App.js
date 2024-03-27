@@ -33,6 +33,9 @@ import { BannerContext } from "./context/BannerContext";
 import UserDetails from "./pages/userDetails";
 import Webinar from "./pages/webinar";
 import WebinarProfile from "./pages/webinarProfile";
+import EntrancePreparation from "./pages/entrancePreparation";
+import FeatureAndPreference from "./pages/featureAndPreference";
+import InstituteDirectory from "./pages/instituteDirectory"
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -124,6 +127,9 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/help" element={<Help />} />
+                <Route path="/entrance-preparation" element={<EntrancePreparation /> } />
+                <Route path="/entrance-preparation/feature-and-preference" element={<FeatureAndPreference />} />
+                <Route path="/entrance-preparation/institute-directory" element={<InstituteDirectory />} />
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
               </>

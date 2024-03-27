@@ -9,8 +9,10 @@ import { ProfileContext } from "../../context/ProfileContext";
 import GroupIcon from '@mui/icons-material/Group';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { PiFlagBannerFill } from "react-icons/pi";
-
+import { FaBuildingColumns } from "react-icons/fa6";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { FaChalkboardTeacher } from "react-icons/fa";
+
 
 
 const Sidebar = () => {
@@ -68,7 +70,7 @@ const Sidebar = () => {
 
         <SidebarMenuButton
           href="/counsellors"
-          icon={GroupIcon}
+          icon={FaChalkboardTeacher}
           text="Counsellors"
           expand={expand}
         />
@@ -77,6 +79,13 @@ const Sidebar = () => {
           href="/webinar"
           icon={AccessTimeIcon}
           text="Webinars"
+          expand={expand}
+        />
+
+        <SidebarMenuButton
+          href="/entrance-preparation"
+          icon={FaBuildingColumns}
+          text="Entrance Preparation"
           expand={expand}
         />
 
