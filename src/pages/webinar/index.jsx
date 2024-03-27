@@ -31,6 +31,7 @@ const Webinar = () => {
 
   const getWebinars = async () => {
     try {
+<<<<<<< HEAD
       const { data } = await axios.get(
         `${backend_url}/admin/webinar/webinar-for-admin`,
         {
@@ -38,6 +39,12 @@ const Webinar = () => {
         }
       );
       console.log(data);
+=======
+      const { data } = await axios.get(`${backend_url}/admin/webinar/webinar-for-admin`, {
+        // params: webinarFilters,
+      });
+      console.log(data)
+>>>>>>> 77400501b27940f4c53a04e0a921743311d31ffc
       setWebinars(data);
     } catch (error) {
       console.log(error);
