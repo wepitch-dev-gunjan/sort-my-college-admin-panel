@@ -147,8 +147,8 @@ const AddWebinar = ({ setAddMode }) => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: admin.token,
+            "Content-Type": "multipart/form-data",
           },
         }
       );

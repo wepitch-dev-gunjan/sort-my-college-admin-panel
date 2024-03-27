@@ -31,7 +31,7 @@ const WebinarProfile = () => {
   const { webinar_id } = useParams();
   const [showMenu, setShowMenu] = useState(false);
   const [editWebinarEnable, setEditWebinarEnable] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useClickOutside(menuRef, () => {
     setShowMenu(false);
@@ -40,7 +40,7 @@ const WebinarProfile = () => {
   const getWebinar = async () => {
     try {
       const { data } = await axios.get(
-        `${backend_url}/admin/webinar/${webinar_id}`,
+        `${backend_url}/admin/webinar/webinar-for-admin/${webinar_id}`,
         // null,
         {
           headers: {
@@ -112,26 +112,23 @@ const WebinarProfile = () => {
 
   const handleDeleteWebinar = async () => {
     try {
-      console.log(webinar_id, admin.token)
-      await axios.delete(
-        `${backend_url}/admin/webinar/${webinar_id}`,
-        {
-          headers: {
-            Authorization: admin.token,
-          },
-          data: {
-            cloudinary_image_id: webinar.webinar_image
-          }
-        }
-      );
+      console.log(webinar_id, admin.token);
+      await axios.delete(`${backend_url}/admin/webinar/${webinar_id}`, {
+        headers: {
+          Authorization: admin.token,
+        },
+        data: {
+          cloudinary_image_id: webinar.webinar_image,
+        },
+      });
       toast.success("Webinar deleted successfully");
-        // Redirect or update UI as needed
-        navigate('/webinar')
+      // Redirect or update UI as needed
+      navigate("/webinar");
     } catch (error) {
       console.error("Error deleting webinar:", error);
       toast.error("Failed to delete webinar");
     }
-};
+  };
 
   return (
     <div className="webinar-profile-parent">
@@ -163,24 +160,16 @@ const WebinarProfile = () => {
           <div className="wp-dets-learn">
             <h3>What will you Learn?</h3>
             <div className="wp-dets-learn-blocks">
-              <div className="wpdl-blocks-child">
-                <p>
-                  <span>1.</span>
-                </p>
-                <p>Uncover the mysteries</p>
-              </div>
-              <div className="wpdl-blocks-child">
-                <p>
-                  <span>2.</span>
-                </p>
-                <p>Hands-on experience</p>
-              </div>
-              <div className="wpdl-blocks-child">
-                <p>
-                  <span>3.</span>
-                </p>
-                <p>AI is being applied</p>
-              </div>
+              {webinar &&
+                webinar.what_will_you_learn &&
+                Object.keys(webinar.what_will_you_learn).map((data, i) => (
+                  <div className="wpdl-blocks-child" key={i}>
+                    <p>
+                      <span>{i + 1}</span>
+                    </p>
+                    <p>{webinar.what_will_you_learn[data]}</p>
+                  </div>
+                ))}
             </div>
           </div>
 

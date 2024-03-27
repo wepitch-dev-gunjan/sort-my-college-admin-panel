@@ -1,12 +1,12 @@
-import "./style.scss"
-import WebinarItem from "../../components/webinarItem"
-import axios from "axios"
-import { AdminContext } from "../../context/AdminContext"
-import { useContext, useState } from "react"
-import config from '@/config';
-import { useEffect } from "react"
-import Filters from "../../components/filters"
-import { toast } from "react-toastify"
+import "./style.scss";
+import WebinarItem from "../../components/webinarItem";
+import axios from "axios";
+import { AdminContext } from "../../context/AdminContext";
+import { useContext, useState } from "react";
+import config from "@/config";
+import { useEffect } from "react";
+import Filters from "../../components/filters";
+import { toast } from "react-toastify";
 const { backend_url } = config;
 
 const Webinar = () => {
@@ -19,9 +19,8 @@ const Webinar = () => {
 
   startDate.setDate(today.getDate() - 10);
   endDate.setDate(today.getDate() + 0);
-  const defaultWebinarFilters =
-  {
-    search: '',
+  const defaultWebinarFilters = {
+    search: "",
     webinar_dates: [startDate, endDate],
   };
   const [webinarFilters, setWebinarFilters] = useState(defaultWebinarFilters);
@@ -32,16 +31,19 @@ const Webinar = () => {
 
   const getWebinars = async () => {
     try {
-      const { data } = await axios.get(`${backend_url}/admin/webinar`, {
-        // params: webinarFilters,
-      });
-      console.log(data)
+      const { data } = await axios.get(
+        `${backend_url}/admin/webinar/webinar-for-admin`,
+        {
+          // params: webinarFilters,
+        }
+      );
+      console.log(data);
       setWebinars(data);
     } catch (error) {
-      console.log(error)
-      toast('Error fetching webinars: ' + error.message)
+      console.log(error);
+      toast("Error fetching webinars: " + error.message);
     }
-  }
+  };
 
   useEffect(() => {
     getWebinars();
@@ -81,7 +83,7 @@ const Webinar = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Webinar
+export default Webinar;
