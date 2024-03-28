@@ -12,14 +12,11 @@ const RecentPayments = () => {
 
   const FetchData = async () => {
     try {
-      let { data } = await axios.get(
-        `${backend_url}/admin/payments/create-payment`,
-        {
-          headers: {
-            Authorization: admin.token,
-          },
-        }
-      );
+      let { data } = await axios.get(`${backend_url}/admin/payments`, {
+        headers: {
+          Authorization: admin.token,
+        },
+      });
       data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
       // Select only the first 5 transactions (the last 5 after sorting)

@@ -22,7 +22,8 @@ const CounsellorProfile = () => {
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
   const { counsellor_id } = useParams();
-
+  const [documents, setDocuments] = useState([]);
+  console.log(counsellor_id);
   const getCounsellor = async () => {
     try {
       const { data } = await axios.get(
@@ -38,6 +39,23 @@ const CounsellorProfile = () => {
     } catch (error) {
       console.log(error);
       toast(error.message);
+    }
+  };
+  const getDocuments = async () => {
+    try {
+      const { data } = await axios.get(
+        `${backend_url}/counsellor/document/get-documents-for-admin/${counsellor_id}`,
+        {
+          headers: {
+            Authorization: admin.token,
+          },
+        }
+      );
+      setDocuments(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      toast("Error getting documents");
     }
   };
 
@@ -201,7 +219,8 @@ const CounsellorProfile = () => {
 
   useEffect(() => {
     getCounsellor();
-  }, [admin]);
+    getDocuments();
+  }, [counsellor_id]);
   console.log(profile);
 
   return (
@@ -432,7 +451,15 @@ const CounsellorProfile = () => {
         <div className="documentsDetails">
           <div className="info">
             <div className="row">
-              <div className="col">hiii</div>
+              {documents.map((data, i) => {
+                return (
+                  <div className="col">
+                    <a href={data.file} target="_blank">
+                      link
+                    </a>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -30,8 +30,7 @@ const WebinarItem = ({
   const [showMenu, setShowMenu] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [webinarDetails, setWebinarDetails] = useState();
-  const [remainingTime, setRemainingTime] = useState('')
-  console.log(webinar_date, "hi");
+  const [remainingTime, setRemainingTime] = useState("");
   const navigate = useNavigate();
 
   useClickOutside(menuRef, () => {
@@ -63,26 +62,32 @@ const WebinarItem = ({
     if (timeDifference > 0) {
       // Convert the time difference to hours, minutes, and seconds
       let remainingHours = Math.floor(timeDifference / (1000 * 60 * 60));
-      let remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      let remainingMinutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
       let remainingSeconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
       // Format the remaining time as a string
-      const formattedTime = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+      const formattedTime = `${remainingHours
+        .toString()
+        .padStart(2, "0")}:${remainingMinutes
+        .toString()
+        .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
 
       // Set the remaining time
       setRemainingTime(formattedTime);
     } else {
       setRemainingTime("Time Exceeded");
     }
-  }
+  };
 
-  useEffect(() => {
-    const timerId = setInterval(getRemainingTime, 1000)
+  // useEffect(() => {
+  //   const timerId = setInterval(getRemainingTime, 1000)
 
-    return () => {
-      clearInterval(timerId)
-    }
-  }, [])
+  //   return () => {
+  //     clearInterval(timerId)
+  //   }
+  // }, [])
 
   const handleDelete = async () => {
     try {
@@ -116,7 +121,6 @@ const WebinarItem = ({
       if (hours === 0) {
         hours = 12;
       }
-      console.log(hours, minutes, meridiem);
       return `${hours}:${minutes} ${meridiem}`;
     }
 
@@ -124,7 +128,6 @@ const WebinarItem = ({
     const hours24 = date.getUTCHours().toString().padStart(2, "0");
     const minutes = date.getUTCMinutes().toString().padStart(2, "0");
     const time24 = `${hours24}:${minutes}`;
-    console.log(time24);
     return convert24To12(time24);
   }
 
@@ -156,9 +159,7 @@ const WebinarItem = ({
             <div className="col">{webinar_available_slots}</div>
           </div>
 
-          <div className="remaining-time">
-            {remainingTime}
-          </div>
+          <div className="remaining-time">{remainingTime}</div>
         </div>
 
         <Divider />

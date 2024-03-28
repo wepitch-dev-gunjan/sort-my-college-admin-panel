@@ -12,14 +12,7 @@ const Payment = () => {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get(
-        `${backend_url}/admin/payments/create-payment`,
-        {
-          headers: {
-            Authorization: admin.token,
-          },
-        }
-      );
+      const { data } = await axios.get(`${backend_url}/admin/payments`);
       setPayments(data);
     } catch (error) {
       console.log(error, "sdsdfdfsdfsd");

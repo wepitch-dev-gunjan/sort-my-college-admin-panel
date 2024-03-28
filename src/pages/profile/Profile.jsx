@@ -19,10 +19,10 @@ const Profile = () => {
   const { editProfileEnable, setEditProfileEnable } =
     useContext(ProfileContext);
 
-  // Function to handle saving changes
   const handleSave = async () => {
     try {
-      const endpointUrl = `${backend_url}/admin/${admin._id}`; // Replace with your actual endpoint URL
+      console.log("try block");
+      const endpointUrl = `${backend_url}/admin/${admin._id}`;
 
       const response = await axios.put(endpointUrl, profile, {
         headers: {
