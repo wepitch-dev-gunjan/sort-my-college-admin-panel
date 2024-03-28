@@ -81,13 +81,13 @@ const WebinarItem = ({
     }
   };
 
-  // useEffect(() => {
-  //   const timerId = setInterval(getRemainingTime, 1000)
+  useEffect(() => {
+    const timerId = setInterval(getRemainingTime, 1000);
 
-  //   return () => {
-  //     clearInterval(timerId)
-  //   }
-  // }, [])
+    return () => {
+      clearInterval(timerId);
+    };
+  }, []);
 
   const handleDelete = async () => {
     try {

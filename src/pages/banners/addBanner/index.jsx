@@ -1,23 +1,25 @@
-import React, { useState, useRef, useContext, forwardRef } from 'react';
-import AvatarEditor from 'react-avatar-editor';
-import './style.scss';
+import React, { useState, useRef, useContext, forwardRef } from "react";
+import AvatarEditor from "react-avatar-editor";
+import "./style.scss";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import config from '@/config';
-import { AdminContext } from '../../../context/AdminContext';
-import { compressImage, dataURLtoFile } from '../../../utilities'
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { BannerContext } from '../../../context/BannerContext';
-const { backend_url } = config;
+import config from "@/config";
+import { AdminContext } from "../../../context/AdminContext";
+import { compressImage, dataURLtoFile } from "../../../utilities";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { BannerContext } from "../../../context/BannerContext";
+import useClickOutside from "../../../customHooks/useClickOutside";
 
+const { backend_url } = config;
 const AddBanner = forwardRef((props, ref) => {
-  const { setBanners } = useContext(BannerContext)
+  const refe = useRef();
+  const { setBanners } = useContext(BannerContext);
   const [image, setImage] = useState(null);
   const [scale, setScale] = useState(1);
   const editorRef = useRef(null);
   const fileRef = useRef(null);
-  const { setAddBannerMode } = useContext(BannerContext)
-  const { admin } = useContext(AdminContext)
+  const { setAddBannerMode } = useContext(BannerContext);
+  const { admin } = useContext(AdminContext);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -39,29 +41,34 @@ const AddBanner = forwardRef((props, ref) => {
       const compressedImage = await compressImage(file);
       try {
         const formData = new FormData();
-        formData.append('banner', compressedImage); // Append the File object to FormData
+        formData.append("banner", compressedImage); // Append the File object to FormData
 
-        const { data } = await axios.post(`${backend_url}/admin/home-page-banner`, formData, {
-          headers: {
-            Authorization: admin.token,
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        const { data } = await axios.post(
+          `${backend_url}/admin/home-page-banner`,
+          formData,
+          {
+            headers: {
+              Authorization: admin.token,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         // Handle success, show message, or perform other actions upon successful upload
-        setAddBannerMode(false)
-        setBanners(prev => [...prev, data])
-        toast('Image updated successfully');
+        setAddBannerMode(false);
+        setBanners((prev) => [...prev, data]);
+        toast("Image updated successfully");
       } catch (error) {
         // Handle error, show error message, or perform error-related actions
-        setAddBannerMode(false)
-        toast('Error uploading image:', error);
+        setAddBannerMode(false);
+        toast("Error uploading image:", error);
       }
     }
   };
+  useClickOutside(refe, () => handleCancel());
 
   const handleCancel = () => {
-    setAddBannerMode(false)
+    setAddBannerMode(false);
   };
 
   const handleDrop = (e) => {
@@ -82,26 +89,30 @@ const AddBanner = forwardRef((props, ref) => {
   };
 
   return (
-    <div className='AddProfilePic-container'>
-      {!image &&
+    <div className="AddProfilePic-container">
+      {!image && (
         <div className="drop-area-container">
           <div
-            ref={ref}
+            ref={refe}
             className="drop-area"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onClick={() => fileRef.current.click()}
           >
-            <IoCloudUploadOutline size='100' />
+            <IoCloudUploadOutline size="100" />
             Drag & Drop here
             <p>or</p>
-            <div className="browse-button">
-              Browse File
-            </div>
+            <div className="browse-button">Browse File</div>
           </div>
         </div>
-      }
-      <input ref={fileRef} type="file" onChange={handleImageChange} accept="image/*" style={{ display: 'none' }} />
+      )}
+      <input
+        ref={fileRef}
+        type="file"
+        onChange={handleImageChange}
+        accept="image/*"
+        style={{ display: "none" }}
+      />
       {image && (
         <>
           <div className="middle">
