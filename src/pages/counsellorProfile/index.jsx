@@ -19,6 +19,8 @@ const { backend_url } = config;
 
 const CounsellorProfile = () => {
   const { admin } = useContext(AdminContext);
+  const [documentTypes, setDocumentTypes] = useState([]);
+
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
   const { counsellor_id } = useParams();
@@ -220,8 +222,31 @@ const CounsellorProfile = () => {
   useEffect(() => {
     getCounsellor();
     getDocuments();
+    getDocumentTypes();
   }, [counsellor_id]);
   console.log(profile);
+
+  function filterCardType(id) {
+    const cardMappings = {
+      "65dc2262124566ba688c9b4a": "Aadhar Card",
+      "65dc22dc6f89c2a8a6ce76a5": "Pan Card",
+      "65dd6e97237a20adb4ad4234": "Certificate",
+      "65ddca548cc9988f37579598": "1 aur certificate",
+    };
+    return cardMappings[id] || "Unknown Card";
+  }
+  const getDocumentTypes = async () => {
+    try {
+      const { data } = await axios.get(
+        `${backend_url}/counsellor/documentType/documentTypes`
+      );
+      setDocumentTypes(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      toast("Error getting documentstype");
+    }
+  };
 
   return (
     <div className="CounsellorProfile-container">
@@ -453,10 +478,13 @@ const CounsellorProfile = () => {
             <div className="row">
               {documents.map((data, i) => {
                 return (
-                  <div className="col">
-                    <a href={data.file} target="_blank">
-                      link
-                    </a>
+                  <div className="document-col">
+                    <div> {filterCardType(data.document_type)}</div>
+                    <div className="col">
+                      <a href={data.file} target="_blank">
+                        link
+                      </a>
+                    </div>
                   </div>
                 );
               })}
