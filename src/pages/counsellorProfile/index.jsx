@@ -247,6 +247,7 @@ const CounsellorProfile = () => {
       toast("Error getting documentstype");
     }
   };
+  console.log(profile);
 
   return (
     <div className="CounsellorProfile-container">
@@ -717,7 +718,17 @@ const CounsellorProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Name of Bank</p>
+                  <p>Recepient Name </p>
+                </div>
+                <div className="info-value">
+                  <p>{profile.recepient_name}</p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p> Bank Name </p>
                 </div>
                 <div className="info-value">
                   <p>{profile.bank_name}</p>
@@ -727,7 +738,7 @@ const CounsellorProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Name of Branch</p>
+                  <p> Branch</p>
                 </div>
                 <div className="info-value">
                   <p>{profile.branch}</p>
@@ -737,10 +748,30 @@ const CounsellorProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Bank account_number</p>
+                  <p>Account Type</p>
+                </div>
+                <div className="info-value">
+                  <p>{profile.account_type}</p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Account Number</p>
                 </div>
                 <div className="info-value">
                   <p>{profile.account_number}</p>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>IFSC Code</p>
+                </div>
+                <div className="info-value">
+                  <p>{profile.ifsc_code}</p>
                 </div>
               </div>
             </div>
