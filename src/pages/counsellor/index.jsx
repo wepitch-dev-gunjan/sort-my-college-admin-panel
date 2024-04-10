@@ -16,6 +16,8 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { BsArrowDownShort, BsArrowUp } from "react-icons/bs";
+import { BsArrowDown } from "react-icons/bs";
 const { backend_url } = config;
 
 const Counsellor = () => {
@@ -271,7 +273,10 @@ const Counsellor = () => {
             <h4>STATUS</h4>
           </div>
           <div onClick={handleSortByOutstandingBalance} className="col">
-            <h4>OUTSTANDING BALANCE</h4>
+            <h4>
+              OUTSTANDING BALANCE{" "}
+              {sortOrder === "asc" ? <BsArrowDown /> : <BsArrowUp />}
+            </h4>
           </div>
           <div className="col">
             <h4>PROFILE LINK</h4>
