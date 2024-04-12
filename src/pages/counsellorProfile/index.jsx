@@ -539,7 +539,7 @@ const CounsellorProfile = () => {
 
         <div className="right-profile-info">
           <div className="info">
-            <div className="row">
+            {/* <div className="row">
               <div className="col">
                 <div className="info-field">
                   <p>Approach of counselling</p>
@@ -562,7 +562,7 @@ const CounsellorProfile = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="row">
               <div className="col">

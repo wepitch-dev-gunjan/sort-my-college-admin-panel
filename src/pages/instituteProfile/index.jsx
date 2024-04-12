@@ -36,6 +36,7 @@ const InstituteProfile = () => {
       );
       setProfile(data);
     } catch (error) {
+      console.log("error");
       console.log(error);
       toast(error.message);
     }
@@ -174,10 +175,11 @@ const InstituteProfile = () => {
 
         <div className="left-profile-middle">
           <div className="info">
+            <h2>Registrant Details</h2>
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Name</p>
+                  <p> Full Name</p>
                 </div>
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
@@ -219,7 +221,7 @@ const InstituteProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Gender</p>
+                  <p>Contact Number</p>
                 </div>
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
@@ -269,7 +271,7 @@ const InstituteProfile = () => {
                       </label>
                     </div>
                   ) : (
-                    <p>{profile.gender}</p>
+                    <p>{profile.contact_number}</p>
                   )}
                 </div>
               </div>
@@ -278,17 +280,17 @@ const InstituteProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Date of birth</p>
+                  <p>Designation</p>
                 </div>
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
                     <DatePicker
                       label="Date of birth"
-                      defaultValue={dayjs(profile.date_of_birth)}
+                      defaultValue={dayjs(profile.year_established_in)}
                       onChange={(date) => date}
                     />
                   ) : (
-                    <p>{profile.date_of_birth}</p>
+                    <p>{profile.registrant_designation}</p>
                   )}
                 </div>
               </div>
@@ -297,11 +299,13 @@ const InstituteProfile = () => {
         </div>
 
         <div className="left-profile-bottom">
+          <h2>Institute Details</h2>
+          <hr />
           <div className="info">
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Industrial Experience</p>
+                  <p>Name of Institute</p>
                 </div>
 
                 <div className="info-value">
@@ -320,7 +324,7 @@ const InstituteProfile = () => {
                       />
                     </>
                   ) : (
-                    <p>{`${profile.experience_in_years}+ years`}</p>
+                    <p>Siliguri Institute of Technology</p>
                   )}
                 </div>
               </div>
@@ -602,7 +606,7 @@ const InstituteProfile = () => {
             </div>
           </div>
         </div>
-        <div className="bankDetails">
+        {/* <div className="bankDetails">
           <div className="info">
             <div className="row">
               <div className="col">
@@ -665,7 +669,7 @@ const InstituteProfile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {showReasonDialog && (

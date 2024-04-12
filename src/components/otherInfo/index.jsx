@@ -3,16 +3,10 @@ import "./style.scss";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { handleInput } from "../../utilities";
 import TagsInput from "react-tagsinput";
-import React from 'react';
-import 'react-tagsinput/react-tagsinput.css';
+import React from "react";
+import "react-tagsinput/react-tagsinput.css";
 
-
-const OtherInfo = ({
-  profile,
-  setProfile,
-  editProfileEnable,
-
-}) => {
+const OtherInfo = ({ profile, setProfile, editProfileEnable }) => {
   // const handleYearsChange = (e) => {
   //   const value = parseInt(e.target.value);
   //   if (!isNaN(value)) {
@@ -27,15 +21,12 @@ const OtherInfo = ({
     }));
   };
 
- 
-
   const handleLocationCheckboxChange = (fieldName, value) => {
     const updatedLocations = profile.locations_focused.includes(value)
       ? profile.locations_focused.filter((location) => location !== value)
       : [...profile.locations_focused, value];
     handleInput(fieldName, updatedLocations, setProfile);
   };
-
 
   const handleCheckboxChange = (fieldName, value) => {
     const updatedDegrees = profile.degree_focused.includes(value)
@@ -44,7 +35,6 @@ const OtherInfo = ({
     handleInput(fieldName, updatedDegrees, setProfile);
   };
 
-  
   return (
     <div className="OtherInfo-container">
       <div className="heading">
@@ -64,7 +54,13 @@ const OtherInfo = ({
                   <input
                     type="text"
                     value={profile.experience_in_years}
-                    onChange={e => handleInput('experience_in_years', e.target.value, setProfile)}
+                    onChange={(e) =>
+                      handleInput(
+                        "experience_in_years",
+                        e.target.value,
+                        setProfile
+                      )
+                    }
                   />
                 </>
               ) : (
@@ -82,13 +78,16 @@ const OtherInfo = ({
             <div className="info-value">
               {editProfileEnable ? (
                 <TagsInput
-                value={profile.languages_spoken}
-                onChange={(newTags) => setProfile({ ...profile, languages_spoken: newTags})}
-              />
+                  value={profile.languages_spoken}
+                  onChange={(newTags) =>
+                    setProfile({ ...profile, languages_spoken: newTags })
+                  }
+                />
               ) : (
                 profile.languages_spoken?.map((language, i) => (
-                  <p key={i}>{`${language}${i < profile.languages_spoken.length - 1 ? "," : ""
-                    }`}</p>
+                  <p key={i}>{`${language}${
+                    i < profile.languages_spoken.length - 1 ? "," : ""
+                  }`}</p>
                 ))
               )}
             </div>
@@ -96,42 +95,42 @@ const OtherInfo = ({
         </div>
 
         <div className="row">
-      <div className="col">
-        <div className="info-field">
-          <p>Nationality</p>
+          <div className="col">
+            <div className="info-field">
+              <p>Nationality</p>
+            </div>
+            <div className="info-value">
+              {editProfileEnable ? (
+                <>
+                  <div className="ug">
+                    <label className="ug-text">
+                      <input
+                        type="radio"
+                        value="Indian"
+                        checked={profile.nationality === "Indian"}
+                        onChange={handleRadioChange}
+                      />
+                      Indian
+                    </label>
+                    <label className="ug-text">
+                      <input
+                        type="radio"
+                        value="Foreign"
+                        checked={profile.nationality === "Foreign"}
+                        onChange={handleRadioChange}
+                      />
+                      Foreign
+                    </label>
+                  </div>
+                </>
+              ) : (
+                <p>{profile.nationality}</p>
+              )}
+            </div>
+          </div>
         </div>
-        <div className="info-value">
-          {editProfileEnable ? (
-            <>
-              <div className="ug">
-                <label className="ug-text">
-                  <input
-                    type="radio"
-                    value="Indian"
-                    checked={profile.nationality === 'Indian'}
-                    onChange={handleRadioChange}
-                  />
-                  Indian
-                </label>
-                <label className="ug-text">
-                  <input
-                    type="radio"
-                    value="Foreign"
-                    checked={profile.nationality === 'Foreign'}
-                    onChange={handleRadioChange}
-                  />
-                  Foreign
-                </label>
-              </div>
-            </>
-          ) : (
-            <p>{profile.nationality}</p>
-          )}
-        </div>
-      </div>
-    </div>
 
-        <div className="row">
+        {/* <div className="row">
           <div className="col">
             <div className="info-field">
               <p>Approach of counselling</p>
@@ -148,7 +147,7 @@ const OtherInfo = ({
               )}
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row">
           <div className="col">
@@ -164,7 +163,9 @@ const OtherInfo = ({
                         type="checkbox"
                         value="UG"
                         checked={profile.degree_focused.includes("UG")}
-                        onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
+                        onChange={(e) =>
+                          handleCheckboxChange("degree_focused", e.target.value)
+                        }
                       />
                       UG
                     </label>
@@ -173,19 +174,24 @@ const OtherInfo = ({
                         type="checkbox"
                         value="PG"
                         checked={profile.degree_focused.includes("PG")}
-                        onChange={(e) => handleCheckboxChange('degree_focused', e.target.value)}
+                        onChange={(e) =>
+                          handleCheckboxChange("degree_focused", e.target.value)
+                        }
                       />
                       PG
                     </label>
                   </div>
                 </>
               ) : (
-                <p>{Array.isArray(profile.degree_focused) ? profile.degree_focused.join(", ") : ''}</p>
+                <p>
+                  {Array.isArray(profile.degree_focused)
+                    ? profile.degree_focused.join(", ")
+                    : ""}
+                </p>
               )}
             </div>
           </div>
         </div>
-
 
         <div className="row">
           <div className="col">
@@ -200,7 +206,12 @@ const OtherInfo = ({
                       type="checkbox"
                       value="India"
                       checked={profile.locations_focused.includes("India")}
-                      onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
+                      onChange={(e) =>
+                        handleLocationCheckboxChange(
+                          "locations_focused",
+                          e.target.value
+                        )
+                      }
                     />
                     India
                   </label>
@@ -209,14 +220,21 @@ const OtherInfo = ({
                       type="checkbox"
                       value="Abroad"
                       checked={profile.locations_focused.includes("Abroad")}
-                      onChange={(e) => handleLocationCheckboxChange('locations_focused', e.target.value)}
+                      onChange={(e) =>
+                        handleLocationCheckboxChange(
+                          "locations_focused",
+                          e.target.value
+                        )
+                      }
                     />
                     Abroad
                   </label>
                 </div>
               ) : (
                 profile.locations_focused?.map((location, i) => (
-                  <p key={i}>{`${location}${i < profile.locations_focused.length - 1 ? "," : ""}`}</p>
+                  <p key={i}>{`${location}${
+                    i < profile.locations_focused.length - 1 ? "," : ""
+                  }`}</p>
                 ))
               )}
             </div>
@@ -225,25 +243,27 @@ const OtherInfo = ({
 
         <div className="row">
           <div className="col">
-             <div className="info-field">
-                <p>Courses focused</p>
-             </div>
-        <div className="info-value">
-           {editProfileEnable ? (
-              <TagsInput
+            <div className="info-field">
+              <p>Courses focused</p>
+            </div>
+            <div className="info-value">
+              {editProfileEnable ? (
+                <TagsInput
                   value={profile.courses_focused}
-                  onChange={(newTags) => setProfile({ ...profile, courses_focused: newTags})}
-              />
+                  onChange={(newTags) =>
+                    setProfile({ ...profile, courses_focused: newTags })
+                  }
+                />
               ) : (
-                  profile.courses_focused?.map((courses_focused, i) => (
-                  <p key={i}>{`${courses_focused}${i < profile.courses_focused.length - 1 ? "," : ""}`}</p>
-                  ))
-            )}
-         </div>
-       </div>
-     </div>
-
-
+                profile.courses_focused?.map((courses_focused, i) => (
+                  <p key={i}>{`${courses_focused}${
+                    i < profile.courses_focused.length - 1 ? "," : ""
+                  }`}</p>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
 
         <div className="row">
           <div className="col">
