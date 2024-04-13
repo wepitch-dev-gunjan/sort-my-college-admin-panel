@@ -231,7 +231,6 @@ const CounsellorProfile = () => {
       "65dc2262124566ba688c9b4a": "Aadhar Card",
       "65dc22dc6f89c2a8a6ce76a5": "Pan Card",
       "65dd6e97237a20adb4ad4234": "Certificate",
-      "65ddca548cc9988f37579598": "1 aur certificate",
     };
     return cardMappings[id] || "Unknown Card";
   }
