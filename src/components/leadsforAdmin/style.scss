@@ -1,0 +1,56 @@
+.RecentLeads-container {
+ display: flex;
+ flex-direction: column;
+ overflow-y: auto;
+
+ h1 {
+   font-size: var(--fs-l);
+ }
+ .btn_main {
+   display: flex;
+   gap: 20px;
+ }
+
+ .see-all-button {
+   font-weight: 800;
+   color: var(--primary-dark);
+   cursor: pointer;
+   display: flex;
+   justify-content: end;
+   font-size: var(--fs-sm);
+ }
+
+ .Leads-table p {
+   font-size: var(--fs-sm);
+ }
+ .table {
+   .row {
+     display: flex;
+     border-bottom: 1px solid rgba(24, 45, 107, 0.158);
+     padding: 20px;
+     margin: 29px;
+     text-align: start;
+     justify-content: space-between;
+
+     .col {
+       display: flex;
+       width: 100%;
+       font-size: var(--fs-sm);
+       color: var(--text-dark);
+
+       h4 {
+         font-size: var(--fs-sm);
+       }
+     }
+
+     .link {
+       border: 1px solid grey;
+       border-radius: 10px;
+       padding: 10px;
+     }
+   }
+ }
+}
+
+
+

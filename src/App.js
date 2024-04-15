@@ -38,6 +38,7 @@ import FeatureAndPreference from "./pages/featureAndPreference";
 import InstituteDirectory from "./pages/instituteDirectory";
 import InstitutesDetails from "./pages/instituteDirectory";
 import InstituteProfile from "./pages/instituteProfile";
+import AllLeads from "./pages/AllLeads";
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -133,6 +134,7 @@ function App() {
                   path="/entrance-preparation"
                   element={<EntrancePreparation />}
                 />
+                <Route path = "/view_leads_for_admin/:institute_id" element = {<AllLeads />}/>
                 <Route
                   path="/entrance-preparation/feature-and-preference"
                   element={<FeatureAndPreference />}

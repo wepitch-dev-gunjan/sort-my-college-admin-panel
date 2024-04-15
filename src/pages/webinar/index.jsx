@@ -55,8 +55,8 @@ const Webinar = () => {
         <div className="webinar-header">
           <div className="left">
             <div className="reset-changes">
-              <h1>Filtres</h1>
-              <button onClick={resetFilters}>Reset filters</button>
+              <h1>Webinars</h1>
+              {/* <button onClick={resetFilters}>Reset filters</button> */}
             </div>
             {/* <Filters webinarFilters={webinarFilters} setWebinarFilters={setWebinarFilters} /> */}
           </div>
