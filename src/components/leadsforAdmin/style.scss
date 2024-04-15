@@ -2,7 +2,17 @@
  display: flex;
  flex-direction: column;
  overflow-y: auto;
-
+ .main_Container{
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  padding: 20px;
+  .btn_main Button{
+   background-color: #B2A1EB;
+   color: white;
+   // border-radius: 20px;
+  }
+ }
  h1 {
    font-size: var(--fs-l);
  }
