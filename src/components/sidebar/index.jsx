@@ -12,6 +12,21 @@ import { PiFlagBannerFill } from "react-icons/pi";
 import { FaBuildingColumns } from "react-icons/fa6";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { RiHotelFill } from "react-icons/ri";
+import { BiSolidDashboard } from "react-icons/bi";
+import { FaUsers } from "react-icons/fa6";
+import { MdOutlinePayments } from "react-icons/md";
+import { SiGoogleclassroom } from "react-icons/si";
+import { BsBuildingsFill } from "react-icons/bs";
+import { BiBuildings } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
+import { FiHelpCircle } from "react-icons/fi";
+import { MdOutlineDashboard } from "react-icons/md";
+import { HiOutlineUsers } from "react-icons/hi2";
+import { FiUsers } from "react-icons/fi";
+
+
+
 
 
 
@@ -51,19 +66,19 @@ const Sidebar = () => {
       <div className="sidebar-container">
         <SidebarMenuButton
           href="/"
-          icon={DashboardIcon}
+          icon={MdOutlineDashboard}
           text="Dashboard"
           expand={expand}
         />
         <SidebarMenuButton
           href="/user"
-          icon={GroupIcon}
+          icon={FiUsers}
           text="Users"
           expand={expand}
         />
         <SidebarMenuButton
           href="/payment"
-          icon={PaymentIcon}
+          icon={MdOutlinePayments}
           text="Payments"
           expand={expand}
         />
@@ -77,28 +92,35 @@ const Sidebar = () => {
 
         <SidebarMenuButton
           href="/webinar"
-          icon={AccessTimeIcon}
+          icon={SiGoogleclassroom}
           text="Webinars"
           expand={expand}
         />
 
         <SidebarMenuButton
           href="/entrance-preparation"
-          icon={FaBuildingColumns}
+          icon={BiBuildings }
           text="Entrance Preparation"
           expand={expand}
         />
 
         <SidebarMenuButton
+          href="/accommodation"
+          icon={BsBuildingsFill}
+          text="Accommodation"
+          expand={expand}
+        />
+
+        <SidebarMenuButton
           href="/profile"
-          icon={PersonIcon}
+          icon={CgProfile}
           text="Profile"
           expand={expand}
         />
         <hr />
         <SidebarMenuButton
           href="/help"
-          icon={HelpOutlineIcon}
+          icon={FiHelpCircle   }
           text="Help"
           expand={expand}
         />

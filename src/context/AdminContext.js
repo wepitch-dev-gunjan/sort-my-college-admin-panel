@@ -7,7 +7,7 @@ export const AdminProvider = ({ children }) => {
   const [admin, setAdmin] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
-
+const [queries, setQueries] = useState([])
   const getTokenFromURL = () => new URLSearchParams(location.search).get('token');
   const getAdminFromURL = () => new URLSearchParams(location.search).get('admin');
 
@@ -50,7 +50,7 @@ export const AdminProvider = ({ children }) => {
   }, [admin.isLoggedIn, navigate]);
 
   return (
-    <AdminContext.Provider value={{ admin, setAdmin }}>
+    <AdminContext.Provider value={{ admin, setAdmin ,queries, setQueries}}>
       {children}
     </AdminContext.Provider>
   );
