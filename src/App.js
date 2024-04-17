@@ -39,6 +39,7 @@ import InstituteDirectory from "./pages/instituteDirectory";
 import InstitutesDetails from "./pages/instituteDirectory";
 import InstituteProfile from "./pages/instituteProfile";
 import AllLeads from "./pages/AllLeads";
+import Accommodation from "./pages/accommodation";
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -147,6 +148,7 @@ function App() {
                   path="/entrance-preparation/institute-directory/:institute_id"
                   element={<InstituteProfile />}
                 />
+                <Route path="/accommodation" element={<Accommodation />} / >
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
               </>

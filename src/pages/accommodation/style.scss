@@ -1,0 +1,100 @@
+.accommodation-main{
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    
+    .accomm-parent{
+        width: 100%;
+        padding: 20px 20px 20px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+        overflow-y: scroll;
+
+        .accomm-children{
+            width: 32%;
+            background-color: #ffffff;
+            border-radius: 6px;
+            padding: 1em 1em 1.2em 1em;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7em;
+            box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+
+            .accomm-gallery{
+                width: 100%;
+                display: flex;
+                .accomm-image-container{
+                    width: 100%;
+                    transition: opacity 0.5s ease-in-out !important;
+                    img{
+                        width: 100%;
+                        height: auto;
+                        border-radius: 8px;
+                        transition: opacity 0.5s ease-in-out !important;
+                    }
+                }
+            }
+
+            .accomm-child-1{
+                display: flex;
+                justify-content: space-between;
+
+                .accomm-child-1-l{
+                    h4{
+                        font-size: 1.1em;
+                    }
+                    p{
+                        font-size: 0.8em;
+                    }
+                }
+                .accomm-child-1-r{
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: flex-end;
+                    svg{
+                        color: rgb(250, 184, 17);
+                    }
+                    p{
+                        font-size: 0.8em;
+                    }
+                }
+            }
+            .accomm-child-2{
+                display: flex;
+                justify-content: space-between;
+
+                .accomm-child-2-l{
+                    p{
+                        font-size: 0.8em;
+
+                        span{
+                            font-size: 1.1em;
+                            font-weight: 700;
+                        }
+                    }
+                }
+                .accomm-child-2-r{
+                    display: flex;
+                    align-items: flex-end;
+
+                    button{
+                        background-color: #1F0A68;
+                        padding: 0.3em;
+                        border: 2px solid #1F0A68;
+                        border-radius: 5px;
+                        color: #ffffff;
+                        font-size: 0.9em;
+                        cursor: pointer;
+                    }
+                    button:hover{
+                        background-color: #ffffff;
+                        border: 2px solid #1F0A68;
+                        color: #1F0A68;
+                        transition: all 0.3s ease;
+                    }
+                }
+            }
+        }
+    }
+}
