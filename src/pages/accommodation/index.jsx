@@ -1,7 +1,8 @@
 import "./style.scss";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaStar } from "react-icons/fa";
-
+import { AccommodationContext } from "../../context/AccommodationContext";
+import { Link } from 'react-router-dom';
 import pg_1 from '../../assets/pg-1.jpg';
 import pg_2 from '../../assets/pg-2.jpg';
 import pg_3 from '../../assets/pg-3.jpg';
@@ -46,6 +47,7 @@ const Accommodation = () => {
     ]
     const array_of_images = [pg_1, pg_2, pg_3, pg_4, pg_5]
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const { addAccommodationEnable , setAddAccommodationEnable } = useContext(AccommodationContext)
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -60,6 +62,9 @@ const Accommodation = () => {
         <div className="accommodation-main" >
             <div className="accomm-heading">
                 <h1>Accommodation</h1>
+                <Link to="/accommodation/add">
+                    <button>Add New</button>
+                </Link>
             </div>
             <div className="accomm-parent">
                 {pgs.map((pg, i) => (
