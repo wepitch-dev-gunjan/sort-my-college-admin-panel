@@ -57,10 +57,10 @@ const AddAccommodation = () => {
                 </div>
                 <div className="add-accomm-form">
                     <div className="add-accomm-image">
-
+                        
                     </div>
                     <div className="add-accomm-name">
-
+                        <p>Hi</p>
                     </div>
                     <div className="add-accomm-area">
 
