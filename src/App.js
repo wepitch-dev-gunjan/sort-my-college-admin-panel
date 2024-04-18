@@ -40,6 +40,7 @@ import InstitutesDetails from "./pages/instituteDirectory";
 import InstituteProfile from "./pages/instituteProfile";
 import AllLeads from "./pages/AllLeads";
 import Accommodation from "./pages/accommodation";
+import ViewLeads from "./pages/viewLeads";
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -136,6 +137,8 @@ function App() {
                   element={<EntrancePreparation />}
                 />
                 <Route path = "/view_leads_for_admin/:institute_id" element = {<AllLeads />}/>
+                <Route path = "/getAllQueries/:enquiry_id" element = {<ViewLeads />}
+                />
                 <Route
                   path="/entrance-preparation/feature-and-preference"
                   element={<FeatureAndPreference />}
