@@ -23,6 +23,7 @@ const LeadsForAdmin = () => {
   const [filterParams, setFilterParams] = useState({
     status: "",
     search: "",
+    date : "null",
 
   });
   const [selectDate, setSelectDate] = useState(null);
@@ -72,8 +73,8 @@ const LeadsForAdmin = () => {
       setFilterParams({
         search: "",
         status: "",
+        date:  "null",
        });
-       setSelectDate(null);
        getQueriesForAdmin();
     } catch (error) {
       console.log(error);
@@ -94,7 +95,7 @@ const LeadsForAdmin = () => {
           value={selectDate}
           onChange={handleDateChange}
           renderInput={(params) => <TextField {...params} />}
-          sx={{ marginLeft: "16px" }}
+                    sx={{ marginLeft: "16px" }}
         />
         <FormControl style={{ width: "150px" }}>
           <InputLabel>Status</InputLabel>
@@ -113,9 +114,9 @@ const LeadsForAdmin = () => {
           </Select>
         </FormControl>
         <div className="btn_main">
-          <Button sx={{ height: "55px" }} onClick={getQueriesForAdmin}>
+          {/* <Button sx={{ height: "55px" }} onClick={getQueriesForAdmin}>
             Apply Filters
-          </Button>
+          </Button> */}
           <Button sx={{ height: "55px" }} onClick={resetFilters}>
             Reset Filters
           </Button>

@@ -29,29 +29,28 @@ const getEnquiry = async () =>{
   toast(error.message);
  }
 };
-useEffect(()=>{
- getEnquiry();
-},[]);
 // change status
 const handleStatusChange = async () => {
  try {
-   const newStatus = enquiryStatus === "Unseen" ? "Seen" : "Replied";
-   const response = await axios.put(
-     `${backend_url}/ep/changeStatus/${enquiry_id}`,
-     { status: newStatus },
-     {
-       headers: {
-         Authorization: admin.token,
-       },
-     }
+  const response = await axios.put(
+   `${backend_url}/ep/changeStatus/${enquiry_id}`,
+   { status: "Replied" },
+   {
+    headers: {
+     Authorization: admin.token,
+    },
+   }
    );
-   const updatedEnquiry = response.data;
-   setEnquiryStatus(updatedEnquiry.status);
- } catch (error) {
+getEnquiry();
+  } catch (error) {
    console.error("Error:", error);
    toast.error(error.message);
- }
-};
+  }
+ };
+
+ useEffect(()=>{
+  getEnquiry();
+ },[]);
 
   return (
     <div className="main_container">
@@ -87,36 +86,14 @@ const handleStatusChange = async () => {
               <div>{enquiry.message}</div>
             </div>
             <>
-              {enquiryStatus === "Unseen" && (
-                <div className="btn1">
-                  <button onClick={() => handleStatusChange("Seen")}>
-                    Seen
-                  </button>
-                  <button onClick={() => handleStatusChange("Replied")}>
-                    Replied
-                  </button>
-                </div>
-              )}
-              {enquiryStatus === "Seen" && (
-                <div className="btn1">
-                  <button onClick={() => handleStatusChange("Unseen")}>
-                    Unseen
-                  </button>
-                  <button onClick={() => handleStatusChange("Replied")}>
-                    Replied
-                  </button>
-                </div>
-              )}
-              {enquiryStatus === "Replied" && (
-                <div className="btn1">
-                  <button onClick={() => handleStatusChange("Unseen")}>
-                    Unseen
-                  </button>
-                  <button onClick={() => handleStatusChange("Seen")}>
-                    Seen
-                  </button>
-                </div>
-              )}
+              <div className="btn1">
+                <button
+                  disabled={enquiry.status === "Replied"}
+                  onClick={handleStatusChange}
+                >
+                  Replied
+                </button>
+              </div>
             </>
           </div>
        ):(
