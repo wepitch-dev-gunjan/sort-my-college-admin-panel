@@ -20,6 +20,7 @@ const { backend_url } = config;
 const CounsellorProfile = () => {
   const { admin } = useContext(AdminContext);
   const [documentTypes, setDocumentTypes] = useState([]);
+  const [outStandingBalance, setOutStandingBalance] = useState("");
 
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
@@ -223,6 +224,7 @@ const CounsellorProfile = () => {
     getCounsellor();
     getDocuments();
     getDocumentTypes();
+    getOutStandingBalance();
   }, [counsellor_id]);
   console.log(profile);
 
@@ -231,7 +233,7 @@ const CounsellorProfile = () => {
       "65dc2262124566ba688c9b4a": "Aadhar Card",
       "65dc22dc6f89c2a8a6ce76a5": "Pan Card",
       "65dd6e97237a20adb4ad4234": "Certificate",
-      };
+    };
     return cardMappings[id] || "Unknown Card";
   }
   const getDocumentTypes = async () => {
@@ -246,6 +248,20 @@ const CounsellorProfile = () => {
       toast("Error getting documentstype");
     }
   };
+
+  const getOutStandingBalance = async () => {
+    try {
+      const { data } = await axios.get(
+        `${backend_url}/admin/payments/${counsellor_id}/outstanding-balance`
+      );
+      setOutStandingBalance(data.outstandingBalance);
+      console.log("sdfsdfsdfsdf", data);
+    } catch (error) {
+      console.log(error);
+      toast("Error getting outStandingBalance");
+    }
+  };
+
   console.log(profile);
 
   return (
@@ -533,7 +549,7 @@ const CounsellorProfile = () => {
           className="oustanding-balance"
           onClick={handleClearOutstandingBalance}
         >
-          {`Clear Outstanding balance ${profile.outstanding_balance}`}
+          {`Clear Outstanding balance ${outStandingBalance}`}
         </div>
 
         <div className="right-profile-info">
