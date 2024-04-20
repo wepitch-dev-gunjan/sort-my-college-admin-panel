@@ -3,7 +3,7 @@ import "./style.scss";
 import axios from "axios";
 import config from "@/config";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 import {
   TextField,
@@ -23,6 +23,7 @@ const LeadsForAdmin = () => {
   const [filterParams, setFilterParams] = useState({
     status: "",
     search: "",
+    date : "null",
 
   });
   const [selectDate, setSelectDate] = useState(null);
@@ -37,7 +38,7 @@ const LeadsForAdmin = () => {
         [name]: value,
       }));
      } else if (name === "status") {
-      const newValue = value || "";
+      const newValue = value === "All" ? "" : value;
       setFilterParams((prevState) => ({
        ...prevState,
        [name]: newValue,
@@ -53,14 +54,13 @@ const LeadsForAdmin = () => {
          Authorization: admin.token,
         },
        }
-
      );
      setQueries(data);
      console.log(queries);
      console.log("params",filterParams)
    } catch (error) {
-     console.log("error");
-     console.log(error);
+     console.log("error getting queries");
+     console.log("message",error);
    }
  };
  
@@ -73,8 +73,8 @@ const LeadsForAdmin = () => {
       setFilterParams({
         search: "",
         status: "",
+        date:  "null",
        });
-       setSelectDate(null);
        getQueriesForAdmin();
     } catch (error) {
       console.log(error);
@@ -90,23 +90,12 @@ const LeadsForAdmin = () => {
       <h1>All Leads</h1>
       {/* ?filters */}
       <div className="main_Container">
-        <TextField
-          label="Search"
-          sx={{ height: "50px", width: "300px" }}
-          placeholder="Search by all fields"
-          type="text"
-          name="search"
-          value={filterParams.search}
-          onChange={handleFilterChange}
-          onKeyDown={handleKeyPress}
-
-        />
         <DatePicker
           label="Select Date"
           value={selectDate}
           onChange={handleDateChange}
           renderInput={(params) => <TextField {...params} />}
-          sx={{ marginLeft: "16px" }}
+                    sx={{ marginLeft: "16px" }}
         />
         <FormControl style={{ width: "150px" }}>
           <InputLabel>Status</InputLabel>
@@ -125,9 +114,9 @@ const LeadsForAdmin = () => {
           </Select>
         </FormControl>
         <div className="btn_main">
-          <Button sx={{ height: "55px" }} onClick={getQueriesForAdmin}>
+          {/* <Button sx={{ height: "55px" }} onClick={getQueriesForAdmin}>
             Apply Filters
-          </Button>
+          </Button> */}
           <Button sx={{ height: "55px" }} onClick={resetFilters}>
             Reset Filters
           </Button>
@@ -151,7 +140,6 @@ const LeadsForAdmin = () => {
             <div className="col">
               <h4>Status</h4>
             </div>
-            {/* <div><h4>Query</h4></div> */}
           </div>
           {queries.map((query, i) => (
             <div className="row" key={i}>
@@ -182,11 +170,11 @@ const LeadsForAdmin = () => {
               >
                 <p>{query.status}</p>
               </div>
-              {/* <div className="link">
-             <Link to={`/allQueries/${query._id}`}>
-               <p>View </p>
+              <div className="link">
+             <Link to={`/getAllQueries/${query._id}`}>
+               <p>View Leads </p>
              </Link>
-           </div> */}
+           </div>
             </div>
           ))}
         </div>

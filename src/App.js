@@ -40,6 +40,11 @@ import InstitutesDetails from "./pages/instituteDirectory";
 import InstituteProfile from "./pages/instituteProfile";
 import AllLeads from "./pages/AllLeads";
 import Accommodation from "./pages/accommodation";
+import AddAccommodationPopup from "./components/addAccommodationPopup";
+import { AccommodationContext } from "./context/AccommodationContext";
+import AccommodationDetails from "./pages/accommodationDetails";
+import AddAccommodation from "./pages/addAccommodation";
+import ViewLeads from "./pages/viewLeads";
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -56,6 +61,8 @@ function App() {
   const { addBannerMode } = useContext(BannerContext);
 
   const navigate = useNavigate();
+  const { addAccommodationEnable, setAddAccommodationEnable } = useContext(AccommodationContext)
+
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -78,6 +85,7 @@ function App() {
           <AddWebinar setAddMode={setAddMode} />
         </div>
       )}
+      {addAccommodationEnable && <AddAccommodationPopup />}
       {isLoggedIn && <Header handleLogout={handleLogout} />}
       {profilePicEditMode && (
         <div className="add-profile-pic-panel">
@@ -90,6 +98,8 @@ function App() {
           <AddBanner />
         </div>
       )}
+
+
       <div className="main">
         <ToastContainer />
 
@@ -136,6 +146,8 @@ function App() {
                   element={<EntrancePreparation />}
                 />
                 <Route path = "/view_leads_for_admin/:institute_id" element = {<AllLeads />}/>
+                <Route path = "/getAllQueries/:enquiry_id" element = {<ViewLeads />}
+                />
                 <Route
                   path="/entrance-preparation/feature-and-preference"
                   element={<FeatureAndPreference />}
@@ -148,7 +160,9 @@ function App() {
                   path="/entrance-preparation/institute-directory/:institute_id"
                   element={<InstituteProfile />}
                 />
-                <Route path="/accommodation" element={<Accommodation />} / >
+                <Route path="/accommodation" element={<Accommodation />} />
+                <Route path="accommodation/add" element={<AddAccommodation />} />
+                <Route path="/accommodation/details" element={<AccommodationDetails />} />
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
               </>
