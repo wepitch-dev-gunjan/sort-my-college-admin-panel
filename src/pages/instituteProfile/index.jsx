@@ -142,7 +142,7 @@ const InstituteProfile = () => {
   const handleAccept = async () => {
     try {
       const response = await axios.put(
-        `${backend_url}/counsellor/${institute_id}/verify`,
+        `${backend_url}/ep/${institute_id}/verify`,
         null,
         {
           headers: {
@@ -151,7 +151,8 @@ const InstituteProfile = () => {
         }
       );
       setProfile({ ...profile, verified: true });
-      toast("Counsellor verified successfully");
+      
+      toast("Institute verified successfully");
     } catch (error) {
       console.log(error);
       toast(error.response.data.error);
@@ -391,6 +392,7 @@ const InstituteProfile = () => {
                     Accept
                   </div>
                 )}
+               
                 <div className="reject" onClick={handleRejectClick}>
                   Reject
                 </div>
