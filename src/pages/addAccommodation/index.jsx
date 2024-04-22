@@ -73,7 +73,7 @@ const AddAccommodation = () => {
 
                         </div>
                     </div>
-                    div.add-
+                   
                     
                 </div>
                 <button onClick={() => setAddAccommodationEnable(false)}>CLOSE</button>

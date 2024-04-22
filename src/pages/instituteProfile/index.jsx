@@ -92,7 +92,7 @@ const InstituteProfile = () => {
   const handleRejectCounsellor = async () => {
     try {
       const { data } = await axios.put(
-        `${backend_url}/ep/institute/admin/${institute_id}`,
+        `${backend_url}/ep/${institute_id}/reject`,
         {
           reason: cancellationReason,
         },
