@@ -1,0 +1,50 @@
+.accommodation_main{
+ display: flex;
+ justify-content: center;
+ width: 100%;
+ height : auto;
+ gap : 20px;
+ height: 100%;
+padding:20px;
+ overflow-y: auto;
+ .accommodation_details{
+  display: flex;
+padding: 1em;
+overflow-y:auto ;
+.detail_main{
+ display: flex;
+ width: 80%;
+ .details{
+  display: flex;
+  border-radius: 6px;
+  box-shadow:rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  width: 100%;
+ padding: 1em;
+  // height: auto;
+ gap: 20px;
+ align-items: baseline;
+ }
+}
+.accomodation_right{
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: flex-end;
+ width: 50%;
+ height: auto;
+ // padding-right: 1em;
+ gap: 20px;
+ .accommodation_image{
+  width: 80%;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+  padding: 3em;
+ }
+ .accommodation_right_details{
+  width: 80%;
+  border-radius: 6px;
+  box-shadow:rgba(0, 0, 0, 0.08) 0px 4px 12px;
+padding:3em;
+ }
+}
+ }
+}

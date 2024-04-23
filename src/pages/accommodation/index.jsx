@@ -89,7 +89,9 @@ const Accommodation = () => {
                             <p> <span>{pg.lowest_price} INR</span>/Month</p>   
                         </div>
                         <div className="accomm-child-2-r">
+                        <Link to={`/accommodationDetails`} >
                             <button>View Details</button>
+                         </Link>
                         </div>
                        </div>
                     </div>

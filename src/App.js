@@ -45,6 +45,7 @@ import { AccommodationContext } from "./context/AccommodationContext";
 import AccommodationDetails from "./pages/accommodationDetails";
 import AddAccommodation from "./pages/addAccommodation";
 import ViewLeads from "./pages/viewLeads";
+import ViewAccoummDetails from "./components/accommodationViewDetails";
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -163,6 +164,7 @@ function App() {
                 <Route path="/accommodation" element={<Accommodation />} />
                 <Route path="accommodation/add" element={<AddAccommodation />} />
                 <Route path="/accommodation/details" element={<AccommodationDetails />} />
+                <Route path = "/accommodationDetails" element = {<ViewAccoummDetails/>}/>
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
               </>
