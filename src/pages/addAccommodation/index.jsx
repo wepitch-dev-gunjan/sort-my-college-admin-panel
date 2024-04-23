@@ -50,8 +50,8 @@ const AddAccommodation = () => {
 
 
     return (
-        <div className="add-accomm-popup-main">
-            <div className="add-accomm-popup-sub">
+        <div className="add-accomm-main">
+            <div className="add-accomm-sub">
                 <div className="add-accomm-heading">
                     <h1>Add Accommodation</h1>
                 </div>
@@ -60,7 +60,7 @@ const AddAccommodation = () => {
                         
                     </div>
                     <div className="add-accomm-name">
-                        <p>Hi</p>
+                        
                     </div>
                     <div className="add-accomm-area">
 
@@ -76,7 +76,7 @@ const AddAccommodation = () => {
                    
                     
                 </div>
-                <button onClick={() => setAddAccommodationEnable(false)}>CLOSE</button>
+
             </div>
         </div>
     );
