@@ -22,7 +22,6 @@ const LeadsForAdmin = () => {
 
   const [filterParams, setFilterParams] = useState({
     status: "",
- 
     date: null,
   });
   const [selectDate, setSelectDate] = useState(null);
@@ -33,7 +32,8 @@ const LeadsForAdmin = () => {
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    if (name === "search") {
+    if (name === "date") {
+     // handleDateChange();
       setFilterParams((prevState) => ({
         ...prevState,
         [name]: value,
@@ -76,6 +76,7 @@ const LeadsForAdmin = () => {
         status: "",
         date: null,
       });
+      setSelectDate(null)
       getQueriesForAdmin();
     } catch (error) {
       console.log(error);
@@ -95,8 +96,10 @@ const LeadsForAdmin = () => {
       <div className="main_Container">
         <DatePicker
           label="Select Date"
-          value={selectDate}
-          onChange={handleDateChange}
+          name = "date"
+          // value={filterParams.date}
+          // onChange={handleFilterChange}
+          onKeyDown = {handleKeyPress}
           renderInput={(params) => <TextField {...params} />}
           sx={{ marginLeft: "16px" }}
         />
@@ -113,12 +116,15 @@ const LeadsForAdmin = () => {
             <MenuItem value="All">ALL</MenuItem>
             <MenuItem value="Unseen">UNSEEN</MenuItem>
             <MenuItem value="Replied">REPLIED</MenuItem>
-            <MenuItem value="Pending">PENDING</MenuItem>
+            <MenuItem value="Seen">SEEN</MenuItem>
           </Select>
         </FormControl>
         <div className="btn_main">
           <Button sx={{ height: "55px" }} onClick={resetFilters}>
             Reset Filters
+          </Button>
+          <Button sx={{ height: "55px" }} onClick={handleFilterChange}>
+            Apply Filters
           </Button>
         </div>
       </div>

@@ -2,7 +2,7 @@ import "./style.scss";
 
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { handleInput } from "../../utilities";
-import TagsInput from "react-tagsinput";
+// import TagsInput from "react-tagsinput";
 import React from "react";
 import "react-tagsinput/react-tagsinput.css";
 
@@ -70,7 +70,7 @@ const OtherInfo = ({ profile, setProfile, editProfileEnable }) => {
           </div>
         </div>
 
-        <div className="row">
+        {/* <div className="row">
           <div className="col">
             <div className="info-field">
               <p>Languages I know</p>
@@ -92,7 +92,7 @@ const OtherInfo = ({ profile, setProfile, editProfileEnable }) => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row">
           <div className="col">

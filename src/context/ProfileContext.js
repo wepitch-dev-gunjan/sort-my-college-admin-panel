@@ -34,6 +34,8 @@ export const ProfileProvider = ({ children }) => {
   const [editProfileEnable, setEditProfileEnable] = useState(false);
   const [editCounsellorProfileEnable, setEditCounsellorProfileEnable] =
     useState(false);
+    const [editInstituteProfileEnable, setEditInstituteProfileEnable] =
+    useState(false);
   const [profilePicEditMode, setProfilePicEditMode] = useState(false);
   const [coverImageEditMode, setCoverImageEditMode] = useState(false);
   return (
@@ -50,6 +52,8 @@ export const ProfileProvider = ({ children }) => {
         fetchProfile,
         editCounsellorProfileEnable,
         setEditCounsellorProfileEnable,
+        editInstituteProfileEnable,
+        setEditInstituteProfileEnable,
       }}
     >
       {children}

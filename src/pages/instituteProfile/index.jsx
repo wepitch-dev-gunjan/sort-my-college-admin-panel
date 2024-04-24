@@ -7,7 +7,6 @@ import { handleInput } from "../../utilities";
 import TagsInput from "react-tagsinput";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import ProfilePic from "../../components/profilePic";
-import CounsellorProfileDropdown from "../../components/counsellorProfileDropdown";
 import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
 import { toast } from "react-toastify";
@@ -15,12 +14,13 @@ import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { Link, useParams } from "react-router-dom";
+import InstituteProfileDropdown from "../../components/InstituteProfileDropdown";
 const { backend_url } = config;
 
 const InstituteProfile = () => {
   const { admin } = useContext(AdminContext);
 
-  const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
+  const { editInstituteProfileEnable, setEditInstituteProfileEnable } =
     useContext(ProfileContext);
   const { institute_id } = useParams();
 
@@ -82,7 +82,7 @@ const InstituteProfile = () => {
   };
 
   const handleCancelClick = () => {
-    setEditCounsellorProfileEnable(false);
+   setEditInstituteProfileEnable(false);
   };
 
   const handleCancellationReasonChange = (e) => {
@@ -109,7 +109,7 @@ const InstituteProfile = () => {
       toast(data.message);
     } catch (error) {
       console.log(error);
-      toast("Error rejecting counsellor");
+      toast("Error rejecting Institute");
     }
   };
 
@@ -131,10 +131,10 @@ const InstituteProfile = () => {
           },
         }
       );
-      setEditCounsellorProfileEnable(false);
-      toast("Counsellor successfully updated.");
+      setEditInstituteProfileEnable(false);
+      toast("Institute successfully updated.");
     } catch (error) {
-      console.log("Error updating counsellor : " + error);
+      console.log("Error updating Institute : " + error);
       toast(error.message);
     }
   };
@@ -185,7 +185,7 @@ const InstituteProfile = () => {
                   <p> Full Name</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
+                  {editInstituteProfileEnable ? (
                     <input
                       type="text"
                       value={profile.registrant_full_name}
@@ -206,7 +206,7 @@ const InstituteProfile = () => {
                   <p>Email</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
+                  {editInstituteProfileEnable ? (
                     <input
                       type="text"
                       value={profile. registrant_email}
@@ -227,7 +227,7 @@ const InstituteProfile = () => {
                   <p>Contact Number</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
+                  {editInstituteProfileEnable ? (
                     <div className="gender-radio">
                         <input
                           type="text"
@@ -250,7 +250,7 @@ const InstituteProfile = () => {
                   <p>Designation</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
+                  {editInstituteProfileEnable ? (
                     <DatePicker
                     type = "text"
                     value={profile.registrant_designation}
@@ -367,7 +367,7 @@ const InstituteProfile = () => {
       </div>
 
       <div className="right-profile">
-        {editCounsellorProfileEnable ? (
+        {editInstituteProfileEnable ? (
           <>
             <div className="right-profile-buttons">
               <div className="left">
@@ -379,7 +379,7 @@ const InstituteProfile = () => {
                 </div>
               </div>
               <div className="right">
-                <CounsellorProfileDropdown />
+                <InstituteProfileDropdown />
               </div>
             </div>
           </>
@@ -398,7 +398,7 @@ const InstituteProfile = () => {
                 </div>
               </div>
               <div className="right">
-                <CounsellorProfileDropdown />
+                <InstituteProfileDropdown />
               </div>
             </div>
           </>
@@ -415,7 +415,7 @@ const InstituteProfile = () => {
                   <p>Name of Institute</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
+                  {editInstituteProfileEnable ? (
                     <input
                       type="text"
                       value={profile.name}
@@ -440,7 +440,7 @@ const InstituteProfile = () => {
                   <p>About</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
+                  {editInstituteProfileEnable ? (
                     <>
       
                           <input
@@ -473,7 +473,7 @@ const InstituteProfile = () => {
                   <p>Directional URL</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
+                  {editInstituteProfileEnable ? (
                    <input
                    type="text"
                    value = {profile.direction_url}
@@ -494,8 +494,8 @@ const InstituteProfile = () => {
                   <p>Year Established</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
+                  {editInstituteProfileEnable ? (
+                    <input
                     type = "text"
                       value={profile.year_established_in}
                      onChange= {(e)=> handleInput("year_established_in",e.target.value,setProfile)
@@ -514,8 +514,8 @@ const InstituteProfile = () => {
                   <p>Affilation</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
+                  {editInstituteProfileEnable ? (
+                    <input
                     type = "text"
                       value={profile. affilations}
                      onChange= {(e)=> handleInput(" affilations",e.target.value,setProfile)
@@ -534,8 +534,8 @@ const InstituteProfile = () => {
                   <p> Email</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
+                  {editInstituteProfileEnable ? (
+                    <input
                     type = "text"
                       value={profile. email}
                      onChange= {(e)=> handleInput(" email",e.target.value,setProfile)
@@ -554,8 +554,8 @@ const InstituteProfile = () => {
                   <p>Contact Number</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
+                  {editInstituteProfileEnable ? (
+                    <input
                     type = "number"
                       value={profile.contact_number}
                      onChange= {(e)=> handleInput("contact_number",e.target.value,setProfile)
@@ -574,8 +574,8 @@ const InstituteProfile = () => {
                   <p>GST IN</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
+                  {editInstituteProfileEnable ? (
+                    <input
                     type = "number"
                       value={profile. gstin}
                      onChange= {(e)=> handleInput(" gstin",e.target.value,setProfile)
@@ -587,26 +587,6 @@ const InstituteProfile = () => {
                 </div>
               </div>
             </div>
-            {/* institute_timings */}
-            {/* <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Institute Timings</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
-                    type = "number"
-                      value={profile.institute_timings}
-                     onChange= {(e)=> handleInput("institute_timings",e.target.value,setProfile)
-                    }
-                    />
-                  ) : (
-                  <p>{profile.institute_timings}</p>
-                  )}
-                </div>
-              </div>
-            </div> */}
             {/* mode_of_study */}
             <div className="row">
               <div className="col">
@@ -614,8 +594,8 @@ const InstituteProfile = () => {
                   <p>Mode Of Study</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
+                  {editInstituteProfileEnable ? (
+                    <input
                     type = "number"
                       value={profile.mode_of_study}
                      onChange= {(e)=> handleInput("mode_of_study",e.target.value,setProfile)
@@ -634,8 +614,8 @@ const InstituteProfile = () => {
                   <p>Medium Of Study</p>
                 </div>
                 <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
+                  {editInstituteProfileEnable ? (
+                    <input
                     type = "number"
                       value={profile.medium_of_study}
                      onChange= {(e)=> handleInput("medium_of_study",e.target.value,setProfile)
