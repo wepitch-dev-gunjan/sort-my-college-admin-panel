@@ -1,0 +1,46 @@
+.rs-uploader.rs-uploader-text.rs-uploader-draggable{
+    width: 100%;
+    input{
+        display: none;
+    }
+    .rs-uploader-trigger-btn{
+        width: 100%;
+        background-color:#F7F4FF;
+        border: 2px dashed #8d8d8d9a;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #8d8d8d;
+    }
+}
+.rs-uploader-file-items{
+    display: flex;
+    padding-top: 0.3em;
+
+    .rs-uploader-file-item.rs-uploader-file-item-text.rs-uploader-file-item-has-error{
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 0.3em;
+    }
+    .rs-uploader-file-item-content{
+        display: flex;
+        gap: 0.3em;
+        color: #8d8d8d;
+    }
+    .rs-uploader-file-item-btn-remove.rs-btn-close{
+        background: none;
+        color: red;
+        border: none;
+        cursor: pointer;
+    }
+
+    svg.rs-uploader-file-item-icon-reupload.rs-icon{
+        width: 0.9em;
+        height: 0.9em;
+        cursor: pointer;
+    }
+    .rs-uploader-file-item-status{
+        display: flex;
+        gap: 0.3em;
+    }
+}
