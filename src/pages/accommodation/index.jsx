@@ -70,7 +70,7 @@ const Accommodation = () => {
           <div className="accomm-children">
             <div className="accomm-gallery">
               <div className="accomm-image-container">
-                <img src={pg.image[currentImageIndex]} alt="" />
+                <img src={pg.image[0]} alt="" />
               </div>
             </div>
             <div className="accomm-child-1">
