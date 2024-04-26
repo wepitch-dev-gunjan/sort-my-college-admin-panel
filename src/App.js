@@ -53,7 +53,7 @@ function App() {
   const addProfilePicRef = useRef(null);
   const { admin, setAdmin } = useContext(AdminContext);
   const { isLoggedIn } = admin;
-  const { addMode, webinars, setWebinars, setAddMode } =
+  const { addMode, webinar, setWebinar, setAddMode } =
     useContext(WebinarContext);
   const { notificationsEnable, setNotificationsEnable, notificationsRef } =
     useContext(NotificationContext);
@@ -62,8 +62,8 @@ function App() {
   const { addBannerMode } = useContext(BannerContext);
 
   const navigate = useNavigate();
-  const { addAccommodationEnable, setAddAccommodationEnable } = useContext(AccommodationContext)
-
+  const { addAccommodationEnable, setAddAccommodationEnable } =
+    useContext(AccommodationContext);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -99,7 +99,6 @@ function App() {
           <AddBanner />
         </div>
       )}
-
 
       <div className="main">
         <ToastContainer />
@@ -137,7 +136,10 @@ function App() {
                   path="/webinar/:webinar_id"
                   element={<WebinarProfile />}
                 />
-                <Route path="/webinar" element={<Webinar />} />
+                <Route
+                  path="/webinar"
+                  element={<Webinar webinar={webinar} />}
+                />
                 {/* <Route path="/webinar" element={<Webinar />} /> */}
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Dashboard />} />
@@ -146,8 +148,13 @@ function App() {
                   path="/entrance-preparation"
                   element={<EntrancePreparation />}
                 />
-                <Route path = "/view_leads_for_admin/:institute_id" element = {<AllLeads />}/>
-                <Route path = "/getAllQueries/:enquiry_id" element = {<ViewLeads />}
+                <Route
+                  path="/view_leads_for_admin/:institute_id"
+                  element={<AllLeads />}
+                />
+                <Route
+                  path="/getAllQueries/:enquiry_id"
+                  element={<ViewLeads />}
                 />
                 <Route
                   path="/entrance-preparation/feature-and-preference"
@@ -162,9 +169,18 @@ function App() {
                   element={<InstituteProfile />}
                 />
                 <Route path="/accommodation" element={<Accommodation />} />
-                <Route path="accommodation/add" element={<AddAccommodation />} />
-                <Route path="/accommodation/details" element={<AccommodationDetails />} />
-                <Route path = "/accommodationDetails" element = {<ViewAccoummDetails/>}/>
+                <Route
+                  path="accommodation/add"
+                  element={<AddAccommodation />}
+                />
+                <Route
+                  path="/accommodation/details"
+                  element={<AccommodationDetails />}
+                />
+                <Route
+                  path="/accommodationDetails"
+                  element={<ViewAccoummDetails />}
+                />
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
               </>

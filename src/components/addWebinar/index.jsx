@@ -19,7 +19,8 @@ const { backend_url } = config;
 const AddWebinar = ({ setAddMode }) => {
   const Ref = useRef(null);
   const { admin } = useContext(AdminContext);
-  const { webinarLoading, setWebinarLoading } = useContext(WebinarContext);
+  const { webinarLoading, setWebinarLoading, setWebinar } =
+    useContext(WebinarContext);
 
   const formatDate = (date) => {
     return dayjs(date).format("YYYY-MM-DD");
@@ -153,10 +154,11 @@ const AddWebinar = ({ setAddMode }) => {
         }
       );
 
-      console.log("Webinar saved:", response.data);
       setWebinarLoading(false);
+      console.log("Webinar saved:", response.data);
       handleCancel();
       toast.success("Webinar added successfully");
+      setWebinar((prevWebinars) => !prevWebinars);
     } catch (error) {
       setWebinarLoading(false);
       console.error("Error saving webinar:", error);

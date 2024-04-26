@@ -9,7 +9,7 @@ import Filters from "../../components/filters";
 import { toast } from "react-toastify";
 const { backend_url } = config;
 
-const Webinar = () => {
+const Webinar = ({ webinar }) => {
   const [webinars, setWebinars] = useState([]);
   const { admin } = useContext(AdminContext);
 
@@ -47,7 +47,7 @@ const Webinar = () => {
 
   useEffect(() => {
     getWebinars();
-  }, []);
+  }, [webinar]);
 
   return (
     <>

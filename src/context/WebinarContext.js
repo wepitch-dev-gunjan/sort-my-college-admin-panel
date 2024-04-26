@@ -5,7 +5,7 @@ export const WebinarContext = createContext();
 export const WebinarProvider = ({ children }) => {
   const [addMode, setAddMode] = useState(false);
   const [webinarLoading, setWebinarLoading] = useState(false);
-  const [webinars, setWebinars] = useState([]);
+  const [webinar, setWebinar] = useState(false);
   return (
     <WebinarContext.Provider
       value={{
@@ -13,8 +13,8 @@ export const WebinarProvider = ({ children }) => {
         setAddMode,
         webinarLoading,
         setWebinarLoading,
-        webinars,
-        setWebinars,
+        webinar,
+        setWebinar,
       }}
     >
       {children}
