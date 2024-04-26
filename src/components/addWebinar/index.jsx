@@ -176,7 +176,7 @@ const AddWebinar = ({ setAddMode }) => {
     reader.onloadend = () => {
       setWebinarDetails({
         ...webinarDetails,
-        webinar_image: reader.result, // Use reader.result to set the image in state
+        webinar_image: reader.result,
       });
     };
     reader.readAsDataURL(file);
