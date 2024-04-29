@@ -29,34 +29,49 @@ const AddAccommodation = () => {
         details: ['']
     }])
     const [formData, setFormData] = useState({
+        type: '',
         name: '',
         address: {
             area: '',
             city: '',
-            state: ''
-        },
-        images: [],
-        rating: 0,
-        reviews: 0,
-        starting_from: {
-            amount: 0,
-            currency: 'INR',
-            frequency: 'month'
+            state: '',
+            pin_code: ''
         },
         direction: '',
-        rooms_offered: {
-            single_sharing: { amount: 0 },
-            double_sharing: { amount: 0 },
-            triple_sharing: { amount: 0 }
+        total_beds: 0,
+        recommended_for: '',
+        owner: {
+            full_name: '',
+            dob: '',
+            gender: '',
+            contact_numbers: [],
+            email: '',
+            aadhar_card: null,
+            pan_card: null
         },
-        accommodating_for: ['Boys'],
-        near_by_locations: {
+        rooms: [
+            {
+                sharing_type: '',
+                available: true,
+                deposit_amount: 0,
+                monthly_charge: 0,
+                notice_period: '',
+                details: []
+            }
+        ],
+        nearby_locations: {
             colleges: [],
             hospitals: [],
             metro_stations: []
         },
-        feedback: ''
+        rating: 0,
+        common_area_amenities: [],
+        house_rules: [],
+        gate_opening_time: '',
+        gate_closing_time: '',
+        images: [] // For storing file data
     });
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
