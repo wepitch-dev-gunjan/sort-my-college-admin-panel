@@ -4,8 +4,6 @@ import "./style.scss";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { handleInput } from "../../utilities";
-import TagsInput from "react-tagsinput";
-import { FaIndianRupeeSign } from "react-icons/fa6";
 import ProfilePic from "../../components/profilePic";
 import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
@@ -82,7 +80,7 @@ const InstituteProfile = () => {
   };
 
   const handleCancelClick = () => {
-   setEditInstituteProfileEnable(false);
+    setEditInstituteProfileEnable(false);
   };
 
   const handleCancellationReasonChange = (e) => {
@@ -151,7 +149,7 @@ const InstituteProfile = () => {
         }
       );
       setProfile({ ...profile, verified: true });
-      
+
       toast("Institute verified successfully");
     } catch (error) {
       console.log(error);
@@ -176,7 +174,7 @@ const InstituteProfile = () => {
 
         <div className="left-profile-middle">
           <div className="info">
-           {/* registrant Details */}
+            {/* registrant Details */}
             <h2>Registrant Details</h2>
             {/* registrant full Name */}
             <div className="row">
@@ -190,7 +188,11 @@ const InstituteProfile = () => {
                       type="text"
                       value={profile.registrant_full_name}
                       onChange={(e) =>
-                        handleInput("registrant_full_name", e.target.value, setProfile)
+                        handleInput(
+                          "registrant_full_name",
+                          e.target.value,
+                          setProfile
+                        )
                       }
                     />
                   ) : (
@@ -199,14 +201,14 @@ const InstituteProfile = () => {
                 </div>
               </div>
             </div>
-{/* registrant email */}
+            {/* registrant email */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
                   <p>Email</p>
                 </div>
                 <div className="info-value">
-                  {editInstituteProfileEnable ? (
+                  {/* {editInstituteProfileEnable ? (
                     <input
                       type="text"
                       value={profile. registrant_email}
@@ -214,13 +216,13 @@ const InstituteProfile = () => {
                         handleInput(" registrant_email", e.target.value, setProfile)
                       }
                     />
-                  ) : (
-                    <p>{profile. registrant_email}</p>
-                  )}
+                  ) : ( */}
+                  <p>{profile.registrant_email}</p>
+                  {/* )} */}
                 </div>
               </div>
             </div>
-{/*  registrant_contact_number */}
+            {/*  registrant_contact_number */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -229,21 +231,25 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <div className="gender-radio">
-                        <input
-                          type="text"
-                          value={profile. registrant_contact_number}
-                          onChange={(e) =>
-                            handleInput("registrant_contact_number", e.target.value, setProfile)
-                          }
-                        />            
+                      <input
+                        type="text"
+                        value={profile.registrant_contact_number}
+                        onChange={(e) =>
+                          handleInput(
+                            "registrant_contact_number",
+                            e.target.value,
+                            setProfile
+                          )
+                        }
+                      />
                     </div>
                   ) : (
-                    <p>{profile. registrant_contact_number}</p>
+                    <p>{profile.registrant_contact_number}</p>
                   )}
                 </div>
               </div>
             </div>
-{/* registrant_designation */}
+            {/* registrant_designation */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -251,11 +257,16 @@ const InstituteProfile = () => {
                 </div>
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
-                    <DatePicker
-                    type = "text"
-                    value={profile.registrant_designation}
-                    onChange = {(e) => handleInput ("registrant_designation",e.target.value , setProfile)
-                   }
+                    <input
+                      type="text"
+                      value={profile.registrant_designation}
+                      onChange={(e) =>
+                        handleInput(
+                          "registrant_designation",
+                          e.target.value,
+                          setProfile
+                        )
+                      }
                     />
                   ) : (
                     <p>{profile.registrant_designation}</p>
@@ -265,7 +276,7 @@ const InstituteProfile = () => {
             </div>
           </div>
         </div>
-{/* Others Institute Detail change */}
+        {/* Others Institute Detail change */}
         {/* <div className="left-profile-bottom">
           <h2>Institute Details</h2>
           <hr />
@@ -359,11 +370,11 @@ const InstituteProfile = () => {
             </div>
           </div>
         </div> */}
-         <div className="view_leads_btn">
-     <Link to = {`/view_leads_for_admin/${profile._id}`}>
-     <p> View Leads</p>
-     </Link>
-      </div>
+        <div className="view_leads_btn">
+          <Link to={`/view_leads_for_admin/${profile._id}`}>
+            <p> View Leads</p>
+          </Link>
+        </div>
       </div>
 
       <div className="right-profile">
@@ -392,7 +403,7 @@ const InstituteProfile = () => {
                     Accept
                   </div>
                 )}
-               
+
                 <div className="reject" onClick={handleRejectClick}>
                   Reject
                 </div>
@@ -405,9 +416,9 @@ const InstituteProfile = () => {
         )}
 
         <div className="right-profile-info">
-         <h2>Institute Details</h2>
-         <hr />
-         {/* Name of Institute */}
+          <h2>Institute Details</h2>
+          <hr />
+          {/* Name of Institute */}
           <div className="info">
             <div className="row">
               <div className="col">
@@ -420,11 +431,7 @@ const InstituteProfile = () => {
                       type="text"
                       value={profile.name}
                       onChange={(e) =>
-                        handleInput(
-                          "name",
-                          e.target.value,
-                          setProfile
-                        )
+                        handleInput("name", e.target.value, setProfile)
                       }
                     />
                   ) : (
@@ -433,7 +440,7 @@ const InstituteProfile = () => {
                 </div>
               </div>
             </div>
-{/* About */}
+            {/* About */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -442,19 +449,11 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <>
-      
-                          <input
-                           type="text"
-                           value = {profile.about}
-                            onChange={(e) =>
-                              handleInput(
-                                "about",
-                                e.target.value
-                              )
-                            }
-                          />
-
-        
+                      <input
+                        type="text"
+                        value={profile.about}
+                        onChange={(e) => handleInput("about", e.target.value)}
+                      />
                     </>
                   ) : (
                     <p>
@@ -466,7 +465,7 @@ const InstituteProfile = () => {
                 </div>
               </div>
             </div>
-{/* direction_url */}
+            {/* direction_url */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -474,20 +473,20 @@ const InstituteProfile = () => {
                 </div>
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
-                   <input
-                   type="text"
-                   value = {profile.direction_url}
-                   onChange={(e) => handleInput("direction_url",e.target.value,setProfile)
-                  }
-                   />
+                    <input
+                      type="text"
+                      value={profile.direction_url}
+                      onChange={(e) =>
+                        handleInput("direction_url", e.target.value, setProfile)
+                      }
+                    />
                   ) : (
-                   
-          <p>{profile.direction_url}</p>
+                    <p>{profile.direction_url}</p>
                   )}
                 </div>
               </div>
             </div>
-{/* year_established_in */}
+            {/* year_established_in */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -496,13 +495,26 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <input
-                    type = "text"
-                      value={profile.year_established_in}
-                     onChange= {(e)=> handleInput("year_established_in",e.target.value,setProfile)
-                    }
+                      type="text"
+                      value={
+                        profile.year_established_in
+                          ? new Date(profile.year_established_in).getFullYear()
+                          : ""
+                      }
+                      onChange={(e) =>
+                        handleInput(
+                          "year_established_in",
+                          e.target.value,
+                          setProfile
+                        )
+                      }
                     />
                   ) : (
-                  <p>{profile.year_established_in}</p>
+                    <p>
+                      {profile.year_established_in
+                        ? new Date(profile.year_established_in).getFullYear()
+                        : ""}
+                    </p>
                   )}
                 </div>
               </div>
@@ -516,34 +528,36 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <input
-                    type = "text"
-                      value={profile. affilations}
-                     onChange= {(e)=> handleInput(" affilations",e.target.value,setProfile)
-                    }
+                      type="text"
+                      value={profile.affilations}
+                      onChange={(e) =>
+                        handleInput(" affilations", e.target.value, setProfile)
+                      }
                     />
                   ) : (
-                  <p>{profile. affilations}</p>
+                    <p>{profile.affilations}</p>
                   )}
                 </div>
               </div>
             </div>
-            {/*e emailEmail */}
+            {/*Email */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
                   <p> Email</p>
                 </div>
                 <div className="info-value">
-                  {editInstituteProfileEnable ? (
+                  {/* {editInstituteProfileEnable ? (
                     <input
-                    type = "text"
-                      value={profile. email}
-                     onChange= {(e)=> handleInput(" email",e.target.value,setProfile)
-                    }
+                      type="text"
+                      value={profile.email}
+                      onChange={(e) =>
+                        handleInput(" email", e.target.value, setProfile)
+                      }
                     />
-                  ) : (
-                  <p>{profile. email}</p>
-                  )}
+                  ) : ( */}
+                    <p>{profile.email}</p>
+                  {/* )} */}
                 </div>
               </div>
             </div>
@@ -556,13 +570,18 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <input
-                    type = "number"
+                      type="number"
                       value={profile.contact_number}
-                     onChange= {(e)=> handleInput("contact_number",e.target.value,setProfile)
-                    }
+                      onChange={(e) =>
+                        handleInput(
+                          "contact_number",
+                          e.target.value,
+                          setProfile
+                        )
+                      }
                     />
                   ) : (
-                  <p>{profile.contact_number}</p>
+                    <p>{profile.contact_number}</p>
                   )}
                 </div>
               </div>
@@ -576,18 +595,71 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <input
-                    type = "number"
-                      value={profile. gstin}
-                     onChange= {(e)=> handleInput(" gstin",e.target.value,setProfile)
-                    }
+                      type="number"
+                      value={profile.gstin}
+                      onChange={(e) =>
+                        handleInput(" gstin", e.target.value, setProfile)
+                      }
                     />
                   ) : (
-                  <p>{profile. gstin}</p>
+                    <p>{profile.gstin}</p>
                   )}
                 </div>
               </div>
             </div>
-            {/* mode_of_study */}
+
+              {/* mode_of_study */}
+        <div className="row">
+          <div className="col">
+            <div className="info-field">
+              <p>Mode of Study</p>
+            </div>
+            <div className="info-value">
+              {editInstituteProfileEnable ? (
+                <select
+                  value={profile.mode_of_study}
+                  onChange={(e) =>
+                    handleInput("mode_of_study", e.target.value, setProfile)
+                  }
+                >
+                  <option value="ONLINE">Online</option>
+                  <option value="OFFLINE">Offline</option>
+                </select>
+              ) : (
+                <p>{profile.mode_of_study}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* medium_of_study */}
+        <div className="row">
+          <div className="col">
+            <div className="info-field">
+              <p>Medium of Study</p>
+            </div>
+            <div className="info-value">
+              {editInstituteProfileEnable ? (
+                <>
+                  <select
+                    value={profile.medium_of_study}
+                    onChange={(e) =>
+                      handleInput("medium_of_study", e.target.value, setProfile)
+                    }
+                  >
+                    <option value="ENGLISH">English</option>
+                    <option value="HINDI">Hindi</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                  <span className="input-info-small">Example: English</span>
+                </>
+              ) : (
+                <p>{profile.medium_of_study}</p>
+              )}
+            </div>
+          </div>
+        </div>
+            {/* mode_of_study
             <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -596,19 +668,20 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <input
-                    type = "number"
+                      type="number"
                       value={profile.mode_of_study}
-                     onChange= {(e)=> handleInput("mode_of_study",e.target.value,setProfile)
-                    }
+                      onChange={(e) =>
+                        handleInput("mode_of_study", e.target.value, setProfile)
+                      }
                     />
                   ) : (
-                  <p>{profile.mode_of_study}</p>
+                    <p>{profile.mode_of_study}</p>
                   )}
                 </div>
               </div>
             </div>
-           {/* medium_of_study */}
-            <div className="row">
+            {/* medium_of_study */}
+            {/* <div className="row">
               <div className="col">
                 <div className="info-field">
                   <p>Medium Of Study</p>
@@ -616,18 +689,23 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <input
-                    type = "number"
+                      type="number"
                       value={profile.medium_of_study}
-                     onChange= {(e)=> handleInput("medium_of_study",e.target.value,setProfile)
-                    }
+                      onChange={(e) =>
+                        handleInput(
+                          "medium_of_study",
+                          e.target.value,
+                          setProfile
+                        )
+                      }
                     />
                   ) : (
-                  <p>{profile.medium_of_study}</p>
+                    <p>{profile.medium_of_study}</p>
                   )}
                 </div>
               </div>
-            </div>
-             {/* key features */}
+            </div> */} 
+            {/* key features */}
             {/* <div className="row">
               <div className="col">
                 <div className="info-field">
@@ -760,7 +838,6 @@ const InstituteProfile = () => {
           </div>
         </div>
       )}
-     
     </div>
   );
 };

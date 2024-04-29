@@ -1,13 +1,14 @@
 .accommodation_main{
  display: flex;
- justify-content: center;
+ // justify-content: center;
  width: 100%;
  height : auto;
  gap : 20px;
  height: 100%;
-padding:20px;
+padding:1px;
  overflow-y: auto;
  .accommodation_details{
+  width: 100%;
   display: flex;
 padding: 1em;
 overflow-y:auto ;
@@ -15,7 +16,7 @@ overflow-y:auto ;
  display: flex;
  width: 80%;
  .details{
-  display: flex;
+  // display: flex;
   border-radius: 6px;
   box-shadow:rgba(0, 0, 0, 0.08) 0px 4px 12px;
   width: 100%;
@@ -23,6 +24,9 @@ overflow-y:auto ;
   // height: auto;
  gap: 20px;
  align-items: baseline;
+ h4{
+  text-align: center;
+ }
  }
 }
 .accomodation_right{
@@ -40,10 +44,33 @@ overflow-y:auto ;
   padding: 3em;
  }
  .accommodation_right_details{
+ // display: flex;
+ // justify-content: center;
+ // align-items: center;
   width: 80%;
   border-radius: 6px;
   box-shadow:rgba(0, 0, 0, 0.08) 0px 4px 12px;
-padding:3em;
+  padding-left: 1em;
+  h4{
+   text-align: center;
+  }
+  .right_details{
+   padding-top: 20px;
+   display: flex;
+   justify-content: space-evenly;
+   flex-direction: column;
+   gap: 20px;
+   .singleShare{
+  
+   }
+  
+   .doubleShare{
+  
+   }
+   .tripleShare{
+  
+   }
+  }
  }
 }
  }

@@ -136,35 +136,38 @@ const AddAccommodation = () => {
     //  Nearby Metro Stations 
     
     // Common Area Amenities 
+    // Common Area Amenities 
     const handleCommonAmenitiesChange = (index, value) => {
         const newCommonAmenities = [...commonAmenities];
         newCommonAmenities[index] = value;
+        setCommonAmenities(newCommonAmenities);
         // set nearby colleges into property details here 
     }
     const addCommonAmenities = () => {
         setCommonAmenities([...commonAmenities, ""]);
     }
     const removeCommonAmenities = (index) => {
-        const newCommonAmenities = [...commonAmenities];
-        newCommonAmenities.splice(index, 1);
-        setCommonAmenities(newCommonAmenities);
-    }
-    // Common Area Amenities 
+     const newCommonAmenities = [...commonAmenities];
+     newCommonAmenities.splice(index, 1);
+     setCommonAmenities(newCommonAmenities);
+ };
+ 
 
     // House Rules
     const handleHouseRulesChange = (index, value) => {
         const newHouseRules = [...houseRules];
-        newHouseRules.splice(index, 1);
+        newHouseRules[index] = value;
         setHouseRules(newHouseRules)
     }
     const addHouseRules = () => {
         setHouseRules([...houseRules, ""]);
     }
     const removeHouseRules = (index) => {
-        const newHouseRules = [...houseRules];
-        newHouseRules.splice(index, 1);
-        setHouseRules(newHouseRules)
-    }
+     const newHouseRules = [...houseRules];
+     newHouseRules.splice(index, 1);
+     setHouseRules(newHouseRules);
+ };
+ 
     // House Rules
 
     // Rooms 
@@ -189,23 +192,30 @@ const AddAccommodation = () => {
         newRooms[index][field] = value;
         setRooms(newRooms)
     }
-    // Rooms 
+    // // Rooms 
 
-    // Room Details
-    const handleRoomDetailsChange = (index, value) => {
-        const newRoomDetails = [...roomDetails];
-        newRoomDetails.splice(index, 1);
-        setRoomDetails(newRoomDetails);
-    }
-    const addRoomDetails = () => {
-        setRoomDetails([...roomDetails, ""]);
-    }
-    const removeRoomDetails = (index) => {
-        const newRoomDetails = [...roomDetails];
-        newRoomDetails.splice(index, 1);
-        setRoomDetails(newRoomDetails);
-    }
-    // Room Details
+    // // Room Details
+    // const handleRoomDetailsChange = (index, value) => {
+    //     const newRoomDetails = [...roomDetails];
+    //     newRoomDetails.splice(index, 1);
+    //     setRoomDetails(newRoomDetails);
+    // }
+// Room Details
+const handleRoomDetailsChange = (index, value) => {
+ const newRoomDetails = [...roomDetails];
+ newRoomDetails[index] = value; 
+ setRoomDetails(newRoomDetails);
+};
+
+const addRoomDetails = () => {
+ setRoomDetails([...roomDetails, ""]);
+};
+
+const removeRoomDetails = (index) => {
+ const newRoomDetails = [...roomDetails];
+ newRoomDetails.splice(index, 1);
+ setRoomDetails(newRoomDetails);
+};
 
     return (
         <div className="add-accomm-main">
@@ -472,7 +482,9 @@ const AddAccommodation = () => {
                    
                     
                 </form>
-
+<div className="btn">
+ <button onClick={handleSubmit}>Submit</button>
+</div>
             </div>
         </div>
     );

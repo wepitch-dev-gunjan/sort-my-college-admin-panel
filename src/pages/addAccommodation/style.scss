@@ -388,5 +388,23 @@
                 }
             }
         }
+        .btn{
+         display: flex;
+         justify-content: flex-end;
+         button {
+          background-color: #1f0a68;
+          border: 1px solid #1f0a68;
+          color: #ffffff;
+          border-radius: 40px;
+          font-size: 0.9em;
+          padding: 1em 2em 1em 2em;
+          cursor: pointer;
+        }
+       button:hover {
+          background-color: #ffffff;
+          color: #1f0a68;
+          transition: all 0.5s ease;
+        }
+        }
     }
 }
