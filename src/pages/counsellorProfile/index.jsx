@@ -197,6 +197,7 @@ const CounsellorProfile = () => {
       );
       setEditCounsellorProfileEnable(false);
       toast("Counsellor successfully updated.");
+      getCounsellor();
     } catch (error) {
       console.log("Error updating counsellor : " + error);
       toast(error.message);

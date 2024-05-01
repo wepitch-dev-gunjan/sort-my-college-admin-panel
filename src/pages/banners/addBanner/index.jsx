@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { BannerContext } from "../../../context/BannerContext";
 import useClickOutside from "../../../customHooks/useClickOutside";
+import Spinner from "../../../components/spinner/Index";
 
 const { backend_url } = config;
 const AddBanner = forwardRef((props, ref) => {
@@ -20,6 +21,7 @@ const AddBanner = forwardRef((props, ref) => {
   const fileRef = useRef(null);
   const { setAddBannerMode } = useContext(BannerContext);
   const { admin } = useContext(AdminContext);
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -40,6 +42,7 @@ const AddBanner = forwardRef((props, ref) => {
 
       const compressedImage = await compressImage(file);
       try {
+        setLoading(true);
         const formData = new FormData();
         formData.append("banner", compressedImage); // Append the File object to FormData
 
@@ -53,12 +56,15 @@ const AddBanner = forwardRef((props, ref) => {
             },
           }
         );
+        setLoading(false);
 
         // Handle success, show message, or perform other actions upon successful upload
         setAddBannerMode(false);
         setBanners((prev) => [...prev, data]);
         toast("Image updated successfully");
       } catch (error) {
+        setLoading(false);
+
         // Handle error, show error message, or perform error-related actions
         setAddBannerMode(false);
         toast("Error uploading image:", error);
@@ -129,7 +135,7 @@ const AddBanner = forwardRef((props, ref) => {
                 rotate={0}
               />
               <div className="bottom">
-                <button onClick={onSave}>Save</button>
+                {loading ? <Spinner /> : <button onClick={onSave}>Save</button>}
                 <button onClick={handleCancel}>Cancel</button>
               </div>
             </div>
