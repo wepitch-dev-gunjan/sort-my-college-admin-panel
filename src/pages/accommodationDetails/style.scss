@@ -62,6 +62,10 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            .clock{
+                width: 1em;
+                height: 1em;
+            }
             .property-info-left{
                 display: flex;
                 flex-direction: column;

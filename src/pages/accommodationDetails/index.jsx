@@ -12,6 +12,7 @@ import prop_4 from '../../assets/prop-4.jpg'
 import prop_5 from '../../assets/prop-5.jpg'
 import bed from '../../assets/single-bed_2336996.png' 
 import bed_svg from '../../assets/single-bed_2336996.svg'
+import clock from '../../assets/clock_2997300.png'
 import { Link } from 'react-router-dom';
 
 const AccommodationDetails = () => {
@@ -149,7 +150,9 @@ const AccommodationDetails = () => {
                       <LuDot /> 
                       <span className='bubble-r'>{types_of_rooms} Types of rooms</span>
                       <LuDot /> 
-                      <span className='bubble-r'><FaStar color='#FAB811'/> 4.2 | (8) Reviews</span></p>
+                      <span className='bubble-r'><FaStar color='#FAB811'/> 4.2 | (8) Reviews</span>
+                    </p>
+                    <p><span className='bubble-r' ><img className='clock' src={ clock } />  Gate opens @ {property.gate_opening_time} & closes at {property.gate_closing_time}</span></p>
                   </div>
                   <div className="property-info-right">
                     <Link to={property.direction}>View Directions</Link>
