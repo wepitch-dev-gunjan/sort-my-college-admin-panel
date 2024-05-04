@@ -10,10 +10,14 @@ import { MdDeleteOutline } from "react-icons/md";
 import BasicTimePicker from "../../components/formInputs/timePicker";
 import RoomTypeSelect from "../../components/formInputs/roomTypeSelectField";
 import RoomAvailableSelect from "../../components/formInputs/roomAvailableSelectField";
-
+import axios from "axios";
+import config from "@/config";
+import { AdminContext } from "../../context/AdminContext";
+const { backend_url } = config;
 const AddAccommodation = () => {
   const { addAccommodationEnable, setAddAccommodationEnable } =
     useContext(AccommodationContext);
+    const {admin } = useContext(AdminContext);
   const [nearbyColleges, setNearbyColleges] = useState(["", ""]);
   const [nearbyMetroStations, setNearbyMetroStations] = useState(["", ""]);
   const [nearbyHospitals, setNearbyHospitals] = useState(["", ""]);
@@ -31,7 +35,7 @@ const AddAccommodation = () => {
     },
   ]);
   const [formData, setFormData] = useState({
-    type: "",
+    type: "Hostel",
     name: "",
     address: {
       area: "",
@@ -41,11 +45,11 @@ const AddAccommodation = () => {
     },
     direction: "",
     total_beds: 0,
-    recommended_for: "",
+    recommended_for: "Boys",
     owner: {
       full_name: "",
       dob: "",
-      gender: "",
+      gender: "Female",
       contact_numbers: [],
       email: "",
       aadhar_card: null,
@@ -53,7 +57,7 @@ const AddAccommodation = () => {
     },
     rooms: [
       {
-        sharing_type: "",
+        sharing_type: "Single",
         available: true,
         deposit_amount: 0,
         monthly_charge: 0,
@@ -74,18 +78,13 @@ const AddAccommodation = () => {
     images: [], // For storing file data
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you can handle form submission, e.g., sending data to the server
-    console.log(formData);
   };
 
   // Nearby Colleges
@@ -222,7 +221,24 @@ const AddAccommodation = () => {
     newRoomDetails.splice(index, 1);
     setRoomDetails(newRoomDetails);
   };
-
+// for cancel form
+const handleCancel = async () =>{
+ 
+}
+  // for adding a course
+  const handleSubmit = async (e) => {
+   // e.preventDefault();
+try {
+ const response = await axios.post(`${backend_url}/admin/accommodation`,formData,{
+  headers : {
+   Authorization  : admin.token, 
+  }
+ });
+ console.log("Accommodation added successfully:", response.data);
+} catch (error) {
+ console.log("error in adding accommodation" ,error);
+}
+ };
   return (
     <div className="add-accomm-main">
       <div className="add-accomm-sub">
@@ -234,24 +250,43 @@ const AddAccommodation = () => {
             <h2>Owner's Information: </h2>
             <div className="owners-info-sub">
               <div className="row-form">
-                <BasicTextField placeholder="Full Name" />
-                <BasicDatePicker placeholder="Date of Birth" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value={formData.owner.full_name}               
+                 placeholder="Full Name" />
+                <BasicDatePicker 
+                onChange={(e) => handleChange(e)}
+                value={formData.owner.dob}
+                placeholder="Date of Birth" />
                 <BasicSelect />
               </div>
               <div className="row-form">
-                <BasicTextField placeholder="Phone Number" />
-                <BasicTextField placeholder="Alternate Phone Number" />
-                <BasicTextField placeholder="Email" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value={formData.owner.contact_numbers[0]}
+                placeholder="Phone Number" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                 value={formData.owner.contact_numbers[1]}
+                placeholder="Alternate Phone Number" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value = {formData.owner.email}
+                placeholder="Email" />
               </div>
               <div className="row-form">
                 <DragAndDropUploader
                   action=""
+                  onChange={(e) => handleChange(e)}
+                  value={formData.owner.aadhar_card}
                   placeholder="Upload your Photo Id Proof (Aadhar Card) here..."
                 />
               </div>
               <div className="row-form">
                 <DragAndDropUploader
                   action=""
+                  onChange={(e) => handleChange(e)}
+                  value={formData.owner.pan_card}
                   placeholder="Upload your PAN Card here..."
                 />
               </div>
@@ -263,20 +298,39 @@ const AddAccommodation = () => {
               <div className="row-form">
                 <DragAndDropUploader
                   action=""
+                  onChange={(e) => handleChange(e)}
                   placeholder="Upload Photos of the Property here..."
                 />
               </div>
               <div className="row-form">
-                <BasicTextField placeholder="Name of the Property" />
-                <BasicTextField placeholder="Direction URL" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value={formData.name}
+                placeholder="Name of the Property" />
+                <BasicTextField
+                onChange={(e) => handleChange(e)}
+                value={formData.direction}
+                placeholder="Direction URL" />
               </div>
               <div className="row-form">
-                <BasicTextField placeholder="Area" />
-                <BasicTextField placeholder="City" />
-                <BasicTextField placeholder="State" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value={formData.address.area}
+                placeholder="Area" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value={formData.address.city}
+                placeholder="City" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value={formData.address.state}
+                placeholder="State" />
               </div>
               <div className="row-form">
-                <BasicTextField placeholder="Pincode" />
+                <BasicTextField 
+                onChange={(e) => handleChange(e)}
+                value={formData.address.pincode}
+                placeholder="Pincode" />
                 <RecommendedForRadioButtons />
               </div>
             </div>
@@ -522,14 +576,19 @@ const AddAccommodation = () => {
               </div>
 
               <div className="gate-timings">
-                <BasicTimePicker placeholder="Gate Opening Time" />
-                <BasicTimePicker placeholder="Gate Closing Time" />
+                <BasicTimePicker 
+                onChange={(e) => handleChange(e)} 
+                placeholder="Gate OpeningTime" />
+                <BasicTimePicker 
+                onChange={(e) => handleChange(e)}
+                placeholder="Gate Closing Time" />
               </div>
             </div>
           </div>
         </form>
         <div className="btn">
           <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleChange}>Cancel</button>
         </div>
       </div>
     </div>
