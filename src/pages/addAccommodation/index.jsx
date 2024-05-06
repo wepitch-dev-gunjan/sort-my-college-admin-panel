@@ -79,13 +79,16 @@ const AddAccommodation = () => {
   });
 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (value, name) => {
+    console.log("Value:", value);
+    console.log("Name:", name);
     setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
+        ...prevState,
+        [name]: value,
     }));
-  };
+};
+
+
 
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
@@ -139,7 +142,6 @@ const AddAccommodation = () => {
   //  Nearby Metro Stations
 
   // Common Area Amenities
-  // Common Area Amenities
   const handleCommonAmenitiesChange = (index, value) => {
     const newCommonAmenities = [...commonAmenities];
     newCommonAmenities[index] = value;
@@ -154,6 +156,7 @@ const AddAccommodation = () => {
     newCommonAmenities.splice(index, 1);
     setCommonAmenities(newCommonAmenities);
   };
+    // Common Area Amenities
 
   // House Rules
   const handleHouseRulesChange = (index, value) => {
@@ -169,7 +172,6 @@ const AddAccommodation = () => {
     newHouseRules.splice(index, 1);
     setHouseRules(newHouseRules);
   };
-
   // House Rules
 
   // Rooms
@@ -228,17 +230,17 @@ const handleCancel = async () =>{
   // for adding a course
   const handleSubmit = async (e) => {
    // e.preventDefault();
-try {
- const response = await axios.post(`${backend_url}/admin/accommodation`,formData,{
-  headers : {
-   Authorization  : admin.token, 
-  }
- });
- console.log("Accommodation added successfully:", response.data);
-} catch (error) {
- console.log("error in adding accommodation" ,error);
-}
- };
+    try {
+    const response = await axios.post(`${backend_url}/admin/accommodation`,formData,{
+      headers : {
+      Authorization  : admin.token, 
+      }
+    });
+    console.log("Accommodation added successfully:", response.data);
+    } catch (error) {
+    console.log("error in adding accommodation" ,error);
+    }
+  };
   return (
     <div className="add-accomm-main">
       <div className="add-accomm-sub">
@@ -250,45 +252,58 @@ try {
             <h2>Owner's Information: </h2>
             <div className="owners-info-sub">
               <div className="row-form">
+
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleChange(e.target.value, "owner.full_name")}
+                name="owner.full_name"
                 value={formData.owner.full_name}               
                  placeholder="Full Name" />
+
                 <BasicDatePicker 
                 onChange={(e) => handleChange(e)}
                 value={formData.owner.dob}
                 placeholder="Date of Birth" />
+
                 <BasicSelect />
+
               </div>
               <div className="row-form">
+
                 <BasicTextField 
                 onChange={(e) => handleChange(e)}
                 value={formData.owner.contact_numbers[0]}
                 placeholder="Phone Number" />
+
                 <BasicTextField 
                 onChange={(e) => handleChange(e)}
                  value={formData.owner.contact_numbers[1]}
                 placeholder="Alternate Phone Number" />
+
                 <BasicTextField 
                 onChange={(e) => handleChange(e)}
                 value = {formData.owner.email}
                 placeholder="Email" />
+
               </div>
               <div className="row-form">
+
                 <DragAndDropUploader
                   action=""
                   onChange={(e) => handleChange(e)}
                   value={formData.owner.aadhar_card}
                   placeholder="Upload your Photo Id Proof (Aadhar Card) here..."
                 />
+
               </div>
               <div className="row-form">
+
                 <DragAndDropUploader
                   action=""
                   onChange={(e) => handleChange(e)}
                   value={formData.owner.pan_card}
                   placeholder="Upload your PAN Card here..."
                 />
+
               </div>
             </div>
           </div>
@@ -296,21 +311,29 @@ try {
             <h2>Property Information: </h2>
             <div className="property-info-sub">
               <div className="row-form">
+
                 <DragAndDropUploader
                   action=""
                   onChange={(e) => handleChange(e)}
                   placeholder="Upload Photos of the Property here..."
                 />
+
               </div>
               <div className="row-form">
-                <BasicTextField 
-                onChange={(e) => handleChange(e)}
-                value={formData.name}
-                placeholder="Name of the Property" />
+
+              <BasicTextField 
+                  onChange={(e) => handleChange(e.target.value, "name")}
+                  value={formData.name}
+                  name="name" // Set the name attribute here
+                  placeholder="Name of the Property" 
+              />
+
+
                 <BasicTextField
                 onChange={(e) => handleChange(e)}
                 value={formData.direction}
                 placeholder="Direction URL" />
+
               </div>
               <div className="row-form">
                 <BasicTextField 

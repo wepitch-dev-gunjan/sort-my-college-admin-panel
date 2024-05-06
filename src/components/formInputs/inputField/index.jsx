@@ -12,9 +12,14 @@ export default function BasicTextField(props) {
       noValidate
       autoComplete="off"
     >
-      <TextField id="outlined-basic" label={props.placeholder} variant="outlined" />
-      {/* <TextField id="filled-basic" label="Filled" variant="filled" />
-      <TextField id="standard-basic" label="Standard" variant="standard" /> */}
+      <TextField 
+        id="outlined-basic" 
+        label={props.placeholder} 
+        variant="outlined" 
+        name={props.name} // Pass the name prop here
+        value={props.value} // Pass the value prop here
+        onChange={props.onChange} // Pass the onChange prop here
+      />
     </Box>
   );
 }
