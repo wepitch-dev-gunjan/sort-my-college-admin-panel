@@ -3,6 +3,13 @@ import './style.scss';
 import { LuDot } from "react-icons/lu";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import { FaStar } from "react-icons/fa";
+import { MdAlternateEmail } from "react-icons/md";
+import { IoMdCall } from "react-icons/io";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
+import { CgProfile } from "react-icons/cg";
+import { PiGenderIntersex } from "react-icons/pi";
+
+
 
 
 import prop_1 from '../../assets/prop-1.jpg'
@@ -12,6 +19,8 @@ import prop_4 from '../../assets/prop-4.jpg'
 import prop_5 from '../../assets/prop-5.jpg'
 import bed from '../../assets/single-bed_2336996.png' 
 import bed_svg from '../../assets/single-bed_2336996.svg'
+import aadhar_card from '../../assets/A_sample_of_Aadhaar_card.jpg'
+import pan_card from '../../assets/sample-pan-card-front.jpg'
 import clock from '../../assets/clock_2997300.png'
 import { Link } from 'react-router-dom';
 
@@ -33,12 +42,12 @@ const AccommodationDetails = () => {
     
         owner: {
           full_name: 'Rakshita Kanwar',
-          dob: '2024-04-06T08:34:14.626+00:00',
+          dob: '9 July, 2000',
           gender: 'Female',
           contact_numbers: ['+916376038276', '+918233449683'],
           email: 'rakshitakanwar09@gmail.com',
-          aadhar_card: '127365478907',
-          pan_card: 'MFNPK9212A',
+          aadhar_card: aadhar_card,
+          pan_card: pan_card,
         },
     
         nearby_locations: {
@@ -233,6 +242,38 @@ const AccommodationDetails = () => {
                       </p>
                     ))}
                   </div>
+                </div>
+                <div className="owner-details-main">
+                  <h2>Hosted by {property.owner.full_name}</h2>
+                  <div className="owner-details-sub">
+                    <div className="owner-row">
+                      <div className="owner-name">
+                        <span className='contact-tags' ><PiGenderIntersex />|<p>{ property.owner.gender }</p></span>
+                      </div>
+                      <div className="owner-dob">
+                        <span className='contact-tags'><LiaBirthdayCakeSolid />|<p>{property.owner.dob}</p></span> 
+                      </div>
+                      <div className="owner-email">
+                        <span className='contact-tags' ><MdAlternateEmail />|<p>{property.owner.email}</p></span>
+                        
+                      </div>
+                      <div className="owner-phone">
+                        <span className='contact-tags' ><IoMdCall />|<p>{ property.owner.contact_numbers[0] }</p></span>
+                      </div>
+                      <div className="owner-phone">
+                        <span className='contact-tags' ><IoMdCall />|<p>{ property.owner.contact_numbers[0] }</p></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="owner-docs">
+                    <div className="owner-aadhar">
+                        <img src={property.owner.aadhar_card} alt="" />
+                    </div>
+                    <div className="owner-pan">
+                        <img src={property.owner.pan_card} alt="" />
+                    </div>
+                  </div>
+
                 </div>
             </div>
         </div>
