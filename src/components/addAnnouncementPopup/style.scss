@@ -1,0 +1,69 @@
+.pop-parent{
+  background-color: #0000003f;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  // left: -50;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  
+  .popup {
+      // transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+      z-index: 1000;
+      width: 40%;
+    }
+    
+    .popup h2 {
+      margin-top: 0;
+      padding: 0 0 0.3em 0;
+    }
+    
+    .popup textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      resize: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+    }
+    
+    .popup .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1em;
+      padding: 1em 0 0 0 ;
+    }
+    
+    .popup button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .popup button.add {
+      background-color: #1e0a68cb;
+      color: #ffffff;
+      border: 2px solid #1F0A68;
+    }
+    
+    .popup button.cancel {
+      background-color: #ffffffe8;
+      color: #1e0a68cb;
+      border: 2px solid #1e0a68cb;
+    }
+}

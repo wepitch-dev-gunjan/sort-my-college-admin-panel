@@ -46,6 +46,8 @@ import AccommodationDetails from "./pages/accommodationDetails";
 import AddAccommodation from "./pages/addAccommodation";
 import ViewLeads from "./pages/viewLeads";
 import ViewAccoummDetails from "./components/accommodationViewDetails";
+import AddAnnouncementPopup from "./components/addAnnouncementPopup";
+import { CounsellorContext } from "./context/CounsellorContext";
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
 // import QuestionForum from "./pages/questionForum";
@@ -64,6 +66,8 @@ function App() {
   const navigate = useNavigate();
   const { addAccommodationEnable, setAddAccommodationEnable } =
     useContext(AccommodationContext);
+  const { outstandingBalancePopUp, setOutstandingBalancePopUp } =
+    useContext(CounsellorContext);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -110,6 +114,12 @@ function App() {
           {isLoggedIn && (
             <div className="breadcrumb-main">
               <Breadcrumb />
+            </div>
+          )}
+
+          {outstandingBalancePopUp && (
+            <div>
+              <AddAnnouncementPopup />
             </div>
           )}
           <Routes>
