@@ -93,7 +93,7 @@ const Accommodation = () => {
                 </p>
               </div>
               <div className="accomm-child-2-r">
-                <Link to={`/accommodationDetails`}>
+                <Link to={`/accommodation/details`}>
                   <button>View Details</button>
                 </Link>
               </div>
