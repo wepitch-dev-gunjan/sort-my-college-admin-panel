@@ -80,13 +80,23 @@ const AddAccommodation = () => {
 
 
   const handleChange = (value, name) => {
-    console.log("Value:", value);
-    console.log("Name:", name);
-    setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-    }));
+   const nameParts = name.split('.');
+   if (nameParts.length === 1) {
+       setFormData(prevState => ({
+           ...prevState,
+           [name]: value,
+       }));
+   } else if (nameParts.length === 2) { 
+       setFormData(prevState => ({
+           ...prevState,
+           [nameParts[0]]: {
+               ...prevState[nameParts[0]],
+               [nameParts[1]]: value,
+           },
+       }));
+   }
 };
+
 
 
 
@@ -253,15 +263,16 @@ const handleCancel = async () =>{
             <div className="owners-info-sub">
               <div className="row-form">
 
-                <BasicTextField 
-                    onChange={(e) => handleChange(e.target.value, "owner.full_name")}
-                name="owner.full_name"
-                value={formData.owner.full_name}               
-                 placeholder="Full Name" />
+              <BasicTextField
+    onChange={(e) => handleChange(e.target.value, "owner.full_name")}
+    name = "owner.full_name"
+    value={formData.owner.full_name}               
+    placeholder="Full Name" />
+
 
                 <BasicDatePicker 
-                onChange={(e) => handleChange(e)}
-                value={formData.owner.dob}
+    onChange={(e) => handleChange(e.target.value, "owner.dob")}
+    value={formData.owner.dob}
                 placeholder="Date of Birth" />
 
                 <BasicSelect />
@@ -270,18 +281,18 @@ const handleCancel = async () =>{
               <div className="row-form">
 
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
-                value={formData.owner.contact_numbers[0]}
+    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers")}
+    value={formData.owner.contact_numbers[0]}
                 placeholder="Phone Number" />
 
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
-                 value={formData.owner.contact_numbers[1]}
+    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers")}
+    value={formData.owner.contact_numbers[1]}
                 placeholder="Alternate Phone Number" />
 
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
-                value = {formData.owner.email}
+    onChange={(e) => handleChange(e.target.value, "owner.email")}
+    // value = {formData.owner.email}
                 placeholder="Email" />
 
               </div>
@@ -330,15 +341,15 @@ const handleCancel = async () =>{
 
 
                 <BasicTextField
-                onChange={(e) => handleChange(e)}
-                value={formData.direction}
+                  onChange={(e) => handleChange(e.target.value, "direction")}
+                  value={formData.direction}
                 placeholder="Direction URL" />
 
               </div>
               <div className="row-form">
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
-                value={formData.address.area}
+                  onChange={(e) => handleChange(e.target.value, "area")}
+                  value={formData.address.area}
                 placeholder="Area" />
                 <BasicTextField 
                 onChange={(e) => handleChange(e)}
