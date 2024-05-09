@@ -7,13 +7,19 @@ import { backend_url } from "../config";
 export const CounsellorContext = createContext();
 
 export const CounsellorProvider = ({ children }) => {
-  const [counsellors, setCounsellors] = useState([])
+  const [counsellors, setCounsellors] = useState([]);
+  const [outstandingBalancePopUp, setOutstandingBalancePopUp] = useState(false);
 
   return (
-    <CounsellorContext.Provider value={{
-      counsellors, setCounsellors
-    }} >
+    <CounsellorContext.Provider
+      value={{
+        counsellors,
+        setCounsellors,
+        outstandingBalancePopUp,
+        setOutstandingBalancePopUp,
+      }}
+    >
       {children}
     </CounsellorContext.Provider>
-  )
-}
+  );
+};

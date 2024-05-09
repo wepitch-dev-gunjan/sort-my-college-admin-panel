@@ -15,11 +15,14 @@ import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { useParams } from "react-router-dom";
+import { CounsellorContext } from "../../context/CounsellorContext";
 const { backend_url } = config;
 
-const CounsellorProfile = () => {
+const CounsellorProfile = ({ setOutstandingBalance }) => {
   const { admin } = useContext(AdminContext);
   const [documentTypes, setDocumentTypes] = useState([]);
+  const { outstandingBalancePopUp, setOutstandingBalancePopUp } =
+    useContext(CounsellorContext);
   const [outStandingBalance, setOutStandingBalance] = useState("");
 
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
@@ -64,17 +67,18 @@ const CounsellorProfile = () => {
 
   const handleClearOutstandingBalance = async () => {
     try {
-      const { data } = await axios.put(
-        `${backend_url}/counsellor/${counsellor_id}/clear-outstanding-balance`,
-        null,
-        {
-          headers: {
-            Authorization: admin.token,
-          },
-        }
-      );
-      console.log(data);
-      setOutStandingBalance(0);
+      setOutstandingBalancePopUp((prev) => !prev);
+      // const { data } = await axios.put(
+      //   `${backend_url}/counsellor/${counsellor_id}/clear-outstanding-balance`,
+      //   null,
+      //   {
+      //     headers: {
+      //       Authorization: admin.token,
+      //     },
+      //   }
+      // );
+      // console.log(data);
+      // setOutStandingBalance(0);
     } catch (error) {
       console.log(error);
       toast.success(error.message);
@@ -232,12 +236,7 @@ const CounsellorProfile = () => {
   console.log(profile);
 
   function filterCardType(id) {
-    const cardMappings = {
-      "65dc2262124566ba688c9b4a": "Aadhar Card",
-      "65dc22dc6f89c2a8a6ce76a5": "Pan Card",
-      "65dd6e97237a20adb4ad4234": "Certificate",
-    };
-    return cardMappings[id] || "Unknown Card";
+    return documentTypes.find((type) => type._id === id).name;
   }
   const getDocumentTypes = async () => {
     try {
@@ -704,7 +703,7 @@ const CounsellorProfile = () => {
               </div>
             </div>
 
-            <div className="row">
+            {/* <div className="row">
               <div className="col">
                 <div className="info-field">
                   <p>Group session price</p>
@@ -715,9 +714,9 @@ const CounsellorProfile = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div className="row">
+            {/* <div className="row">
               <div className="col">
                 <div className="info-field">
                   <p>Personal session price</p>
@@ -728,7 +727,7 @@ const CounsellorProfile = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="bankDetails">
