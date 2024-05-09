@@ -18,8 +18,26 @@
         .property-title{
             width: 100%;
             height: fit-content;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .property-main-btns{
+                a{
+                    border: 2px solid #1F0A68;
+                    padding: 0.8em 1.7em 0.8em 1.7em;
+                    background-color: #1F0A68;
+                    color: #ffffff;
+                    border-radius: 40px;
+                }
+                a:hover{
+                    color: #1F0A68;
+                    background-color: #F7F4FF;
+                    transition: all 0.3s ease;
+                }
+            }
         }
         .property-images{
+            position: relative;
             display: flex;
             justify-content: flex-start;
             gap: 1em;
@@ -56,6 +74,31 @@
                 img:hover{
                     opacity: 0.9;
                     transition: all 0.3s ease;
+                }
+            }
+            .gallery-btn{
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                padding: 1em;
+                button{
+                    cursor: pointer;
+                    padding: 0.2em 0.9em 0.2em 0.9em;
+                    background-color: #ffffff;
+                    color: none;
+                    border-radius: 5px;
+                    border: 2px solid #ffffff;
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                    font-size: 0.7em;
+                    display: flex;
+                    gap: 0.3em;
+                    justify-content: center;
+                    align-items: center;
+                }
+                button:hover{
+                    background-color: #ffffff57;
+                    transition: all 0.3s ease;
+                    color: #ffffff;
                 }
             }
         }
@@ -322,6 +365,43 @@
                 }
             }
         }
+        .property-enquiries-main{
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 1.5em;
+            .enquiries-heading{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                a{
+                    background-color: #ffffff;
+                    border-radius: 8px;
+                    color: #111111;
+                    padding: 0.3em 1em 0.3em 1em;
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                    font-size: 0.9em;
+                }
+                a:hover{
+                    background-color: #F7F4FF;
+                    transition: all 0.3s ease;
+                }
+            }
+            .property-enquiries-sub{
+                width: 100%;
+                height: 400px;
+                border-radius: 20px;
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                background-color: #ffffff;
+                overflow: scroll;
+                padding: 1em;
+
+
+            }
+        }
+
     }
 }
 .bubble-r{

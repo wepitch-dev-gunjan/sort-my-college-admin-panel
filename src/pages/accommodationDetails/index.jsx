@@ -8,9 +8,8 @@ import { IoMdCall } from "react-icons/io";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import { CgProfile } from "react-icons/cg";
 import { PiGenderIntersex } from "react-icons/pi";
-
-
-
+import { FcGallery } from "react-icons/fc";
+import { AccommodationContext } from '../../context/AccommodationContext';
 
 import prop_1 from '../../assets/prop-1.jpg'
 import prop_2 from '../../assets/prop-2.jpg'
@@ -23,8 +22,10 @@ import aadhar_card from '../../assets/A_sample_of_Aadhaar_card.jpg'
 import pan_card from '../../assets/sample-pan-card-front.jpg'
 import clock from '../../assets/clock_2997300.png'
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 
 const AccommodationDetails = () => {
+    const { showPropertyGallery, setShowPropertyGallery } = useContext(AccommodationContext)
     const property = {
         type: 'PG',
     
@@ -135,6 +136,9 @@ const AccommodationDetails = () => {
             <div className="accomm-dets-sub">
                 <div className="property-title">
                     <h1>{ property.name } in {property.address.area}</h1>
+                    <div className="property-main-btns">
+                      <Link to="#">Edit</Link>
+                    </div>
                 </div>
                 <div className="property-images">
                     <div className="main-property-image">
@@ -147,6 +151,9 @@ const AccommodationDetails = () => {
                     <div className="property-image-col">
                         <img src={ property.images[3] } alt="" />
                         <img src={ property.images[4] } alt="" />
+                    </div>
+                    <div className="gallery-btn">
+                      <button onClick={() => setShowPropertyGallery(true)}> <FcGallery /> More... </button>
                     </div>
                 </div>
                 <div className="property-info">
@@ -261,7 +268,7 @@ const AccommodationDetails = () => {
                         <span className='contact-tags' ><IoMdCall />|<p>{ property.owner.contact_numbers[0] }</p></span>
                       </div>
                       <div className="owner-phone">
-                        <span className='contact-tags' ><IoMdCall />|<p>{ property.owner.contact_numbers[0] }</p></span>
+                        <span className='contact-tags' ><IoMdCall />|<p>{ property.owner.contact_numbers[1] }</p></span>
                       </div>
                     </div>
                   </div>
@@ -274,6 +281,15 @@ const AccommodationDetails = () => {
                     </div>
                   </div>
 
+                </div>
+                <div className="property-enquiries-main">
+                    <div className="enquiries-heading">
+                      <h2>Enquiries</h2>
+                      <Link to="#" >View All</Link>
+                    </div>
+                    <div className="property-enquiries-sub">
+
+                    </div>
                 </div>
             </div>
         </div>
