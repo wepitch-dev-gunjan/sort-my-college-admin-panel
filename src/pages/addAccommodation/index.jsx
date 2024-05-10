@@ -59,8 +59,8 @@ const AddAccommodation = () => {
       {
         sharing_type: "Single",
         available: true,
-        deposit_amount: 0,
-        monthly_charge: 0,
+        deposit_amount: "",
+        monthly_charge: "",
         notice_period: "",
         details: [],
       },
@@ -96,10 +96,6 @@ const AddAccommodation = () => {
        }));
    }
 };
-
-
-
-
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
     const newNearbyColleges = [...nearbyColleges];
@@ -324,7 +320,7 @@ const handleCancel = async () =>{
 
                 <DragAndDropUploader
                   action=""
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChange(e.target.value, "owner.aadhar_card")}
                   value={formData.owner.aadhar_card}
                   placeholder="Upload your Photo Id Proof (Aadhar Card) here..."
                 />
@@ -372,21 +368,21 @@ const handleCancel = async () =>{
               </div>
               <div className="row-form">
                 <BasicTextField 
-                  onChange={(e) => handleChange(e.target.value, "area")}
+                  onChange={(e) => handleChange(e.target.value, "address.area")}
                   value={formData.address.area}
                 placeholder="Area" />
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e.target.value, "address.city")}
                 value={formData.address.city}
                 placeholder="City" />
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e.target.value, "address.state")}
                 value={formData.address.state}
                 placeholder="State" />
               </div>
               <div className="row-form">
                 <BasicTextField 
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => handleChange(e.target.value , "address.pincode")}
                 value={formData.address.pincode}
                 placeholder="Pincode" />
                 <RecommendedForRadioButtons />
