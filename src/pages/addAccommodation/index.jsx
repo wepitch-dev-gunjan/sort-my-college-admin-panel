@@ -202,7 +202,9 @@ const AddAccommodation = () => {
     console.log(index);
     const newRooms = [...rooms];
     newRooms.splice(index, 1);
+    console.log("New Rooms:", newRooms)
     setRooms(newRooms);
+    console.log("Rooms: ", rooms)
   };
   const handleChangeRoom = (index, field, value) => {
     const newRooms = [...rooms];
@@ -210,6 +212,28 @@ const AddAccommodation = () => {
     setRooms(newRooms);
   };
   // // Rooms
+
+  // Function to handle changes in room details
+    const handleChangeRoomDetail = (roomIndex, detailIndex, value) => {
+      const newRooms = [...rooms];
+      newRooms[roomIndex].details[detailIndex] = value;
+      setRooms(newRooms);
+    };
+
+    // Function to remove a room detail
+    const removeRoomDetail = (roomIndex, detailIndex) => {
+      const newRooms = [...rooms];
+      newRooms[roomIndex].details.splice(detailIndex, 1);
+      setRooms(newRooms);
+    };
+
+    // Function to add a new room detail
+    const addRoomDetail = (roomIndex) => {
+      const newRooms = [...rooms];
+      newRooms[roomIndex].details.push("");
+      setRooms(newRooms);
+    };
+
 
   // // Room Details
   // const handleRoomDetailsChange = (index, value) => {
@@ -477,66 +501,90 @@ const handleCancel = async () =>{
             <h2>Rooms Offered:</h2>
             <div className="rooms-offered-sub">
               {rooms.map((room, index) => (
-                <div className="rooms-children">
-                  <h4>Room {index + 1}</h4>
-                  <div className="rooms-fields">
-                    <div className="room-field type-select">
-                      <RoomTypeSelect />
-                    </div>
-                    <div className="room-field available-select">
-                      <RoomAvailableSelect />
-                    </div>
-                    <div className="room-field deposit-amount">
-                      <BasicTextField placeholder="Deposit Amount (INR)" />
-                    </div>
-                    <div className="room-field monthly-charge">
-                      <BasicTextField placeholder="Monthly Charges (INR)" />
-                    </div>
-                    <div className="room-field notice-period">
-                      <BasicTextField placeholder="Notice Period (in days)" />
-                    </div>
-                    <div className="room-details-main">
-                      <p className="room-details-para">Room Amenities: </p>
-                      <div className="room-details-sub">
-                        {roomDetails.map((roomDetail, index) => (
-                          <div className="room-details-child">
-                            <input
-                              type="text"
-                              value={roomDetail}
-                              onChange={(e) =>
-                                handleRoomDetailsChange(index, e.target.value)
-                              }
-                            />
-                            {index >= 0 && (
-                              <button
-                                className="delete-room-btn-detail"
-                                type="button"
-                                onClick={() => removeRoomDetails(index)}
-                              >
-                                <MdDeleteOutline />
-                              </button>
-                            )}
+                  <div className="rooms-children" key={index}>
+                      <h4>Room {index}</h4>
+                      <div className="rooms-fields">
+                          <div className="room-field type-select">
+                              {/* Sharing Type */}
+                              <RoomTypeSelect 
+                                  onChange={(e) => handleChangeRoom(index, 'sharing_type', e.target.value)}
+                                  value={room.sharing_type}
+                              />
                           </div>
-                        ))}
+                          <div className="room-field available-select">
+                              {/* Availability */}
+                              <RoomAvailableSelect 
+                                  onChange={(e) => handleChangeRoom(index, 'available', e.target.value)}
+                                  value={room.available}
+                              />
+                          </div>
+                          <div className="room-field deposit-amount">
+                              {/* Deposit Amount */}
+                              <BasicTextField 
+                                  onChange={(e) => handleChangeRoom(index, 'deposit_amount', e.target.value)}
+                                  value={room.deposit_amount}
+                                  placeholder="Deposit Amount (INR)" 
+                              />
+                          </div>
+                          <div className="room-field monthly-charge">
+                              {/* Monthly Charges */}
+                              <BasicTextField 
+                                  onChange={(e) => handleChangeRoom(index, 'montly_charge', e.target.value)}
+                                  value={room.montly_charge}
+                                  placeholder="Monthly Charges (INR)" 
+                              />
+                          </div>
+                          <div className="room-field notice-period">
+                              {/* Notice Period */}
+                              <BasicTextField 
+                                  onChange={(e) => handleChangeRoom(index, 'notice_period', e.target.value)}
+                                  value={room.notice_period}
+                                  placeholder="Notice Period (in days)" 
+                              />
+                          </div>
+                          <div className="room-details-main">
+                              <p className="room-details-para">Room Amenities: </p>
+                              <div className="room-details-sub">
+                                  {/* Room Details */}
+                                  {room.details.map((detail, detailIndex) => (
+                                      <div className="room-details-child" key={detailIndex}>
+                                          <input
+                                              type="text"
+                                              value={detail}
+                                              onChange={(e) => handleChangeRoomDetail(index, detailIndex, e.target.value)}
+                                          />
+                                          {detailIndex > 0 && (
+                                              <button
+                                                  className="delete-room-btn-detail"
+                                                  type="button"
+                                                  onClick={() => removeRoomDetail(index, detailIndex)}
+                                              >
+                                                  <MdDeleteOutline />
+                                              </button>
+                                          )}
+                                      </div>
+                                  ))}
+                                  <button
+                                      className="add-room-detail-btn"
+                                      type="button"
+                                      onClick={() => addRoomDetail(index)}
+                                  >
+                                      Add Room Amenity
+                                  </button>
+                              </div>
+                          </div>
+                          {/* Add other input fields for room details similarly */}
                       </div>
                       <button
-                        className="add-room-detail-btn"
-                        type="button"
-                        onClick={addRoomDetails}
+                          className="delete-room-btn"
+                          type="button"
+                          onClick={() => removeRoom(index)}
                       >
-                        Add Room Amenity
+                          <MdDeleteOutline /> <p>Delete Room</p>
                       </button>
-                    </div>
                   </div>
-                  <button
-                    className="delete-room-btn"
-                    type="button"
-                    onClick={() => removeRoom(index)}
-                  >
-                    <MdDeleteOutline /> <p>Delete Room</p>
-                  </button>
-                </div>
               ))}
+
               <button className="add-room-btn" type="button" onClick={addRoom}>
                 Add Room
               </button>
