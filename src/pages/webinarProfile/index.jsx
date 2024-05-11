@@ -18,6 +18,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
+import CheckboxLabels from "../../components/checkBox";
 
 // import webinar_img from "../../assets/webinar-img.jpg";
 const { backend_url } = config;
@@ -31,11 +32,16 @@ const WebinarProfile = () => {
   const { webinar_id } = useParams();
   const [showMenu, setShowMenu] = useState(false);
   const [editWebinarEnable, setEditWebinarEnable] = useState(false);
+  const [checkboxValues, setCheckboxValues] = useState([]);
   const navigate = useNavigate();
+  const handleCheckboxChange = (newValue) => {
+    setCheckboxValues(newValue);
+  };
 
   useClickOutside(menuRef, () => {
     setShowMenu(false);
   });
+  console.log(checkboxValues);
 
   const getWebinar = async () => {
     try {
@@ -129,6 +135,11 @@ const WebinarProfile = () => {
       toast.error("Failed to delete webinar");
     }
   };
+  const checkBoxData = [
+    { id: 1, name: "Registred" },
+    { id: 2, name: "Joined" },
+    { id: 3, name: "Not Joined" },
+  ];
 
   return (
     <div className="webinar-profile-parent">
@@ -181,6 +192,27 @@ const WebinarProfile = () => {
           <div className="wp-dets-btn">
             <a href={webinar.webinar_start_url}>Start</a>
           </div>
+        </div>
+      </div>
+      <div className="registrant">
+        <div className="registrant-filters">
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search..." />
+          </div>
+          <div class="registrant-filters">
+            <CheckboxLabels
+              options={checkBoxData}
+              onChange={handleCheckboxChange}
+            />
+          </div>
+        </div>
+        <div className="registrant-details">
+          {webinar.registered_participants.map(() => (
+            <div className="user-card">
+              <div className="user-image"></div>
+              <div className="user-data"></div>
+            </div>
+          ))}
         </div>
       </div>
 
