@@ -26,7 +26,7 @@ const { backend_url } = config;
 const WebinarProfile = () => {
   const menuRef = useRef(null);
   const { admin } = useContext(AdminContext);
-  const [webinar, setWebinar] = useState({});
+  const [webinar, setWebinar] = useState([]);
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
   const { webinar_id } = useParams();
@@ -207,12 +207,12 @@ const WebinarProfile = () => {
           </div>
         </div>
         <div className="registrant-details">
-          {webinar.registered_participants.map(() => (
+          {/* {webinar.registered_participants.map(() => (
             <div className="user-card">
               <div className="user-image"></div>
               <div className="user-data"></div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
 
