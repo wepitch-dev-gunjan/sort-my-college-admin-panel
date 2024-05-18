@@ -208,16 +208,77 @@
     }
   }
   .registrant {
-    width: 30%;
-    height: 600px;
-    background-color: #ebaaaa;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+
     .registrant-filters {
-      background-color: #f2f2f2;
-      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .search-bar {
+        flex: 1;
+
+        input[type="text"] {
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          width: 100%;
+        }
+      }
+
+      .registrant-filters {
+        // Add styles for additional filters if needed
+      }
     }
 
-    label {
-      margin-right: 10px;
+    .registrant-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-gap: 20px;
+
+      .user-card {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        display: flex;
+        gap: 2rem;
+
+        .user-image {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-bottom: 10px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .user-data {
+          text-align: center;
+
+          p {
+            margin-bottom: 10px;
+            font-weight: bold;
+          }
+
+          a {
+            text-decoration: none;
+            color: blue;
+            font-weight: bold;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -20,13 +20,12 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { CiClock2 } from "react-icons/ci";
 import CheckboxLabels from "../../components/checkBox";
 
-// import webinar_img from "../../assets/webinar-img.jpg";
 const { backend_url } = config;
 
 const WebinarProfile = () => {
   const menuRef = useRef(null);
   const { admin } = useContext(AdminContext);
-  const [webinar, setWebinar] = useState([]);
+  const [webinar, setWebinar] = useState({});
   const { editCounsellorProfileEnable, setEditCounsellorProfileEnable } =
     useContext(ProfileContext);
   const { webinar_id } = useParams();
@@ -41,13 +40,11 @@ const WebinarProfile = () => {
   useClickOutside(menuRef, () => {
     setShowMenu(false);
   });
-  console.log(checkboxValues);
 
   const getWebinar = async () => {
     try {
       const { data } = await axios.get(
         `${backend_url}/admin/webinar/webinar-for-admin/${webinar_id}`,
-        // null,
         {
           headers: {
             Authorization: admin.token,
@@ -55,7 +52,6 @@ const WebinarProfile = () => {
         }
       );
       setWebinar(data);
-      console.log("Dataaaa", data);
     } catch (error) {
       console.log(error);
       toast(error.message);
@@ -108,7 +104,6 @@ const WebinarProfile = () => {
     const hours24 = date.getUTCHours().toString().padStart(2, "0");
     const minutes = date.getUTCMinutes().toString().padStart(2, "0");
     const time24 = `${hours24}:${minutes}`;
-    console.log(time24);
     return convert24To12(time24);
   }
 
@@ -118,7 +113,6 @@ const WebinarProfile = () => {
 
   const handleDeleteWebinar = async () => {
     try {
-      console.log(webinar_id, admin.token);
       await axios.delete(`${backend_url}/admin/webinar/${webinar_id}`, {
         headers: {
           Authorization: admin.token,
@@ -128,7 +122,6 @@ const WebinarProfile = () => {
         },
       });
       toast.success("Webinar deleted successfully");
-      // Redirect or update UI as needed
       navigate("/webinar");
     } catch (error) {
       console.error("Error deleting webinar:", error);
@@ -136,7 +129,7 @@ const WebinarProfile = () => {
     }
   };
   const checkBoxData = [
-    { id: 1, name: "Registred" },
+    { id: 1, name: "Registered" },
     { id: 2, name: "Joined" },
     { id: 3, name: "Not Joined" },
   ];
@@ -196,10 +189,10 @@ const WebinarProfile = () => {
       </div>
       <div className="registrant">
         <div className="registrant-filters">
-          <div class="search-bar">
+          <div className="search-bar">
             <input type="text" id="searchInput" placeholder="Search..." />
           </div>
-          <div class="registrant-filters">
+          <div className="registrant-filters">
             <CheckboxLabels
               options={checkBoxData}
               onChange={handleCheckboxChange}
@@ -207,12 +200,20 @@ const WebinarProfile = () => {
           </div>
         </div>
         <div className="registrant-details">
-          {/* {webinar.registered_participants.map(() => (
-            <div className="user-card">
-              <div className="user-image"></div>
-              <div className="user-data"></div>
-            </div>
-          ))} */}
+          {webinar.registered_participants &&
+          webinar.registered_participants.length > 0 ? (
+            webinar.registered_participants.map((user, i) => (
+              <div className="user-card" key={i}>
+                <div className="user-image">{user.profile_pic}</div>
+                <div className="user-data">
+                  <p>{user.name}</p>
+                  <Link>Visit Profile</Link>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No participants registered yet.</p>
+          )}
         </div>
       </div>
 
