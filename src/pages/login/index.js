@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaGoogle, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./style.scss";
 import Logo from "../../assets/logo.svg";
@@ -7,6 +7,7 @@ import config from "@/config";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { AdminContext } from "../../context/AdminContext";
 const { backend_url } = config;
 
 const Login = () => {
@@ -14,15 +15,23 @@ const Login = () => {
   const [isLoadingLoginGoogle, setIsLoadingLoginGoogle] = useState(false);
   const [isLoadingSignup, setIsLoadingSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showKey, setShowKey] = useState(false);
   const [signUpEnable, setSignUpEnable] = useState(false);
   const [forgotPasswordEnable, setForgotPasswordEnable] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [key, setKey] = useState("");
+  const [keyError, setKeyError] = useState(null);
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState(null);
   const [nameError, setNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
+  const { admin } = useContext(AdminContext);
   const navigate = useNavigate();
+  console.log(admin);
 
   const handleGoogleLogin = () => {
     setIsLoadingLoginGoogle(true);
@@ -31,6 +40,12 @@ const Login = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+  const toggleKeyVisibility = () => {
+    setShowKey(!showKey);
   };
 
   const validateLoginFields = () => {
@@ -81,12 +96,23 @@ const Login = () => {
       // Perform login action
     }
   };
+  const passwordChange = async () => {
+    let payload = { key, password, confirmPassword };
+    try {
+      const { data } = await axios.put(`${backend_url}/admin`, payload);
+      toast(data.message);
+      console.log("ho gyA");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSignUp = () => {
-    if (validateSignUpFields()) {
-      setIsLoadingSignup(true);
-      // Perform sign-up action
-    }
+    // if (validateSignUpFields()) {
+    //   setIsLoadingSignup(true);
+    //   // Perform sign-up action
+    // }
+    passwordChange();
   };
 
   const handleEmailBlur = () => {
@@ -96,6 +122,13 @@ const Login = () => {
       setEmailError("Invalid email format.");
     } else {
       setEmailError(null);
+    }
+  };
+  const validatePasswords = () => {
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match.");
+    } else {
+      setConfirmPasswordError(null);
     }
   };
   return (
@@ -108,19 +141,51 @@ const Login = () => {
           {forgotPasswordEnable && (
             <>
               <TextField
+                label="Key"
+                type={showKey ? "text" : "password"}
+                variant="outlined"
+                value={key}
+                onChange={(e) => {
+                  setKey(e.target.value);
+                  setKeyError(null);
+                }}
+                onBlur={() => !key && setKeyError("Key is required.")}
+                error={!!keyError}
+                helperText={keyError}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleKeyVisibility}
+                      >
+                        {showKey ? <FaEye /> : <FaEyeSlash />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </>
+          )}
+          {forgotPasswordEnable && (
+            <>
+              <TextField
                 id="standard-password-input"
                 label="New Password"
                 type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
                 variant="outlined"
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
                   setPasswordError(null);
+                  validatePasswords();
                 }}
-                onBlur={() =>
-                  !password && setPasswordError("New password is required.")
-                }
+                onBlur={() => {
+                  if (!password) {
+                    setPasswordError("New Password is required.");
+                  }
+                  validatePasswords();
+                }}
                 error={!!passwordError}
                 helperText={passwordError}
                 InputProps={{
@@ -130,7 +195,7 @@ const Login = () => {
                         aria-label="toggle password visibility"
                         onClick={togglePasswordVisibility}
                       >
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
                       </IconButton>
                     </InputAdornment>
                   ),
@@ -143,27 +208,30 @@ const Login = () => {
               <TextField
                 id="standard-password-input"
                 label="Confirm New Password"
-                type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
+                type={showConfirmPassword ? "text" : "password"}
                 variant="outlined"
-                value={password}
+                value={confirmPassword}
                 onChange={(e) => {
-                  setPassword(e.target.value);
-                  setPasswordError(null);
+                  setConfirmPassword(e.target.value);
+                  setConfirmPasswordError(null);
+                  validatePasswords();
                 }}
-                onBlur={() =>
-                  !password && setPasswordError("Confirm password is required.")
-                }
-                error={!!passwordError}
-                helperText={passwordError}
+                onBlur={() => {
+                  if (!confirmPassword) {
+                    setPasswordError("Confirm Password is required.");
+                  }
+                  validatePasswords();
+                }}
+                error={!!confirmPasswordError}
+                helperText={confirmPasswordError}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"
-                        onClick={togglePasswordVisibility}
+                        onClick={toggleConfirmPasswordVisibility}
                       >
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
                       </IconButton>
                     </InputAdornment>
                   ),
