@@ -24,11 +24,13 @@
       align-items: center;
       padding-bottom: 24px;
       img {
-        height: 200px;
+        width: 20%;
+        height: 25%;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
+        border: 2px solid black;
       }
       .user-avatar {
         width: 15%;

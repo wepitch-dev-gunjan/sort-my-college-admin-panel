@@ -204,10 +204,14 @@ const WebinarProfile = () => {
           webinar.registered_participants.length > 0 ? (
             webinar.registered_participants.map((user, i) => (
               <div className="user-card" key={i}>
-                <div className="user-image">{user.profile_pic}</div>
+                <div className="user-image">
+                  <img src={user.profile_pic} alt="" />
+                </div>
                 <div className="user-data">
                   <p>{user.name}</p>
-                  <Link>Visit Profile</Link>
+                  <Link to={`/user/user-details/${user._id}`}>
+                    Visit Profile
+                  </Link>
                 </div>
               </div>
             ))

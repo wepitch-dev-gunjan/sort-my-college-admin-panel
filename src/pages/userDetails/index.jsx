@@ -36,11 +36,7 @@ const UserDetails = () => {
       <div className="basic-info">
         <div className="user_image">
           {user.profile_pic ? (
-            <img
-              style={{ border: "2px solid black" }}
-              src={user.user_image}
-              alt=""
-            />
+            <img src={user.profile_pic} alt="" />
           ) : (
             <div className="user-avatar">{generateAvatar(user)}</div>
           )}
