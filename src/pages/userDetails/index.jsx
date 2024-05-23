@@ -23,7 +23,7 @@ const UserDetails = () => {
   useEffect(() => {
     getSingleUser();
     console.log(user);
-  }, [user]);
+  }, []);
   const generateAvatar = (user) => {
     if (!user.name) return "";
     const nameParts = user.name.split("");
@@ -58,7 +58,7 @@ const UserDetails = () => {
             </div>
           </div>
 
-          <div className="row">
+          {/* <div className="row">
             <div className="col">
               <div className="info-field">
                 <p>Email </p>
@@ -67,7 +67,7 @@ const UserDetails = () => {
                 <p>{user.email}</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="row">
             <div className="col">
@@ -86,7 +86,7 @@ const UserDetails = () => {
                 <p>Date of Birth</p>
               </div>
               <div className="info-value">
-                <p>{user.user_dob}</p>
+                <p>{user.date_of_birth}</p>
               </div>
             </div>
           </div>
