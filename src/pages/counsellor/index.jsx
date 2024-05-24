@@ -6,6 +6,7 @@ import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
 import config from "@/config";
 import { useState } from "react";
+import Spinner from "../../components/spinner/Index";
 import {
   Button,
   Checkbox,
@@ -284,45 +285,53 @@ const Counsellor = () => {
         </div>
       </div>
       <div className="counsellor-container">
-        <div className="counsellor-container-table">
-          {" "}
-          <div className="table">
-            {counsellors.map((counsellor, i) => (
-              <div className="row" key={i}>
-                <div className="col">
-                  {counsellor.profile_pic ? (
-                    <img src={counsellor.profile_pic} alt="Counsellor avatar" />
-                  ) : (
-                    <div className="avatar">{generateAvatar(counsellor)}</div>
-                  )}
-                </div>
-                <div className="col">{counsellor.name}</div>
-                <div className="col">{counsellor.email}</div>
-                <div
-                  className={`col ${
-                    counsellor.status === "REJECTED"
-                      ? "red"
-                      : counsellor.status === "APPROVED"
-                      ? "green"
-                      : counsellor.status === "PENDING"
-                      ? "blue"
-                      : ""
-                  }`}
-                >
-                  {counsellor.status}
-                </div>
-                <div className="col">{counsellor.outstanding_balance}</div>
-                <div className="col">
-                  <Link
-                    to={`/counsellors/counsellor-profile/${counsellor._id}`}
-                  >
-                    <p>View Profile</p>
-                  </Link>
-                </div>
-              </div>
-            ))}
+        {counsellors.length <= 0 ? (
+          <div className="spinner">
+            <Spinner />
           </div>
-        </div>
+        ) : (
+          <div className="counsellor-container-table">
+            <div className="table">
+              {counsellors.map((counsellor, i) => (
+                <div className="row" key={i}>
+                  <div className="col">
+                    {counsellor.profile_pic ? (
+                      <img
+                        src={counsellor.profile_pic}
+                        alt="Counsellor avatar"
+                      />
+                    ) : (
+                      <div className="avatar">{generateAvatar(counsellor)}</div>
+                    )}
+                  </div>
+                  <div className="col">{counsellor.name}</div>
+                  <div className="col">{counsellor.email}</div>
+                  <div
+                    className={`col ${
+                      counsellor.status === "REJECTED"
+                        ? "red"
+                        : counsellor.status === "APPROVED"
+                        ? "green"
+                        : counsellor.status === "PENDING"
+                        ? "blue"
+                        : ""
+                    }`}
+                  >
+                    {counsellor.status}
+                  </div>
+                  <div className="col">{counsellor.outstanding_balance}</div>
+                  <div className="col">
+                    <Link
+                      to={`/counsellors/counsellor-profile/${counsellor._id}`}
+                    >
+                      <p>View Profile</p>
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
