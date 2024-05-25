@@ -129,15 +129,23 @@ const AddBanner = forwardRef((props, ref) => {
                 width={780}
                 height={240}
                 border={50}
-                borderRadius={0} // Half of width and height to create a circle
-                color={[255, 255, 255, 0.6]} // RGBA
+                borderRadius={0}
+                color={[255, 255, 255, 0.6]}
                 scale={scale}
                 rotate={0}
               />
-              <div className="bottom">
-                {loading ? <Spinner /> : <button onClick={onSave}>Save</button>}
-                <button onClick={handleCancel}>Cancel</button>
-              </div>
+
+              {loading ? (
+                <div className="bannerspinner">
+                  <Spinner />
+                </div>
+              ) : (
+                <div className="bottom">
+                  {" "}
+                  <button onClick={onSave}>Save</button>
+                  <button onClick={handleCancel}>Cancel</button>
+                </div>
+              )}
             </div>
             <input
               type="range"
