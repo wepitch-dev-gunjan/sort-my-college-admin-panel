@@ -13,6 +13,7 @@ import RoomAvailableSelect from "../../components/formInputs/roomAvailableSelect
 import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const { backend_url } = config;
 const AddAccommodation = () => {
   const { addAccommodationEnable, setAddAccommodationEnable } =
@@ -49,8 +50,8 @@ const AddAccommodation = () => {
     owner: {
       full_name: "",
       dob: "",
-      gender: "Female",
-      contact_numbers: [],
+      gender: "",
+      contact_numbers: ["", ""],
       email: "",
       aadhar_card: null,
       pan_card: null,
@@ -80,6 +81,8 @@ const AddAccommodation = () => {
 
 
   const handleChange = (value, name) => {
+   console.log("Name: ", name)
+   console.log("Value: ", value)
    const nameParts = name.split('.');
    if (nameParts.length === 1) {
        setFormData(prevState => ({
@@ -95,6 +98,7 @@ const AddAccommodation = () => {
            },
        }));
    }
+   console.log("Form Data: ",formData)
 };
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
@@ -257,6 +261,45 @@ const AddAccommodation = () => {
 const handleCancel = async () =>{
  
 }
+
+// contact numbers 
+     const handleContactNumberChange = (index, value) => {
+      const newContactNumbers = [...formData.owner.contact_numbers];
+      newContactNumbers[index] = value;
+      setFormData(prevState => ({
+        ...prevState,
+        owner: {
+          ...prevState.owner,
+          contact_numbers: newContactNumbers,
+        },
+      }));
+     };
+
+     const addContactNumber = () => {
+      setFormData(prevState => ({
+        ...prevState,
+        owner: {
+          ...prevState.owner,
+          contact_numbers: [...prevState.owner.contact_numbers, ""],
+        },
+      }));
+     };
+
+     const removeContactNumber = (index) => {
+      const newContactNumbers = [...formData.owner.contact_numbers];
+      newContactNumbers.splice(index, 1);
+      setFormData(prevState => ({
+        ...prevState,
+        owner: {
+          ...prevState.owner,
+          contact_numbers: newContactNumbers,
+        },
+      }));
+     };
+
+// contact number 
+
+
   // for adding a course
   const handleSubmit = async (e) => {
    // e.preventDefault();
@@ -295,20 +338,47 @@ const handleCancel = async () =>{
     value={formData.owner.dob}
                 placeholder="Date of Birth" />
 
-                <BasicSelect />
+                {/* <BasicSelect /> */}
+                <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={formData.owner.gender}
+          label="Gender"
+          onChange={(e) => handleChange(e.target.value, "owner.gender")}
+          >
+          <MenuItem value="Male">Male</MenuItem>
+          <MenuItem value="Female">Female</MenuItem>
+          <MenuItem value="Other">Other</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
 
               </div>
               <div className="row-form">
+              {formData.owner.contact_numbers.map((number, index) => (
+                <div key={index} className="contact-number-field">
+                  <BasicTextField
+                    onChange={(e) => handleContactNumberChange(index, e.target.value)}
+                    name={`contact_number_${index}`}
+                    value={number}
+                    placeholder={`Contact Number ${index + 1}`}
+                  />
 
-                <BasicTextField 
-    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers")}
-    value={formData.owner.contact_numbers[0]}
+                </div>
+              ))}
+
+                {/* <BasicTextField 
+    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers[]")}
+    value={formData.owner.contact_numbers}
                 placeholder="Phone Number" />
 
                 <BasicTextField 
     onChange={(e) => handleChange(e.target.value, "owner.contact_numbers")}
-    value={formData.owner.contact_numbers[1]}
-                placeholder="Alternate Phone Number" />
+    value={formData.owner.contact_numbers}
+                placeholder="Alternate Phone Number" /> */}
 
                 <BasicTextField 
     onChange={(e) => handleChange(e.target.value, "owner.email")}
@@ -382,10 +452,17 @@ const handleCancel = async () =>{
               </div>
               <div className="row-form">
                 <BasicTextField 
-                onChange={(e) => handleChange(e.target.value , "address.pincode")}
-                value={formData.address.pincode}
+                onChange={(e) => handleChange(e.target.value , "address.pin_code")}
+                value={formData.address.pin_code}
                 placeholder="Pincode" />
-                <RecommendedForRadioButtons />
+
+               <RecommendedForRadioButtons
+                 value={formData.recommended_for} 
+                 onChange={(e) => handleChange(e.target.value, "recommended_for")}
+               />
+
+
+               
               </div>
             </div>
           </div>
