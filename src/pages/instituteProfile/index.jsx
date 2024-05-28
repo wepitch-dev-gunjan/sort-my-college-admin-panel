@@ -276,100 +276,7 @@ const InstituteProfile = () => {
             </div>
           </div>
         </div>
-        {/* Others Institute Detail change */}
-        {/* <div className="left-profile-bottom">
-          <h2>Institute Details</h2>
-          <hr />
-          <div className="info">
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Name of Institute</p>
-                </div>
 
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <>
-                      <input
-                        type="text"
-                        value={profile.experience_in_years}
-                        onChange={(e) =>
-                          handleInput(
-                            "experience_in_years",
-                            e.target.value,
-                            setProfile
-                          )
-                        }
-                      />
-                    </>
-                  ) : (
-                    <p>Siliguri Institute of Technology</p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Languages spoken</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
-                      value={profile.languages_spoken}
-                      onChange={(newTags) =>
-                        setProfile({ ...profile, languages_spoken: newTags })
-                      }
-                    />
-                  ) : (
-                    profile.languages_spoken?.map((language, i) => (
-                      <p key={i}>{`${language}${
-                        i < profile.languages_spoken.length - 1 ? "," : ""
-                      }`}</p>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Nationality</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <>
-                      <div className="ug">
-                        <label className="ug-text">
-                          <input
-                            type="radio"
-                            value="Indian"
-                            checked={profile.nationality === "Indian"}
-                            onChange={handleRadioChange}
-                          />
-                          Indian
-                        </label>
-                        <label className="ug-text">
-                          <input
-                            type="radio"
-                            value="Foreign"
-                            checked={profile.nationality === "Foreign"}
-                            onChange={handleRadioChange}
-                          />
-                          Foreign
-                        </label>
-                      </div>
-                    </>
-                  ) : (
-                    <p>{profile.nationality}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="view_leads_btn">
           <Link to={`/view_leads_for_admin/${profile._id}`}>
             <p> View Leads</p>
@@ -556,7 +463,7 @@ const InstituteProfile = () => {
                       }
                     />
                   ) : ( */}
-                    <p>{profile.email}</p>
+                  <p>{profile.email}</p>
                   {/* )} */}
                 </div>
               </div>
@@ -608,215 +515,63 @@ const InstituteProfile = () => {
               </div>
             </div>
 
-              {/* mode_of_study */}
-        <div className="row">
-          <div className="col">
-            <div className="info-field">
-              <p>Mode of Study</p>
-            </div>
-            <div className="info-value">
-              {editInstituteProfileEnable ? (
-                <select
-                  value={profile.mode_of_study}
-                  onChange={(e) =>
-                    handleInput("mode_of_study", e.target.value, setProfile)
-                  }
-                >
-                  <option value="ONLINE">Online</option>
-                  <option value="OFFLINE">Offline</option>
-                </select>
-              ) : (
-                <p>{profile.mode_of_study}</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* medium_of_study */}
-        <div className="row">
-          <div className="col">
-            <div className="info-field">
-              <p>Medium of Study</p>
-            </div>
-            <div className="info-value">
-              {editInstituteProfileEnable ? (
-                <>
-                  <select
-                    value={profile.medium_of_study}
-                    onChange={(e) =>
-                      handleInput("medium_of_study", e.target.value, setProfile)
-                    }
-                  >
-                    <option value="ENGLISH">English</option>
-                    <option value="HINDI">Hindi</option>
-                    <option value="OTHER">Other</option>
-                  </select>
-                  <span className="input-info-small">Example: English</span>
-                </>
-              ) : (
-                <p>{profile.medium_of_study}</p>
-              )}
-            </div>
-          </div>
-        </div>
-            {/* mode_of_study
+            {/* mode_of_study */}
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Mode Of Study</p>
+                  <p>Mode of Study</p>
                 </div>
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
-                    <input
-                      type="number"
+                    <select
                       value={profile.mode_of_study}
                       onChange={(e) =>
                         handleInput("mode_of_study", e.target.value, setProfile)
                       }
-                    />
+                    >
+                      <option value="ONLINE">Online</option>
+                      <option value="OFFLINE">Offline</option>
+                    </select>
                   ) : (
                     <p>{profile.mode_of_study}</p>
                   )}
                 </div>
               </div>
             </div>
+
             {/* medium_of_study */}
-            {/* <div className="row">
+            <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Medium Of Study</p>
+                  <p>Medium of Study</p>
                 </div>
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
-                    <input
-                      type="number"
-                      value={profile.medium_of_study}
-                      onChange={(e) =>
-                        handleInput(
-                          "medium_of_study",
-                          e.target.value,
-                          setProfile
-                        )
-                      }
-                    />
+                    <>
+                      <select
+                        value={profile.medium_of_study}
+                        onChange={(e) =>
+                          handleInput(
+                            "medium_of_study",
+                            e.target.value,
+                            setProfile
+                          )
+                        }
+                      >
+                        <option value="ENGLISH">English</option>
+                        <option value="HINDI">Hindi</option>
+                        <option value="OTHER">Other</option>
+                      </select>
+                      <span className="input-info-small">Example: English</span>
+                    </>
                   ) : (
                     <p>{profile.medium_of_study}</p>
                   )}
                 </div>
               </div>
-            </div> */} 
-            {/* key features */}
-            {/* <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Mode Of Study</p>
-                </div>
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <TagsInput
-                    type = "number"
-                      value={profile.mode_of_study}
-                     onChange= {(e)=> handleInput("mode_of_study",e.target.value,setProfile)
-                    }
-                    />
-                  ) : (
-                  <p>{profile.mode_of_study}</p>
-                  )}
-                </div>
-              </div>
-            </div> */}
-
-            {/* <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Group session price</p>
-                </div>
-                <div className="info-value">
-                  <p>
-                    <FaIndianRupeeSign /> {profile.group_session_price}
-                  </p>
-                </div>
-              </div>
             </div>
-
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Personal session price</p>
-                </div>
-                <div className="info-value">
-                  <p>
-                    <FaIndianRupeeSign /> {profile.personal_session_price}
-                  </p>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
-        {/* <div className="bankDetails">
-          <div className="info">
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Recepient Name </p>
-                </div>
-                <div className="info-value">
-                  <p>{profile.recepient_name}</p>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p> Bank Name </p>
-                </div>
-                <div className="info-value">
-                  <p>{profile.bank_name}</p>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p> Branch</p>
-                </div>
-                <div className="info-value">
-                  <p>{profile.branch}</p>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Account Type</p>
-                </div>
-                <div className="info-value">
-                  <p>{profile.account_type}</p>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Account Number</p>
-                </div>
-                <div className="info-value">
-                  <p>{profile.account_number}</p>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>IFSC Code</p>
-                </div>
-                <div className="info-value">
-                  <p>{profile.ifsc_code}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
 
       {showReasonDialog && (

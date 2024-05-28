@@ -4,6 +4,9 @@ import config from "@/config";
 import { useState, useEffect, useContext } from "react";
 import { ProfileContext } from "../../context/ProfileContext";
 import { CounsellorContext } from "../../context/CounsellorContext";
+import { AdminContext } from "../../context/AdminContext";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const { backend_url } = config;
 
@@ -14,32 +17,47 @@ const AddAnnouncementPopup = () => {
   // const { announcements, setAnnouncements } = useContext(ProfileContext);
   const { outstandingBalancePopUp, setOutstandingBalancePopUp } =
     useContext(CounsellorContext);
+  const { admin } = useContext(AdminContext);
 
-  const handleAddAnnouncement = async () => {
+  const extractCounsellorIdFromUrl = () => {
+    const urlSegments = window.location.pathname.split("/");
+    console.log(urlSegments);
+    const counsellorIndex = urlSegments.length - 1;
+    console.log(counsellorIndex);
+
+    return counsellorIndex !== -1 ? urlSegments[counsellorIndex] : null;
+  };
+
+  const counsellor_id = extractCounsellorIdFromUrl();
+  console.log(counsellor_id); // Ensure this logs the correct ID
+  const { outStandingBalance, setOutStandingBalance } =
+    useContext(CounsellorContext);
+
+  const handleClearOutstandingBalance = async () => {
     try {
-      const response = await axios.post(
-        `${backend_url}/ep/announcements`,
-        {
-          update: newAnnouncementText,
-        },
+      console.log(counsellor_id, "dfsdsdf");
+      setOutstandingBalancePopUp((prev) => !prev);
+      const { data } = await axios.put(
+        `${backend_url}/counsellor/${counsellor_id}/clear-outstanding-balance`,
+        null,
         {
           headers: {
-            // Authorization: user.token,
+            Authorization: admin.token,
           },
         }
       );
-
-      setAddAnnouncementPopup(false);
-      setNewAnnouncementText(""); // Clear the input
+      console.log(data);
+      setOutStandingBalance(0);
     } catch (error) {
-      console.error("Error adding announcement:", error);
+      console.log(error);
+      toast.success(error.message);
     }
   };
 
   return (
     <div className="pop-parent">
       <div className="popup">
-        <h2>Are You U want to clear the outStanding Balance amount</h2>
+        <h2>Are You want to clear the outStanding Balance amount </h2>
 
         <div className="actions">
           <button
@@ -48,7 +66,7 @@ const AddAnnouncementPopup = () => {
           >
             No
           </button>
-          <button className="add" onClick={handleAddAnnouncement}>
+          <button className="add" onClick={handleClearOutstandingBalance}>
             Yes
           </button>
         </div>
