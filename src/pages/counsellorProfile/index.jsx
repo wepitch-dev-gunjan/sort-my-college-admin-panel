@@ -399,7 +399,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
             </div>
           </div>
         </div>
-
+{/* industrial experience and all */}
         <div className="left-profile-bottom">
           <div className="info">
             <div className="row">
@@ -485,6 +485,118 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
                     </>
                   ) : (
                     <p>{profile.nationality}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* bug resolve */}
+        <div className="left-profile-bottom">
+          <div className="info">
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Contact Info</p>
+                </div>
+
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <>
+                      <input
+                        type="text"
+                        value={profile.phone_no}
+                        onChange={(e) =>
+                          handleInput(
+                            "phone_no",
+                            e.target.value,
+                            setProfile
+                          )
+                        }
+                      />
+                    </>
+                  ) : (
+                    <p>{profile.phone_no}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* Education info */}
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Educational Info</p>
+                </div>
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <TagsInput
+                      value={profile.qualifications}
+                      onChange={(newTags) =>
+                        setProfile({ ...profile, qualifications: newTags })
+                      }
+                    />
+                  ) : (
+                    profile.qualifications?.map((language, i) => (
+                      <p key={i}>{`${language}${
+                        i < profile.qualifications.length - 1 ? "," : ""
+                      }`}</p>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* designation */}
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Designation</p>
+                </div>
+
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <>
+                      <input
+                        type="text"
+                        value={profile.designation}
+                        onChange={(e) =>
+                          handleInput(
+                            "designation",
+                            e.target.value,
+                            setProfile
+                          )
+                        }
+                      />
+                    </>
+                  ) : (
+                    <p>{profile.designation}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* How will i help */}
+        <div className="left-profile-bottom">
+          <div className="info">
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>How Will I Help</p>
+                </div>
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <TagsInput
+                      value={profile.how_will_i_help}
+                      onChange={(newTags) =>
+                        setProfile({ ...profile, how_will_i_help: newTags })
+                      }
+                    />
+                  ) : (
+                    profile.how_will_i_help?.map((language, i) => (
+                      <p key={i}>{`${language}${
+                        i < profile.how_will_i_help.length - 1 ? "," : ""
+                      }`}</p>
+                    ))
                   )}
                 </div>
               </div>
