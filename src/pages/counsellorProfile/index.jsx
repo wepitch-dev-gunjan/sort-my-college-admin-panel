@@ -842,6 +842,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
             </div> */}
           </div>
         </div>
+        
         <div className="bankDetails">
           <div className="info">
             <div className="row">
