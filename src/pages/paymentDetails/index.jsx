@@ -117,7 +117,7 @@ const PaymentDetails = () => {
                 <p>Amount Due</p>
               </div>
               <div className="info-value">
-                <p>Rs {getCounsellorAmount(payment.amount_due)}</p>
+                <p>Rs {payment.amount_due}</p>
               </div>
             </div>
           </div>
