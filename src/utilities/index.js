@@ -177,3 +177,4 @@ export const calculateOriginalAmount = (totalAmount) => {
 const totalAmountPaid = 619;
 const result = calculateOriginalAmount(totalAmountPaid);
 console.log(result); // { originalAmount: '500.00', gstAdded: '90.00', convenienceChargesAdded: '29.50' }
+//commt
