@@ -5,12 +5,13 @@ import config from "@/config";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AdminContext } from "../../context/AdminContext";
-import { getCounsellorAmount } from "../../utilities";
+import { calculateOriginalAmount, getCounsellorAmount } from "../../utilities";
 const { backend_url } = config;
 
 const PaymentDetails = () => {
   const { payment_id } = useParams();
   const [payment, setPayment] = useState({});
+
   useEffect(() => {
     getPayment();
   }, [payment_id]);
@@ -117,7 +118,9 @@ const PaymentDetails = () => {
                 <p>Amount Due</p>
               </div>
               <div className="info-value">
-                <p>Rs {payment.amount_due}</p>
+                <p>
+                  Rs {calculateOriginalAmount(payment.amount).originalAmount}
+                </p>
               </div>
             </div>
           </div>
@@ -139,7 +142,7 @@ const PaymentDetails = () => {
                 <p>GST</p>
               </div>
               <div className="info-value">
-                <p>Rs {getCounsellorAmount(payment.amount) * 0.18}</p>
+                <p>Rs {calculateOriginalAmount(payment.amount).gstAdded}</p>
               </div>
             </div>
           </div>
@@ -152,9 +155,10 @@ const PaymentDetails = () => {
               <div className="info-value">
                 <p>
                   Rs{" "}
-                  {(payment.amount +
-                    getCounsellorAmount(payment.amount) * 0.18) *
-                    0.05}
+                  {
+                    calculateOriginalAmount(payment.amount)
+                      .convenienceChargesAdded
+                  }
                 </p>
               </div>
             </div>
