@@ -159,8 +159,7 @@ export const calculateOriginalAmount = (totalAmount) => {
 
   const gstAdded = originalAmount * gstRate;
 
-  const convenienceChargesAdded =
-    (originalAmount + gstAdded) * convenienceChargeRate;
+  const convenienceChargesAdded = totalAmount * convenienceChargeRate;
 
   return {
     originalAmount: originalAmount,
