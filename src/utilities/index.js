@@ -153,28 +153,18 @@ export const calculateOriginalAmount = (totalAmount) => {
   const gstRate = 0.18;
   const convenienceChargeRate = 0.05;
 
-  // Calculate the combined factor for convenience charges on the original amount and GST
   const combinedFactor = 1 + gstRate + convenienceChargeRate * (1 + gstRate);
 
-  // Reverse calculate the original amount
   const originalAmount = totalAmount / combinedFactor;
 
-  // Calculate the GST added
   const gstAdded = originalAmount * gstRate;
 
-  // Calculate the convenience charges added
   const convenienceChargesAdded =
     (originalAmount + gstAdded) * convenienceChargeRate;
 
   return {
-    originalAmount: Math.round(originalAmount),
-    gstAdded: Math.round(gstAdded),
-    convenienceChargesAdded: Math.round(convenienceChargesAdded),
+    originalAmount: originalAmount,
+    gstAdded: gstAdded,
+    convenienceChargesAdded: convenienceChargesAdded,
   };
 };
-
-// Example usage
-const totalAmountPaid = 619;
-const result = calculateOriginalAmount(totalAmountPaid);
-console.log(result); // { originalAmount: '500.00', gstAdded: '90.00', convenienceChargesAdded: '29.50' }
-//commt
