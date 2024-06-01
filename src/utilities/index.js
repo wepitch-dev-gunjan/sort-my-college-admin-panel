@@ -126,3 +126,26 @@ export const getCounsellorAmount = (amount) => {
 
   return counsellorAmount;
 };
+
+export const parseTimestamp = (timestamp) => {
+  const dt = new Date(timestamp);
+
+  const date = dt.toISOString().split("T")[0];
+
+  let hours = dt.getUTCHours();
+  const minutes = dt.getUTCMinutes();
+  const seconds = dt.getUTCSeconds();
+  const period = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12;
+  hours = hours ? hours : 12; // The hour '0' should be '12'
+
+  const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")} ${period}`;
+
+  return {
+    date: date,
+    time: formattedTime,
+  };
+};
