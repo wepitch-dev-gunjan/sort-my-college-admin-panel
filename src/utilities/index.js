@@ -153,9 +153,9 @@ export const calculateOriginalAmount = (totalAmount) => {
   const gstRate = 0.18;
   const convenienceChargeRate = 0.05;
 
-  const combinedFactor = 1 + gstRate + convenienceChargeRate * (1 + gstRate);
-
-  const originalAmount = totalAmount / combinedFactor;
+  const originalAmount =
+    totalAmount *
+    0.8130081300813008130081300813008130081300813008130081300813008130081300813;
 
   const gstAdded = originalAmount * gstRate;
 

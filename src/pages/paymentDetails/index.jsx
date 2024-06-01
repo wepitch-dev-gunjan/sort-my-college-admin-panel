@@ -36,6 +36,7 @@ const PaymentDetails = () => {
     const formattedTime = date.toLocaleTimeString();
     return { date: formattedDate, time: formattedTime };
   };
+  console.log(payment);
 
   return (
     <div className="PaymentDetails-container PaymentDetails-container-parent">
