@@ -179,7 +179,7 @@ const WebinarProfile = () => {
 
           <div className="wp-dets-speaker">
             <h3>Speaker Profile</h3>
-            <p>{webinar.speaker_webinar}</p>
+            <p>{webinar.speaker_profile}</p>
           </div>
 
           <div className="wp-dets-btn">
