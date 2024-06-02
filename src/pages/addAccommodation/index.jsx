@@ -80,41 +80,54 @@ const AddAccommodation = () => {
   });
 
 
+
   const handleChange = (value, name) => {
-   console.log("Name: ", name)
-   console.log("Value: ", value)
    const nameParts = name.split('.');
    if (nameParts.length === 1) {
-       setFormData(prevState => ({
-           ...prevState,
-           [name]: value,
-       }));
+     setFormData(prevState => ({
+       ...prevState,
+       [name]: value,
+     }));
    } else if (nameParts.length === 2) { 
-       setFormData(prevState => ({
-           ...prevState,
-           [nameParts[0]]: {
-               ...prevState[nameParts[0]],
-               [nameParts[1]]: value,
-           },
-       }));
+     setFormData(prevState => ({
+       ...prevState,
+       [nameParts[0]]: {
+         ...prevState[nameParts[0]],
+         [nameParts[1]]: value,
+       },
+     }));
    }
-   console.log("Form Data: ",formData)
-};
+ };
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
-    const newNearbyColleges = [...nearbyColleges];
-    newNearbyColleges[index] = value;
-    setNearbyColleges(newNearbyColleges);
-    // set nearby colleges into property details here
-  };
-  const addNearbyColleges = () => {
+   const newNearbyColleges = [...nearbyColleges];
+   newNearbyColleges[index] = value;
+   setNearbyColleges(newNearbyColleges);
+   // Update formData here
+   setFormData(prevState => ({
+     ...prevState,
+     nearby_locations: {
+       ...prevState.nearby_locations,
+       colleges: newNearbyColleges,
+     },
+   }));
+ };
+   const addNearbyColleges = () => {
     setNearbyColleges([...nearbyColleges, ""]);
   };
   const removeNearbyColleges = (index) => {
-    const newNearbyColleges = [...nearbyColleges];
-    newNearbyColleges.splice(index, 1);
-    setNearbyColleges(newNearbyColleges);
-  };
+   const newNearbyColleges = [...nearbyColleges];
+   newNearbyColleges.splice(index, 1);
+   setNearbyColleges(newNearbyColleges);
+   // Update formData here
+   setFormData(prevState => ({
+     ...prevState,
+     nearby_locations: {
+       ...prevState.nearby_locations,
+       colleges: newNearbyColleges,
+     },
+   }));
+ };
   // Nearby Colleges
 
   // Nearby Hospitals
@@ -303,6 +316,7 @@ const handleCancel = async () =>{
   // for adding a course
   const handleSubmit = async (e) => {
    // e.preventDefault();
+
     try {
     const response = await axios.post(`${backend_url}/admin/accommodation`,formData,{
       headers : {
@@ -314,6 +328,13 @@ const handleCancel = async () =>{
     console.log("error in adding accommodation" ,error);
     }
   };
+  const handleImageChange = (files) => {
+   setFormData(prevState => ({
+     ...prevState,
+     images: files,
+   }));
+ };
+ 
   return (
     <div className="add-accomm-main">
       <div className="add-accomm-sub">
@@ -414,8 +435,9 @@ const handleCancel = async () =>{
               <div className="row-form">
 
                 <DragAndDropUploader
+                multiple = {true}
                   action=""
-                  onChange={(e) => handleChange(e)}
+                 onChange = {handleImageChange}
                   placeholder="Upload Photos of the Property here..."
                 />
 
