@@ -8,7 +8,11 @@ export default function BasicTimePicker(props) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['TimePicker']}>
-        <TimePicker label={props.placeholder} />
+      
+        <TimePicker label={props.placeholder} 
+         value = {props.placeholder}
+         onChange={(newValue) => props.onChange({ target: { value: newValue } })}
+        />
       </DemoContainer>
     </LocalizationProvider>
   );

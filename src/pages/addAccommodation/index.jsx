@@ -228,6 +228,10 @@ const AddAccommodation = () => {
     const newHouseRules = [...houseRules];
     newHouseRules[index] = value;
     setHouseRules(newHouseRules);
+    setFormData(prevState => ({
+     ...prevState,
+     house_rules : newHouseRules 
+    }))
   };
   const addHouseRules = () => {
     setHouseRules([...houseRules, ""]);
@@ -290,7 +294,7 @@ const AddAccommodation = () => {
     };
 
 
-  // // Room Details
+  // Room Details
   // const handleRoomDetailsChange = (index, value) => {
   //     const newRoomDetails = [...roomDetails];
   //     newRoomDetails.splice(index, 1);
@@ -401,6 +405,7 @@ const handleCancel = async () =>{
  useEffect(() => {
    console.log("Updated FormData: ", formData);
  }, [formData]);
+
   return (
     <div className="add-accomm-main">
       <div className="add-accomm-sub">
@@ -820,10 +825,12 @@ const handleCancel = async () =>{
 
               <div className="gate-timings">
                 <BasicTimePicker 
-                onChange={(e) => handleChange(e)} 
+               value = {formData.gate_opening_time}
+               onChange={(e) => handleChange(e.target.value,"gate_opening_time")}
                 placeholder="Gate OpeningTime" />
                 <BasicTimePicker 
-                onChange={(e) => handleChange(e)}
+                value = {formData.gate_closing_time}
+                onChange={(e) => handleChange(e.target.value,"gate_closing_time")}
                 placeholder="Gate Closing Time" />
               </div>
             </div>
