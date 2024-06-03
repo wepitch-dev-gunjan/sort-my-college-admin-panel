@@ -14,6 +14,7 @@ import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { toast } from "react-toastify";
 const { backend_url } = config;
 const AddAccommodation = () => {
   const { addAccommodationEnable, setAddAccommodationEnable } =
@@ -139,6 +140,13 @@ const AddAccommodation = () => {
     newNearbyHospitals[index] = value;
     setNearbyHospitals(newNearbyHospitals);
     // set nearby colleges into property details here
+    setFormData(prevState => ({
+     ...prevState,
+     nearby_locations: {
+      ...prevState.nearby_locations,
+      hospitals : newNearbyHospitals,
+     }
+    }))
   };
   const addNearbyHospitals = () => {
     setNearbyHospitals([...nearbyHospitals, ""]);
@@ -147,6 +155,13 @@ const AddAccommodation = () => {
     const newNearbyHospitals = [...nearbyHospitals];
     newNearbyHospitals.splice(index, 1);
     setNearbyHospitals(newNearbyHospitals);
+    setFormData(prevState => ({
+     ...prevState,
+     nearby_locations: {
+      ...prevState.nearby_locations,
+      hospitals : newNearbyHospitals,
+     },
+    }));
   };
   // Nearby Hospitals
 
@@ -156,6 +171,14 @@ const AddAccommodation = () => {
     newNearbyMetroStations[index] = value;
     setNearbyMetroStations(newNearbyMetroStations);
     // set nearby colleges into property details here
+     // set nearby colleges into property details here
+     setFormData(prevState => ({
+      ...prevState,
+      nearby_locations: {
+       ...prevState.nearby_locations,
+       metro_stations : newNearbyMetroStations,
+      }
+     }))
   };
   const addNearbyMetroStations = () => {
     setNearbyMetroStations([...nearbyMetroStations, ""]);
@@ -164,6 +187,13 @@ const AddAccommodation = () => {
     const newNearbyMetroStations = [...nearbyMetroStations];
     newNearbyMetroStations.splice(index, 1);
     setNearbyMetroStations(newNearbyMetroStations);
+    setFormData(prevState => ({
+     ...prevState,
+     nearby_locations: {
+      ...prevState.nearby_locations,
+      metro_stations : newNearbyMetroStations,
+     },
+    }));
   };
   //  Nearby Metro Stations
 
@@ -172,15 +202,24 @@ const AddAccommodation = () => {
     const newCommonAmenities = [...commonAmenities];
     newCommonAmenities[index] = value;
     setCommonAmenities(newCommonAmenities);
+    setFormData(prevState => ({
+     ...prevState,
+      common_area_amenities : newCommonAmenities,
+     
+    }));
   };
-
   const addCommonAmenities = () => {
     setCommonAmenities([...commonAmenities, ""]);
+   console.log(commonAmenities)
   };
   const removeCommonAmenities = (index) => {
     const newCommonAmenities = [...commonAmenities];
     newCommonAmenities.splice(index, 1);
     setCommonAmenities(newCommonAmenities);
+    setFormData(prevState => ({
+     ...prevState,
+      common_area_amenities : newCommonAmenities,
+    }));
   };
     // Common Area Amenities
 
@@ -344,9 +383,11 @@ const handleCancel = async () =>{
          },
        }
      );
+     toast.success("Accommodation added successfully");
      console.log("Accommodation added successfully:", response.data);
    } catch (error) {
      console.log("Error in adding accommodation", error);
+     toast.error("Error in adding accommodation");
    }
  };
   const handleImageChange = (e) => {
