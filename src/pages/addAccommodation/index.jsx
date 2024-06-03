@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.scss";
 import { AccommodationContext } from "./../../context/AccommodationContext";
 import BasicDatePicker from "../../components/formInputs/datePicker";
@@ -82,21 +82,24 @@ const AddAccommodation = () => {
 
 
   const handleChange = (value, name) => {
+   console.log("Name: ", name)
+   console.log("Value: ", value)
    const nameParts = name.split('.');
    if (nameParts.length === 1) {
-     setFormData(prevState => ({
-       ...prevState,
-       [name]: value,
-     }));
-   } else if (nameParts.length === 2) { 
-     setFormData(prevState => ({
-       ...prevState,
-       [nameParts[0]]: {
-         ...prevState[nameParts[0]],
-         [nameParts[1]]: value,
-       },
-     }));
+       setFormData(prevState => ({
+           ...prevState,
+           [name]: value,
+       }));
+   } else if (nameParts.length === 2) {
+       setFormData(prevState => ({
+           ...prevState,
+           [nameParts[0]]: {
+               ...prevState[nameParts[0]],
+               [nameParts[1]]: value,
+           },
+       }));
    }
+   console.log("Form Data: ",formData)
  };
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
@@ -315,26 +318,48 @@ const handleCancel = async () =>{
 
   // for adding a course
   const handleSubmit = async (e) => {
-   // e.preventDefault();
-
-    try {
-    const response = await axios.post(`${backend_url}/admin/accommodation`,formData,{
-      headers : {
-      Authorization  : admin.token, 
-      }
-    });
-    console.log("Accommodation added successfully:", response.data);
-    } catch (error) {
-    console.log("error in adding accommodation" ,error);
-    }
-  };
-  const handleImageChange = (files) => {
-   setFormData(prevState => ({
+   e.preventDefault();
+   try {
+     const formDataToSend = new FormData();
+     Object.keys(formData).forEach((key) => {
+       if (key === "images") {
+         formData.images.forEach((image) => {
+           formDataToSend.append("images", image);
+         });
+       } else if (typeof formData[key] === "object" && formData[key] !== null) {
+         formDataToSend.append(key, JSON.stringify(formData[key]));
+       } else {
+         formDataToSend.append(key, formData[key]);
+       }
+     });
+     // Verify that images are added
+     console.log("Form Data before submission:", formDataToSend);
+     const response = await axios.post(
+       `${backend_url}/admin/accommodation`,
+       formDataToSend,
+       {
+         headers: {
+           Authorization: admin.token,
+           "Content-Type": "multipart/form-data",
+         },
+       }
+     );
+     console.log("Accommodation added successfully:", response.data);
+   } catch (error) {
+     console.log("Error in adding accommodation", error);
+   }
+ };
+  const handleImageChange = (e) => {
+   const files = Array.from(e.target.files);
+   setFormData((prevState) => ({
      ...prevState,
      images: files,
    }));
+   console.log("FileSS: ", files)
  };
- 
+ useEffect(() => {
+   console.log("Updated FormData: ", formData);
+ }, [formData]);
   return (
     <div className="add-accomm-main">
       <div className="add-accomm-sub">
@@ -425,7 +450,6 @@ const handleCancel = async () =>{
                   value={formData.owner.pan_card}
                   placeholder="Upload your PAN Card here..."
                 />
-
               </div>
             </div>
           </div>
@@ -433,15 +457,16 @@ const handleCancel = async () =>{
             <h2>Property Information: </h2>
             <div className="property-info-sub">
               <div className="row-form">
-
                 <DragAndDropUploader
                 multiple = {true}
                   action=""
                  onChange = {handleImageChange}
                   placeholder="Upload Photos of the Property here..."
                 />
-
               </div>
+<div className="row-form width-100-cus">
+                <input type="file" id="files" name="files" multiple onChange={handleImageChange} />
+  </div>
               <div className="row-form">
 
               <BasicTextField 
