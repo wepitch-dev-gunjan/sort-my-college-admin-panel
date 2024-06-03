@@ -24,13 +24,6 @@ const Payment = () => {
     if (admin.token) fetchData();
   }, [admin]);
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const formattedDate = date.toLocaleDateString();
-    const formattedTime = date.toLocaleTimeString();
-    return { date: formattedDate, time: formattedTime };
-  };
-
   console.log(payments);
 
   return (
