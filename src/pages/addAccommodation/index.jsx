@@ -8,7 +8,7 @@ import DragAndDropUploader from "../../components/formInputs/dragAndDropUploader
 import RecommendedForRadioButtons from "../../components/formInputs/recommendedForRadioButtons";
 import { MdDeleteOutline } from "react-icons/md";
 import BasicTimePicker from "../../components/formInputs/timePicker";
-import RoomTypeSelect from "../../components/formInputs/roomTypeSelectField";
+// import RoomTypeSelect from "../../components/formInputs/roomTypeSelectField";
 import RoomAvailableSelect from "../../components/formInputs/roomAvailableSelectField";
 import axios from "axios";
 import config from "@/config";
@@ -59,7 +59,7 @@ const AddAccommodation = () => {
     },
     rooms: [
       {
-        sharing_type: "Single",
+        sharing_type: "",
         available: true,
         deposit_amount: "",
         monthly_charge: "",
@@ -232,7 +232,7 @@ const handleChange = (value, name) => {
   };
   const addCommonAmenities = () => {
     setCommonAmenities([...commonAmenities, ""]);
-   console.log(commonAmenities)
+   // console.log(commonAmenities)
   };
   const removeCommonAmenities = (index) => {
     const newCommonAmenities = [...commonAmenities];
@@ -266,54 +266,105 @@ const handleChange = (value, name) => {
   // House Rules
 
   // Rooms
-  const addRoom = () => {
-    setRooms([
-      ...rooms,
-      {
-        sharing_type: "",
-        available: true,
-        deposit_amount: 0,
-        montly_charge: 0,
-        notice_period: "",
-        details: [""],
-      },
-    ]);
-  };
-  const removeRoom = (index) => {
-    console.log(index);
-    const newRooms = [...rooms];
-    newRooms.splice(index, 1);
-    console.log("New Rooms:", newRooms)
-    setRooms(newRooms);
-    console.log("Rooms: ", rooms)
-  };
-  const handleChangeRoom = (index, field, value) => {
-    const newRooms = [...rooms];
-    newRooms[index][field] = value;
-    setRooms(newRooms);
-  };
-  // // Rooms
+// Rooms
+const addRoom = () => {
+ setRooms([
+   ...rooms,
+   {
+     sharing_type: "Single",
+     available: true,
+     deposit_amount: 0,
+     monthly_charge: 0,
+     notice_period: "",
+     details: [""],
+   },
+ ]);
+ // Update formData here
+ setFormData(prevState => ({
+   ...prevState,
+   rooms: [
+     ...prevState.rooms,
+     {
+       sharing_type: "Single",
+       available: true,
+       deposit_amount: "",
+       monthly_charge: "",
+       notice_period: "",
+       details: [],
+     },
+   ],
+ }));
+};
 
-  // Function to handle changes in room details
-    const handleChangeRoomDetail = (roomIndex, detailIndex, value) => {
-      const newRooms = [...rooms];
-      newRooms[roomIndex].details[detailIndex] = value;
-      setRooms(newRooms);
-    };
+const removeRoom = (index) => {
+ const newRooms = [...rooms];
+ newRooms.splice(index, 1);
+ setRooms(newRooms);
+ // Update formData here
+ setFormData(prevState => ({
+   ...prevState,
+   rooms: newRooms,
+ }));
+};
 
-    // Function to remove a room detail
-    const removeRoomDetail = (roomIndex, detailIndex) => {
-      const newRooms = [...rooms];
-      newRooms[roomIndex].details.splice(detailIndex, 1);
-      setRooms(newRooms);
-    };
+const handleChangeRoom = (index, field, value) => {
+ const newRooms = [...rooms];
+ newRooms[index][field] = value;
+ setRooms(newRooms);
+ // Update formData here
+ setFormData(prevState => ({
+   ...prevState,
+   rooms: newRooms,
+ }));
+};
 
-    // Function to add a new room detail
-    const addRoomDetail = (roomIndex) => {
-      const newRooms = [...rooms];
-      newRooms[roomIndex].details.push("");
-      setRooms(newRooms);
-    };
+// Function to handle changes in room details
+const handleChangeRoomDetail = (roomIndex, detailIndex, value) => {
+ const newRooms = [...rooms];
+ newRooms[roomIndex].details[detailIndex] = value;
+ setRooms(newRooms);
+ // Update formData here
+ setFormData(prevState => {
+   const updatedRooms = [...prevState.rooms];
+   updatedRooms[roomIndex].details = newRooms[roomIndex].details;
+   return {
+     ...prevState,
+     rooms: updatedRooms,
+   };
+ });
+};
+
+// Function to remove a room detail
+const removeRoomDetail = (roomIndex, detailIndex) => {
+ const newRooms = [...rooms];
+ newRooms[roomIndex].details.splice(detailIndex, 1);
+ setRooms(newRooms);
+ // Update formData here
+ setFormData(prevState => {
+   const updatedRooms = [...prevState.rooms];
+   updatedRooms[roomIndex].details = newRooms[roomIndex].details;
+   return {
+     ...prevState,
+     rooms: updatedRooms,
+   };
+ });
+};
+
+// Function to add a new room detail
+const addRoomDetail = (roomIndex) => {
+ const newRooms = [...rooms];
+ newRooms[roomIndex].details.push("");
+ setRooms(newRooms);
+ // Update formData here
+ setFormData(prevState => {
+   const updatedRooms = [...prevState.rooms];
+   updatedRooms[roomIndex].details = newRooms[roomIndex].details;
+   return {
+     ...prevState,
+     rooms: updatedRooms,
+   };
+ });
+};
 
 
   // Room Details
@@ -431,7 +482,7 @@ const handleSubmit = async (e) => {
           if (subKey === "aadhar_card" || subKey === "pan_card") {
             if (formData.owner[subKey]) {
               formDataToSend.append(subKey, formData.owner[subKey]);
-              console.log("Jo chiye tha", subKey)
+              // console.log("Jo chiye tha", subKey)
             }
           } else {
             formDataToSend.append(`owner[${subKey}]`, formData.owner[subKey]);
@@ -470,7 +521,7 @@ const handleSubmit = async (e) => {
      ...prevState,
      images: files,
    }));
-   console.log("FileSS: ", files)
+   // console.log("FileSS: ", files)
  };
  useEffect(() => {
    console.log("Updated FormData: ", formData);
@@ -753,11 +804,21 @@ const handleSubmit = async (e) => {
                       <h4>Room {index}</h4>
                       <div className="rooms-fields">
                           <div className="room-field type-select">
-                              {/* Sharing Type */}
-                              <RoomTypeSelect 
-                                  onChange={(e) => handleChangeRoom(index, 'sharing_type', e.target.value)}
-                                  value={room.sharing_type}
-                              />
+                          <FormControl fullWidth>
+                           <InputLabel id={`sharing-type-label-${index}`}>Sharing type</InputLabel>
+                           <Select
+                             labelId={`sharing-type-label-${index}`}
+                             id={`sharing-type-select-${index}`}
+                             value={room.sharing_type}
+                             label="Select sharing type"
+                             onChange={(e) => handleChangeRoom(index, 'sharing_type', e.target.value)}
+                           >
+                             <MenuItem value="Single">Single</MenuItem>
+                             <MenuItem value="Double">Double</MenuItem>
+                             <MenuItem value="Triple">Triple</MenuItem>
+                           </Select>
+                         </FormControl>
+
                           </div>
                           <div className="room-field available-select">
                               {/* Availability */}
