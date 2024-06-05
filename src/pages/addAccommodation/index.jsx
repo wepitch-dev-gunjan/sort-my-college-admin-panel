@@ -82,26 +82,48 @@ const AddAccommodation = () => {
 
 
 
-  const handleChange = (value, name) => {
-   console.log("Name: ", name)
-   console.log("Value: ", value)
-   const nameParts = name.split('.');
-   if (nameParts.length === 1) {
-       setFormData(prevState => ({
-           ...prevState,
-           [name]: value,
-       }));
-   } else if (nameParts.length === 2) {
-       setFormData(prevState => ({
-           ...prevState,
-           [nameParts[0]]: {
-               ...prevState[nameParts[0]],
-               [nameParts[1]]: value,
-           },
-       }));
-   }
-   console.log("Form Data: ",formData)
- };
+//   const handleChange = (value, name) => {
+//    console.log("Name: ", name)
+//    console.log("Value: ", value)
+//    const nameParts = name.split('.');
+//    if (nameParts.length === 1) {
+//        setFormData(prevState => ({
+//            ...prevState,
+//            [name]: value,
+//        }));
+//    } else if (nameParts.length === 2) {
+//        setFormData(prevState => ({
+//            ...prevState,
+//            [nameParts[0]]: {
+//                ...prevState[nameParts[0]],
+//                [nameParts[1]]: value,
+//            },
+//        }));
+//    }
+//    console.log("Form Data: ",formData)
+//  };
+
+const handleChange = (value, name) => {
+  console.log("Name: ", name)
+  console.log("Value: ", value)
+  const nameParts = name.split('.');
+  if (nameParts.length === 1) {
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  } else if (nameParts.length === 2) {
+    setFormData(prevState => ({
+      ...prevState,
+      [nameParts[0]]: {
+        ...prevState[nameParts[0]],
+        [nameParts[1]]: value,
+      },
+    }));
+  }
+};
+
+
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
    const newNearbyColleges = [...nearbyColleges];
@@ -360,40 +382,88 @@ const handleCancel = async () =>{
 
 
   // for adding a course
-  const handleSubmit = async (e) => {
-   e.preventDefault();
-   try {
-     const formDataToSend = new FormData();
-     Object.keys(formData).forEach((key) => {
-       if (key === "images") {
-         formData.images.forEach((image) => {
-           formDataToSend.append("images", image);
-         });
-       } else if (typeof formData[key] === "object" && formData[key] !== null) {
-         formDataToSend.append(key, JSON.stringify(formData[key]));
-       } else {
-         formDataToSend.append(key, formData[key]);
-       }
-     });
-     // Verify that images are added
-     console.log("Form Data before submission:", formDataToSend);
-     const response = await axios.post(
-       `${backend_url}/admin/accommodation`,
-       formDataToSend,
-       {
-         headers: {
-           Authorization: admin.token,
-           "Content-Type": "multipart/form-data",
-         },
-       }
-     );
-     toast.success("Accommodation added successfully");
-     console.log("Accommodation added successfully:", response.data);
-   } catch (error) {
-     console.log("Error in adding accommodation", error);
-     toast.error("Error in adding accommodation");
-   }
- };
+//   const handleSubmit = async (e) => {
+//    e.preventDefault();
+//    try {
+//      const formDataToSend = new FormData();
+//      Object.keys(formData).forEach((key) => {
+//        if (key === "images") {
+//          formData.images.forEach((image) => {
+//            formDataToSend.append("images", image);
+//          });
+//        } else if (typeof formData[key] === "object" && formData[key] !== null) {
+//          formDataToSend.append(key, JSON.stringify(formData[key]));
+//        } else {
+//          formDataToSend.append(key, formData[key]);
+//        }
+//      });
+//      // Verify that images are added
+//      console.log("Form Data before submission:", formDataToSend);
+//      const response = await axios.post(
+//        `${backend_url}/admin/accommodation`,
+//        formDataToSend,
+//        {
+//          headers: {
+//            Authorization: admin.token,
+//            "Content-Type": "multipart/form-data",
+//          },
+//        }
+//      );
+//      toast.success("Accommodation added successfully");
+//      console.log("Accommodation added successfully:", response.data);
+//    } catch (error) {
+//      console.log("Error in adding accommodation", error);
+//      toast.error("Error in adding accommodation");
+//    }
+//  };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const formDataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === "images") {
+        formData.images.forEach((image) => {
+          formDataToSend.append("images", image);
+        });
+      } else if (key === "owner" && formData.owner) {
+        Object.keys(formData.owner).forEach((subKey) => {
+          if (subKey === "aadhar_card" || subKey === "pan_card") {
+            if (formData.owner[subKey]) {
+              formDataToSend.append(subKey, formData.owner[subKey]);
+              console.log("Jo chiye tha", subKey)
+            }
+          } else {
+            formDataToSend.append(`owner[${subKey}]`, formData.owner[subKey]);
+          }
+        });
+      } else if (typeof formData[key] === "object" && formData[key] !== null) {
+        formDataToSend.append(key, JSON.stringify(formData[key]));
+      } else {
+        formDataToSend.append(key, formData[key]);
+      }
+    });
+
+    const response = await axios.post(
+      `${backend_url}/admin/accommodation`,
+      formDataToSend,
+      {
+        headers: {
+          Authorization: admin.token,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    toast.success("Accommodation added successfully");
+    console.log("Accommodation added successfully:", response.data);
+  } catch (error) {
+    console.log("Error in adding accommodation", error);
+    toast.error("Error in adding accommodation");
+  }
+};
+
+
+
   const handleImageChange = (e) => {
    const files = Array.from(e.target.files);
    setFormData((prevState) => ({
@@ -419,34 +489,34 @@ const handleCancel = async () =>{
               <div className="row-form">
 
               <BasicTextField
-    onChange={(e) => handleChange(e.target.value, "owner.full_name")}
-    name = "owner.full_name"
-    value={formData.owner.full_name}               
-    placeholder="Full Name" />
+                onChange={(e) => handleChange(e.target.value, "owner.full_name")}
+                name = "owner.full_name"
+                value={formData.owner.full_name}               
+                placeholder="Full Name" />
 
 
-                <BasicDatePicker 
-    onChange={(e) => handleChange(e.target.value, "owner.dob")}
-    value={formData.owner.dob}
+              <BasicDatePicker 
+                onChange={(e) => handleChange(e.target.value, "owner.dob")}
+                value={formData.owner.dob}
                 placeholder="Date of Birth" />
 
                 {/* <BasicSelect /> */}
-                <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={formData.owner.gender}
-          label="Gender"
-          onChange={(e) => handleChange(e.target.value, "owner.gender")}
-          >
-          <MenuItem value="Male">Male</MenuItem>
-          <MenuItem value="Female">Female</MenuItem>
-          <MenuItem value="Other">Other</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={formData.owner.gender}
+                    label="Gender"
+                    onChange={(e) => handleChange(e.target.value, "owner.gender")}
+                    >
+                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="Female">Female</MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
 
               </div>
               <div className="row-form">
@@ -489,6 +559,24 @@ const handleCancel = async () =>{
 
               </div>
               <div className="row-form">
+                <input 
+                  type="file" 
+                  id="aadhar_card" 
+                  name="aadhar_card" 
+                  onChange={(e) => handleChange(e.target.files[0], "owner.aadhar_card")} 
+                  placeholder="Upload Aadhar Card"
+                />
+              </div>
+              <div className="row-form">
+                <input 
+                  type="file" 
+                  id="pan_card" 
+                  name="pan_card" 
+                  onChange={(e) => handleChange(e.target.files[0], "owner.pan_card")} 
+                  placeholder="Upload PAN Card"
+                />
+              </div>
+              <div className="row-form">
 
                 <DragAndDropUploader
                   action=""
@@ -497,6 +585,7 @@ const handleCancel = async () =>{
                   placeholder="Upload your PAN Card here..."
                 />
               </div>
+
             </div>
           </div>
           <div className="property-info-main">
@@ -510,24 +599,20 @@ const handleCancel = async () =>{
                   placeholder="Upload Photos of the Property here..."
                 />
               </div>
-<div className="row-form width-100-cus">
+              <div className="row-form width-100-cus">
                 <input type="file" id="files" name="files" multiple onChange={handleImageChange} />
-  </div>
+              </div>
               <div className="row-form">
-
-              <BasicTextField 
-                  onChange={(e) => handleChange(e.target.value, "name")}
-                  value={formData.name}
-                  name="name" // Set the name attribute here
-                  placeholder="Name of the Property" 
-              />
-
-
-                <BasicTextField
-                  onChange={(e) => handleChange(e.target.value, "direction")}
-                  value={formData.direction}
-                placeholder="Direction URL" />
-
+                <BasicTextField 
+                    onChange={(e) => handleChange(e.target.value, "name")}
+                    value={formData.name}
+                    name="name" // Set the name attribute here
+                    placeholder="Name of the Property" 
+                />
+                  <BasicTextField
+                    onChange={(e) => handleChange(e.target.value, "direction")}
+                    value={formData.direction}
+                  placeholder="Direction URL" />
               </div>
               <div className="row-form">
                 <BasicTextField 
@@ -553,9 +638,6 @@ const handleCancel = async () =>{
                  value={formData.recommended_for} 
                  onChange={(e) => handleChange(e.target.value, "recommended_for")}
                />
-
-
-               
               </div>
             </div>
           </div>
