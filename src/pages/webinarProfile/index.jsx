@@ -32,9 +32,12 @@ const WebinarProfile = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [editWebinarEnable, setEditWebinarEnable] = useState(false);
   const [checkboxValues, setCheckboxValues] = useState([]);
+  const [filteredParticipants, setFilteredParticipants] = useState("");
+  console.log(filteredParticipants);
   const navigate = useNavigate();
   const handleCheckboxChange = (newValue) => {
     setCheckboxValues(newValue);
+    setFilteredParticipants(newValue);
   };
 
   useClickOutside(menuRef, () => {
@@ -44,7 +47,8 @@ const WebinarProfile = () => {
   const getWebinar = async () => {
     try {
       const { data } = await axios.get(
-        `${backend_url}/admin/webinar/webinar-for-admin/${webinar_id}`,
+        `${backend_url}/admin/webinar/webinar-for-admin/${webinar_id}?filter=${filteredParticipants}`,
+
         {
           headers: {
             Authorization: admin.token,
@@ -52,6 +56,7 @@ const WebinarProfile = () => {
         }
       );
       setWebinar(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
       toast(error.message);
@@ -74,7 +79,7 @@ const WebinarProfile = () => {
 
   useEffect(() => {
     getWebinar();
-  }, [admin]);
+  }, [admin, filteredParticipants]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -131,7 +136,7 @@ const WebinarProfile = () => {
   const checkBoxData = [
     { id: 1, name: "Registered" },
     { id: 2, name: "Joined" },
-    { id: 3, name: "Not Joined" },
+    { id: 3, name: "notJoined" },
   ];
 
   return (
@@ -200,9 +205,9 @@ const WebinarProfile = () => {
           </div>
         </div>
         <div className="registrant-details">
-          {webinar.registered_participants &&
-          webinar.registered_participants.length > 0 ? (
-            webinar.registered_participants.map((user, i) => (
+          {webinar.filteredParticipants &&
+          webinar.filteredParticipants.length > 0 ? (
+            webinar.filteredParticipants.map((user, i) => (
               <div className="user-card" key={i}>
                 <div className="user-image">
                   <img src={user.profile_pic} alt="" />
