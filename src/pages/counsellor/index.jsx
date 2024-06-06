@@ -88,7 +88,7 @@ const Counsellor = () => {
   // Inside your Counsellor component
 
   // handle the universal search and status
-  const handleFilterChange = (e) => {
+  const handleFilterChange = async (e) => {
     const { name, value, checked } = e.target;
 
     if (name === "search") {
@@ -111,6 +111,7 @@ const Counsellor = () => {
         [name]: checked ? value : "",
       }));
     }
+    await getCounsellors();
   };
 
   const handleKeyPress = (e) => {
