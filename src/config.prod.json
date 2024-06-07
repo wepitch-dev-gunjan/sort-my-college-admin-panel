@@ -1,6 +1,6 @@
 {
   "frontend_url": "https://admin.sortmycollegeapp.com",
-  "backend_url": "https://sortmycollegeapp.com",
+  "backend_url": "https://www.sortmycollegeapp.com",
   "ZOOM_CLIENT_ID": "splqFa5rT6OuIYV0YRTcxg",
   "ZOOM_CLIENT_SECRET": "zqn8jZNLogibXPbMk0XjUQll2521jEXl",
   "REDIRECT_URI": "admin.sortmycollegeapp.com"
