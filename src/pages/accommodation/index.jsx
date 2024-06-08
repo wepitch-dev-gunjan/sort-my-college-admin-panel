@@ -61,9 +61,14 @@ const Accommodation = () => {
     <div className="accommodation-main">
       <div className="accomm-heading">
         <h1>Accommodation</h1>
-        <Link to="/accommodation/add">
-          <button>Add New</button>
-        </Link>
+        <div className="accomm-buttons">
+          <Link to="/accommodation/add">
+            <button>Add New</button>
+          </Link>
+          <Link to="/accommodation/add">
+            <button>Add New</button>
+          </Link>
+        </div>
       </div>
       <div className="accomm-parent">
         {pgs.map((pg, i) => (
