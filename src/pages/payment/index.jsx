@@ -61,7 +61,7 @@ const Payment = () => {
             .map((payment, i) => (
               <div className="row" key={i}>
                 <div className="col">{i + 1}</div>
-                <div className="col">{payment.description}</div>
+                <div className="col">{payment.session_type}</div>
                 <div className="col">
                   {parseTimestamp(payment.created_at).date}
                 </div>
