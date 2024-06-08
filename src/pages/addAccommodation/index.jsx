@@ -801,7 +801,7 @@ const handleSubmit = async (e) => {
             <div className="rooms-offered-sub">
               {rooms.map((room, index) => (
                   <div className="rooms-children" key={index}>
-                      <h4>Room {index}</h4>
+                      <h4>Room {index + 1}</h4>
                       <div className="rooms-fields">
                           <div className="room-field type-select">
                           <FormControl fullWidth>
