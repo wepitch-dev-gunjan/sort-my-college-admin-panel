@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import config from '@/config';
+import config from "@/config";
 import { AdminContext } from "./AdminContext";
 const { backend_url } = config;
 
@@ -20,15 +20,16 @@ export const DashboardProvider = ({ children }) => {
             `${backend_url}/admin/dashboard/dashboard-data`,
             {
               headers: {
-                Authorization: admin.token
-              }
+                Authorization: admin.token,
+              },
             }
           );
+          console.log(data);
           setDashboardData(data);
         } else {
           setDashboardData({
-           totalUser: 0,
-           totalCounsellor: 0
+            totalUser: 0,
+            totalCounsellor: 0,
           }); // Set followers count to 0 if admin or token is not available
         }
         setLoading(false); // Update loading state
@@ -37,8 +38,8 @@ export const DashboardProvider = ({ children }) => {
         setError(error.message); // Set error state with the error message
         setLoading(false); // Update loading state
         setDashboardData({
-         totalUser: 0,
-          totalCounsellor: 0
+          totalUser: 0,
+          totalCounsellor: 0,
         });
       }
     };
@@ -52,7 +53,7 @@ export const DashboardProvider = ({ children }) => {
         dashboardData,
         setDashboardData,
         error,
-        loading
+        loading,
       }}
     >
       {children}
