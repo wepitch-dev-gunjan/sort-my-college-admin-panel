@@ -50,7 +50,8 @@ const [queries, setQueries] = useState([])
   }, [admin.isLoggedIn, navigate]);
 
   return (
-    <AdminContext.Provider value={{ admin, setAdmin ,queries, setQueries}}>
+    <AdminContext.Provider value={{ admin, setAdmin ,queries, setQueries
+    }}>
       {children}
     </AdminContext.Provider>
   );
