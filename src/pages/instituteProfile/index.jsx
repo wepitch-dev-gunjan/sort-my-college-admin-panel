@@ -9,10 +9,10 @@ import useClickOutside from "../../customHooks/useClickOutside";
 import { ProfileContext } from "../../context/ProfileContext";
 import { toast } from "react-toastify";
 import axios from "axios";
-import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { Link, useParams } from "react-router-dom";
 import InstituteProfileDropdown from "../../components/InstituteProfileDropdown";
+import config from "@/config";
 const { backend_url } = config;
 
 const InstituteProfile = () => {

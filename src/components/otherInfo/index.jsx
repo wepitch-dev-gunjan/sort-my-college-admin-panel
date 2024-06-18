@@ -5,6 +5,7 @@ import { handleInput } from "../../utilities";
 // import TagsInput from "react-tagsinput";
 import React from "react";
 import "react-tagsinput/react-tagsinput.css";
+import TagsInput from "react-tagsinput";
 
 const OtherInfo = ({ profile, setProfile, editProfileEnable }) => {
   // const handleYearsChange = (e) => {
