@@ -12,7 +12,7 @@ export const AccommodationProvider = ({ children }) => {
         addAccommodationEnable,
         setAddAccommodationEnable,
         showPropertyGallery, 
-        setShowPropertyGallery
+        setShowPropertyGallery,
       }}
     >
       {children}

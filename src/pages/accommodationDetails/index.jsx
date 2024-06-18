@@ -21,12 +21,18 @@ import bed_svg from "../../assets/single-bed_2336996.svg";
 import aadhar_card from "../../assets/A_sample_of_Aadhaar_card.jpg";
 import pan_card from "../../assets/sample-pan-card-front.jpg";
 import clock from "../../assets/clock_2997300.png";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-
+import { Link, useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import axios from "axios";
+import config from "@/config";
+import { AdminContext } from "../../context/AdminContext";
+const { backend_url } = config;
 const AccommodationDetails = () => {
   const { showPropertyGallery, setShowPropertyGallery } =
     useContext(AccommodationContext);
+    const {accomodation_id} =useParams();
+    const {admin} =useContext(AdminContext)
+
   const property = {
     type: "PG",
 
@@ -142,6 +148,7 @@ const AccommodationDetails = () => {
         return 0;
     }
   };
+
 
   return (
     <>
