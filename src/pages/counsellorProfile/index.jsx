@@ -399,7 +399,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
             </div>
           </div>
         </div>
-{/* industrial experience and all */}
+        {/* industrial experience and all */}
         <div className="left-profile-bottom">
           <div className="info">
             <div className="row">
@@ -507,11 +507,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
                         type="text"
                         value={profile.phone_no}
                         onChange={(e) =>
-                          handleInput(
-                            "phone_no",
-                            e.target.value,
-                            setProfile
-                          )
+                          handleInput("phone_no", e.target.value, setProfile)
                         }
                       />
                     </>
@@ -559,11 +555,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
                         type="text"
                         value={profile.designation}
                         onChange={(e) =>
-                          handleInput(
-                            "designation",
-                            e.target.value,
-                            setProfile
-                          )
+                          handleInput("designation", e.target.value, setProfile)
                         }
                       />
                     </>
@@ -842,7 +834,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
             </div> */}
           </div>
         </div>
-        
+
         <div className="bankDetails">
           <div className="info">
             <div className="row">

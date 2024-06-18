@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { AdminContext } from "../../../context/AdminContext";
 import axios from "axios";
 import config from "../../../config";
+import { parseTimestamp } from "../../../utilities";
 const { backend_url } = config;
 
 const RecentPayments = () => {
@@ -52,6 +53,9 @@ const RecentPayments = () => {
             <h4>DATE</h4>
           </div>
           <div className="col">
+            <h4>TIME</h4>
+          </div>
+          <div className="col">
             <h4>PAYMENT</h4>
           </div>
           <div className="col">
@@ -62,7 +66,9 @@ const RecentPayments = () => {
           <div className="row" key={i}>
             <div className="col">{i + 1}</div>
             <div className="col">{payment.description}</div>
-            <div className="col">{payment.created_at}</div>
+            <div className="col">{parseTimestamp(payment.created_at).date}</div>
+            <div className="col">{parseTimestamp(payment.created_at).time}</div>
+
             <div className="col">{payment.amount}</div>
             <div
               className={`col ${

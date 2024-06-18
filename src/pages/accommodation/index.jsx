@@ -62,7 +62,7 @@ const Accommodation = () => {
       <div className="accomm-heading">
         <h1>Accommodation</h1>
         <div className="accomm-buttons">
-          <Link to="/accommodation/add">
+          <Link to="">
             <button>Add New</button>
           </Link>
           <Link to="/accommodation/add">
