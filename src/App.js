@@ -185,7 +185,7 @@ function App() {
                   element={<AddAccommodation />}
                 />
                 <Route
-                  path="/accommodation/details"
+                  path="/accommodation/details/:accomodation_id"
                   element={<AccommodationDetails />}
                 />
                 <Route

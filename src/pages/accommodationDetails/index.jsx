@@ -22,7 +22,7 @@ import aadhar_card from "../../assets/A_sample_of_Aadhaar_card.jpg";
 import pan_card from "../../assets/sample-pan-card-front.jpg";
 import clock from "../../assets/clock_2997300.png";
 import { Link, useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
@@ -32,124 +32,176 @@ const AccommodationDetails = () => {
     useContext(AccommodationContext);
     const {accomodation_id} =useParams();
     const {admin} =useContext(AdminContext)
+    const [property, setProperty] = useState({
+     type: "",
+     images: [],
+     name: "Nameera",
+     address: {
+       area: "",
+       city: "",
+       state: "",
+       pin_code: "",
+     },
+     direction: "",
+     total_beds: 0,
+     recommended_for: "",
+     owner: {
+       full_name: "",
+       dob: "",
+       gender: "",
+       contact_numbers: [],
+       email: "",
+       aadhar_card: "",
+       pan_card: "",
+     },
+     nearby_locations: {
+       colleges: [],
+       hospitals: [],
+       metro_stations: [],
+     },
+     rooms: [],
+     rating: 0,
+     common_area_amenities: [],
+     house_rules: [],
+     gate_opening_time: "",
+     gate_closing_time: "",
+   });
+   
+  // const property = {
+  //   type: "PG",
 
-  const property = {
-    type: "PG",
+  //   images: [prop_1, prop_2, prop_3, prop_4, prop_5],
+  //   name: "Zeel by the Lake- 4-BDR pool villa",
+  //   address: {
+  //     area: "C-Scheme",
+  //     city: "Jaipur",
+  //     state: "Rajasthan",
+  //     pin_code: "32001",
+  //   },
+  //   direction: "https://maps.app.goo.gl/nNQhHTz8piX91iPs7",
+  //   total_beds: 200,
+  //   recommended_for: "Girls",
 
-    images: [prop_1, prop_2, prop_3, prop_4, prop_5],
-    name: "Zeel by the Lake- 4-BDR pool villa",
-    address: {
-      area: "C-Scheme",
-      city: "Jaipur",
-      state: "Rajasthan",
-      pin_code: "32001",
-    },
-    direction: "https://maps.app.goo.gl/nNQhHTz8piX91iPs7",
-    total_beds: 200,
-    recommended_for: "Girls",
+  //   owner: {
+  //     full_name: "Rakshita Kanwar",
+  //     dob: "9 July, 2000",
+  //     gender: "Female",
+  //     contact_numbers: ["+916376038276", "+918233449683"],
+  //     email: "rakshitakanwar09@gmail.com",
+  //     aadhar_card: aadhar_card,
+  //     pan_card: pan_card,
+  //   },
 
-    owner: {
-      full_name: "Rakshita Kanwar",
-      dob: "9 July, 2000",
-      gender: "Female",
-      contact_numbers: ["+916376038276", "+918233449683"],
-      email: "rakshitakanwar09@gmail.com",
-      aadhar_card: aadhar_card,
-      pan_card: pan_card,
-    },
+  //   nearby_locations: {
+  //     colleges: [
+  //       "LMNIIT",
+  //       "SKIT",
+  //       "MNIT",
+  //       "IRIS College",
+  //       "University Rajasthan College",
+  //     ],
+  //     hospitals: ["Mahatma Gandhi Hospital", "Fortis"],
+  //     metro_stations: ["Shyam Nagar", "C-Scheme"],
+  //   },
 
-    nearby_locations: {
-      colleges: [
-        "LMNIIT",
-        "SKIT",
-        "MNIT",
-        "IRIS College",
-        "University Rajasthan College",
-      ],
-      hospitals: ["Mahatma Gandhi Hospital", "Fortis"],
-      metro_stations: ["Shyam Nagar", "C-Scheme"],
-    },
+  //   rooms: [
+  //     {
+  //       sharing_type: "Single",
+  //       available: true,
+  //       deposit_amount: 4000,
+  //       monthly_charge: 20000,
+  //       notice_period: 20,
+  //       details: ["AC", "Geyser", "Game Room"],
+  //     },
+  //     {
+  //       sharing_type: "Double",
+  //       available: false,
+  //       deposit_amount: 1500,
+  //       monthly_charge: 12000,
+  //       notice_period: 20,
+  //       details: ["AC", "Washing Machine", "Private Theatre"],
+  //     },
+  //     {
+  //       sharing_type: "Triple",
+  //       available: true,
+  //       deposit_amount: 1500,
+  //       monthly_charge: 10000,
+  //       notice_period: 20,
+  //       details: ["AC", "Geyser", "Kitchen", "Extra Mattress"],
+  //     },
+  //     {
+  //       sharing_type: "Double",
+  //       available: false,
+  //       deposit_amount: 1300,
+  //       monthly_charge: 8000,
+  //       notice_period: 20,
+  //       details: ["Non-AC", "Washing Machine", "Private Theatre"],
+  //     },
+  //   ],
 
-    rooms: [
-      {
-        sharing_type: "Single",
-        available: true,
-        deposit_amount: 4000,
-        monthly_charge: 20000,
-        notice_period: 20,
-        details: ["AC", "Geyser", "Game Room"],
-      },
-      {
-        sharing_type: "Double",
-        available: false,
-        deposit_amount: 1500,
-        monthly_charge: 12000,
-        notice_period: 20,
-        details: ["AC", "Washing Machine", "Private Theatre"],
-      },
-      {
-        sharing_type: "Triple",
-        available: true,
-        deposit_amount: 1500,
-        monthly_charge: 10000,
-        notice_period: 20,
-        details: ["AC", "Geyser", "Kitchen", "Extra Mattress"],
-      },
-      {
-        sharing_type: "Double",
-        available: false,
-        deposit_amount: 1300,
-        monthly_charge: 8000,
-        notice_period: 20,
-        details: ["Non-AC", "Washing Machine", "Private Theatre"],
-      },
-    ],
+  //   rating: 5,
 
-    rating: 5,
+  //   common_area_amenities: [
+  //     "Laundry Facilities",
+  //     "Security",
+  //     "Wi-Fi",
+  //     "Housekeeping",
+  //     "Power Backup",
+  //     "Recreation Facilities",
+  //     "Fitness Center",
+  //   ],
+  //   house_rules: [
+  //     "Respect privacy",
+  //     "Clean up after",
+  //     "No smoking",
+  //     "Registered guests only",
+  //     "Report maintenance issues",
+  //     "Keep noise down",
+  //     "Follow parking rules",
+  //     "Conserve energy",
+  //     "Dispose garbage properly",
+  //     "Be respectful",
+  //     "Notify for long absences",
+  //     "No unauthorized modifications",
+  //     "Follow additional rules",
+  //     "Compliance required",
+  //   ],
+  //   gate_opening_time: "06:00 am",
+  //   gate_closing_time: "11:30 pm",
+  // };
+  // const types_of_rooms = property.rooms.length;
+  // const getNumberOfBeds = (sharingType) => {
+  //   switch (sharingType) {
+  //     case "Single":
+  //       return 1;
+  //     case "Double":
+  //       return 2;
+  //     case "Triple":
+  //       return 3;
+  //     default:
+  //       return 0;
+  //   }
+  // };
+// get acommodation
+const getAccommodation = async (req, res) => {
+ try {
+   const {data} = await axios.get(`${backend_url}/admin/accommodation/${accomodation_id}`, {
+     headers: {
+       Authorization: admin.token,
+     }
+   });
+   console.log("Accommodation Data", data);
+   setProperty(data);
+   res.json(data); // Sending the response back to the client
+ } catch (error) {
+   console.log(error);
 
-    common_area_amenities: [
-      "Laundry Facilities",
-      "Security",
-      "Wi-Fi",
-      "Housekeeping",
-      "Power Backup",
-      "Recreation Facilities",
-      "Fitness Center",
-    ],
-    house_rules: [
-      "Respect privacy",
-      "Clean up after",
-      "No smoking",
-      "Registered guests only",
-      "Report maintenance issues",
-      "Keep noise down",
-      "Follow parking rules",
-      "Conserve energy",
-      "Dispose garbage properly",
-      "Be respectful",
-      "Notify for long absences",
-      "No unauthorized modifications",
-      "Follow additional rules",
-      "Compliance required",
-    ],
-    gate_opening_time: "06:00 am",
-    gate_closing_time: "11:30 pm",
-  };
-  const types_of_rooms = property.rooms.length;
-  const getNumberOfBeds = (sharingType) => {
-    switch (sharingType) {
-      case "Single":
-        return 1;
-      case "Double":
-        return 2;
-      case "Triple":
-        return 3;
-      default:
-        return 0;
-    }
-  };
+ }
+}
 
-
+useEffect(() =>{
+ getAccommodation();
+},[accomodation_id])
   return (
     <>
       <div className="accomm-dets-main">
@@ -190,13 +242,13 @@ const AccommodationDetails = () => {
               <p>
                 <span className="bubble-r">
                   {" "}
-                  Recommended for {property.recommended_for}{" "}
+                  Recommended for {property.recommended_for }{" "}
                 </span>
                 <LuDot />
                 <span className="bubble-r">{property.total_beds} Beds </span>
                 <LuDot />
                 <span className="bubble-r">
-                  {types_of_rooms} Types of rooms
+                  {/* {types_of_rooms} Types of rooms */}
                 </span>
                 <LuDot />
                 <span className="bubble-r">
@@ -233,11 +285,11 @@ const AccommodationDetails = () => {
               {property.rooms.map((room, i) => (
                 <div className="property-rooms-children">
                   <div className="rooms-icon">
-                    {[...Array(getNumberOfBeds(room.sharing_type))].map(
+                    {/* {[...Array(getNumberOfBeds(room.sharing_type))].map(
                       (_, index) => (
                         <img src={bed_svg} alt="" />
                       )
-                    )}
+                    )} */}
                   </div>
                   <div className="room-details">
                     <div className="room-details-sec sharing-n-available">
