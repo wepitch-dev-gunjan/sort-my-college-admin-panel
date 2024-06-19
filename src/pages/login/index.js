@@ -101,7 +101,8 @@ const Login = () => {
     try {
       const { data } = await axios.put(`${backend_url}/admin`, payload);
       toast(data.message);
-      console.log("ho gyA");
+      setForgotPasswordEnable(false);
+      setPassword("");
     } catch (error) {
       console.log(error);
     }
@@ -332,6 +333,7 @@ const Login = () => {
                 onClick={() => {
                   setSignUpEnable(false);
                   setForgotPasswordEnable(false);
+                  setPassword("");
                 }}
                 disabled={isLoadingSignup}
               >

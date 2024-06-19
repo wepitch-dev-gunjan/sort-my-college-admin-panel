@@ -13,9 +13,9 @@ import { AdminContext } from "../../context/AdminContext";
 import axios from "axios";
 const { backend_url } = config;
 const Accommodation = () => {
- const [accommodations, setAccommodations] = useState([]);
-const {accommoadtion_id} = useParams();
-const {admin} =useContext(AdminContext)
+  const [accommodations, setAccommodations] = useState([]);
+  const { accommoadtion_id } = useParams();
+  const { admin } = useContext(AdminContext);
   // const pgs = [
   //   {
   //     name: "Ram Niwas PG",
@@ -54,21 +54,20 @@ const {admin} =useContext(AdminContext)
   // const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { addAccommodationEnable, setAddAccommodationEnable } =
     useContext(AccommodationContext);
-    
-const getAccommodations = async () =>{
- try{
-  const {data} = await axios.get(`${backend_url}/admin/accommodation`,
-  {
-   headers: {
-    Authorization : admin.token,
-   }
-  });
-  console.log("Accommodations " ,data)
-  setAccommodations(data);
- }catch(error){
-  console.log("error getting accommodation",error)
- }
-}
+
+  const getAccommodations = async () => {
+    try {
+      const { data } = await axios.get(`${backend_url}/admin/accommodation`, {
+        headers: {
+          Authorization: admin.token,
+        },
+      });
+      console.log("Accommodations ", data);
+      setAccommodations(data);
+    } catch (error) {
+      console.log("error getting accommodation", error);
+    }
+  };
   useEffect(() => {
     getAccommodations();
   }, []);
@@ -97,12 +96,15 @@ const getAccommodations = async () =>{
             <div className="accomm-child-1">
               <div className="accomm-child-1-l">
                 <h4>{accommodation.name}</h4>
-                <p>{accommodation.address.area}{accommodation.address.city} , {accommodation.address.state}</p>
-               
+                <p>
+                  {accommodation.address.area}
+                  {accommodation.address.city} , {accommodation.address.state}
+                </p>
               </div>
               <div className="accomm-child-1-r">
                 <p>
-                  <FaStar /> {accommodation.rating} | ({accommodation.no_of_reviews}) Reviews
+                  <FaStar /> {accommodation.rating} | (
+                  {accommodation.no_of_reviews}) Reviews
                 </p>
               </div>
             </div>

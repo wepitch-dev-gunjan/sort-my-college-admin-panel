@@ -1,9 +1,7 @@
-import './style.scss';
+import "./style.scss";
 
 const AccommodationImageGallery = () => {
-    return (
-        <h1>GALLERY</h1>
-    )
-}
+  return <h1>GALLERY</h1>;
+};
 
 export default AccommodationImageGallery;
