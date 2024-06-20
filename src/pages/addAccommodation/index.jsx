@@ -13,8 +13,10 @@ import RoomAvailableSelect from "../../components/formInputs/roomAvailableSelect
 import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
+// spinner
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { toast } from "react-toastify";
+import Spinner from "../../components/spinner/Index";
 const { backend_url } = config;
 const AddAccommodation = () => {
   const { addAccommodationEnable, setAddAccommodationEnable } =
@@ -26,6 +28,7 @@ const AddAccommodation = () => {
   const [commonAmenities, setCommonAmenities] = useState(["", "", ""]);
   const [houseRules, setHouseRules] = useState(["", ""]);
   const [roomDetails, setRoomDetails] = useState(["", "", "", "", ""]);
+  const[loading ,setLoading] =useState(false);
   const [rooms, setRooms] = useState([
     {
       sharing_type: "",
@@ -471,6 +474,7 @@ const handleCancel = async () =>{
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
+   setLoading(true)
     const formDataToSend = new FormData();
     Object.keys(formData).forEach((key) => {
       if (key === "images") {
@@ -506,8 +510,11 @@ const handleSubmit = async (e) => {
       }
     );
     toast.success("Accommodation added successfully");
+    setLoading(false)
+ 
     console.log("Accommodation added successfully:", response.data);
   } catch (error) {
+   setLoading(false)
     console.log("Error in adding accommodation", error);
     toast.error("Error in adding accommodation");
   }
@@ -980,7 +987,11 @@ const handleSubmit = async (e) => {
           </div>
         </form>
         <div className="btn">
-          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleSubmit}
+          >
+
+           {loading ? <Spinner /> : "Submit"}
+          </button>
           <button onClick={handleChange}>Cancel</button>
         </div>
       </div>
