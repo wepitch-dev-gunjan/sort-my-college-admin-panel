@@ -1,4 +1,4 @@
-.Counsellors-container {
+.Institutes-container {
   width: 100%;
   overflow-y: auto;
   font-size: 16px;
@@ -47,7 +47,7 @@
   position: sticky !important;
   top: 0;
 }
-.counsellor-container {
+.institute-container {
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -84,10 +84,10 @@
 }
 // edited
 @media (max-width: 860px) {
-  .Counsellors-container {
+  .Institutes-container {
     width: fit-content;
   }
-  .counsellor-table-container {
+  .institute-table-container {
     width: fit-content;
     overflow-y: scroll;
 

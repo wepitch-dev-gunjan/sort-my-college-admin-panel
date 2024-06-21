@@ -36,7 +36,7 @@ const InstitutesDetails = () => {
     return `${firstName}`;
   };
   return (
-    <div className="Counsellors-container">
+    <div className="Institutes-container">
       <div className="heading sticky">
         <div className="row">
           <div className="col">
@@ -57,8 +57,8 @@ const InstitutesDetails = () => {
           </div>
         </div>
       </div>
-      <div className="counsellor-container">
-        <div className="counsellor-container-table">
+      <div className="institute-container">
+        <div className="institute-container-table">
           {" "}
           <div className="table">
             {institute.map((Institute, i) => (
@@ -85,7 +85,7 @@ const InstitutesDetails = () => {
                 >
                   {Institute.status}
                 </div>
-                <div className="col">{Institute.outstanding_balance}</div>
+                {/* <div className="col">{Institute.outstanding_balance}</div> */}
                 <div className="col">
                   <Link
                     to={`/entrance-preparation/institute-directory/${Institute._id}`}
