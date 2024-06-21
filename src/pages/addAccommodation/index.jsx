@@ -17,6 +17,7 @@ import { AdminContext } from "../../context/AdminContext";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { toast } from "react-toastify";
 import Spinner from "../../components/spinner/Index";
+import { Link } from "react-router-dom";
 const { backend_url } = config;
 const AddAccommodation = () => {
   const { addAccommodationEnable, setAddAccommodationEnable } =
@@ -992,8 +993,9 @@ const handleSubmit = async (e) => {
 
            {loading ? <Spinner /> : "Submit"}
           </button>
-          <button onClick={handleChange}>Cancel</button>
-        </div>
+          <Link to="/accommodation">
+        <button>Cancel</button>
+      </Link></div>
       </div>
     </div>
   );
