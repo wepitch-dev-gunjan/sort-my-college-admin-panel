@@ -6,10 +6,10 @@ import { Typography } from "@mui/material";
 import { ProfileContext } from "../../context/ProfileContext";
 
 const ProfilePic = ({ src }) => {
-  const { setProfilePicEditMode } = useContext(ProfileContext);
+  const { setEpProfilePicEditMode } = useContext(ProfileContext);
 
   const openUploader = () => {
-    setProfilePicEditMode((prev) => !prev);
+   setEpProfilePicEditMode((prev) => !prev);
   };
 
   return (

@@ -1,23 +1,27 @@
 import React, { useState, useRef, useContext, forwardRef } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import './style.scss';
-import { ProfileContext } from '../../../context/ProfileContext';
+import { ProfileContext } from '../../context/ProfileContext';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import config from '@/config';
-import { AdminContext } from '../../../context/AdminContext';
-import { dataURLtoFile } from '../../../utilities'
+// import { AdminContext } from '../../../context/AdminContext';
+import { AdminContext } from '../../context/AdminContext';
+// import { dataURLtoFile } from '../../../utilities'
+import { dataURLtoFile } from '../../utilities';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
+import Spinner from '../spinner/Index';
 const { backend_url } = config;
 
-const AddProfilePic = forwardRef((props, ref) => {
+const AddEpProfilePic = forwardRef((props, ref) => {
   const [image, setImage] = useState(null);
   const [scale, setScale] = useState(1);
   const editorRef = useRef(null);
   const fileRef = useRef(null);
-  const { setProfilePicEditMode, fetchProfile } = useContext(ProfileContext)
+  const { setEpProfilePicEditMode, fetchProfile } = useContext(ProfileContext)
   const { admin } = useContext(AdminContext)
-
+  const [loading, setLoading] = useState(false);
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const fileReader = new FileReader();
@@ -30,8 +34,18 @@ const AddProfilePic = forwardRef((props, ref) => {
     setScale(parseFloat(event.target.value));
   };
 
+  const getInstituteIdFromUrl = () => {
+   const urlParts = window.location.pathname.split('/');
+   const idIndex = urlParts[urlParts.length-1]; // Assuming 'admin' precedes the id in the URL
+   return idIndex;
+ };
+
+  const institute_id = getInstituteIdFromUrl();
+  console.log(institute_id)
+
   const onSave = async () => {
-    if (editorRef.current) {
+   if (editorRef.current) {
+    setLoading(true);
       const canvasScaled = editorRef.current.getImageScaledToCanvas();
       const file = dataURLtoFile(canvasScaled.toDataURL()); // Convert data URL to File object
 
@@ -39,26 +53,28 @@ const AddProfilePic = forwardRef((props, ref) => {
         const formData = new FormData();
         formData.append('image', file); // Append the File object to FormData
 
-        await axios.post(`${backend_url}/admin/profile-pic`, formData, {
+        await axios.put(`${backend_url}/ep/editinstitute/profile-pic/admin/${institute_id}`, formData, {
           headers: {
             Authorization: admin.token,
             'Content-Type': 'multipart/form-data',
           },
         });
-        fetchProfile();
+       await fetchProfile();
 
         // Handle success, show message, or perform other actions upon successful upload
-        setProfilePicEditMode(false)
+        setEpProfilePicEditMode(false)
         toast('Image updated successfully');
+        setLoading(false);
       } catch (error) {
         // Handle error, show error message, or perform error-related actions
-        setProfilePicEditMode(false)
+        setEpProfilePicEditMode(false)
         toast('Error uploading image:', error);
+        setLoading(false);
       }
     }
   };
   const handleCancel = () => {
-    setProfilePicEditMode(false)
+   setEpProfilePicEditMode(false)
   };
 
   const handleDrop = (e) => {
@@ -115,7 +131,8 @@ const AddProfilePic = forwardRef((props, ref) => {
                 rotate={0}
               />
               <div className="bottom">
-                <button onClick={onSave}>Save</button>
+                <button onClick={onSave}> 
+                   {loading ? <Spinner /> : "Save"}</button>
                 <button onClick={handleCancel}>Cancel</button>
               </div>
             </div>
@@ -134,4 +151,4 @@ const AddProfilePic = forwardRef((props, ref) => {
   );
 });
 
-export default AddProfilePic;
+export default AddEpProfilePic;
