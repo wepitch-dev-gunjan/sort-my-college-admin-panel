@@ -12,6 +12,8 @@ import BasicTimePicker from "../../components/formInputs/timePicker";
 import RoomAvailableSelect from "../../components/formInputs/roomAvailableSelectField";
 import axios from "axios";
 import config from "@/config";
+import { IoCloudUploadOutline } from "react-icons/io5";
+
 import { AdminContext } from "../../context/AdminContext";
 // spinner
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
@@ -520,9 +522,6 @@ const handleSubmit = async (e) => {
     toast.error("Error in adding accommodation");
   }
 };
-
-
-
   const handleImageChange = (e) => {
    const files = Array.from(e.target.files);
    setFormData((prevState) => ({
@@ -607,59 +606,115 @@ const handleSubmit = async (e) => {
                 placeholder="Email" />
 
               </div>
-              <div className="row-form">
-
-                <DragAndDropUploader
-                  action=""
-                  onChange={(e) => handleChange(e.target.value, "owner.aadhar_card")}
-                  value={formData.owner.aadhar_card}
-                  placeholder="Upload your Photo Id Proof (Aadhar Card) here..."
-                />
-
-              </div>
-              <div className="row-form">
-                <input 
-                  type="file" 
-                  id="aadhar_card" 
-                  name="aadhar_card" 
-                  onChange={(e) => handleChange(e.target.files[0], "owner.aadhar_card")} 
-                  placeholder="Upload Aadhar Card"
-                />
-              </div>
-              <div className="row-form">
-                <input 
-                  type="file" 
-                  id="pan_card" 
-                  name="pan_card" 
-                  onChange={(e) => handleChange(e.target.files[0], "owner.pan_card")} 
-                  placeholder="Upload PAN Card"
-                />
-              </div>
-              <div className="row-form">
-
-                <DragAndDropUploader
-                  action=""
-                  onChange={(e) => handleChange(e)}
-                  value={formData.owner.pan_card}
-                  placeholder="Upload your PAN Card here..."
-                />
-              </div>
-
+              {/* adhar card */}
+    <div className="row-form" 
+  style={{ 
+    height: 200, 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    border: '2px dotted #BABABA',
+    position: 'relative'
+  }}
+>
+  <input 
+    type="file" 
+    id="aadhar_card" 
+    name="aadhar_card" 
+    onChange={(e) => handleChange(e.target.files[0], "owner.aadhar_card")} 
+    style={{ 
+      display: "none" 
+    }}
+  />
+  <label 
+    htmlFor="aadhar_card" 
+    style={{ 
+      width: 1000, 
+      color: "grey", 
+      padding: "10px", 
+      textAlign: "center", 
+      cursor: "pointer"
+    }}
+  >
+    Upload Your Aadhar Card here...
+  </label>
+</div>
+{/* pan card */}
+<div className="row-form" 
+  style={{ 
+    height: 200, 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    border: '2px dotted #BABABA',
+    position: 'relative'
+  }}
+>
+  <input 
+    type="file" 
+    id="pan_card" 
+    name="pan_card" 
+    onChange={(e) => handleChange(e.target.files[0], "owner.pan_card")} 
+    style={{ 
+      display: "none" 
+    }}
+  />
+  <label 
+    htmlFor="pan_card" 
+    style={{ 
+      width: 1000, 
+      color: "grey", 
+      padding: "10px", 
+      textAlign: "center", 
+      cursor: "pointer"
+    }}
+  >
+    Upload Your Pan Card here...
+  </label>
+</div>
             </div>
           </div>
           <div className="property-info-main">
             <h2>Property Information: </h2>
             <div className="property-info-sub">
-              <div className="row-form">
+              {/* <div className="row-form">
                 <DragAndDropUploader
                 multiple = {true}
                   action=""
                  onChange = {handleImageChange}
                   placeholder="Upload Photos of the Property here..."
                 />
-              </div>
-              <div className="row-form width-100-cus">
-                <input type="file" id="files" name="files" multiple onChange={handleImageChange} />
+              </div> */}
+
+              {/* property images */}
+
+              <div className="row-form width-100-cus"
+                style={{ 
+                 height: 200, 
+                 display: 'flex', 
+                 alignItems: 'center', 
+                 justifyContent: 'center', 
+                 border: '2px dotted #BABABA',
+                 position: 'relative'
+               }}
+              >
+                <input type="file" id="files" name="files" multiple onChange={handleImageChange} 
+                style = {{
+                display : "none"
+                }}
+                />
+                <label 
+    htmlFor="pan_card" 
+    style={{ 
+      width: 1000, 
+      color: "grey", 
+      padding: "10px", 
+      textAlign: "center", 
+      cursor: "pointer"
+    }}
+  >
+    Upload Your Property Images here...
+  </label>
               </div>
               <div className="row-form">
                 <BasicTextField 
