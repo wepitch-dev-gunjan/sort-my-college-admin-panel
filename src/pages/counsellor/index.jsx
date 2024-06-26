@@ -1,11 +1,10 @@
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.scss";
-import { useContext, useEffect } from "react";
+import axios from "axios";
 import { CounsellorContext } from "../../context/CounsellorContext";
 import { AdminContext } from "../../context/AdminContext";
-import axios from "axios";
 import config from "@/config";
-import { useState } from "react";
 import Spinner from "../../components/spinner/Index";
 import {
   Button,
@@ -17,24 +16,16 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { BsArrowDownShort, BsArrowUp } from "react-icons/bs";
-import { BsArrowDown } from "react-icons/bs";
+import { BsArrowDownShort, BsArrowUp, BsArrowDown } from "react-icons/bs";
+
 const { backend_url } = config;
 
 const Counsellor = () => {
-  const updateCounsellorStatus = (counsellorId, newStatus) => {
-    // Find the counsellor in the state and update its status
-    setCounsellors((prevCounsellors) => {
-      return prevCounsellors.map((counsellor) =>
-        counsellor._id === counsellorId
-          ? { ...counsellor, status: newStatus }
-          : counsellor
-      );
-    });
-  };
   const { admin } = useContext(AdminContext);
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [sortBy, setSortBy] = useState("outstanding_balance");
+  const { counsellors, setCounsellors } = useContext(CounsellorContext);
+
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [sortBy, setSortBy] = useState("createdAt");
   const [filterParams, setFilterParams] = useState({
     locations_focused: [],
     degree_focused: [],
@@ -42,75 +33,44 @@ const Counsellor = () => {
     search: "",
     status: "",
   });
-  const toggleSortOrder = () => {
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-  };
-  const handleSort = (field) => {
-    if (field === sortBy) {
-      toggleSortOrder();
-    } else {
-      setSortBy(field);
-      setSortOrder("asc");
-    }
-  };
 
-  // Function to reset all filter parameters
-  // Function to reset all filter parameters and fetch all counsellors data
-  const resetFilters = async () => {
+  useEffect(() => {
+    if (admin.token) getCounsellors();
+  }, [admin, sortOrder, sortBy]);
+
+  const getCounsellors = async () => {
     try {
-      // Reset filter parameters
-      setFilterParams({
-        locations_focused: [],
-        degree_focused: [],
-        courses_focused: [],
-        search: "",
-        status: "",
-      });
-
-      // Fetch all counsellors data without any filters applied
       const { data } = await axios.get(
         `${backend_url}/counsellor/counsellor-for-admin`,
         {
-          headers: {
-            Authorization: admin.token,
-          },
+          headers: { Authorization: admin.token },
+          params: { ...filterParams, sortBy, sortOrder },
         }
       );
-
-      // Sort and set the counsellors data
-      data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setCounsellors(data);
     } catch (error) {
       console.log(error);
       // Handle error
     }
   };
-  // Inside your Counsellor component
 
-  // handle the universal search and status
+  const resetFilters = async () => {
+    setFilterParams({
+      locations_focused: [],
+      degree_focused: [],
+      courses_focused: [],
+      search: "",
+      status: "",
+    });
+    await getCounsellors();
+  };
+
   const handleFilterChange = async (e) => {
     const { name, value, checked } = e.target;
-
-    if (name === "search") {
-      // , update the 'search'
-      setFilterParams((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    } else if (name === "status") {
-      // Ensure value is not undefined
-      const newValue = value || ""; // If value is undefined, set it to an empty string
-      setFilterParams((prevState) => ({
-        ...prevState,
-        [name]: newValue,
-      }));
-    } else {
-      // For other filters, handle them as before
-      setFilterParams((prevState) => ({
-        ...prevState,
-        [name]: checked ? value : "",
-      }));
-    }
+    setFilterParams((prevState) => ({
+      ...prevState,
+      [name]: name === "search" ? value : checked ? value : "",
+    }));
     await getCounsellors();
   };
 
@@ -119,53 +79,25 @@ const Counsellor = () => {
       getCounsellors();
     }
   };
-  const getCounsellors = async () => {
-    try {
-      const { data } = await axios.get(
-        `${backend_url}/counsellor/counsellor-for-admin`,
-        {
-          headers: {
-            Authorization: admin.token,
-          },
-          params: { ...filterParams, sortBy, sortOrder },
-        }
-      );
-      data.sort((a, b) =>
-        sortOrder === "asc"
-          ? a.outstanding_balance - b.outstanding_balance
-          : b.outstanding_balance - a.outstanding_balance
-      );
-      setCounsellors(data);
-    } catch (error) {
-      console.log(error);
-      // toast(error.message)
+
+  const handleSort = (field) => {
+    if (field === sortBy) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(field);
+      setSortOrder("asc");
     }
   };
-  const handleSortByOutstandingBalance = () => {
-    // Toggle sorting order
-    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
-    setSortOrder(newSortOrder);
-  };
-  useEffect(() => {
-    if (admin.token) getCounsellors();
-  }, [admin, sortOrder, sortBy]);
-  const { counsellors, setCounsellors } = useContext(CounsellorContext);
 
   const generateAvatar = (counsellor) => {
     if (!counsellor.name) return "";
-    const nameParts = counsellor.name.split("");
-    const firstName = nameParts[0].charAt(0).toUpperCase();
-    return `${firstName}`;
+    const firstName = counsellor.name.charAt(0).toUpperCase();
+    return firstName;
   };
-
-  // useEffect(() =>{
-  //  console.log(filterParams)
-  // }, [filterParams])
 
   return (
     <div className="Counsellors-container">
       <div className="filters">
-        {/* for universal search */}
         <TextField
           label="Search"
           sx={{ height: "50px" }}
@@ -177,7 +109,6 @@ const Counsellor = () => {
           onChange={handleFilterChange}
           onKeyDown={handleKeyPress}
         />
-        {/* search by checkbox */}
         <FormControlLabel
           control={
             <Checkbox
@@ -185,7 +116,6 @@ const Counsellor = () => {
               checked={filterParams.locations_focused === "India"}
               value="India"
               onChange={handleFilterChange}
-              onKeyDown={handleKeyPress}
             />
           }
           label="India"
@@ -194,10 +124,9 @@ const Counsellor = () => {
           control={
             <Checkbox
               name="locations_focused"
+              checked={filterParams.locations_focused === "Abroad"}
               value="Abroad"
               onChange={handleFilterChange}
-              checked={filterParams.locations_focused === "Abroad"}
-              onKeyDown={handleKeyPress}
             />
           }
           label="Abroad"
@@ -206,10 +135,9 @@ const Counsellor = () => {
           control={
             <Checkbox
               name="degree_focused"
-              value="UG"
               checked={filterParams.degree_focused === "UG"}
+              value="UG"
               onChange={handleFilterChange}
-              onKeyDown={handleKeyPress}
             />
           }
           label="UG"
@@ -218,15 +146,13 @@ const Counsellor = () => {
           control={
             <Checkbox
               name="degree_focused"
-              value="PG"
               checked={filterParams.degree_focused === "PG"}
+              value="PG"
               onChange={handleFilterChange}
-              onKeyDown={handleKeyPress}
             />
           }
           label="PG"
         />
-        {/* dropdown */}
         <FormControl style={{ width: "100px" }}>
           <InputLabel>Status</InputLabel>
           <Select
@@ -240,9 +166,7 @@ const Counsellor = () => {
             <MenuItem value="REJECTED">REJECTED</MenuItem>
           </Select>
         </FormControl>
-        {/* <button onClick={getCounsellors}>Apply Filters</button> */}
         <div className="btn_main">
-          {" "}
           <Button
             onClick={getCounsellors}
             sx={{ height: "55 px" }}
@@ -259,7 +183,6 @@ const Counsellor = () => {
           </Button>
         </div>
       </div>
-
       <div className="heading sticky">
         <div className="row">
           <div className="col">
@@ -274,7 +197,10 @@ const Counsellor = () => {
           <div className="col">
             <h4>STATUS</h4>
           </div>
-          <div onClick={handleSortByOutstandingBalance} className="col">
+          <div
+            onClick={() => handleSort("outstanding_balance")}
+            className="col"
+          >
             <h4>
               OUTSTANDING BALANCE{" "}
               {sortOrder === "asc" ? <BsArrowDown /> : <BsArrowUp />}
