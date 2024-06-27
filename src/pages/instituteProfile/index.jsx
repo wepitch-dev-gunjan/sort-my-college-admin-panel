@@ -171,7 +171,6 @@ const InstituteProfile = () => {
           </div>
         </div>
         <br />
-
         <div className="left-profile-middle">
           <div className="info">
             {/* registrant Details */}

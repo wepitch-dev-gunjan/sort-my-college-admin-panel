@@ -211,7 +211,7 @@ useEffect(() =>{
               {property.name} in {property.address.area}
             </h1>
             <div className="property-main-btns">
-              <Link to="#">Edit</Link>
+              <Link to="/accommodation/add">Edit</Link>
             </div>
           </div>
           <div className="property-images">

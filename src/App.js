@@ -49,6 +49,7 @@ import ViewAccoummDetails from "./components/accommodationViewDetails";
 import AddAnnouncementPopup from "./components/addAnnouncementPopup";
 import { CounsellorContext } from "./context/CounsellorContext";
 import AddEpProfilePic from "./components/epProfilePicEdit";
+import AddCounsellorProfilePic from "./components/counsellorEditProfilePic";
 
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
@@ -56,6 +57,7 @@ import AddEpProfilePic from "./components/epProfilePicEdit";
 function App() {
   const addProfilePicRef = useRef(null);
   const addEpProfilePicRef = useRef(null);
+  const addCounsellorPicRef = useRef(null);
   const { admin, setAdmin } = useContext(AdminContext);
   const { isLoggedIn } = admin;
   const { addMode, webinar, setWebinar, setAddMode } =
@@ -63,7 +65,8 @@ function App() {
   const { notificationsEnable, setNotificationsEnable, notificationsRef } =
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode , epProfilePicEditMode, 
-   setEpProfilePicEditMode} =
+   setEpProfilePicEditMode,counsellorProfilePicEditMode,
+   setCounsellorProfilePicEditMode} =
     useContext(ProfileContext);
   const { addBannerMode } = useContext(BannerContext);
 
@@ -104,6 +107,11 @@ function App() {
 {epProfilePicEditMode && (
         <div className="add-ep-profile-pic-panel">
           <AddEpProfilePic ref={addEpProfilePicRef} />
+        </div>
+      )}
+      {counsellorProfilePicEditMode && (
+        <div className="add-counsellor-profile-pic-panel">
+          <AddCounsellorProfilePic ref={addCounsellorPicRef} />
         </div>
       )}
       {addBannerMode && (

@@ -16,6 +16,7 @@ import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 import { useParams } from "react-router-dom";
 import { CounsellorContext } from "../../context/CounsellorContext";
+import CounsellorProfilePic from "../../components/addCounsellorProfilePic";
 const { backend_url } = config;
 
 const CounsellorProfile = ({ setOutstandingBalance }) => {
@@ -271,7 +272,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
       <div className="left-profile">
         <div className="info-img">
           <div className="profile-pic">
-            <ProfilePic src={profile.profile_pic} />
+            <CounsellorProfilePic src={profile.profile_pic} />
           </div>
         </div>
         <br />

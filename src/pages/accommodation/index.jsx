@@ -71,7 +71,7 @@ const Accommodation = () => {
   useEffect(() => {
     getAccommodations();
   }, []);
-
+ 
   return (
     <div className="accommodation-main">
       <div className="accomm-heading">
