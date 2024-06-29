@@ -24,20 +24,20 @@ const { backend_url } = config;
 const AddAccommodation = () => {
   const { addAccommodationEnable, setAddAccommodationEnable } =
     useContext(AccommodationContext);
-    const {admin } = useContext(AdminContext);
+  const { admin } = useContext(AdminContext);
   const [nearbyColleges, setNearbyColleges] = useState(["", ""]);
   const [nearbyMetroStations, setNearbyMetroStations] = useState(["", ""]);
   const [nearbyHospitals, setNearbyHospitals] = useState(["", ""]);
   const [commonAmenities, setCommonAmenities] = useState(["", "", ""]);
   const [houseRules, setHouseRules] = useState(["", ""]);
   const [roomDetails, setRoomDetails] = useState(["", "", "", "", ""]);
-  const[loading ,setLoading] =useState(false);
+  const [loading, setLoading] = useState(false);
   const [rooms, setRooms] = useState([
     {
       sharing_type: "",
       available: true,
       deposit_amount: 0,
-      montly_charge: 0,
+      monthly_charge: 0,
       notice_period: "",
       details: [""],
     },
@@ -86,80 +86,77 @@ const AddAccommodation = () => {
     images: [], // For storing file data
   });
 
+  //   const handleChange = (value, name) => {
+  //    console.log("Name: ", name)
+  //    console.log("Value: ", value)
+  //    const nameParts = name.split('.');
+  //    if (nameParts.length === 1) {
+  //        setFormData(prevState => ({
+  //            ...prevState,
+  //            [name]: value,
+  //        }));
+  //    } else if (nameParts.length === 2) {
+  //        setFormData(prevState => ({
+  //            ...prevState,
+  //            [nameParts[0]]: {
+  //                ...prevState[nameParts[0]],
+  //                [nameParts[1]]: value,
+  //            },
+  //        }));
+  //    }
+  //    console.log("Form Data: ",formData)
+  //  };
 
-
-//   const handleChange = (value, name) => {
-//    console.log("Name: ", name)
-//    console.log("Value: ", value)
-//    const nameParts = name.split('.');
-//    if (nameParts.length === 1) {
-//        setFormData(prevState => ({
-//            ...prevState,
-//            [name]: value,
-//        }));
-//    } else if (nameParts.length === 2) {
-//        setFormData(prevState => ({
-//            ...prevState,
-//            [nameParts[0]]: {
-//                ...prevState[nameParts[0]],
-//                [nameParts[1]]: value,
-//            },
-//        }));
-//    }
-//    console.log("Form Data: ",formData)
-//  };
-
-const handleChange = (value, name) => {
-  console.log("Name: ", name)
-  console.log("Value: ", value)
-  const nameParts = name.split('.');
-  if (nameParts.length === 1) {
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  } else if (nameParts.length === 2) {
-    setFormData(prevState => ({
-      ...prevState,
-      [nameParts[0]]: {
-        ...prevState[nameParts[0]],
-        [nameParts[1]]: value,
-      },
-    }));
-  }
-};
-
+  const handleChange = (value, name) => {
+    console.log("Name: ", name);
+    console.log("Value: ", value);
+    const nameParts = name.split(".");
+    if (nameParts.length === 1) {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else if (nameParts.length === 2) {
+      setFormData((prevState) => ({
+        ...prevState,
+        [nameParts[0]]: {
+          ...prevState[nameParts[0]],
+          [nameParts[1]]: value,
+        },
+      }));
+    }
+  };
 
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
-   const newNearbyColleges = [...nearbyColleges];
-   newNearbyColleges[index] = value;
-   setNearbyColleges(newNearbyColleges);
-   // Update formData here
-   setFormData(prevState => ({
-     ...prevState,
-     nearby_locations: {
-       ...prevState.nearby_locations,
-       colleges: newNearbyColleges,
-     },
-   }));
- };
-   const addNearbyColleges = () => {
+    const newNearbyColleges = [...nearbyColleges];
+    newNearbyColleges[index] = value;
+    setNearbyColleges(newNearbyColleges);
+    // Update formData here
+    setFormData((prevState) => ({
+      ...prevState,
+      nearby_locations: {
+        ...prevState.nearby_locations,
+        colleges: newNearbyColleges,
+      },
+    }));
+  };
+  const addNearbyColleges = () => {
     setNearbyColleges([...nearbyColleges, ""]);
   };
   const removeNearbyColleges = (index) => {
-   const newNearbyColleges = [...nearbyColleges];
-   newNearbyColleges.splice(index, 1);
-   setNearbyColleges(newNearbyColleges);
-   // Update formData here
-   setFormData(prevState => ({
-     ...prevState,
-     nearby_locations: {
-       ...prevState.nearby_locations,
-       colleges: newNearbyColleges,
-     },
-   }));
- };
+    const newNearbyColleges = [...nearbyColleges];
+    newNearbyColleges.splice(index, 1);
+    setNearbyColleges(newNearbyColleges);
+    // Update formData here
+    setFormData((prevState) => ({
+      ...prevState,
+      nearby_locations: {
+        ...prevState.nearby_locations,
+        colleges: newNearbyColleges,
+      },
+    }));
+  };
   // Nearby Colleges
 
   // Nearby Hospitals
@@ -168,13 +165,13 @@ const handleChange = (value, name) => {
     newNearbyHospitals[index] = value;
     setNearbyHospitals(newNearbyHospitals);
     // set nearby colleges into property details here
-    setFormData(prevState => ({
-     ...prevState,
-     nearby_locations: {
-      ...prevState.nearby_locations,
-      hospitals : newNearbyHospitals,
-     }
-    }))
+    setFormData((prevState) => ({
+      ...prevState,
+      nearby_locations: {
+        ...prevState.nearby_locations,
+        hospitals: newNearbyHospitals,
+      },
+    }));
   };
   const addNearbyHospitals = () => {
     setNearbyHospitals([...nearbyHospitals, ""]);
@@ -183,12 +180,12 @@ const handleChange = (value, name) => {
     const newNearbyHospitals = [...nearbyHospitals];
     newNearbyHospitals.splice(index, 1);
     setNearbyHospitals(newNearbyHospitals);
-    setFormData(prevState => ({
-     ...prevState,
-     nearby_locations: {
-      ...prevState.nearby_locations,
-      hospitals : newNearbyHospitals,
-     },
+    setFormData((prevState) => ({
+      ...prevState,
+      nearby_locations: {
+        ...prevState.nearby_locations,
+        hospitals: newNearbyHospitals,
+      },
     }));
   };
   // Nearby Hospitals
@@ -199,14 +196,14 @@ const handleChange = (value, name) => {
     newNearbyMetroStations[index] = value;
     setNearbyMetroStations(newNearbyMetroStations);
     // set nearby colleges into property details here
-     // set nearby colleges into property details here
-     setFormData(prevState => ({
+    // set nearby colleges into property details here
+    setFormData((prevState) => ({
       ...prevState,
       nearby_locations: {
-       ...prevState.nearby_locations,
-       metro_stations : newNearbyMetroStations,
-      }
-     }))
+        ...prevState.nearby_locations,
+        metro_stations: newNearbyMetroStations,
+      },
+    }));
   };
   const addNearbyMetroStations = () => {
     setNearbyMetroStations([...nearbyMetroStations, ""]);
@@ -215,12 +212,12 @@ const handleChange = (value, name) => {
     const newNearbyMetroStations = [...nearbyMetroStations];
     newNearbyMetroStations.splice(index, 1);
     setNearbyMetroStations(newNearbyMetroStations);
-    setFormData(prevState => ({
-     ...prevState,
-     nearby_locations: {
-      ...prevState.nearby_locations,
-      metro_stations : newNearbyMetroStations,
-     },
+    setFormData((prevState) => ({
+      ...prevState,
+      nearby_locations: {
+        ...prevState.nearby_locations,
+        metro_stations: newNearbyMetroStations,
+      },
     }));
   };
   //  Nearby Metro Stations
@@ -230,36 +227,35 @@ const handleChange = (value, name) => {
     const newCommonAmenities = [...commonAmenities];
     newCommonAmenities[index] = value;
     setCommonAmenities(newCommonAmenities);
-    setFormData(prevState => ({
-     ...prevState,
-      common_area_amenities : newCommonAmenities,
-     
+    setFormData((prevState) => ({
+      ...prevState,
+      common_area_amenities: newCommonAmenities,
     }));
   };
   const addCommonAmenities = () => {
     setCommonAmenities([...commonAmenities, ""]);
-   // console.log(commonAmenities)
+    // console.log(commonAmenities)
   };
   const removeCommonAmenities = (index) => {
     const newCommonAmenities = [...commonAmenities];
     newCommonAmenities.splice(index, 1);
     setCommonAmenities(newCommonAmenities);
-    setFormData(prevState => ({
-     ...prevState,
-      common_area_amenities : newCommonAmenities,
+    setFormData((prevState) => ({
+      ...prevState,
+      common_area_amenities: newCommonAmenities,
     }));
   };
-    // Common Area Amenities
+  // Common Area Amenities
 
   // House Rules
   const handleHouseRulesChange = (index, value) => {
     const newHouseRules = [...houseRules];
     newHouseRules[index] = value;
     setHouseRules(newHouseRules);
-    setFormData(prevState => ({
-     ...prevState,
-     house_rules : newHouseRules 
-    }))
+    setFormData((prevState) => ({
+      ...prevState,
+      house_rules: newHouseRules,
+    }));
   };
   const addHouseRules = () => {
     setHouseRules([...houseRules, ""]);
@@ -272,106 +268,105 @@ const handleChange = (value, name) => {
   // House Rules
 
   // Rooms
-// Rooms
-const addRoom = () => {
- setRooms([
-   ...rooms,
-   {
-     sharing_type: "Single",
-     available: true,
-     deposit_amount: 0,
-     monthly_charge: 0,
-     notice_period: "",
-     details: [""],
-   },
- ]);
- // Update formData here
- setFormData(prevState => ({
-   ...prevState,
-   rooms: [
-     ...prevState.rooms,
-     {
-       sharing_type: "Single",
-       available: true,
-       deposit_amount: "",
-       monthly_charge: "",
-       notice_period: "",
-       details: [],
-     },
-   ],
- }));
-};
+  // Rooms
+  const addRoom = () => {
+    setRooms([
+      ...rooms,
+      {
+        sharing_type: "Single",
+        available: true,
+        deposit_amount: 0,
+        monthly_charge: 0,
+        notice_period: "",
+        details: [""],
+      },
+    ]);
+    // Update formData here
+    setFormData((prevState) => ({
+      ...prevState,
+      rooms: [
+        ...prevState.rooms,
+        {
+          sharing_type: "Single",
+          available: true,
+          deposit_amount: "",
+          monthly_charge: "",
+          notice_period: "",
+          details: [],
+        },
+      ],
+    }));
+  };
 
-const removeRoom = (index) => {
- const newRooms = [...rooms];
- newRooms.splice(index, 1);
- setRooms(newRooms);
- // Update formData here
- setFormData(prevState => ({
-   ...prevState,
-   rooms: newRooms,
- }));
-};
+  const removeRoom = (index) => {
+    const newRooms = [...rooms];
+    newRooms.splice(index, 1);
+    setRooms(newRooms);
+    // Update formData here
+    setFormData((prevState) => ({
+      ...prevState,
+      rooms: newRooms,
+    }));
+  };
 
-const handleChangeRoom = (index, field, value) => {
- const newRooms = [...rooms];
- newRooms[index][field] = value;
- setRooms(newRooms);
- // Update formData here
- setFormData(prevState => ({
-   ...prevState,
-   rooms: newRooms,
- }));
-};
+  const handleChangeRoom = (index, field, value) => {
+    const newRooms = [...rooms];
+    newRooms[index][field] = value;
+    setRooms(newRooms);
+    // Update formData here
+    setFormData((prevState) => ({
+      ...prevState,
+      rooms: newRooms,
+    }));
+  };
 
-// Function to handle changes in room details
-const handleChangeRoomDetail = (roomIndex, detailIndex, value) => {
- const newRooms = [...rooms];
- newRooms[roomIndex].details[detailIndex] = value;
- setRooms(newRooms);
- // Update formData here
- setFormData(prevState => {
-   const updatedRooms = [...prevState.rooms];
-   updatedRooms[roomIndex].details = newRooms[roomIndex].details;
-   return {
-     ...prevState,
-     rooms: updatedRooms,
-   };
- });
-};
+  // Function to handle changes in room details
+  const handleChangeRoomDetail = (roomIndex, detailIndex, value) => {
+    const newRooms = [...rooms];
+    newRooms[roomIndex].details[detailIndex] = value;
+    setRooms(newRooms);
+    // Update formData here
+    setFormData((prevState) => {
+      const updatedRooms = [...prevState.rooms];
+      updatedRooms[roomIndex].details = newRooms[roomIndex].details;
+      return {
+        ...prevState,
+        rooms: updatedRooms,
+      };
+    });
+  };
 
-// Function to remove a room detail
-const removeRoomDetail = (roomIndex, detailIndex) => {
- const newRooms = [...rooms];
- newRooms[roomIndex].details.splice(detailIndex, 1);
- setRooms(newRooms);
- // Update formData here
- setFormData(prevState => {
-   const updatedRooms = [...prevState.rooms];
-   updatedRooms[roomIndex].details = newRooms[roomIndex].details;
-   return {
-     ...prevState,
-     rooms: updatedRooms,
-   };
- });
-};
+  // Function to remove a room detail
+  const removeRoomDetail = (roomIndex, detailIndex) => {
+    const newRooms = [...rooms];
+    newRooms[roomIndex].details.splice(detailIndex, 1);
+    setRooms(newRooms);
+    // Update formData here
+    setFormData((prevState) => {
+      const updatedRooms = [...prevState.rooms];
+      updatedRooms[roomIndex].details = newRooms[roomIndex].details;
+      return {
+        ...prevState,
+        rooms: updatedRooms,
+      };
+    });
+  };
 
-// Function to add a new room detail
-const addRoomDetail = (roomIndex) => {
- const newRooms = [...rooms];
- newRooms[roomIndex].details.push("");
- setRooms(newRooms);
- // Update formData here
- setFormData(prevState => {
-   const updatedRooms = [...prevState.rooms];
-   updatedRooms[roomIndex].details = newRooms[roomIndex].details;
-   return {
-     ...prevState,
-     rooms: updatedRooms,
-   };
- });
-};
-
+  // Function to add a new room detail
+  const addRoomDetail = (roomIndex) => {
+    const newRooms = [...rooms];
+    newRooms[roomIndex].details.push("");
+    setRooms(newRooms);
+    // Update formData here
+    setFormData((prevState) => {
+      const updatedRooms = [...prevState.rooms];
+      updatedRooms[roomIndex].details = newRooms[roomIndex].details;
+      return {
+        ...prevState,
+        rooms: updatedRooms,
+      };
+    });
+  };
 
   // Room Details
   // const handleRoomDetailsChange = (index, value) => {
@@ -395,144 +390,144 @@ const addRoomDetail = (roomIndex) => {
     newRoomDetails.splice(index, 1);
     setRoomDetails(newRoomDetails);
   };
-// for cancel form
-const handleCancel = async () =>{
- 
-}
+  // for cancel form
+  const handleCancel = async () => {};
 
-// contact numbers 
-     const handleContactNumberChange = (index, value) => {
-      const newContactNumbers = [...formData.owner.contact_numbers];
-      newContactNumbers[index] = value;
-      setFormData(prevState => ({
-        ...prevState,
-        owner: {
-          ...prevState.owner,
-          contact_numbers: newContactNumbers,
-        },
-      }));
-     };
+  // contact numbers
+  const handleContactNumberChange = (index, value) => {
+    const newContactNumbers = [...formData.owner.contact_numbers];
+    newContactNumbers[index] = value;
+    setFormData((prevState) => ({
+      ...prevState,
+      owner: {
+        ...prevState.owner,
+        contact_numbers: newContactNumbers,
+      },
+    }));
+  };
 
-     const addContactNumber = () => {
-      setFormData(prevState => ({
-        ...prevState,
-        owner: {
-          ...prevState.owner,
-          contact_numbers: [...prevState.owner.contact_numbers, ""],
-        },
-      }));
-     };
+  const addContactNumber = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      owner: {
+        ...prevState.owner,
+        contact_numbers: [...prevState.owner.contact_numbers, ""],
+      },
+    }));
+  };
 
-     const removeContactNumber = (index) => {
-      const newContactNumbers = [...formData.owner.contact_numbers];
-      newContactNumbers.splice(index, 1);
-      setFormData(prevState => ({
-        ...prevState,
-        owner: {
-          ...prevState.owner,
-          contact_numbers: newContactNumbers,
-        },
-      }));
-     };
+  const removeContactNumber = (index) => {
+    const newContactNumbers = [...formData.owner.contact_numbers];
+    newContactNumbers.splice(index, 1);
+    setFormData((prevState) => ({
+      ...prevState,
+      owner: {
+        ...prevState.owner,
+        contact_numbers: newContactNumbers,
+      },
+    }));
+  };
 
-// contact number 
-
+  // contact number
 
   // for adding a course
-//   const handleSubmit = async (e) => {
-//    e.preventDefault();
-//    try {
-//      const formDataToSend = new FormData();
-//      Object.keys(formData).forEach((key) => {
-//        if (key === "images") {
-//          formData.images.forEach((image) => {
-//            formDataToSend.append("images", image);
-//          });
-//        } else if (typeof formData[key] === "object" && formData[key] !== null) {
-//          formDataToSend.append(key, JSON.stringify(formData[key]));
-//        } else {
-//          formDataToSend.append(key, formData[key]);
-//        }
-//      });
-//      // Verify that images are added
-//      console.log("Form Data before submission:", formDataToSend);
-//      const response = await axios.post(
-//        `${backend_url}/admin/accommodation`,
-//        formDataToSend,
-//        {
-//          headers: {
-//            Authorization: admin.token,
-//            "Content-Type": "multipart/form-data",
-//          },
-//        }
-//      );
-//      toast.success("Accommodation added successfully");
-//      console.log("Accommodation added successfully:", response.data);
-//    } catch (error) {
-//      console.log("Error in adding accommodation", error);
-//      toast.error("Error in adding accommodation");
-//    }
-//  };
+  //   const handleSubmit = async (e) => {
+  //    e.preventDefault();
+  //    try {
+  //      const formDataToSend = new FormData();
+  //      Object.keys(formData).forEach((key) => {
+  //        if (key === "images") {
+  //          formData.images.forEach((image) => {
+  //            formDataToSend.append("images", image);
+  //          });
+  //        } else if (typeof formData[key] === "object" && formData[key] !== null) {
+  //          formDataToSend.append(key, JSON.stringify(formData[key]));
+  //        } else {
+  //          formDataToSend.append(key, formData[key]);
+  //        }
+  //      });
+  //      // Verify that images are added
+  //      console.log("Form Data before submission:", formDataToSend);
+  //      const response = await axios.post(
+  //        `${backend_url}/admin/accommodation`,
+  //        formDataToSend,
+  //        {
+  //          headers: {
+  //            Authorization: admin.token,
+  //            "Content-Type": "multipart/form-data",
+  //          },
+  //        }
+  //      );
+  //      toast.success("Accommodation added successfully");
+  //      console.log("Accommodation added successfully:", response.data);
+  //    } catch (error) {
+  //      console.log("Error in adding accommodation", error);
+  //      toast.error("Error in adding accommodation");
+  //    }
+  //  };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-   setLoading(true)
-    const formDataToSend = new FormData();
-    Object.keys(formData).forEach((key) => {
-      if (key === "images") {
-        formData.images.forEach((image) => {
-          formDataToSend.append("images", image);
-        });
-      } else if (key === "owner" && formData.owner) {
-        Object.keys(formData.owner).forEach((subKey) => {
-          if (subKey === "aadhar_card" || subKey === "pan_card") {
-            if (formData.owner[subKey]) {
-              formDataToSend.append(subKey, formData.owner[subKey]);
-              // console.log("Jo chiye tha", subKey)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const formDataToSend = new FormData();
+      Object.keys(formData).forEach((key) => {
+        if (key === "images") {
+          formData.images.forEach((image) => {
+            formDataToSend.append("images", image);
+          });
+        } else if (key === "owner" && formData.owner) {
+          Object.keys(formData.owner).forEach((subKey) => {
+            if (subKey === "aadhar_card" || subKey === "pan_card") {
+              if (formData.owner[subKey]) {
+                formDataToSend.append(subKey, formData.owner[subKey]);
+                // console.log("Jo chiye tha", subKey)
+              }
+            } else {
+              formDataToSend.append(`owner[${subKey}]`, formData.owner[subKey]);
             }
-          } else {
-            formDataToSend.append(`owner[${subKey}]`, formData.owner[subKey]);
-          }
-        });
-      } else if (typeof formData[key] === "object" && formData[key] !== null) {
-        formDataToSend.append(key, JSON.stringify(formData[key]));
-      } else {
-        formDataToSend.append(key, formData[key]);
-      }
-    });
+          });
+        } else if (
+          typeof formData[key] === "object" &&
+          formData[key] !== null
+        ) {
+          formDataToSend.append(key, JSON.stringify(formData[key]));
+        } else {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
 
-    const response = await axios.post(
-      `${backend_url}/admin/accommodation`,
-      formDataToSend,
-      {
-        headers: {
-          Authorization: admin.token,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-    toast.success("Accommodation added successfully");
-    setLoading(false)
- 
-    console.log("Accommodation added successfully:", response.data);
-  } catch (error) {
-   setLoading(false)
-    console.log("Error in adding accommodation", error);
-    toast.error("Error in adding accommodation");
-  }
-};
+      const response = await axios.post(
+        `${backend_url}/admin/accommodation`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: admin.token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      toast.success("Accommodation added successfully");
+      setLoading(false);
+
+      console.log("Accommodation added successfully:", response.data);
+    } catch (error) {
+      setLoading(false);
+      console.log("Error in adding accommodation", error);
+      toast.error("Error in adding accommodation");
+    }
+  };
   const handleImageChange = (e) => {
-   const files = Array.from(e.target.files);
-   setFormData((prevState) => ({
-     ...prevState,
-     images: files,
-   }));
-   // console.log("FileSS: ", files)
- };
- useEffect(() => {
-   console.log("Updated FormData: ", formData);
- }, [formData]);
+    const files = Array.from(e.target.files);
+    setFormData((prevState) => ({
+      ...prevState,
+      images: files,
+    }));
+    // console.log("FileSS: ", files)
+  };
+  useEffect(() => {
+    console.log("Updated FormData: ", formData);
+  }, [formData]);
 
   return (
     <div className="add-accomm-main">
@@ -545,50 +540,56 @@ const handleSubmit = async (e) => {
             <h2>Owner's Information: </h2>
             <div className="owners-info-sub">
               <div className="row-form">
+                <BasicTextField
+                  onChange={(e) =>
+                    handleChange(e.target.value, "owner.full_name")
+                  }
+                  name="owner.full_name"
+                  value={formData.owner.full_name}
+                  placeholder="Full Name"
+                />
 
-              <BasicTextField
-                onChange={(e) => handleChange(e.target.value, "owner.full_name")}
-                name = "owner.full_name"
-                value={formData.owner.full_name}               
-                placeholder="Full Name" />
-
-
-              <BasicDatePicker 
-                onChange={(e) => handleChange(e.target.value, "owner.dob")}
-                value={formData.owner.dob}
-                placeholder="Date of Birth" />
+                <BasicDatePicker
+                  onChange={(e) => handleChange(e.target.value, "owner.dob")}
+                  value={formData.owner.dob}
+                  placeholder="Date of Birth"
+                />
 
                 {/* <BasicSelect /> */}
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={formData.owner.gender}
-                    label="Gender"
-                    onChange={(e) => handleChange(e.target.value, "owner.gender")}
+                <Box sx={{ minWidth: 120 }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Gender
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={formData.owner.gender}
+                      label="Gender"
+                      onChange={(e) =>
+                        handleChange(e.target.value, "owner.gender")
+                      }
                     >
-                    <MenuItem value="Male">Male</MenuItem>
-                    <MenuItem value="Female">Female</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                      <MenuItem value="Other">Other</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
               </div>
               <div className="row-form">
-              {formData.owner.contact_numbers.map((number, index) => (
-                <div key={index} className="contact-number-field">
-                  <BasicTextField
-                    onChange={(e) => handleContactNumberChange(index, e.target.value)}
-                    name={`contact_number_${index}`}
-                    value={number}
-                    placeholder={`Contact Number ${index + 1}`}
-                  />
-
-                </div>
-              ))}
+                {formData.owner.contact_numbers.map((number, index) => (
+                  <div key={index} className="contact-number-field">
+                    <BasicTextField
+                      onChange={(e) =>
+                        handleContactNumberChange(index, e.target.value)
+                      }
+                      name={`contact_number_${index}`}
+                      value={number}
+                      placeholder={`Contact Number ${index + 1}`}
+                    />
+                  </div>
+                ))}
 
                 {/* <BasicTextField 
     onChange={(e) => handleChange(e.target.value, "owner.contact_numbers[]")}
@@ -600,78 +601,84 @@ const handleSubmit = async (e) => {
     value={formData.owner.contact_numbers}
                 placeholder="Alternate Phone Number" /> */}
 
-                <BasicTextField 
-    onChange={(e) => handleChange(e.target.value, "owner.email")}
-    // value = {formData.owner.email}
-                placeholder="Email" />
-
+                <BasicTextField
+                  onChange={(e) => handleChange(e.target.value, "owner.email")}
+                  // value = {formData.owner.email}
+                  placeholder="Email"
+                />
               </div>
               {/* adhar card */}
-    <div className="row-form" 
-  style={{ 
-    height: 200, 
-    display: 'flex', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    border: '2px dotted #BABABA',
-    position: 'relative'
-  }}
->
-  <input 
-    type="file" 
-    id="aadhar_card" 
-    name="aadhar_card" 
-    onChange={(e) => handleChange(e.target.files[0], "owner.aadhar_card")} 
-    style={{ 
-      display: "none" 
-    }}
-  />
-  <label 
-    htmlFor="aadhar_card" 
-    style={{ 
-      width: 1000, 
-      color: "grey", 
-      padding: "10px", 
-      textAlign: "center", 
-      cursor: "pointer"
-    }}
-  >
-    Upload Your Aadhar Card here...
-  </label>
-</div>
-{/* pan card */}
-<div className="row-form" 
-  style={{ 
-    height: 200, 
-    display: 'flex', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    border: '2px dotted #BABABA',
-    position: 'relative'
-  }}
->
-  <input 
-    type="file" 
-    id="pan_card" 
-    name="pan_card" 
-    onChange={(e) => handleChange(e.target.files[0], "owner.pan_card")} 
-    style={{ 
-      display: "none" 
-    }}
-  />
-  <label 
-    htmlFor="pan_card" 
-    style={{ 
-      width: 1000, 
-      color: "grey", 
-      padding: "10px", 
-      textAlign: "center", 
-      cursor: "pointer"
-    }}
-  >
-    Upload Your Pan Card here...
-  </label>
-</div>
+              <div
+                className="row-form"
+                style={{
+                  height: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "2px dotted #BABABA",
+                  position: "relative",
+                }}
+              >
+                <input
+                  type="file"
+                  id="aadhar_card"
+                  name="aadhar_card"
+                  onChange={(e) =>
+                    handleChange(e.target.files[0], "owner.aadhar_card")
+                  }
+                  style={{
+                    display: "none",
+                  }}
+                />
+                <label
+                  htmlFor="aadhar_card"
+                  style={{
+                    width: 1000,
+                    color: "grey",
+                    padding: "10px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  Upload Your Aadhar Card here...
+                </label>
+              </div>
+              {/* pan card */}
+              <div
+                className="row-form"
+                style={{
+                  height: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "2px dotted #BABABA",
+                  position: "relative",
+                }}
+              >
+                <input
+                  type="file"
+                  id="pan_card"
+                  name="pan_card"
+                  onChange={(e) =>
+                    handleChange(e.target.files[0], "owner.pan_card")
+                  }
+                  style={{
+                    display: "none",
+                  }}
+                />
+                <label
+                  htmlFor="pan_card"
+                  style={{
+                    width: 1000,
+                    color: "grey",
+                    padding: "10px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  Upload Your Pan Card here...
+                </label>
+              </div>
             </div>
           </div>
           <div className="property-info-main">
@@ -687,71 +694,87 @@ const handleSubmit = async (e) => {
               </div> */}
 
               {/* property images */}
-
-              <div className="row-form width-100-cus"
-                style={{ 
-                 height: 200, 
-                 display: 'flex', 
-                 alignItems: 'center', 
-                 justifyContent: 'center', 
-                 border: '2px dotted #BABABA',
-                 position: 'relative'
-               }}
+              <div className="row-form" 
+                style={{
+                  height: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "2px dotted #BABABA",
+                  position: "relative",
+                }}
               >
-                <input type="file" id="files" name="files" multiple onChange={handleImageChange} 
+                <input
+                  type="file"
+                  id="files"
+                  name="files"
+                  multiple={true}
+                  onChange={handleImageChange}
                 style = {{
-                display : "none"
+                 display : "none",
+                 // backgroundColor : "red"
                 }}
                 />
-                <label 
-    htmlFor="pan_card" 
-    style={{ 
-      width: 1000, 
-      color: "grey", 
-      padding: "10px", 
-      textAlign: "center", 
-      cursor: "pointer"
-    }}
-  >
-    Upload Your Property Images here...
-  </label>
+                <label
+                  htmlFor="files"
+                  style={{
+                    width: 1000,
+                    color: "grey",
+                    padding: "10px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  Upload Your Property Images here...
+                </label>
               </div>
               <div className="row-form">
-                <BasicTextField 
-                    onChange={(e) => handleChange(e.target.value, "name")}
-                    value={formData.name}
-                    name="name" // Set the name attribute here
-                    placeholder="Name of the Property" 
+                <BasicTextField
+                  onChange={(e) => handleChange(e.target.value, "name")}
+                  value={formData.name}
+                  name="name" // Set the name attribute here
+                  placeholder="Name of the Property"
                 />
-                  <BasicTextField
-                    onChange={(e) => handleChange(e.target.value, "direction")}
-                    value={formData.direction}
-                  placeholder="Direction URL" />
+                <BasicTextField
+                  onChange={(e) => handleChange(e.target.value, "direction")}
+                  value={formData.direction}
+                  placeholder="Direction URL"
+                />
               </div>
               <div className="row-form">
-                <BasicTextField 
+                <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "address.area")}
                   value={formData.address.area}
-                placeholder="Area" />
-                <BasicTextField 
-            onChange={(e) => handleChange(e.target.value, "address.city")}
-                value={formData.address.city}
-                placeholder="City" />
-                <BasicTextField 
-              onChange={(e) => handleChange(e.target.value, "address.state")}
-                value={formData.address.state}
-                placeholder="State" />
+                  placeholder="Area"
+                />
+                <BasicTextField
+                  onChange={(e) => handleChange(e.target.value, "address.city")}
+                  value={formData.address.city}
+                  placeholder="City"
+                />
+                <BasicTextField
+                  onChange={(e) =>
+                    handleChange(e.target.value, "address.state")
+                  }
+                  value={formData.address.state}
+                  placeholder="State"
+                />
               </div>
               <div className="row-form">
-                <BasicTextField 
-                onChange={(e) => handleChange(e.target.value , "address.pin_code")}
-                value={formData.address.pin_code}
-                placeholder="Pincode" />
+                <BasicTextField
+                  onChange={(e) =>
+                    handleChange(e.target.value, "address.pin_code")
+                  }
+                  value={formData.address.pin_code}
+                  placeholder="Pincode"
+                />
 
-               <RecommendedForRadioButtons
-                 value={formData.recommended_for} 
-                 onChange={(e) => handleChange(e.target.value, "recommended_for")}
-               />
+                <RecommendedForRadioButtons
+                  value={formData.recommended_for}
+                  onChange={(e) =>
+                    handleChange(e.target.value, "recommended_for")
+                  }
+                />
               </div>
             </div>
           </div>
@@ -863,98 +886,133 @@ const handleSubmit = async (e) => {
             <h2>Rooms Offered:</h2>
             <div className="rooms-offered-sub">
               {rooms.map((room, index) => (
-                  <div className="rooms-children" key={index}>
-                      <h4>Room {index + 1}</h4>
-                      <div className="rooms-fields">
-                          <div className="room-field type-select">
-                          <FormControl fullWidth>
-                           <InputLabel id={`sharing-type-label-${index}`}>Sharing type</InputLabel>
-                           <Select
-                             labelId={`sharing-type-label-${index}`}
-                             id={`sharing-type-select-${index}`}
-                             value={room.sharing_type}
-                             label="Select sharing type"
-                             onChange={(e) => handleChangeRoom(index, 'sharing_type', e.target.value)}
-                           >
-                             <MenuItem value="Single">Single</MenuItem>
-                             <MenuItem value="Double">Double</MenuItem>
-                             <MenuItem value="Triple">Triple</MenuItem>
-                           </Select>
-                         </FormControl>
-
+                <div className="rooms-children" key={index}>
+                  <h4>Room {index + 1}</h4>
+                  <div className="rooms-fields">
+                    <div className="room-field type-select">
+                      <FormControl fullWidth>
+                        <InputLabel id={`sharing-type-label-${index}`}>
+                          Sharing type
+                        </InputLabel>
+                        <Select
+                          labelId={`sharing-type-label-${index}`}
+                          id={`sharing-type-select-${index}`}
+                          value={room.sharing_type}
+                          label="Select sharing type"
+                          onChange={(e) =>
+                            handleChangeRoom(
+                              index,
+                              "sharing_type",
+                              e.target.value
+                            )
+                          }
+                        >
+                          <MenuItem value="Single">Single</MenuItem>
+                          <MenuItem value="Double">Double</MenuItem>
+                          <MenuItem value="Triple">Triple</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="room-field available-select">
+                      {/* Availability */}
+                      <RoomAvailableSelect
+                        onChange={(e) =>
+                          handleChangeRoom(index, "available", e.target.value)
+                        }
+                        value={room.available}
+                      />
+                    </div>
+                    <div className="room-field deposit-amount">
+                      {/* Deposit Amount */}
+                      <BasicTextField
+                        onChange={(e) =>
+                          handleChangeRoom(
+                            index,
+                            "deposit_amount",
+                            e.target.value
+                          )
+                        }
+                        value={room.deposit_amount}
+                        placeholder="Deposit Amount (INR)"
+                      />
+                    </div>
+                    <div className="room-field monthly-charge">
+                      {/* Monthly Charges */}
+                      <BasicTextField
+                        onChange={(e) =>
+                          handleChangeRoom(
+                            index,
+                            "monthly_charge",
+                            e.target.value
+                          )
+                        }
+                        value={room.monthly_charge}
+                        placeholder="Monthly Charges (INR)"
+                      />
+                    </div>
+                    <div className="room-field notice-period">
+                      {/* Notice Period */}
+                      <BasicTextField
+                        onChange={(e) =>
+                          handleChangeRoom(
+                            index,
+                            "notice_period",
+                            e.target.value
+                          )
+                        }
+                        value={room.notice_period}
+                        placeholder="Notice Period (in days)"
+                      />
+                    </div>
+                    <div className="room-details-main">
+                      <p className="room-details-para">Room Amenities: </p>
+                      <div className="room-details-sub">
+                        {/* Room Details */}
+                        {room.details.map((detail, detailIndex) => (
+                          <div className="room-details-child" key={detailIndex}>
+                            <input
+                              type="text"
+                              value={detail}
+                              onChange={(e) =>
+                                handleChangeRoomDetail(
+                                  index,
+                                  detailIndex,
+                                  e.target.value
+                                )
+                              }
+                            />
+                            {detailIndex > 0 && (
+                              <button
+                                className="delete-room-btn-detail"
+                                type="button"
+                                onClick={() =>
+                                  removeRoomDetail(index, detailIndex)
+                                }
+                              >
+                                <MdDeleteOutline />
+                              </button>
+                            )}
                           </div>
-                          <div className="room-field available-select">
-                              {/* Availability */}
-                              <RoomAvailableSelect 
-                                  onChange={(e) => handleChangeRoom(index, 'available', e.target.value)}
-                                  value={room.available}
-                              />
-                          </div>
-                          <div className="room-field deposit-amount">
-                              {/* Deposit Amount */}
-                              <BasicTextField 
-                                  onChange={(e) => handleChangeRoom(index, 'deposit_amount', e.target.value)}
-                                  value={room.deposit_amount}
-                                  placeholder="Deposit Amount (INR)" 
-                              />
-                          </div>
-                          <div className="room-field monthly-charge">
-                              {/* Monthly Charges */}
-                              <BasicTextField 
-                                  onChange={(e) => handleChangeRoom(index, 'montly_charge', e.target.value)}
-                                  value={room.montly_charge}
-                                  placeholder="Monthly Charges (INR)" 
-                              />
-                          </div>
-                          <div className="room-field notice-period">
-                              {/* Notice Period */}
-                              <BasicTextField 
-                                  onChange={(e) => handleChangeRoom(index, 'notice_period', e.target.value)}
-                                  value={room.notice_period}
-                                  placeholder="Notice Period (in days)" 
-                              />
-                          </div>
-                          <div className="room-details-main">
-                              <p className="room-details-para">Room Amenities: </p>
-                              <div className="room-details-sub">
-                                  {/* Room Details */}
-                                  {room.details.map((detail, detailIndex) => (
-                                      <div className="room-details-child" key={detailIndex}>
-                                          <input
-                                              type="text"
-                                              value={detail}
-                                              onChange={(e) => handleChangeRoomDetail(index, detailIndex, e.target.value)}
-                                          />
-                                          {detailIndex > 0 && (
-                                              <button
-                                                  className="delete-room-btn-detail"
-                                                  type="button"
-                                                  onClick={() => removeRoomDetail(index, detailIndex)}
-                                              >
-                                                  <MdDeleteOutline />
-                                              </button>
-                                          )}
-                                      </div>
-                                  ))}
-                                  <button
-                                      className="add-room-detail-btn"
-                                      type="button"
-                                      onClick={() => addRoomDetail(index)}
-                                  >
-                                      Add Room Amenity
-                                  </button>
-                              </div>
-                          </div>
-                          {/* Add other input fields for room details similarly */}
-                      </div>
-                      <button
-                          className="delete-room-btn"
+                        ))}
+                        <button
+                          className="add-room-detail-btn"
                           type="button"
-                          onClick={() => removeRoom(index)}
-                      >
-                          <MdDeleteOutline /> <p>Delete Room</p>
-                      </button>
+                          onClick={() => addRoomDetail(index)}
+                        >
+                          Add Room Amenity
+                        </button>
+                      </div>
+                    </div>
+                    {/* Add other input fields for room details similarly */}
                   </div>
+                  <button
+                    className="delete-room-btn"
+                    type="button"
+                    onClick={() => removeRoom(index)}
+                  >
+                    <MdDeleteOutline /> <p>Delete Room</p>
+                  </button>
+                </div>
               ))}
 
               <button className="add-room-btn" type="button" onClick={addRoom}>
@@ -1006,7 +1064,9 @@ const handleSubmit = async (e) => {
                       <input
                         type="text"
                         value={hr}
-                        onChange={(e) => handleHouseRulesChange(index ,e.target.value)}
+                        onChange={(e) =>
+                          handleHouseRulesChange(index, e.target.value)
+                        }
                       />
                       {index >= 0 && (
                         <button
@@ -1030,27 +1090,32 @@ const handleSubmit = async (e) => {
               </div>
 
               <div className="gate-timings">
-                <BasicTimePicker 
-               value = {formData.gate_opening_time}
-               onChange={(e) => handleChange(e.target.value,"gate_opening_time")}
-                placeholder="Gate OpeningTime" />
-                <BasicTimePicker 
-                value = {formData.gate_closing_time}
-                onChange={(e) => handleChange(e.target.value,"gate_closing_time")}
-                placeholder="Gate Closing Time" />
+                <BasicTimePicker
+                  value={formData.gate_opening_time}
+                  onChange={(e) =>
+                    handleChange(e.target.value, "gate_opening_time")
+                  }
+                  placeholder="Gate OpeningTime"
+                />
+                <BasicTimePicker
+                  value={formData.gate_closing_time}
+                  onChange={(e) =>
+                    handleChange(e.target.value, "gate_closing_time")
+                  }
+                  placeholder="Gate Closing Time"
+                />
               </div>
             </div>
           </div>
         </form>
         <div className="btn">
-          <button onClick={handleSubmit}
-          >
-
-           {loading ? <Spinner /> : "Submit"}
+          <button onClick={handleSubmit}>
+            {loading ? <Spinner /> : "Submit"}
           </button>
           <Link to="/accommodation">
-        <button>Cancel</button>
-      </Link></div>
+            <button>Cancel</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
