@@ -5,11 +5,24 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 const { backend_url } = config;
 
 const InstitutesDetails = () => {
   const [institute, setInstitute] = useState([]);
   const { admin } = useContext(AdminContext);
+  const [filterParams, setFilterParams] = useState({
+    search: ""
+  })
 
   const getInstitute = async () => {
     try {
@@ -17,6 +30,7 @@ const InstitutesDetails = () => {
         headers: {
           Authorization: admin.token,
         },
+        params: {...filterParams}
       });
       console.log(data);
       setInstitute(data);
@@ -29,6 +43,20 @@ const InstitutesDetails = () => {
     getInstitute();
   }, []);
 
+  const handleFilterChange = async(e) =>{
+    const {name, value} = e.target;
+    setFilterParams((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+    await getInstitute();
+  };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter"){
+      getInstitute();
+    }
+  }
+
   const generateAvatar = (institute) => {
     if (!institute.name) return "";
     const nameParts = institute.name.split("");
@@ -37,6 +65,22 @@ const InstitutesDetails = () => {
   };
   return (
     <div className="Institutes-container">
+        <div className="filters">
+          <TextField
+            label="Search"
+            sx={{ 
+              height: "50px",
+              width: "97%"
+             }}
+            variant="outlined"
+            type="text"
+            name="search"
+            value={filterParams.search}
+            placeholder="Search by all fields"
+            onChange={handleFilterChange}
+            onKeyDown={handleKeyPress}
+          />
+      </div>
       <div className="heading sticky">
         <div className="row">
           <div className="col">
@@ -54,6 +98,10 @@ const InstitutesDetails = () => {
 
           <div className="col">
             <h4>PROFILE LINK</h4>
+          </div>
+
+          <div className="col">
+            <h4>LEADS</h4>
           </div>
         </div>
       </div>
@@ -91,6 +139,13 @@ const InstitutesDetails = () => {
                     to={`/entrance-preparation/institute-directory/${Institute._id}`}
                   >
                     <p>View Profile</p>
+                  </Link>
+                </div>
+                <div className="col">
+                  <Link
+                    to={`/entrance-preparation/institute-directory/${Institute._id}`}
+                  >
+                    <p>View Leads</p>
                   </Link>
                 </div>
               </div>
