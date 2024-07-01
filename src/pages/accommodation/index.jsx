@@ -1,5 +1,5 @@
 import "./style.scss";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { FaStar } from "react-icons/fa";
 import { AccommodationContext } from "../../context/AccommodationContext";
 import { Link, useParams } from "react-router-dom";
@@ -71,6 +71,34 @@ const Accommodation = () => {
   useEffect(() => {
     getAccommodations();
   }, []);
+
+  const getLowestPrice = useCallback((index) => {
+    const allPrices = [];
+    console.log("Reached", accommodations[index].rooms);
+
+    if (accommodations[index] && accommodations[index].rooms) {
+      const accRooms = accommodations[index].rooms;
+      accRooms.forEach((accRoom) => {
+        if (accRoom.monthly_charge) {
+          console.log("Monthly Charge: ", accRoom.monthly_charge);
+          allPrices.push(accRoom.monthly_charge);
+        }
+      });
+      console.log("All Prices", allPrices);
+    } else {
+      console.log('Rooms not found in the selected accommodation.');
+    }
+
+    const lowestPrice = allPrices.length > 0 ? Math.min(...allPrices) : null;
+    console.log("LOWEEEEST", lowestPrice);
+    return lowestPrice;
+  }, [accommodations]);
+
+  useEffect(() => {
+    if (accommodations.length > 0) {
+      getLowestPrice(0);
+    }
+  }, [accommodations, getLowestPrice]);
  
   return (
     <div className="accommodation-main">
@@ -113,7 +141,7 @@ const Accommodation = () => {
                 <p>Starting from</p>
                 <p>
                   {" "}
-                  <span>{accommodation.lowest_price} INR</span>/Month
+                  <span>{getLowestPrice(i)} INR</span>/Month
                 </p>
               </div>
               <div className="accomm-child-2-r">
