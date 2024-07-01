@@ -100,6 +100,13 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
     courses_focused: [],
     rating: "5",
     total_session_attended: "50",
+    phone_no : "",
+    location: {
+     pin_code: "",
+     city: "",
+     state: "",
+     country: ""
+   }
   });
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
@@ -287,7 +294,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
                     <input
-                      type="text"
+                      type="text" 
                       value={profile.name}
                       onChange={(e) =>
                         handleInput("name", e.target.value, setProfile)
@@ -493,31 +500,9 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
           </div>
         </div>
         {/* bug resolve */}
+        {/* educational info */}
         <div className="left-profile-bottom">
           <div className="info">
-            <div className="row">
-              <div className="col">
-                <div className="info-field">
-                  <p>Contact Info</p>
-                </div>
-
-                <div className="info-value">
-                  {editCounsellorProfileEnable ? (
-                    <>
-                      <input
-                        type="text"
-                        value={profile.phone_no}
-                        onChange={(e) =>
-                          handleInput("phone_no", e.target.value, setProfile)
-                        }
-                      />
-                    </>
-                  ) : (
-                    <p>{profile.phone_no}</p>
-                  )}
-                </div>
-              </div>
-            </div>
             {/* Education info */}
             <div className="row">
               <div className="col">
@@ -562,6 +547,126 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
                     </>
                   ) : (
                     <p>{profile.designation}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* contact info */}
+        <div className="left-profile-bottom">
+         
+          <div className="info">
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                 {/* contact info */}
+                  <p>Contact Info</p>
+                </div>
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <>
+                      <input
+                        type="text"
+                        value={profile.phone_no}
+                        onChange={(e) =>
+                          handleInput("phone_no", e.target.value, setProfile)
+                        }
+                      />
+                    </>
+                  ) : (
+                    <p>{profile.phone_no}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+            <div className="info">
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                 {/* contact info */}
+                  <p>Location</p>
+                </div>
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <>
+                      <input
+                        type="text"
+                        value={profile.location.pin_code}
+                        onChange={(e) =>
+                          handleInput("pin_code", e.target.value, setProfile)
+                        }
+                      />
+                    </>
+                  ) : (
+                    <p>{profile.location.pin_code}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* city */}
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                </div>
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <>
+                      <input
+                        type="text"
+                        value={profile.location.city}
+                        onChange={(e) =>
+                          handleInput("city", e.target.value, setProfile)
+                        }
+                      />
+                    </>
+                  ) : (
+                    <p>{profile.location.city}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* state */}
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                </div>
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <>
+                      <input
+                        type="text"
+                        value={profile.location.state}
+                        onChange={(e) =>
+                          handleInput("state", e.target.value, setProfile)
+                        }
+                      />
+                    </>
+                  ) : (
+                    <p>{profile.location.state}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* country */}
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                </div>
+                <div className="info-value">
+                  {editCounsellorProfileEnable ? (
+                    <>
+                      <input
+                        type="text"
+                        value={profile.location.country}
+                        onChange={(e) =>
+                          handleInput("country", e.target.value, setProfile)
+                        }
+                      />
+                    </>
+                  ) : (
+                    <p>{profile.location.country}</p>
                   )}
                 </div>
               </div>
