@@ -125,7 +125,7 @@ const Accommodation = () => {
               <div className="accomm-child-1-l">
                 <h4>{accommodation.name}</h4>
                 <p>
-                  {accommodation.address.area}
+                  {accommodation.address.area}, 
                   {accommodation.address.city} , {accommodation.address.state}
                 </p>
               </div>
