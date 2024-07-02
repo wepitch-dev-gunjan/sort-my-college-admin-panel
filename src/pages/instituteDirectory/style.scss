@@ -5,12 +5,25 @@
   .filters {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     padding: 20px;
     border-bottom: 1px solid black;
     margin-bottom: "10px";
     gap: 20px;
 
-
+    a{
+      padding: 1.1em;
+      border: 1px solid #1F0A68;
+      font-size: 0.9em;
+      background-color: #1F0A68;
+      color: #ffffff;
+      border-radius: 5px;
+    }
+    a:hover{
+      background-color: #ffffff;
+      transition: all 0.3s ease;
+      color: #1F0A68;
+    }
   }
   .btn_main {
     display: flex;

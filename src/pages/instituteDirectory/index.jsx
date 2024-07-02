@@ -70,7 +70,7 @@ const InstitutesDetails = () => {
             label="Search"
             sx={{ 
               height: "50px",
-              width: "97%"
+              width: "70%"
              }}
             variant="outlined"
             type="text"
@@ -80,6 +80,7 @@ const InstitutesDetails = () => {
             onChange={handleFilterChange}
             onKeyDown={handleKeyPress}
           />
+        <Link to="/entrance-preparation/institute-directory/institute-leads">View All Leads</Link>
       </div>
       <div className="heading sticky">
         <div className="row">

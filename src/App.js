@@ -50,6 +50,7 @@ import AddAnnouncementPopup from "./components/addAnnouncementPopup";
 import { CounsellorContext } from "./context/CounsellorContext";
 import AddEpProfilePic from "./components/epProfilePicEdit";
 import AddCounsellorProfilePic from "./components/counsellorEditProfilePic";
+import InstituteLeads from "./pages/instituteLeads";
 
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
@@ -194,6 +195,8 @@ function App() {
                   path="/entrance-preparation/institute-directory/:institute_id"
                   element={<InstituteProfile />}
                 />
+                <Route path="/entrance-preparation/institute-directory/institute-leads" element={<InstituteLeads />} />
+
                 <Route path="/accommodation" element={<Accommodation />} />
                 <Route
                   path="accommodation/add"
