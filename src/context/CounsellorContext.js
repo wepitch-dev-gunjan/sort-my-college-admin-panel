@@ -29,7 +29,7 @@ export const CounsellorProvider = ({ children }) => {
   };
   useEffect(() => {
     getOutStandingBalance();
-  }, [counsellor_id]);
+  }, [counsellor_id, outStandingBalance]);
 
   return (
     <CounsellorContext.Provider
