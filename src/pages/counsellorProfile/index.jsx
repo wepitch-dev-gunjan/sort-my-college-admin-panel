@@ -79,7 +79,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
       //   }
       // );
       // console.log(data);
-      setOutStandingBalance(0);
+      // setOutStandingBalance(0);
     } catch (error) {
       console.log(error);
       toast.success(error.message);

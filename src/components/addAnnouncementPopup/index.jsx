@@ -30,8 +30,7 @@ const AddAnnouncementPopup = () => {
 
   const counsellor_id = extractCounsellorIdFromUrl();
   console.log(counsellor_id); // Ensure this logs the correct ID
-  const { outStandingBalance, setOutStandingBalance } =
-    useContext(CounsellorContext);
+  const { setOutStandingBalance } = useContext(CounsellorContext);
 
   const handleClearOutstandingBalance = async () => {
     try {
