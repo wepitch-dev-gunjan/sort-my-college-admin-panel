@@ -48,6 +48,7 @@ const Counsellor = () => {
         }
       );
       setCounsellors(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
       // Handle error
