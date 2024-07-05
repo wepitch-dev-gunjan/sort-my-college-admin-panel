@@ -11,12 +11,18 @@ export const CounsellorContext = createContext();
 export const CounsellorProvider = ({ children }) => {
   const [counsellors, setCounsellors] = useState([]);
   const [outstandingBalancePopUp, setOutstandingBalancePopUp] = useState(false);
-  const [outStandingBalance, setOutStandingBalance] = useState("");
-  const { counsellor_id } = useParams();
+  const [outStandingBalance, setOutStandingBalance] = useState();
 
+  const extractCounsellorIdFromUrl = () => {
+    const urlSegments = window.location.pathname.split("/");
+    const counsellorIndex = urlSegments.length - 1;
+    return counsellorIndex !== -1 ? urlSegments[counsellorIndex] : null;
+  };
+
+  const counsellor_id = extractCounsellorIdFromUrl();
   const getOutStandingBalance = async () => {
     try {
-      console.log(counsellor_id, "asdasdasdasd");
+      console.log("call", counsellor_id);
       const { data } = await axios.get(
         `${backend_url}/admin/payments/${counsellor_id}/outstanding-balance`
       );

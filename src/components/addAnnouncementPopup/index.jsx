@@ -35,9 +35,8 @@ const AddAnnouncementPopup = () => {
   const handleClearOutstandingBalance = async () => {
     try {
       console.log(counsellor_id, "dfsdsdf");
-      setOutstandingBalancePopUp((prev) => !prev);
       const { data } = await axios.put(
-        `${backend_url}/counsellor/${counsellor_id}/clear-outstanding-balance`,
+        `${backend_url}/admin/payments/${counsellor_id}/outstanding-balance`,
         null,
         {
           headers: {
@@ -45,8 +44,10 @@ const AddAnnouncementPopup = () => {
           },
         }
       );
+      setOutStandingBalance(0);
+
+      setOutstandingBalancePopUp((prev) => !prev);
       console.log(data);
-      setOutStandingBalance("");
     } catch (error) {
       console.log(error);
       toast.success(error.message);

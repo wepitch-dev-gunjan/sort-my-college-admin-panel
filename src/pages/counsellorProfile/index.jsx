@@ -100,13 +100,13 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
     courses_focused: [],
     rating: "5",
     total_session_attended: "50",
-    phone_no : "",
+    phone_no: "",
     location: {
-     pin_code: "",
-     city: "",
-     state: "",
-     country: ""
-   }
+      pin_code: "",
+      city: "",
+      state: "",
+      country: "",
+    },
   });
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
@@ -294,7 +294,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
                     <input
-                      type="text" 
+                      type="text"
                       value={profile.name}
                       onChange={(e) =>
                         handleInput("name", e.target.value, setProfile)
@@ -555,12 +555,11 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
         </div>
         {/* contact info */}
         <div className="left-profile-bottom">
-         
           <div className="info">
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                 {/* contact info */}
+                  {/* contact info */}
                   <p>Contact Info</p>
                 </div>
                 <div className="info-value">
@@ -581,11 +580,11 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
               </div>
             </div>
           </div>
-            <div className="info">
+          <div className="info">
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                 {/* contact info */}
+                  {/* contact info */}
                   <p>Location</p>
                 </div>
                 <div className="info-value">
@@ -608,8 +607,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
             {/* city */}
             <div className="row">
               <div className="col">
-                <div className="info-field">
-                </div>
+                <div className="info-field"></div>
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
                     <>
@@ -630,8 +628,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
             {/* state */}
             <div className="row">
               <div className="col">
-                <div className="info-field">
-                </div>
+                <div className="info-field"></div>
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
                     <>
@@ -652,8 +649,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
             {/* country */}
             <div className="row">
               <div className="col">
-                <div className="info-field">
-                </div>
+                <div className="info-field"></div>
                 <div className="info-value">
                   {editCounsellorProfileEnable ? (
                     <>
