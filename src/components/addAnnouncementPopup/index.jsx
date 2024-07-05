@@ -46,7 +46,7 @@ const AddAnnouncementPopup = () => {
         }
       );
       console.log(data);
-      setOutStandingBalance(0);
+      setOutStandingBalance("");
     } catch (error) {
       console.log(error);
       toast.success(error.message);
