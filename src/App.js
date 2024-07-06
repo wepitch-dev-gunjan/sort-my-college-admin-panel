@@ -51,6 +51,7 @@ import { CounsellorContext } from "./context/CounsellorContext";
 import AddEpProfilePic from "./components/epProfilePicEdit";
 import AddCounsellorProfilePic from "./components/counsellorEditProfilePic";
 import InstituteLeads from "./pages/instituteLeads";
+import EditAccommodation from "./pages/editAccommodation";
 
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
@@ -206,10 +207,15 @@ function App() {
                   path="/accommodation/details/:accomodation_id"
                   element={<AccommodationDetails />}
                 />
+                 <Route
+                  path="/accommodation/edit/:accomodation_id"
+                  element={<EditAccommodation />}
+                />
                 <Route
                   path="/accommodationDetails"
                   element={<ViewAccoummDetails />}
                 />
+                 
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
               </>

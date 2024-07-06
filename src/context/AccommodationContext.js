@@ -5,6 +5,7 @@ export const AccommodationContext = createContext();
 export const AccommodationProvider = ({ children }) => {
   const [addAccommodationEnable, setAddAccommodationEnable] = useState(false);
   const [showPropertyGallery, setShowPropertyGallery] = useState(false);
+  const [editAccommodation ,setEditAccommodation] = useState(false)
 
   return (
     <AccommodationContext.Provider
@@ -13,6 +14,8 @@ export const AccommodationProvider = ({ children }) => {
         setAddAccommodationEnable,
         showPropertyGallery, 
         setShowPropertyGallery,
+        editAccommodation ,
+        setEditAccommodation
       }}
     >
       {children}

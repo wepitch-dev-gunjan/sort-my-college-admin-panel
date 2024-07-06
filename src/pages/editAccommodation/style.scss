@@ -1,0 +1,411 @@
+.add-accomm-main{
+ width: 100%;
+ height: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+
+ h2{
+     color: #7c7c7c;
+     font-weight: 500;
+     font-size: 1.1em;
+ }
+ 
+ .add-accomm-sub{
+     width: 100%;
+     height: 100%;
+     background-color: #F7F4FF;
+     border-radius: 5px;
+     padding: 1em;
+     overflow: hidden;
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+     display: flex;
+     flex-direction: column;
+     gap: 1em;
+
+     .add-accomm-form{
+         display: flex;
+         flex-direction: column;
+         gap: 5em;
+         justify-content: flex-start;
+         align-items: flex-start;
+         width: 100%;
+         height: 80%;
+         // border: 1px dashed #a2a2a256;
+         border-radius: 5px;
+         overflow-y: scroll;
+         padding: 1em 1em 1em 1em;
+
+         // input styling 
+         input{
+             background-color: #ffffff;
+             border-radius: 5px;
+         }
+         .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root{
+             border-radius: 5px;
+         }
+         .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input
+         {
+             background: #ffffff;
+             border-radius: 5px;
+         }
+         .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+             border-radius: 5px;
+         }
+         .css-4jnixx-MuiStack-root>.MuiTextField-root{
+             background: #ffffff;
+         }
+         .rs-uploader-trigger-btn{
+             background-color: #ffffff;
+         }
+         .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
+             border-radius: 5px;
+         }
+         // input styling 
+
+         // MUI Components Styling (Custom)
+         .css-4jnixx-MuiStack-root{
+             padding-top: 0;
+         }
+         // MUI Components Styling ends here
+         .nearby-main{
+             background-color: #ffffff;
+             border-radius: 16px;
+             padding: 1.5em 1em 1.5em 1em;
+             box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+         }
+         .owners-info-main,
+         .property-info-main,
+         .nearby-locations-main,
+         .rooms-offered-main,
+         .additional-info-main{
+             width: 100%;
+             display: flex;
+             // padding: 0 1em 0 1em;
+             flex-direction: column;
+             gap: 1em;
+
+             .nearby-locations-sub{
+                 display: flex;
+                 flex-direction: column;
+                 gap: 0.3em;
+             }
+             .owners-info-sub,
+             .property-info-sub,
+             .nearby-locations-sub,
+             .rooms-offered-sub,
+             .additional-info-sub{
+                 width: 100%;
+                 height: fit-content;
+                 // border: 1px dashed #a2a2a256;
+                 border-radius: 16px;
+                 
+             }
+             .additional-info-sub{
+                 background-color: #ffffff;
+                 border-radius: 16px;
+                 padding: 1.5em 1em 1.5em 1em;
+                 box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+             }
+         }
+         .owners-info-sub,
+         .property-info-sub
+         {
+             display: flex;
+             flex-direction: column;
+             gap: 1em;
+             background-color: #ffffff;
+             border-radius: 2px;
+             padding: 1.5em;
+             box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+             .row-form{
+                 display: flex;
+                 width: 100%;
+                 gap: 1em;
+             }
+         }
+         .nearby-main{
+             display: flex;
+             width: 100%;
+             justify-content: space-between;
+             
+             .nearby-locations-main{
+                 width: 32%;
+             }
+
+             h4{
+                 font-size: 1em;
+                 font-weight: 100;
+                 color: #777777f6;
+             }
+
+             .nearby-colleges,
+             .nearby-ms,
+             .nearby-hosp{
+                 display: flex;
+                 flex-wrap: wrap;
+                 width: 100%;
+                 // flex-direction: column;
+                 gap: 0.5em;
+                 padding-bottom: 0.5em;
+
+                 .nearby-colleges-child,
+                 .nearby-ms-child,
+                 .nearby-hosp-child{
+                     display: flex;
+                     gap: 0.5em;
+
+                     input{
+                         border: 1px solid #66666679;
+                         // border-radius: 2px;
+                         padding: 0.1em 0.3em 0.1em 0.3em;
+                         min-width: 140px;
+                     }
+                 }
+
+
+                 .remove-nearby-college-button,
+                 .remove-nearby-ms-button,
+                 .remove-nearby-hosp-button{
+                     background: none;
+                     color: red;
+                     border: none;
+                     cursor: pointer;
+                 }
+             }
+             .add-nearby-college-button,
+             .add-nearby-ms-button,
+             .add-nearby-hosp-button{
+                 width: fit-content;
+                 border: 2px solid #1F0A68;
+                 padding: 0.3em 0.8em 0.3em 0.8em;
+                 background-color: #1F0A68;
+                 color: #ffffff;
+                 border-radius: 4px;
+                 cursor: pointer;
+                 font-size: 0.8em;
+             }
+             .add-nearby-college-button:hover,
+             .add-nearby-ms-button:hover,
+             .add-nearby-hosp-button:hover
+             {
+                 color: #1F0A68;
+                 background: none;
+                 transition: all 0.3s ease;
+             }
+         }
+         .additional-info-sub{
+             display: flex;
+             flex-direction: column;
+             gap: 2em;
+             .common-area-amen-main{
+                 display: flex;
+                 flex-direction: column;
+                 gap: 1em;
+                 h4{
+                     font-size: 0.9em;
+                     font-weight: 100;
+                 }
+ 
+                 .common-area-amen-sub{
+                     display: flex;
+                     flex-wrap: wrap;
+                     gap: 1em;
+ 
+                     .ca-children{
+                         display: flex;
+                         gap: 0.5em;
+                     }
+                 }
+ 
+                 .add-common-area-amen-button{
+                     width: fit-content;
+                     border: 2px solid #1F0A68;
+                     padding: 0.2em 0.5em 0.2em 0.5em;
+                     background-color: #1F0A68;
+                     color: #ffffff;
+                     border-radius: 2px;
+                     cursor: pointer;
+                     font-size: 0.8em;
+                     cursor: pointer;
+                 }
+                 .add-common-area-amen-button:hover{
+                     color: #1F0A68;
+                     background: none;
+                     transition: all 0.3s ease;
+                 }
+                 .ca-delete-button{
+                     background: none;
+                     color: red;
+                     border: none;
+                     cursor: pointer;
+                 }
+ 
+                 input{
+                     min-width: 230px;
+                     border: 1px solid #81818173;
+                     padding: 0.3em 0.7em 0.3em 0.7em;
+ 
+                 }
+             }
+             .hr-children{
+                 display: flex;
+                 gap: 0.5em;
+
+                 input{
+                     min-width: 260px;
+                     border: 1px solid #818181a8;
+                     padding: 0.3em 0.7em 0.3em 0.7em;
+                 }
+             }
+             .gate-timings{
+                 display: flex;
+                 gap: 1.5em;
+             }
+         }
+         .rooms-offered-main{
+             width: 100%;
+
+             .add-room-btn{
+                 width: fit-content;
+                 padding: 0.8em 1.5em 0.8em 1.5em;
+                 border: 2px solid #1F0A68;
+                 color: #ffffff;
+                 border-radius: 3px;
+                 background-color: #1F0A68;
+                 cursor: pointer;
+             }
+             .add-room-btn:hover{
+                 background-color: #ffffff;
+                 color: #1F0A68;
+                 transition: all 0.3s ease;
+             }
+
+             .delete-room-btn{
+                 background: none;
+                 border: none;
+                 cursor: pointer;
+                 position: absolute;
+                 top: 2em;
+                 right: 2em;
+                 color: red;
+                 display: flex;
+                 gap: 0.3em;
+                 justify-content: center;
+                 align-items: center;
+                 border: 1px solid red;
+                 padding: 0.5em 1em 0.5em 1em;
+                 border-radius: 2px;
+             }
+             .delete-room-btn:hover{
+                 background-color: red;
+                 color: #ffffff;
+                 transition: all 0.3s ease;
+             }
+             
+             .rooms-offered-sub{
+                 width: 100%;
+                 display: flex;
+                 flex-direction: column;
+                 gap: 1em;
+
+                 .rooms-children{
+                     background-color: #ffffff;
+                     border-radius: 16px;
+                     padding: 1.5em 1em 1.5em 1em;
+                     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                     position: relative;
+                     .rooms-fields{
+                         display: flex;
+                         flex-wrap: wrap;
+                         gap: 1.5em;
+                         padding: 1em 0em 1em 0em;
+                         .type-select{
+                             width: 30%;
+                         }
+                         .available-select{
+                             width: 20%;
+                         }
+                         .deposit-amount{
+                             width: 30%;
+                         }
+                         .monthly-charge{
+                             width: 20%;
+                         }
+                         .notice-period{
+                             width: 20%;
+                         }
+                         .room-details-main{
+                             width: 100%;
+                             display: flex;
+                             flex-direction: column;
+                             gap: 1.5em;
+
+                             .add-room-detail-btn{
+                                 width: fit-content;
+                                 background-color: #1F0A68;
+                                 color: #ffffff;
+                                 border: 2px solid #1F0A68;
+                                 border-radius: 2px;
+                                 cursor: pointer;
+                                 padding: 0.5em 0.7em 0.5em 0.7em;
+                             }
+                             .add-room-detail-btn:hover{
+                                 background-color: #ffffff;
+                                 color: #1F0A68;
+                                 transition: all 0.3s ease;
+                             }
+
+                             .room-details-sub{
+                                 display: flex;
+                                 flex-wrap: wrap;
+                                 gap: 1.5em;
+
+                                 .room-details-para{
+                                     width: 200px;
+                                 }
+                                 .room-details-child{
+                                     width: 200px;
+                                     display: flex;
+                                     gap: 0.5em;
+                                     input{
+                                         width: 100%;
+                                         padding: 0.5em 0.5em 0.5em 0.5em;
+                                         border: 1px solid #949494a8;
+                                     }
+                                     .delete-room-btn-detail{
+                                         background: none;
+                                         border: none;
+                                         cursor: pointer;
+                                         color: red;
+                                     }
+                                 }
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+     .btn{
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+      button {
+       background-color: #1f0a68;
+       border: 1px solid #1f0a68;
+       color: #ffffff;
+       border-radius: 40px;
+       font-size: 0.9em;
+       padding: 1em 2em 1em 2em;
+       cursor: pointer;
+     }
+    button:hover {
+       background-color: #ffffff;
+       color: #1f0a68;
+       transition: all 0.5s ease;
+     }
+     }
+ }
+}

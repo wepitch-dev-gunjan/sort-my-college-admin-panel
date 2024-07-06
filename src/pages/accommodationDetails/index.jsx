@@ -28,7 +28,7 @@ import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
 const { backend_url } = config;
 const AccommodationDetails = () => {
-  const { showPropertyGallery, setShowPropertyGallery } =
+  const { showPropertyGallery, setShowPropertyGallery,editAccommodation,setEditAccommodation } =
     useContext(AccommodationContext);
     const {accomodation_id} =useParams();
     const {admin} =useContext(AdminContext)
@@ -211,7 +211,9 @@ useEffect(() =>{
               {property.name} in {property.address.area}
             </h1>
             <div className="property-main-btns">
-              <Link to="/accommodation/add">Edit</Link>
+            <Link to={`/accommodation/edit/${accomodation_id}`}
+            onClick ={()=>setEditAccommodation(true)}
+              >Edit</Link> 
             </div>
           </div>
           <div className="property-images">
