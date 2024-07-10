@@ -151,7 +151,7 @@ const EditAccommodation = () => {
     newNearbyColleges[index] = value;
     setNearbyColleges(newNearbyColleges);
     // Update formData here
-    setFormData((prevState) => ({
+    setProperty((prevState) => ({
       ...prevState,
       nearby_locations: {
         ...prevState.nearby_locations,
@@ -167,7 +167,7 @@ const EditAccommodation = () => {
     newNearbyColleges.splice(index, 1);
     setNearbyColleges(newNearbyColleges);
     // Update formData here
-    setFormData((prevState) => ({
+    setProperty((prevState) => ({
       ...prevState,
       nearby_locations: {
         ...prevState.nearby_locations,
@@ -499,19 +499,22 @@ const EditAccommodation = () => {
 
   const handleEdit = async () => {
     try {
+     
       const { data } = await axios.put(
         `${backend_url}/admin/accommodation/${accomodation_id}`,property,
        {
         headers:{
          Authorization : admin.token,
+         "Content-Type" : "multipart/form-data",
         },
        }
       );
       console.log("data" ,data);
-      
+      toast.success("Accommodation edited succesfully");
       // setProperty(data);
     } catch (error) {
       console.log("error while edit accommodation!!");
+      toast.error("error while edit accommodation!!")
     }
   };
 
@@ -747,32 +750,32 @@ const EditAccommodation = () => {
               <div className="row-form">
                 <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "name")}
-                  value={formData.name}
+                  value={property.name}
                   name="name" // Set the name attribute here
                   placeholder="Name of the Property"
                 />
                 <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "direction")}
-                  value={formData.direction}
+                  value={property.direction}
                   placeholder="Direction URL"
                 />
               </div>
               <div className="row-form">
                 <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "address.area")}
-                  value={formData.address.area}
+                  value={property.address.area}
                   placeholder="Area"
                 />
                 <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "address.city")}
-                  value={formData.address.city}
+                  value={property.address.city}
                   placeholder="City"
                 />
                 <BasicTextField
                   onChange={(e) =>
                     handleChange(e.target.value, "address.state")
                   }
-                  value={formData.address.state}
+                  value={property.address.state}
                   placeholder="State"
                 />
               </div>
@@ -781,12 +784,12 @@ const EditAccommodation = () => {
                   onChange={(e) =>
                     handleChange(e.target.value, "address.pin_code")
                   }
-                  value={formData.address.pin_code}
+                  value={property.address.pin_code}
                   placeholder="Pincode"
                 />
 
                 <RecommendedForRadioButtons
-                  value={formData.recommended_for}
+                  value={property.recommended_for}
                   onChange={(e) =>
                     handleChange(e.target.value, "recommended_for")
                   }
