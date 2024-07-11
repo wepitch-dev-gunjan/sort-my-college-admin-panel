@@ -8,13 +8,13 @@ import DragAndDropUploader from "../../components/formInputs/dragAndDropUploader
 import RecommendedForRadioButtons from "../../components/formInputs/recommendedForRadioButtons";
 import { MdDeleteOutline } from "react-icons/md";
 import BasicTimePicker from "../../components/formInputs/timePicker";
-// import RoomTypeSelect from "../../components/formInputs/roomTypeSelectField";
 import RoomAvailableSelect from "../../components/formInputs/roomAvailableSelectField";
 import axios from "axios";
 import config from "@/config";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
 import { AdminContext } from "../../context/AdminContext";
+
 // spinner
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { toast } from "react-toastify";
@@ -86,27 +86,6 @@ const AddAccommodation = () => {
     gate_closing_time: "",
     images: [], // For storing file data
   });
-
-  //   const handleChange = (value, name) => {
-  //    console.log("Name: ", name)
-  //    console.log("Value: ", value)
-  //    const nameParts = name.split('.');
-  //    if (nameParts.length === 1) {
-  //        setFormData(prevState => ({
-  //            ...prevState,
-  //            [name]: value,
-  //        }));
-  //    } else if (nameParts.length === 2) {
-  //        setFormData(prevState => ({
-  //            ...prevState,
-  //            [nameParts[0]]: {
-  //                ...prevState[nameParts[0]],
-  //                [nameParts[1]]: value,
-  //            },
-  //        }));
-  //    }
-  //    console.log("Form Data: ",formData)
-  //  };
 
   const handleChange = (value, name) => {
     console.log("Name: ", name);
@@ -196,8 +175,6 @@ const AddAccommodation = () => {
     const newNearbyMetroStations = [...nearbyMetroStations];
     newNearbyMetroStations[index] = value;
     setNearbyMetroStations(newNearbyMetroStations);
-    // set nearby colleges into property details here
-    // set nearby colleges into property details here
     setFormData((prevState) => ({
       ...prevState,
       nearby_locations: {
@@ -369,30 +346,7 @@ const AddAccommodation = () => {
     });
   };
 
-  // Room Details
-  // const handleRoomDetailsChange = (index, value) => {
-  //     const newRoomDetails = [...roomDetails];
-  //     newRoomDetails.splice(index, 1);
-  //     setRoomDetails(newRoomDetails);
-  // }
-  // Room Details
-  const handleRoomDetailsChange = (index, value) => {
-    const newRoomDetails = [...roomDetails];
-    newRoomDetails[index] = value;
-    setRoomDetails(newRoomDetails);
-  };
 
-  const addRoomDetails = () => {
-    setRoomDetails([...roomDetails, ""]);
-  };
-
-  const removeRoomDetails = (index) => {
-    const newRoomDetails = [...roomDetails];
-    newRoomDetails.splice(index, 1);
-    setRoomDetails(newRoomDetails);
-  };
-  // for cancel form
-  const handleCancel = async () => {};
 
   // contact numbers
   const handleContactNumberChange = (index, value) => {
@@ -406,66 +360,6 @@ const AddAccommodation = () => {
       },
     }));
   };
-
-  const addContactNumber = () => {
-    setFormData((prevState) => ({
-      ...prevState,
-      owner: {
-        ...prevState.owner,
-        contact_numbers: [...prevState.owner.contact_numbers, ""],
-      },
-    }));
-  };
-
-  const removeContactNumber = (index) => {
-    const newContactNumbers = [...formData.owner.contact_numbers];
-    newContactNumbers.splice(index, 1);
-    setFormData((prevState) => ({
-      ...prevState,
-      owner: {
-        ...prevState.owner,
-        contact_numbers: newContactNumbers,
-      },
-    }));
-  };
-
-  // contact number
-
-  // for adding a course
-  //   const handleSubmit = async (e) => {
-  //    e.preventDefault();
-  //    try {
-  //      const formDataToSend = new FormData();
-  //      Object.keys(formData).forEach((key) => {
-  //        if (key === "images") {
-  //          formData.images.forEach((image) => {
-  //            formDataToSend.append("images", image);
-  //          });
-  //        } else if (typeof formData[key] === "object" && formData[key] !== null) {
-  //          formDataToSend.append(key, JSON.stringify(formData[key]));
-  //        } else {
-  //          formDataToSend.append(key, formData[key]);
-  //        }
-  //      });
-  //      // Verify that images are added
-  //      console.log("Form Data before submission:", formDataToSend);
-  //      const response = await axios.post(
-  //        `${backend_url}/admin/accommodation`,
-  //        formDataToSend,
-  //        {
-  //          headers: {
-  //            Authorization: admin.token,
-  //            "Content-Type": "multipart/form-data",
-  //          },
-  //        }
-  //      );
-  //      toast.success("Accommodation added successfully");
-  //      console.log("Accommodation added successfully:", response.data);
-  //    } catch (error) {
-  //      console.log("Error in adding accommodation", error);
-  //      toast.error("Error in adding accommodation");
-  //    }
-  //  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -482,7 +376,6 @@ const AddAccommodation = () => {
             if (subKey === "aadhar_card" || subKey === "pan_card") {
               if (formData.owner[subKey]) {
                 formDataToSend.append(subKey, formData.owner[subKey]);
-                // console.log("Jo chiye tha", subKey)
               }
             } else {
               formDataToSend.append(`owner[${subKey}]`, formData.owner[subKey]);
@@ -524,7 +417,6 @@ const AddAccommodation = () => {
       ...prevState,
       images: files,
     }));
-    // console.log("FileSS: ", files)
   };
   useEffect(() => {
     console.log("Updated FormData: ", formData);
@@ -592,23 +484,12 @@ const AddAccommodation = () => {
                   </div>
                 ))}
 
-                {/* <BasicTextField 
-    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers[]")}
-    value={formData.owner.contact_numbers}
-                placeholder="Phone Number" />
-
-                <BasicTextField 
-    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers")}
-    value={formData.owner.contact_numbers}
-                placeholder="Alternate Phone Number" /> */}
-
                 <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "owner.email")}
-                  // value = {formData.owner.email}
                   placeholder="Email"
                 />
               </div>
-              {/* adhar card */}
+              {/* aadhar card */}
               <div
                 className="row-form"
                 style={{
@@ -685,14 +566,6 @@ const AddAccommodation = () => {
           <div className="property-info-main">
             <h2>Property Information: </h2>
             <div className="property-info-sub">
-              {/* <div className="row-form">
-                <DragAndDropUploader
-                multiple = {true}
-                  action=""
-                 onChange = {handleImageChange}
-                  placeholder="Upload Photos of the Property here..."
-                />
-              </div> */}
 
               {/* property images */}
               <div className="row-form" 
