@@ -39,6 +39,7 @@ const AddAccommodation = () => {
       deposit_amount: 0,
       monthly_charge: 0,
       notice_period: "",
+
       details: [""],
     },
   ]);
@@ -740,6 +741,19 @@ const AddAccommodation = () => {
                   value={formData.direction}
                   placeholder="Direction URL"
                 />
+                 <div className="room-field total_beds">
+                      {/* Total Beds */}
+                      <BasicTextField
+                        onChange={(e) =>
+                         handleChange(
+                          e.target.value,
+                            "total_beds"
+                          )
+                        }
+                        value={formData.total_beds}
+                        placeholder="Total Beds"
+                      />
+                    </div>
               </div>
               <div className="row-form">
                 <BasicTextField
@@ -964,6 +978,7 @@ const AddAccommodation = () => {
                         placeholder="Notice Period (in days)"
                       />
                     </div>
+
                     <div className="room-details-main">
                       <p className="room-details-para">Room Amenities: </p>
                       <div className="room-details-sub">

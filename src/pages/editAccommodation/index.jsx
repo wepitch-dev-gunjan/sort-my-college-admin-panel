@@ -661,6 +661,9 @@ const EditAccommodation = () => {
                   Upload Your Aadhar Card here...
                 </label>
               </div>
+              <div className="row-form aadhar-card-display">
+                  <img src={property.owner.aadhar_card} alt="" />
+              </div>
               {/* pan card */}
               <div
                 className="row-form"
@@ -759,6 +762,19 @@ const EditAccommodation = () => {
                   value={property.direction}
                   placeholder="Direction URL"
                 />
+                <div className="room-field total_beds">
+                 {/* Total Beds */}
+                 <BasicTextField
+                   onChange={(e) =>
+                    handleChange(
+                     e.target.value,
+                       "total_beds"
+                     )
+                   }
+                   value={property.total_beds}
+                   placeholder="Total Beds"
+                 />
+               </div>
               </div>
               <div className="row-form">
                 <BasicTextField
