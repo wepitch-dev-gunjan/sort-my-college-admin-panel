@@ -14,6 +14,8 @@ import config from "@/config";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
 import { AdminContext } from "../../context/AdminContext";
+import { CiCircleRemove } from "react-icons/ci";
+
 
 // spinner
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
@@ -31,6 +33,8 @@ const AddAccommodation = () => {
   const [commonAmenities, setCommonAmenities] = useState(["", "", ""]);
   const [houseRules, setHouseRules] = useState(["", ""]);
   const [roomDetails, setRoomDetails] = useState(["", "", "", "", ""]);
+  const [panCardImage, setPanCardImage] = useState(null);
+  const [aadhaarImage, setAadhaarImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [rooms, setRooms] = useState([
     {
@@ -88,24 +92,38 @@ const AddAccommodation = () => {
   });
 
   const handleChange = (value, name) => {
-    console.log("Name: ", name);
-    console.log("Value: ", value);
-    const nameParts = name.split(".");
-    if (nameParts.length === 1) {
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    } else if (nameParts.length === 2) {
-      setFormData((prevState) => ({
-        ...prevState,
-        [nameParts[0]]: {
-          ...prevState[nameParts[0]],
-          [nameParts[1]]: value,
-        },
-      }));
-    }
-  };
+   console.log('Name: ', name);
+   console.log('Value: ', value);
+
+   if (value instanceof File) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (name === 'owner.aadhar_card') {
+        setAadhaarImage(reader.result);
+      } else if (name === 'owner.pan_card') {
+        setPanCardImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(value);
+  }
+
+
+   const nameParts = name.split('.');
+   if (nameParts.length === 1) {
+     setFormData((prevState) => ({
+       ...prevState,
+       [name]: value,
+     }));
+   } else if (nameParts.length === 2) {
+     setFormData((prevState) => ({
+       ...prevState,
+       [nameParts[0]]: {
+         ...prevState[nameParts[0]],
+         [nameParts[1]]: value,
+       },
+     }));
+   }
+ };
 
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
@@ -422,6 +440,29 @@ const AddAccommodation = () => {
     console.log("Updated FormData: ", formData);
   }, [formData]);
 
+  
+
+ const handleRemoveAdharImage = () => {
+   setAadhaarImage(null);
+   setFormData((prevState) => ({
+     ...prevState,
+     owner: {
+       ...prevState.owner,
+       aadhar_card: null,
+     },
+   }));
+ };
+ const handleRemovePanImage = () => {
+   setPanCardImage(null);
+   setFormData((prevState) => ({
+     ...prevState,
+     owner: {
+       ...prevState.owner,
+       pan_card: null,
+     },
+   }));
+ };
+
   return (
     <div className="add-accomm-main">
       <div className="add-accomm-sub">
@@ -490,41 +531,38 @@ const AddAccommodation = () => {
                 />
               </div>
               {/* aadhar card */}
-              <div
-                className="row-form"
-                style={{
-                  height: 200,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  border: "2px dotted #BABABA",
-                  position: "relative",
-                }}
-              >
-                <input
-                  type="file"
-                  id="aadhar_card"
-                  name="aadhar_card"
-                  onChange={(e) =>
-                    handleChange(e.target.files[0], "owner.aadhar_card")
-                  }
-                  style={{
-                    display: "none",
-                  }}
-                />
-                <label
-                  htmlFor="aadhar_card"
-                  style={{
-                    width: 1000,
-                    color: "grey",
-                    padding: "10px",
-                    textAlign: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  Upload Your Aadhar Card here...
-                </label>
-              </div>
+             <div className="row-form "
+      style={{
+        height: 200,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: '2px dotted #BABABA',
+        position: 'relative',
+      }}
+    >
+      <input
+        type="file"
+        id="aadhar_card"
+        name="aadhar_card"
+        onChange={(e) => handleChange(e.target.files[0], 'owner.aadhar_card')}
+        style={{ display: 'none' }}
+      />
+      <label
+        htmlFor="aadhar_card"
+        style={{
+          width: 1000,
+          color: 'grey',
+          padding: '10px',
+          textAlign: 'center',
+          cursor: 'pointer',
+        }}
+      >
+        Upload Your Aadhaar Card here...
+      </label>
+
+    </div>
+
               {/* pan card */}
               <div
                 className="row-form"
@@ -561,7 +599,90 @@ const AddAccommodation = () => {
                   Upload Your Pan Card here...
                 </label>
               </div>
+      <div className="row-form">
+      {aadhaarImage && (
+        <div
+          style={{
+            // position: 'absolute',
+            // top: 'calc(100% + 10px)',
+            // maxHeight: '200px',
+            // border: '1px solid #BABABA',
+            padding: '10px',
+            backgroundColor: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img
+            src={aadhaarImage}
+            alt="Aadhaar Card Preview"
+            style={{
+              maxHeight: '200px',
+              maxWidth: '100%',
+            }}
+          />
+          <CiCircleRemove 
+            onClick={handleRemoveAdharImage}
+            style={{
+              // position: 'absolute',
+              // top: '5px',
+              right: '5px',
+              border: 'none',
+              borderRadius: '50%',
+              width: '30px',
+              height: '30px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+         />
+        </div>
+      )}
+      {/* pan card */}
+       {panCardImage && (
+        <div
+          style={{
+            // position: 'absolute',
+            // top: 'calc(100% + 10px)',
+            // maxHeight: '200px',
+            // border: '1px solid #BABABA',
+            padding: '10px',
+            backgroundColor: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img
+            src={panCardImage}
+            alt="Aadhaar Card Preview"
+            style={{
+              maxHeight: '200px',
+              maxWidth: '100%',
+            }}
+          />
+          <CiCircleRemove 
+            onClick={handleRemovePanImage}
+            style={{
+              // position: 'absolute',
+              // top: '5px',
+              right: '5px',
+              border: 'none',
+              borderRadius: '50%',
+              width: '30px',
+              height: '30px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+         />
+        </div>
+      )}
             </div>
+      </div>
           </div>
           <div className="property-info-main">
             <h2>Property Information: </h2>
