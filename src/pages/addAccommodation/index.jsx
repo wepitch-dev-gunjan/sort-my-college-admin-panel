@@ -94,20 +94,17 @@ const AddAccommodation = () => {
   const handleChange = (value, name) => {
    console.log('Name: ', name);
    console.log('Value: ', value);
-
    if (value instanceof File) {
     const reader = new FileReader();
     reader.onloadend = () => {
       if (name === 'owner.aadhar_card') {
         setAadhaarImage(reader.result);
-      } else if (name === 'owner.pan_card') {
+       } else if (name === 'owner.pan_card') {
         setPanCardImage(reader.result);
       }
     };
     reader.readAsDataURL(value);
   }
-
-
    const nameParts = name.split('.');
    if (nameParts.length === 1) {
      setFormData((prevState) => ({
@@ -124,7 +121,6 @@ const AddAccommodation = () => {
      }));
    }
  };
-
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
     const newNearbyColleges = [...nearbyColleges];
@@ -451,6 +447,8 @@ const AddAccommodation = () => {
        aadhar_card: null,
      },
    }));
+   document.getElementById('aadhar_card').value = ''; // Reset input value
+
  };
  const handleRemovePanImage = () => {
    setPanCardImage(null);
@@ -461,6 +459,7 @@ const AddAccommodation = () => {
        pan_card: null,
      },
    }));
+   document.getElementById('pan_card').value = '';
  };
 
   return (
@@ -560,47 +559,9 @@ const AddAccommodation = () => {
       >
         Upload Your Aadhaar Card here...
       </label>
-
     </div>
-
-              {/* pan card */}
-              <div
-                className="row-form"
-                style={{
-                  height: 200,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  border: "2px dotted #BABABA",
-                  position: "relative",
-                }}
-              >
-                <input
-                  type="file"
-                  id="pan_card"
-                  name="pan_card"
-                  onChange={(e) =>
-                    handleChange(e.target.files[0], "owner.pan_card")
-                  }
-                  style={{
-                    display: "none",
-                  }}
-                />
-                <label
-                  htmlFor="pan_card"
-                  style={{
-                    width: 1000,
-                    color: "grey",
-                    padding: "10px",
-                    textAlign: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  Upload Your Pan Card here...
-                </label>
-              </div>
-      <div className="row-form">
-      {aadhaarImage && (
+<div className="row-form">
+{aadhaarImage && (
         <div
           style={{
             // position: 'absolute',
@@ -640,6 +601,45 @@ const AddAccommodation = () => {
          />
         </div>
       )}
+</div>
+              {/* pan card */}
+              <div
+                className="row-form"
+                style={{
+                  height: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "2px dotted #BABABA",
+                  position: "relative",
+                }}
+              >
+                <input
+                  type="file"
+                  id="pan_card"
+                  name="pan_card"
+                  onChange={(e) =>
+                    handleChange(e.target.files[0], "owner.pan_card")
+                  }
+                  style={{
+                    display: "none",
+                  }}
+                />
+                <label
+                  htmlFor="pan_card"
+                  style={{
+                    width: 1000,
+                    color: "grey",
+                    padding: "10px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  Upload Your Pan Card here...
+                </label>
+              </div>
+              {/* adhar and pan card image ui */}
+      <div className="row-form">
       {/* pan card */}
        {panCardImage && (
         <div
