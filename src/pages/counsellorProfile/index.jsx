@@ -241,7 +241,6 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
     getDocumentTypes();
     getOutStandingBalance();
   }, [counsellor_id]);
-  console.log(profile);
 
   function filterCardType(id) {
     return documentTypes.find((type) => type._id === id).name;
@@ -265,14 +264,11 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
         `${backend_url}/admin/payments/${counsellor_id}/outstanding-balance`
       );
       setOutStandingBalance(data.outstandingBalance);
-      console.log("sdfsdfsdfsdf", data);
     } catch (error) {
       console.log(error);
       toast("Error getting outStandingBalance");
     }
   };
-
-  console.log(profile);
 
   return (
     <div className="CounsellorProfile-container">
