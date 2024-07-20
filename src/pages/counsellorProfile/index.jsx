@@ -30,7 +30,6 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
     useContext(ProfileContext);
   const { counsellor_id } = useParams();
   const [documents, setDocuments] = useState([]);
-  console.log(counsellor_id);
   const getCounsellor = async () => {
     try {
       const { data } = await axios.get(
@@ -240,6 +239,7 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
       getCounsellor();
       getDocuments();
       getDocumentTypes();
+      console.log(counsellor_id);
     }
   }, [counsellor_id]);
 

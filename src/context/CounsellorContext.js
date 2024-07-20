@@ -12,6 +12,7 @@ export const CounsellorProvider = ({ children }) => {
   const [counsellors, setCounsellors] = useState([]);
   const [outstandingBalancePopUp, setOutstandingBalancePopUp] = useState(false);
   const [outStandingBalance, setOutStandingBalance] = useState();
+  const [counsellor_id, setCounsellorId] = useState(null);
 
   const extractCounsellorIdFromUrl = () => {
     const urlSegments = window.location.pathname.split("/");
@@ -19,20 +20,27 @@ export const CounsellorProvider = ({ children }) => {
     return counsellorIndex !== -1 ? urlSegments[counsellorIndex] : null;
   };
 
-  const counsellor_id = extractCounsellorIdFromUrl();
+  useEffect(() => {
+    const id = extractCounsellorIdFromUrl();
+    setCounsellorId(id);
+  }, []);
+
   const getOutStandingBalance = async () => {
-    try {
-      console.log("call", counsellor_id);
-      const { data } = await axios.get(
-        `${backend_url}/admin/payments/${counsellor_id}/outstanding-balance`
-      );
-      setOutStandingBalance(data.outstandingBalance);
-      console.log("sdfsdfsdfsdf", data);
-    } catch (error) {
-      console.log(error);
-      toast("Error getting outStandingBalance");
+    if (counsellor_id) {
+      try {
+        console.log("call", counsellor_id);
+        const { data } = await axios.get(
+          `${backend_url}/admin/payments/${counsellor_id}/outstanding-balance`
+        );
+        setOutStandingBalance(data.outstandingBalance);
+        console.log("sdfsdfsdfsdf", data);
+      } catch (error) {
+        console.log(error);
+        toast("Error getting outStandingBalance");
+      }
     }
   };
+
   useEffect(() => {
     getOutStandingBalance();
   }, [outstandingBalancePopUp, counsellor_id]);
