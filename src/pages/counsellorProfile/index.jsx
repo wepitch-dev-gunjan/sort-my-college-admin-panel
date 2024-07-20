@@ -239,8 +239,10 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
     getCounsellor();
     getDocuments();
     getDocumentTypes();
-    getOutStandingBalance();
   }, [counsellor_id]);
+  useEffect(() => {
+    getOutStandingBalance();
+  }, [outstandingBalancePopUp]);
 
   function filterCardType(id) {
     return documentTypes.find((type) => type._id === id).name;
