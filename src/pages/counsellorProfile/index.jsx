@@ -236,12 +236,17 @@ const CounsellorProfile = ({ setOutstandingBalance }) => {
   };
 
   useEffect(() => {
-    getCounsellor();
-    getDocuments();
-    getDocumentTypes();
+    if (counsellor_id) {
+      getCounsellor();
+      getDocuments();
+      getDocumentTypes();
+    }
   }, [counsellor_id]);
+
   useEffect(() => {
-    getOutStandingBalance();
+    if (counsellor_id) {
+      getOutStandingBalance();
+    }
   }, [outstandingBalancePopUp]);
 
   function filterCardType(id) {
