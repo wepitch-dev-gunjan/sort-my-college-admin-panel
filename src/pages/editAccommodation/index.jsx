@@ -143,7 +143,7 @@ const EditAccommodation = () => {
         },
       }));
     }
-    console.log("New Property: ", property)
+    console.log("New Property: ", property);
   };
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
@@ -494,33 +494,32 @@ const EditAccommodation = () => {
   };
 
   // edit api integration
-  console.log("admin",admin);
-// Edit Api
+  console.log("admin", admin);
+  // Edit Api
 
   const handleEdit = async () => {
     try {
-     
       const { data } = await axios.put(
-        `${backend_url}/admin/accommodation/${accomodation_id}`,property,
-       {
-        headers:{
-         Authorization : admin.token,
-         "Content-Type" : "multipart/form-data",
-        },
-       }
+        `${backend_url}/admin/accommodation/${accomodation_id}`,
+        property,
+        {
+          headers: {
+            Authorization: admin.token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-      console.log("data" ,data);
+      console.log("data", data);
       toast.success("Accommodation edited succesfully");
       // setProperty(data);
     } catch (error) {
       console.log("error while edit accommodation!!");
-      toast.error("error while edit accommodation!!")
+      toast.error("error while edit accommodation!!");
     }
   };
 
   const getAccommodation = async (req, res) => {
     try {
-   
       const { data } = await axios.get(
         `${backend_url}/admin/accommodation/${accomodation_id}`,
         {
@@ -537,9 +536,9 @@ const EditAccommodation = () => {
     }
   };
   useEffect(() => {
-   console.log("Updated property: ", property);
-   getAccommodation();
- }, [accomodation_id]);
+    console.log("Updated property: ", property);
+    getAccommodation();
+  }, [accomodation_id]);
 
   return (
     <div className="add-accomm-main">
@@ -552,28 +551,31 @@ const EditAccommodation = () => {
             <h2>Owner's Information: </h2>
             <div className="owners-info-sub">
               <div className="row-form">
-
-               <BasicTextField 
-               type="text" 
-               value = {property.owner.full_name}
-               onChange={(e) => 
-                handleChange(e.target.value, "owner.full_name")}
-                name="owner.full_name"
-               />
-              {/* <BasicTextField
+                {/* Name */}
+                <BasicTextField
+                  type="text"
+                  value={property.owner.full_name}
+                  onChange={(e) =>
+                    handleChange(e.target.value, "owner.full_name")
+                  }
+                  name="owner.full_name"
+                  placeholder="Full Name"
+                />
+                {/* <BasicTextField
                   onChange={(e) =>
                     handleChange(e.target.value, "owner.full_name")}
                   name="owner.full_name"
-                  value={formData.owner.full_name}
+                  value={property.owner.full_name}
                   placeholder="Full Name"
                 /> */}
+                {/* DOB */}
                 <BasicDatePicker
                   onChange={(e) => handleChange(e.target.value, "owner.dob")}
                   value={formData.owner.dob}
                   placeholder="Date of Birth"
                 />
 
-                {/* <BasicSelect /> */}
+                {/* gender */}
                 <Box sx={{ minWidth: 120 }}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
@@ -582,7 +584,7 @@ const EditAccommodation = () => {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={formData.owner.gender}
+                      value={property.owner.gender}
                       label="Gender"
                       onChange={(e) =>
                         handleChange(e.target.value, "owner.gender")
@@ -595,6 +597,7 @@ const EditAccommodation = () => {
                   </FormControl>
                 </Box>
               </div>
+              {/* contact number */}
               <div className="row-form">
                 {formData.owner.contact_numbers.map((number, index) => (
                   <div key={index} className="contact-number-field">
@@ -603,7 +606,10 @@ const EditAccommodation = () => {
                         handleContactNumberChange(index, e.target.value)
                       }
                       name={`contact_number_${index}`}
-                      value={number}
+
+                      // Rakshita Ma'am ne kha mtlb krneka
+
+                      value={property.owner.contact_numbers}
                       placeholder={`Contact Number ${index + 1}`}
                     />
                   </div>
@@ -619,9 +625,10 @@ const EditAccommodation = () => {
     value={formData.owner.contact_numbers}
                 placeholder="Alternate Phone Number" /> */}
 
+                {/* email */}
                 <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "owner.email")}
-                  // value = {formData.owner.email}
+                  value={property.owner.email}
                   placeholder="Email"
                 />
               </div>
@@ -662,7 +669,7 @@ const EditAccommodation = () => {
                 </label>
               </div>
               <div className="row-form aadhar-card-display">
-                  <img src={property.owner.aadhar_card} alt="" />
+                <img src={property.owner.aadhar_card} alt="" />
               </div>
               {/* pan card */}
               <div
@@ -715,8 +722,7 @@ const EditAccommodation = () => {
               </div> */}
 
               {/* property images */}
-              <div
-                className="row-form"
+              <div className="row-form"
                 style={{
                   height: 200,
                   display: "flex",
@@ -763,18 +769,13 @@ const EditAccommodation = () => {
                   placeholder="Direction URL"
                 />
                 <div className="room-field total_beds">
-                 {/* Total Beds */}
-                 <BasicTextField
-                   onChange={(e) =>
-                    handleChange(
-                     e.target.value,
-                       "total_beds"
-                     )
-                   }
-                   value={property.total_beds}
-                   placeholder="Total Beds"
-                 />
-               </div>
+                  {/* Total Beds */}
+                  <BasicTextField
+                    onChange={(e) => handleChange(e.target.value, "total_beds")}
+                    value={property.total_beds}
+                    placeholder="Total Beds"
+                  />
+                </div>
               </div>
               <div className="row-form">
                 <BasicTextField
