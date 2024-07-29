@@ -43,12 +43,11 @@ const handleKeyPress = (e) => {
  }
 };
 // create api for this and than change it here 
-const getQueriesForAdmin = async () => {
+const getAllQueriesForAdmin = async () => {
  try {
    const { data } = await axios.get(
-     `${backend_url}/ep/enquiriesForAdmin/${institute_id}`,
+     `${backend_url}/ep/allEnquiriesForAdmin`,
      {
-       params: { ...filterParams },
        headers: {
          Authorization: admin.token,
        },
@@ -62,7 +61,7 @@ const getQueriesForAdmin = async () => {
 };
 
 useEffect(() => {
- getQueriesForAdmin();
+ getAllQueriesForAdmin();
 }, [filterParams]);
 
     return(
