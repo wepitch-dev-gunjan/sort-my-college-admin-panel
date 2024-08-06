@@ -58,7 +58,7 @@ const Sidebar = () => {
  }, [isSmallScreen]);
  // edited
   return (
-   // edited
+    // edited
     <div className={`sidebar ${expand ? "expanded" : "collapsed"}`}>
       <div className="right-left-arrow" onClick={() => setExpand(!expand)}>
         <RightLeftArrow expand={expand} />
@@ -98,8 +98,8 @@ const Sidebar = () => {
         />
 
         <SidebarMenuButton
-          href="/entrance-preparation"
-          icon={BiBuildings }
+          href="/entrance-preparation/institute-directory"
+          icon={BiBuildings}
           text="Entrance Preparation"
           expand={expand}
         />
@@ -120,7 +120,7 @@ const Sidebar = () => {
         <hr />
         <SidebarMenuButton
           href="/help"
-          icon={FiHelpCircle   }
+          icon={FiHelpCircle}
           text="Help"
           expand={expand}
         />

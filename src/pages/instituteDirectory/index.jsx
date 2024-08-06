@@ -65,22 +65,25 @@ const InstitutesDetails = () => {
   };
   return (
     <div className="Institutes-container">
-        <div className="filters">
-          <TextField
-            label="Search"
-            sx={{ 
-              height: "50px",
-              width: "70%"
-             }}
-            variant="outlined"
-            type="text"
-            name="search"
-            value={filterParams.search}
-            placeholder="Search by all fields"
-            onChange={handleFilterChange}
-            onKeyDown={handleKeyPress}
-          />
-        <Link to="/entrance-preparation/institute-directory/institute-leads">View All Leads</Link>
+      <div className="filters">
+        <TextField
+          label="Search"
+          sx={{
+            height: "50px",
+            width: "70%",
+          }}
+          variant="outlined"
+          type="text"
+          name="search"
+          value={filterParams.search}
+          placeholder="Search by all fields"
+          onChange={handleFilterChange}
+          onKeyDown={handleKeyPress}
+        />
+        <Link to="/entrance-preparation/institute-directory/institute-leads">
+          View All Leads
+        </Link>
+        
       </div>
       <div className="heading sticky">
         <div className="row">
@@ -143,9 +146,7 @@ const InstitutesDetails = () => {
                   </Link>
                 </div>
                 <div className="col">
-                  <Link
-                    to={`/entrance-preparation/institute-directory/${Institute._id}`}
-                  >
+                  <Link to={`/view_leads_for_admin/${Institute._id}`}>
                     <p>View Leads</p>
                   </Link>
                 </div>

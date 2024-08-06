@@ -91,15 +91,15 @@ const LeadsForAdmin = () => {
 
   return (
     <div className="RecentLeads-container">
-      <h1>All Leads</h1>
+      <h1>Institute Leads</h1>
       {/* Filters */}
       <div className="main_Container">
         <DatePicker
           label="Select Date"
-          name = "date"
+          name="date"
           // value={filterParams.date}
           // onChange={handleFilterChange}
-          onKeyDown = {handleKeyPress}
+          onKeyDown={handleKeyPress}
           renderInput={(params) => <TextField {...params} />}
           sx={{ marginLeft: "16px" }}
         />
@@ -134,10 +134,13 @@ const LeadsForAdmin = () => {
         <div className="table Leads-table">
           <div className="row">
             <div className="col">
-              <h4>ID</h4>
+              <h4>ID111</h4>
             </div>
             <div className="col">
               <h4>Date</h4>
+            </div>
+            <div className="col">
+              <h4>Time</h4>
             </div>
             <div className="col">
               <h4>Name</h4>
@@ -163,10 +166,13 @@ const LeadsForAdmin = () => {
                     <p>{query.date}</p>
                   </div>
                   <div className="col">
+                    <p>{query.createdAt}</p>
+                  </div>
+                  <div className="col">
                     <p>{query.name}</p>
                   </div>
                   <div className="col">
-                    <p>{query.phone_number}</p>
+                    <p>{query.phone_number}asjhash</p>
                   </div>
                   <div
                     className={`col ${
@@ -183,7 +189,7 @@ const LeadsForAdmin = () => {
                   </div>
                   <div className="link">
                     <Link to={`/getAllQueries/${query._id}`}>
-                      <p>View Leads </p>
+                      <p>View</p>
                     </Link>
                   </div>
                 </div>
