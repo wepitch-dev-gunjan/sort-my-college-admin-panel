@@ -3,7 +3,7 @@ import { AdminContext } from "../../context/AdminContext";
 import "./style.scss";
 import axios from "axios";
 import config from "@/config";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 import {
   TextField,
@@ -85,6 +85,7 @@ const InstituteLeads = () => {
       console.log(error);
     }
   };
+  
 
   return (
     <div className="RecentLeads-container">
@@ -127,6 +128,9 @@ const InstituteLeads = () => {
           <Button sx={{ height: "55px" }} onClick={getAllQueriesForAdmin}>
             Apply Filters
           </Button>
+        </div>
+        <div className="noofenquiries">
+          <p>No. of Leads: { queries.length }</p>
         </div>
       </div>
 
@@ -187,6 +191,11 @@ const InstituteLeads = () => {
                     }`}
                   >
                     <p>{query.status}</p>
+                  </div>
+                  <div className="link">
+                    <Link to={`/getAllQueries/${query._id}`}>
+                      <p>View</p>
+                    </Link>
                   </div>
                 </div>
               ))}

@@ -12,6 +12,15 @@
    color: white;
    // border-radius: 20px;
   }
+  .noofenquiries{
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    p{
+      font-weight: 100;
+      font-size: 11px;
+    }
+  }
  }
  h1 {
    font-size: var(--fs-l);
