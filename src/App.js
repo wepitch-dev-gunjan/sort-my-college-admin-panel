@@ -84,9 +84,12 @@ function App() {
     setAdmin({ ...admin, isLoggedIn: false });
     navigate("/login");
   };
+  useClickOutside(addEpProfilePicRef, () => {
+    setEpProfilePicEditMode(false);
+  })
 
   useClickOutside(addProfilePicRef, () => {
-    setProfilePicEditMode((prev) => !prev);
+    setProfilePicEditMode(false);
   });
 
   useClickOutside(notificationsRef, () => {
@@ -106,7 +109,11 @@ function App() {
           <AddProfilePic ref={addProfilePicRef} />
         </div>
       )}
-{epProfilePicEditMode && (
+      {/* HER HERE HERE HEER HERE HEREE  */}
+      {/* HER HERE HERE HEER HERE HEREE  */}
+      {/* HER HERE HERE HEER HERE HEREE  */}
+      {/* HER HERE HERE HEER HERE HEREE  */}
+      {epProfilePicEditMode && (
         <div className="add-ep-profile-pic-panel">
           <AddEpProfilePic ref={addEpProfilePicRef} />
         </div>
@@ -196,7 +203,10 @@ function App() {
                   path="/entrance-preparation/institute-directory/:institute_id"
                   element={<InstituteProfile />}
                 />
-                <Route path="/entrance-preparation/institute-directory/institute-leads" element={<InstituteLeads />} />
+                <Route
+                  path="/entrance-preparation/institute-directory/institute-leads"
+                  element={<InstituteLeads />}
+                />
 
                 <Route path="/accommodation" element={<Accommodation />} />
                 <Route
@@ -207,7 +217,7 @@ function App() {
                   path="/accommodation/details/:accomodation_id"
                   element={<AccommodationDetails />}
                 />
-                 <Route
+                <Route
                   path="/accommodation/edit/:accomodation_id"
                   element={<EditAccommodation />}
                 />
@@ -215,7 +225,7 @@ function App() {
                   path="/accommodationDetails"
                   element={<ViewAccoummDetails />}
                 />
-                 
+
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}
               </>
