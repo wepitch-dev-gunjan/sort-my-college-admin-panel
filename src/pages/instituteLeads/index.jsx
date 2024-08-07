@@ -1,7 +1,6 @@
-//import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../../context/AdminContext";
-import "./style.scss"
+import "./style.scss";
 import axios from "axios";
 import config from "@/config";
 import { useParams } from "react-router-dom";
@@ -14,190 +13,189 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
+
 const { backend_url } = config;
+
 const InstituteLeads = () => {
-//  const queries = [{
-//   ID :23,
-//   name : "Nameera",
-//   phone_number : 82673475632,
-//   date : "2312/2023",
-//   status : "Approved"
-// }];
-const { institute_id } = useParams();
-const { queries, setQueries, admin } = useContext(AdminContext);
-const [filterParams, setFilterParams] = useState({
- status: "",
- date: null,
-});
- const [selectDate, setSelectDate] = useState(null);
+  const { institute_id } = useParams();
+  const { queries, setQueries, admin } = useContext(AdminContext);
+  const [filterParams, setFilterParams] = useState({
+    status: "",
+    startDate: null,
+    endDate: null,
+  });
 
- const handleDateChange = (date) => {
-   setSelectDate(date);
- };
+  const handleDateChange = (name) => (date) => {
+    setFilterParams((prevState) => ({
+      ...prevState,
+      [name]: date,
+    }));
+  };
 
-const handleFilterChange = (e) => {
- const { name, value } = e.target;
- if (name === "date") {
-  // handleDateChange();
-   setFilterParams((prevState) => ({
-     ...prevState,
-     [name]: value,
-   }));
- } else if (name === "status") {
-   const newValue = value === "All" ? "" : value;
-   setFilterParams((prevState) => ({
-     ...prevState,
-     [name]: newValue,
-   }));
- }
-};
-const handleKeyPress = (e) => {
- if (e.key === "Enter") {
- 
- }
-};
-// create api for this and than change it here 
-const getAllQueriesForAdmin = async () => {
- try {
-   const { data } = await axios.get(
-     `${backend_url}/ep/allEnquiriesForAdmin`,
-     {
-       headers: {
-         Authorization: admin.token,
-       },
-     }
-   );
-   setQueries(data);
- } catch (error) {
-   console.log("error getting queries");
-   console.log("message", error);
- }
-};
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    const newValue = name === "status" && value === "All" ? "" : value;
+    setFilterParams((prevState) => ({
+      ...prevState,
+      [name]: newValue,
+    }));
+  };
 
-useEffect(() => {
- getAllQueriesForAdmin();
-}, [filterParams]);
- const resetFilters = async () => {
-   try {
-     setFilterParams({
-       search: "",
-       status: "",
-       date: null,
-     });
-     setSelectDate(null);
-     getAllQueriesForAdmin();
-   } catch (error) {
-     console.log(error);
-   }
- };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      // Handle filter on enter key press if needed
+    }
+  };
 
-    return (
-      <div className="RecentLeads-container">
-        <h1>All leads</h1>
-        {/* Filters */}
-        <div className="main_Container">
-          <DatePicker
-            label="Select Date"
-            name="date"
-            // value={filterParams.date}
-            // onChange={handleFilterChange}
+  const getAllQueriesForAdmin = async () => {
+    try {
+      const { data } = await axios.get(
+        `${backend_url}/ep/allEnquiriesForAdmin`,
+        {
+          headers: {
+            Authorization: admin.token,
+          },
+          params: {
+            status: filterParams.status,
+            startDate: filterParams.startDate,
+            endDate: filterParams.endDate,
+          },
+        }
+      );
+      setQueries(data);
+    } catch (error) {
+      console.log("error getting queries");
+      console.log("message", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllQueriesForAdmin();
+  }, [filterParams]);
+
+  const resetFilters = async () => {
+    try {
+      setFilterParams({
+        status: "",
+        startDate: null,
+        endDate: null,
+      });
+      getAllQueriesForAdmin();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div className="RecentLeads-container">
+      <h1>All Leads</h1>
+      {/* Filters */}
+      <div className="main_Container">
+        <DatePicker
+          label="Start Date"
+          value={filterParams.startDate}
+          onChange={handleDateChange("startDate")}
+          renderInput={(params) => <TextField {...params} />}
+        />
+        <DatePicker
+          label="End Date"
+          value={filterParams.endDate}
+          onChange={handleDateChange("endDate")}
+          renderInput={(params) => <TextField {...params} />}
+        />
+
+        <FormControl style={{ width: "150px" }}>
+          <InputLabel>Status</InputLabel>
+          <Select
+            name="status"
+            label="Status"
+            value={filterParams.status}
+            onChange={handleFilterChange}
             onKeyDown={handleKeyPress}
-            renderInput={(params) => <TextField {...params} />}
-            sx={{ marginLeft: "16px" }}
-          />
-
-          <FormControl style={{ width: "150px" }}>
-            <InputLabel>Status</InputLabel>
-            <Select
-              name="status"
-              label="Status"
-              value={filterParams.status}
-              onChange={handleFilterChange}
-              onKeyDown={handleKeyPress}
-              defaultValue="All"
-            >
-              <MenuItem value="All">ALL</MenuItem>
-              <MenuItem value="Unseen">UNSEEN</MenuItem>
-              <MenuItem value="Replied">REPLIED</MenuItem>
-              <MenuItem value="Seen">SEEN</MenuItem>
-            </Select>
-          </FormControl>
-          <div className="btn_main">
-            <Button sx={{ height: "55px" }} onClick={resetFilters}>
-              Reset Filters
-            </Button>
-            <Button sx={{ height: "55px" }} onClick={handleFilterChange}>
-              Apply Filters
-            </Button>
-          </div>
-        </div>
-
-        {/* Leads table */}
-        <div className="Leads-table-parent">
-          <div className="table Leads-table">
-            <div className="row">
-              <div className="col">
-                <h4>ID</h4>
-              </div>
-              <div className="col">
-                <h4>Date</h4>
-              </div>
-              <div className="col">
-                <h4>Time</h4>
-              </div>
-              <div className="col">
-                <h4>Name</h4>
-              </div>
-              <div className="col">
-                <h4>Phone Number</h4>
-              </div>
-              <div className="col">
-                <h4>Status</h4>
-              </div>
-            </div>
-
-            {queries.length === 0 ? (
-              <p>No Leads</p>
-            ) : (
-              <div className="queries">
-                {queries.map((query, i) => (
-                  <div className="row" key={i}>
-                    <div className="col">
-                      <p>{i + 1}</p>
-                    </div>
-                    <div className="col">
-                      <p>{query.date}</p>
-                    </div>
-                    <div className="col">
-                      <p>{query.createdAt}</p>
-                    </div>
-                    <div className="col">
-                      <p>{query.name}</p>
-                    </div>
-                    <div className="col">
-                      <p>{query.phone_number}</p>
-                    </div>
-                    <div
-                      className={`col ${
-                        query.status === "Unseen"
-                          ? "red"
-                          : query.status === "Replied"
-                          ? "green"
-                          : query.status === "Pending"
-                          ? "blue"
-                          : ""
-                      }`}
-                    >
-                      <p>{query.status}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+            defaultValue="All"
+          >
+            <MenuItem value="All">ALL</MenuItem>
+            <MenuItem value="Unseen">UNSEEN</MenuItem>
+            <MenuItem value="Replied">REPLIED</MenuItem>
+            <MenuItem value="Seen">SEEN</MenuItem>
+          </Select>
+        </FormControl>
+        <div className="btn_main">
+          <Button sx={{ height: "55px" }} onClick={resetFilters}>
+            Reset Filters
+          </Button>
+          <Button sx={{ height: "55px" }} onClick={getAllQueriesForAdmin}>
+            Apply Filters
+          </Button>
         </div>
       </div>
-    );
-}
+
+      {/* Leads table */}
+      <div className="Leads-table-parent">
+        <div className="table Leads-table">
+          <div className="row">
+            <div className="col">
+              <h4>ID</h4>
+            </div>
+            <div className="col">
+              <h4>Date</h4>
+            </div>
+            <div className="col">
+              <h4>Time</h4>
+            </div>
+            <div className="col">
+              <h4>Name</h4>
+            </div>
+            <div className="col">
+              <h4>Phone Number</h4>
+            </div>
+            <div className="col">
+              <h4>Status</h4>
+            </div>
+          </div>
+
+          {queries.length === 0 ? (
+            <p>No Leads</p>
+          ) : (
+            <div className="queries">
+              {queries.map((query, i) => (
+                <div className="row" key={i}>
+                  <div className="col">
+                    <p>{i + 1}</p>
+                  </div>
+                  <div className="col">
+                    <p>{query.date}</p>
+                  </div>
+                  <div className="col">
+                    <p>{query.createdAt}</p>
+                  </div>
+                  <div className="col">
+                    <p>{query.name}</p>
+                  </div>
+                  <div className="col">
+                    <p>{query.phone_number}</p>
+                  </div>
+                  <div
+                    className={`col ${
+                      query.status === "Unseen"
+                        ? "red"
+                        : query.status === "Replied"
+                        ? "green"
+                        : query.status === "Pending"
+                        ? "blue"
+                        : ""
+                    }`}
+                  >
+                    <p>{query.status}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default InstituteLeads;
