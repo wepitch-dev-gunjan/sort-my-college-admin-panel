@@ -13,6 +13,7 @@ import { AdminContext } from "../../context/AdminContext";
 import { Link, useParams } from "react-router-dom";
 import InstituteProfileDropdown from "../../components/InstituteProfileDropdown";
 import config from "@/config";
+import EpCoverPhoto from "../../components/epCoverPhoto";
 const { backend_url } = config;
 
 const InstituteProfile = () => {
@@ -40,7 +41,17 @@ const InstituteProfile = () => {
     }
   };
 
-  const [profile, setProfile] = useState({});
+  // const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({
+    address: {
+      building_number: "",
+      area: "",
+      city: "",
+      state: "",
+      pin_code: "",
+    },
+  });
+  
 
   const [showReasonDialog, setShowReasonDialog] = useState(false);
   const [cancellationReason, setCancellationReason] = useState("");
@@ -157,6 +168,26 @@ const InstituteProfile = () => {
     }
   };
 
+  const handleInputAddress = (fieldName, value, setProfile) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      address: {
+        ...prevProfile.address,
+        [fieldName]: value,
+      },
+    }));
+  };
+  
+  const handleInputTimings = (index, fieldName, value, setProfile) => {
+    setProfile((prevProfile) => {
+      const updatedTimings = prevProfile.timings.map((timing, i) => 
+        i === index ? { ...timing, [fieldName]: value } : timing
+      );
+      return { ...prevProfile, timings: updatedTimings };
+    });
+  };
+  
+
   useEffect(() => {
     getInstitute();
   }, [institute_id]);
@@ -168,6 +199,11 @@ const InstituteProfile = () => {
         <div className="info-img">
           <div className="profile-pic">
             <ProfilePic src={profile.profile_pic} />
+          </div>
+        </div>
+        <div className="info-img">
+          <div className="profile-pic">
+            <EpCoverPhoto src={profile.cover_image} />
           </div>
         </div>
         <br />
@@ -204,20 +240,28 @@ const InstituteProfile = () => {
             <div className="row">
               <div className="col">
                 <div className="info-field">
-                  <p>Email</p>
+                  <p>Email: </p>
                 </div>
                 <div className="info-value">
-                  {/* {editInstituteProfileEnable ? (
-                    <input
+                  {editInstituteProfileEnable ? (
+                    <>                    
+                    {/* <input
                       type="text"
-                      value={profile. registrant_email}
+                      value={profile.email}
                       onChange={(e) =>
-                        handleInput(" registrant_email", e.target.value, setProfile)
+                        handleInput(
+                          "email",
+                          e.target.value,
+                          setProfile
+                        )
                       }
-                    />
-                  ) : ( */}
-                  <p>{profile.registrant_email}</p>
-                  {/* )} */}
+                      /> */}
+                      <p>{profile.email}</p>
+                      <p className="registrant-email-bote">Registrant's email cannot be edited.</p>
+                      </>
+                  ) : (
+                    <p>{profile.email}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -425,6 +469,116 @@ const InstituteProfile = () => {
                 </div>
               </div>
             </div>
+
+            {/* Address */}
+            <div className="row">
+              <div className="col">
+                <div className="info-field">
+                  <p>Address</p>
+                </div>
+                <div className="info-value">
+                  {editInstituteProfileEnable ? (
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Building Number"
+                        value={profile.address?.building_number || ""}
+                        onChange={(e) =>
+                          handleInputAddress("building_number", e.target.value, setProfile)
+                        }
+                      />
+                      <input
+                        type="text"
+                        placeholder="Area"
+                        value={profile.address?.area || ""}
+                        onChange={(e) =>
+                          handleInputAddress("area", e.target.value, setProfile)
+                        }
+                      />
+                      <input
+                        type="text"
+                        placeholder="City"
+                        value={profile.address?.city || ""}
+                        onChange={(e) =>
+                          handleInputAddress("city", e.target.value, setProfile)
+                        }
+                      />
+                      <input
+                        type="text"
+                        placeholder="State"
+                        value={profile.address?.state || ""}
+                        onChange={(e) =>
+                          handleInputAddress("state", e.target.value, setProfile)
+                        }
+                      />
+                      <input
+                        type="text"
+                        placeholder="Pin Code"
+                        value={profile.address?.pin_code || ""}
+                        onChange={(e) =>
+                          handleInputAddress("pin_code", e.target.value, setProfile)
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <p>
+                      {`${profile.address?.building_number || ""}, ${
+                        profile.address?.area || ""
+                      }, ${profile.address?.city || ""}, ${
+                        profile.address?.state || ""
+                      }, ${profile.address?.pin_code || ""}`}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+              {/* Institute Timings */}
+              {profile.timings?.map((timing, index) => (
+                <div className="row" key={timing._id}>
+                  <div className="col">
+                    <div className="info-field">
+                      <p>{timing.day}</p>
+                    </div>
+                    <div className="info-value">
+                      {editInstituteProfileEnable ? (
+                        <div>
+                          <input
+                            type="text"
+                            placeholder="Start Time"
+                            value={timing.start_time || ""}
+                            onChange={(e) =>
+                              handleInputTimings(index, "start_time", e.target.value, setProfile)
+                            }
+                          />
+                          <input
+                            type="text"
+                            placeholder="End Time"
+                            value={timing.end_time || ""}
+                            onChange={(e) =>
+                              handleInputTimings(index, "end_time", e.target.value, setProfile)
+                            }
+                          />
+                          <input
+                            type="checkbox"
+                            checked={timing.is_open}
+                            onChange={(e) =>
+                              handleInputTimings(index, "is_open", e.target.checked, setProfile)
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <p>
+                          {`${timing.start_time} - ${timing.end_time}`} {timing.is_open ? "(Open)" : "(Closed)"}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+
+
             {/* affilations */}
             <div className="row">
               <div className="col">

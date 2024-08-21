@@ -66,7 +66,7 @@ const AddCounsellorProfilePic = forwardRef((props, ref) => {
       } catch (error) {
         // Handle error, show error message, or perform error-related actions
         setCounsellorProfilePicEditMode(false);
-        toast('Error uploading image:', error);
+        toast('Error uploading image::', error);
         setLoading(false);
       }
     }

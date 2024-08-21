@@ -52,6 +52,7 @@ import AddEpProfilePic from "./components/epProfilePicEdit";
 import AddCounsellorProfilePic from "./components/counsellorEditProfilePic";
 import InstituteLeads from "./pages/instituteLeads";
 import EditAccommodation from "./pages/editAccommodation";
+import AddEpCoverPhoto from "./components/epCoverPhoto/addEpCoverPhoto";
 
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
@@ -59,6 +60,7 @@ import EditAccommodation from "./pages/editAccommodation";
 function App() {
   const addProfilePicRef = useRef(null);
   const addEpProfilePicRef = useRef(null);
+  const addEpCoverPhotoRef = useRef(null);
   const addCounsellorPicRef = useRef(null);
   const { admin, setAdmin } = useContext(AdminContext);
   const { isLoggedIn } = admin;
@@ -68,7 +70,8 @@ function App() {
     useContext(NotificationContext);
   const { profilePicEditMode, setProfilePicEditMode , epProfilePicEditMode, 
    setEpProfilePicEditMode,counsellorProfilePicEditMode,
-   setCounsellorProfilePicEditMode} =
+   setCounsellorProfilePicEditMode,
+   setEpCoverPhotoEditMode, epCoverPhotoEditMode} =
     useContext(ProfileContext);
   const { addBannerMode } = useContext(BannerContext);
 
@@ -84,8 +87,13 @@ function App() {
     setAdmin({ ...admin, isLoggedIn: false });
     navigate("/login");
   };
+  
   useClickOutside(addEpProfilePicRef, () => {
     setEpProfilePicEditMode(false);
+  })
+
+  useClickOutside(addEpCoverPhotoRef, () => {
+    setEpCoverPhotoEditMode(false);
   })
 
   useClickOutside(addProfilePicRef, () => {
@@ -116,6 +124,11 @@ function App() {
       {epProfilePicEditMode && (
         <div className="add-ep-profile-pic-panel">
           <AddEpProfilePic ref={addEpProfilePicRef} />
+        </div>
+      )}
+      {epCoverPhotoEditMode && (
+        <div className="add-ep-profile-pic-panel">
+          <AddEpCoverPhoto ref={addEpCoverPhotoRef} />
         </div>
       )}
       {counsellorProfilePicEditMode && (

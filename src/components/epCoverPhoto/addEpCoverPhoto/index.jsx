@@ -5,18 +5,18 @@ import { ProfileContext } from '../../../context/ProfileContext';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import config from '@/config';
 import { AdminContext } from '../../../context/AdminContext';
-import { dataURLtoFile } from '../../../utilities'
+import { dataURLtoFile } from '../../../utilities';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 const { backend_url } = config;
 
-const AddProfilePic = forwardRef((props, ref) => {
+const AddEpCoverPhoto = forwardRef((props, ref) => {
   const [image, setImage] = useState(null);
   const [scale, setScale] = useState(1);
   const editorRef = useRef(null);
   const fileRef = useRef(null);
-  const { setProfilePicEditMode, fetchProfile } = useContext(ProfileContext)
-  const { admin } = useContext(AdminContext)
+  const { setEpCoverPhotoEditMode, fetchProfile } = useContext(ProfileContext);
+  const { admin } = useContext(AdminContext);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -37,9 +37,11 @@ const AddProfilePic = forwardRef((props, ref) => {
 
       try {
         const formData = new FormData();
-        formData.append('image', file); // Append the File object to FormData
+        formData.append('file', file); // Append the File object to FormData
 
-        await axios.post(`${backend_url}/admin/profile-pic`, formData, {
+        const instituteId = props.instituteId; // Assuming instituteId is passed as a prop
+
+        await axios.post(`${backend_url}/admin/institutes/${instituteId}/cover-photo`, formData, {
           headers: {
             Authorization: admin.token,
             'Content-Type': 'multipart/form-data',
@@ -48,17 +50,18 @@ const AddProfilePic = forwardRef((props, ref) => {
         fetchProfile();
 
         // Handle success, show message, or perform other actions upon successful upload
-        setProfilePicEditMode(false)
-        toast('Image updated successfullyie');
+        setEpCoverPhotoEditMode(false);
+        toast('Cover image updated successfully');
       } catch (error) {
         // Handle error, show error message, or perform error-related actions
-        setProfilePicEditMode(false)
-        toast('Error uploading image::::::', error);
+        setEpCoverPhotoEditMode(false);
+        toast('Error uploading cover image', error);
       }
     }
   };
+
   const handleCancel = () => {
-    setProfilePicEditMode(false)
+    setEpCoverPhotoEditMode(false);
   };
 
   const handleDrop = (e) => {
@@ -109,7 +112,7 @@ const AddProfilePic = forwardRef((props, ref) => {
                 width={500}
                 height={500}
                 border={50}
-                borderRadius={250} // Half of width and height to create a circle
+                borderRadius={0} // No border radius for cover photo
                 color={[255, 255, 255, 0.6]} // RGBA
                 scale={scale}
                 rotate={0}
@@ -134,4 +137,4 @@ const AddProfilePic = forwardRef((props, ref) => {
   );
 });
 
-export default AddProfilePic;
+export default AddEpCoverPhoto;

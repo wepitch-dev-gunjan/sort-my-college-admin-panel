@@ -63,12 +63,12 @@ const AddEpProfilePic = forwardRef((props, ref) => {
 
         // Handle success, show message, or perform other actions upon successful upload
         setEpProfilePicEditMode(false)
-        toast('Image updated successfully');
+        toast('Image updated successfullyiee');
         setLoading(false);
       } catch (error) {
         // Handle error, show error message, or perform error-related actions
         setEpProfilePicEditMode(false)
-        toast('Error uploading image:', error);
+        toast('Error uploading image::::', error);
         setLoading(false);
       }
     }
@@ -106,7 +106,7 @@ const AddEpProfilePic = forwardRef((props, ref) => {
             onClick={() => fileRef.current.click()}
           >
             <IoCloudUploadOutline size='100' />
-            Drag & Drop herererre
+            Drag & Drop here
             <p>or</p>
             <div className="browse-button">
               Browse File

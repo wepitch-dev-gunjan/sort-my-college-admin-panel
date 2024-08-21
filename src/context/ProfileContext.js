@@ -39,6 +39,7 @@ export const ProfileProvider = ({ children }) => {
   const [profilePicEditMode, setProfilePicEditMode] = useState(false);
   const [coverImageEditMode, setCoverImageEditMode] = useState(false);
   const [epProfilePicEditMode, setEpProfilePicEditMode] = useState(false);
+  const [epCoverPhotoEditMode, setEpCoverPhotoEditMode] = useState(false);
    const [counsellorProfilePicEditMode,setCounsellorProfilePicEditMode] = useState(false);
   return (
     <ProfileContext.Provider
@@ -59,7 +60,9 @@ export const ProfileProvider = ({ children }) => {
         epProfilePicEditMode, 
         setEpProfilePicEditMode,
         counsellorProfilePicEditMode,
-        setCounsellorProfilePicEditMode
+        setCounsellorProfilePicEditMode,
+        epCoverPhotoEditMode,
+        setEpCoverPhotoEditMode
       }}
     >
       {children}
