@@ -49,11 +49,11 @@ const AddProfilePic = forwardRef((props, ref) => {
 
         // Handle success, show message, or perform other actions upon successful upload
         setProfilePicEditMode(false)
-        toast('Image updated successfullyie');
+        toast('Image updated successfully');
       } catch (error) {
         // Handle error, show error message, or perform error-related actions
         setProfilePicEditMode(false)
-        toast('Error uploading image::::::', error);
+        toast('Error uploading image:', error);
       }
     }
   };

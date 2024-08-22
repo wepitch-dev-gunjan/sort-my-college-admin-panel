@@ -187,6 +187,13 @@ const InstituteProfile = () => {
     });
   };
   
+  const handleAboutChange = (value) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      about: value.split("\n"), // Split the textarea input by new lines into an array
+    }));
+  };
+  
 
   useEffect(() => {
     getInstitute();
@@ -393,28 +400,25 @@ const InstituteProfile = () => {
             {/* About */}
             <div className="row">
               <div className="col">
-                <div className="info-field">
+                <div className="info-field ">
                   <p>About</p>
                 </div>
-                <div className="info-value">
+                <div className="info-value about-block">
                   {editInstituteProfileEnable ? (
                     <>
-                      <input
-                        type="text"
-                        value={profile.about}
-                        onChange={(e) => handleInput("about", e.target.value)}
+                      <textarea
+                        value={profile.about.join("\n")} // Join array elements with new lines for display in textarea
+                        onChange={(e) => handleAboutChange(e.target.value)}
                       />
+                      <p className="about-blockinfo">Please enter the new point in a new line.</p>
                     </>
                   ) : (
-                    <p>
-                      {Array.isArray(profile.degree_focused)
-                        ? profile.degree_focused.join(", ")
-                        : ""}
-                    </p>
+                    <p>{Array.isArray(profile.about) ? profile.about.join(", ") : ""}</p> // Join array elements with commas for display
                   )}
                 </div>
               </div>
             </div>
+
             {/* direction_url */}
             <div className="row">
               <div className="col">
@@ -431,7 +435,11 @@ const InstituteProfile = () => {
                       }
                     />
                   ) : (
-                    <p>{profile.direction_url}</p>
+                    <>
+                      {/* <p>{profile.direction_url}</p> */}
+                      <a className="direction-link" href="{profile.direction_url}" >Go to the link</a>
+                    </>
+                    
                   )}
                 </div>
               </div>
@@ -585,15 +593,19 @@ const InstituteProfile = () => {
                 <div className="info-field">
                   <p>Affilation</p>
                 </div>
-                <div className="info-value">
+                <div className="info-value about-block">
                   {editInstituteProfileEnable ? (
-                    <input
+                    <>
+                    <textarea
                       type="text"
                       value={profile.affilations}
                       onChange={(e) =>
                         handleInput(" affilations", e.target.value, setProfile)
                       }
                     />
+                    <p className="about-blockinfo">Please enter the new point in a new line.</p>
+
+                    </>
                   ) : (
                     <p>{profile.affilations}</p>
                   )}
@@ -655,10 +667,10 @@ const InstituteProfile = () => {
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
                     <input
-                      type="number"
+                      type="text"
                       value={profile.gstin}
                       onChange={(e) =>
-                        handleInput(" gstin", e.target.value, setProfile)
+                        handleInput("gstin", e.target.value, setProfile)
                       }
                     />
                   ) : (

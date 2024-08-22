@@ -63,7 +63,7 @@ const AddEpProfilePic = forwardRef((props, ref) => {
 
         // Handle success, show message, or perform other actions upon successful upload
         setEpProfilePicEditMode(false)
-        toast('Image updated successfullyiee');
+        toast('Image updated successfully');
         setLoading(false);
       } catch (error) {
         // Handle error, show error message, or perform error-related actions
