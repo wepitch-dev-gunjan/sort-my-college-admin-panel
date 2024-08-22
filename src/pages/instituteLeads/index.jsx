@@ -24,6 +24,13 @@ const InstituteLeads = () => {
     startDate: null,
     endDate: null,
   });
+  const convertToIST = (date) => {
+    if (!date) return null;
+    const utcDate = new Date(date);
+    const istOffset = 5 * 60 + 30; // IST is UTC+5:30
+    utcDate.setMinutes(utcDate.getMinutes() + istOffset);
+    return utcDate.toISOString(); // or use a different format as needed
+  };
 
   const handleDateChange = (name) => (date) => {
     setFilterParams((prevState) => ({
@@ -57,8 +64,8 @@ const InstituteLeads = () => {
           },
           params: {
             status: filterParams.status,
-            startDate: filterParams.startDate,
-            endDate: filterParams.endDate,
+            startDate: convertToIST(filterParams.startDate),
+            endDate: convertToIST(filterParams.endDate),
           },
         }
       );
