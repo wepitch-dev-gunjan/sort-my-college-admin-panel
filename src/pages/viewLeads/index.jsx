@@ -81,10 +81,10 @@ getEnquiry();
               <div className="fields">Status : </div>
               <div>{enquiry.status}</div>
             </div>
-            <div className="data">
+            {/* <div className="data">
               <div className="fields">Message : </div>
               <div>{enquiry.message}</div>
-            </div>
+            </div> */}
             <>
               <div className="btn1">
                 <button

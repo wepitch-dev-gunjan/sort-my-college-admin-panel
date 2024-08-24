@@ -146,7 +146,7 @@ const InstituteLeads = () => {
         <div className="table Leads-table">
           <div className="row">
             <div className="col">
-              <h4>ID</h4>
+              <h4>ID11</h4>
             </div>
             <div className="col">
               <h4>Date</h4>
