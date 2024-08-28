@@ -123,9 +123,10 @@ const InstituteLeads = () => {
             defaultValue="All"
           >
             <MenuItem value="All">ALL</MenuItem>
-            <MenuItem value="Unseen">UNSEEN</MenuItem>
-            <MenuItem value="Replied">REPLIED</MenuItem>
-            <MenuItem value="Seen">SEEN</MenuItem>
+            <MenuItem value="Seen">Seen</MenuItem>
+            <MenuItem value="Unseen">Unseen</MenuItem>
+            <MenuItem value="Replied">Replied</MenuItem>
+            <MenuItem value="Not Replied">Not Replied</MenuItem>
           </Select>
         </FormControl>
         <div className="btn_main">
@@ -137,7 +138,7 @@ const InstituteLeads = () => {
           </Button>
         </div>
         <div className="noofenquiries">
-          <p>No. of Leads: { queries.length }</p>
+          <p>No. of Leads: {queries.length}</p>
         </div>
       </div>
 
@@ -194,6 +195,8 @@ const InstituteLeads = () => {
                         ? "green"
                         : query.status === "Pending"
                         ? "blue"
+                        : query.status === "Not Replied"
+                        ? "red"
                         : ""
                     }`}
                   >
