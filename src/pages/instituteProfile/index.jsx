@@ -251,8 +251,8 @@ const InstituteProfile = () => {
                 </div>
                 <div className="info-value">
                   {editInstituteProfileEnable ? (
-                    <>                    
-                    {/* <input
+                    <>
+                      {/* <input
                       type="text"
                       value={profile.email}
                       onChange={(e) =>
@@ -264,8 +264,10 @@ const InstituteProfile = () => {
                       }
                       /> */}
                       <p>{profile.email}</p>
-                      <p className="registrant-email-bote">Registrant's email cannot be edited.</p>
-                      </>
+                      <p className="registrant-email-bote">
+                        Registrant's email cannot be edited.
+                      </p>
+                    </>
                   ) : (
                     <p>{profile.email}</p>
                   )}
@@ -410,10 +412,16 @@ const InstituteProfile = () => {
                         value={profile.about.join("\n")} // Join array elements with new lines for display in textarea
                         onChange={(e) => handleAboutChange(e.target.value)}
                       />
-                      <p className="about-blockinfo">Please enter the new point in a new line.</p>
+                      <p className="about-blockinfo">
+                        Please enter the new point in a new line.
+                      </p>
                     </>
                   ) : (
-                    <p>{Array.isArray(profile.about) ? profile.about.join(", ") : ""}</p> // Join array elements with commas for display
+                    <p>
+                      {Array.isArray(profile.about)
+                        ? profile.about.join(", ")
+                        : ""}
+                    </p> // Join array elements with commas for display
                   )}
                 </div>
               </div>
@@ -437,9 +445,15 @@ const InstituteProfile = () => {
                   ) : (
                     <>
                       {/* <p>{profile.direction_url}</p> */}
-                      <a className="direction-link" href="{profile.direction_url}" >Go to the link</a>
+                      <a
+                        className="direction-link"
+                        href={profile.direction_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Go to the link
+                      </a>
                     </>
-                    
                   )}
                 </div>
               </div>
@@ -492,7 +506,11 @@ const InstituteProfile = () => {
                         placeholder="Building Number"
                         value={profile.address?.building_number || ""}
                         onChange={(e) =>
-                          handleInputAddress("building_number", e.target.value, setProfile)
+                          handleInputAddress(
+                            "building_number",
+                            e.target.value,
+                            setProfile
+                          )
                         }
                       />
                       <input
@@ -516,7 +534,11 @@ const InstituteProfile = () => {
                         placeholder="State"
                         value={profile.address?.state || ""}
                         onChange={(e) =>
-                          handleInputAddress("state", e.target.value, setProfile)
+                          handleInputAddress(
+                            "state",
+                            e.target.value,
+                            setProfile
+                          )
                         }
                       />
                       <input
@@ -524,7 +546,11 @@ const InstituteProfile = () => {
                         placeholder="Pin Code"
                         value={profile.address?.pin_code || ""}
                         onChange={(e) =>
-                          handleInputAddress("pin_code", e.target.value, setProfile)
+                          handleInputAddress(
+                            "pin_code",
+                            e.target.value,
+                            setProfile
+                          )
                         }
                       />
                     </div>
@@ -541,51 +567,65 @@ const InstituteProfile = () => {
               </div>
             </div>
 
-              {/* Institute Timings */}
-              {profile.timings?.map((timing, index) => (
-                <div className="row" key={timing._id}>
-                  <div className="col">
-                    <div className="info-field">
-                      <p>{timing.day}</p>
-                    </div>
-                    <div className="info-value">
-                      {editInstituteProfileEnable ? (
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="Start Time"
-                            value={timing.start_time || ""}
-                            onChange={(e) =>
-                              handleInputTimings(index, "start_time", e.target.value, setProfile)
-                            }
-                          />
-                          <input
-                            type="text"
-                            placeholder="End Time"
-                            value={timing.end_time || ""}
-                            onChange={(e) =>
-                              handleInputTimings(index, "end_time", e.target.value, setProfile)
-                            }
-                          />
-                          <input
-                            type="checkbox"
-                            checked={timing.is_open}
-                            onChange={(e) =>
-                              handleInputTimings(index, "is_open", e.target.checked, setProfile)
-                            }
-                          />
-                        </div>
-                      ) : (
-                        <p>
-                          {`${timing.start_time} - ${timing.end_time}`} {timing.is_open ? "(Open)" : "(Closed)"}
-                        </p>
-                      )}
-                    </div>
+            {/* Institute Timings */}
+            {profile.timings?.map((timing, index) => (
+              <div className="row" key={timing._id}>
+                <div className="col">
+                  <div className="info-field">
+                    <p>{timing.day}</p>
+                  </div>
+                  <div className="info-value">
+                    {editInstituteProfileEnable ? (
+                      <div>
+                        <input
+                          type="text"
+                          placeholder="Start Time"
+                          value={timing.start_time || ""}
+                          onChange={(e) =>
+                            handleInputTimings(
+                              index,
+                              "start_time",
+                              e.target.value,
+                              setProfile
+                            )
+                          }
+                        />
+                        <input
+                          type="text"
+                          placeholder="End Time"
+                          value={timing.end_time || ""}
+                          onChange={(e) =>
+                            handleInputTimings(
+                              index,
+                              "end_time",
+                              e.target.value,
+                              setProfile
+                            )
+                          }
+                        />
+                        <input
+                          type="checkbox"
+                          checked={timing.is_open}
+                          onChange={(e) =>
+                            handleInputTimings(
+                              index,
+                              "is_open",
+                              e.target.checked,
+                              setProfile
+                            )
+                          }
+                        />
+                      </div>
+                    ) : (
+                      <p>
+                        {`${timing.start_time} - ${timing.end_time}`}{" "}
+                        {timing.is_open ? "(Open)" : "(Closed)"}
+                      </p>
+                    )}
                   </div>
                 </div>
-              ))}
-
-
+              </div>
+            ))}
 
             {/* affilations */}
             <div className="row">
@@ -596,15 +636,20 @@ const InstituteProfile = () => {
                 <div className="info-value about-block">
                   {editInstituteProfileEnable ? (
                     <>
-                    <textarea
-                      type="text"
-                      value={profile.affilations}
-                      onChange={(e) =>
-                        handleInput(" affilations", e.target.value, setProfile)
-                      }
-                    />
-                    <p className="about-blockinfo">Please enter the new point in a new line.</p>
-
+                      <textarea
+                        type="text"
+                        value={profile.affilations}
+                        onChange={(e) =>
+                          handleInput(
+                            " affilations",
+                            e.target.value,
+                            setProfile
+                          )
+                        }
+                      />
+                      <p className="about-blockinfo">
+                        Please enter the new point in a new line.
+                      </p>
                     </>
                   ) : (
                     <p>{profile.affilations}</p>
