@@ -356,6 +356,9 @@ const LeadsForAdmin = () => {
               <h4>ID111</h4>
             </div>
             <div className="col">
+              <h4>Institute name</h4>
+            </div>
+            <div className="col">
               <h4>Date</h4>
             </div>
             <div className="col">
@@ -380,6 +383,9 @@ const LeadsForAdmin = () => {
                 <div className="row" key={i}>
                   <div className="col">
                     <p>{i + 1}</p>
+                  </div>
+                  <div className="col instute-name-for-leads" >
+                    <p>{query.instituteName}</p>
                   </div>
                   <div className="col">
                     <p>{query.date}</p>
