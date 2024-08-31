@@ -353,7 +353,7 @@ const LeadsForAdmin = () => {
         <div className="table Leads-table">
           <div className="row">
             <div className="col">
-              <h4>ID111</h4>
+              <h4>ID</h4>
             </div>
             <div className="col">
               <h4>Institute name</h4>
