@@ -741,6 +741,7 @@ const InstituteProfile = () => {
                     >
                       <option value="ONLINE">Online</option>
                       <option value="OFFLINE">Offline</option>
+                      <option value="OFFLINE, OFFLINE">Both</option>
                     </select>
                   ) : (
                     <p>{profile.mode_of_study}</p>
