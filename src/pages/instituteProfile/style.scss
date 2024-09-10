@@ -41,6 +41,24 @@
    justify-content: center;
    align-items: center;
    gap: 40px;
+   .info-img {
+    .profileCover-pic {
+      display: flex;
+        width: 100%;
+        /* Adjusted to full width */
+        max-width: 800px; // Adjust To maximum width
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+    .profile-pic {
+      display: flex;
+        justify-content: center;
+        transform: translateY(-50%);
+    }
+
+   }
 
    .left-profile-middle {
      width: 100%;

@@ -204,13 +204,13 @@ const InstituteProfile = () => {
     <div className="EpProfile-container">
       <div className="left-profile">
         <div className="info-img">
+          <div className="profileCover-pic">
+            <EpCoverPhoto src={profile.cover_image} />
+          </div>
+        {/* </div>
+        <div className="info-img"> */}
           <div className="profile-pic">
             <ProfilePic src={profile.profile_pic} />
-          </div>
-        </div>
-        <div className="info-img">
-          <div className="profile-pic">
-            <EpCoverPhoto src={profile.cover_image} />
           </div>
         </div>
         <br />

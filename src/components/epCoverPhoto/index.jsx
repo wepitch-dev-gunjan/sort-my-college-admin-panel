@@ -14,7 +14,7 @@ const EpCoverPhoto = ({ src }) => {
 
   return (
     <>
-      <div className="ProfilePic-container">
+      <div className="ProfilecoverPic-container">
         <img src={src} alt="Profile" />
 
         <Tooltip
