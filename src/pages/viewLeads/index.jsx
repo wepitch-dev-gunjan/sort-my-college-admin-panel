@@ -251,26 +251,26 @@ const ViewLeads = () => {
     }
   };
 
-  const changeStatus = async (newStatus) => {
-    setEnquiryStatus(newStatus); // Update local state immediately
-    try {
-      await axios.put(
-        `${backend_url}/ep/changeStatus/${enquiry_id}`,
-        { status: newStatus },
-        {
-          headers: {
-            Authorization: admin.token,
-          },
-        }
-      );
-      getEnquiry();
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error(error.message);
-      // Optionally revert the status if the request fails
-      // setEnquiryStatus(enquiry.status);
-    }
-  };
+  // const changeStatus = async (newStatus) => {
+  //   setEnquiryStatus(newStatus); // Update local state immediately
+  //   try {
+  //     await axios.put(
+  //       `${backend_url}/ep/changeStatus/${enquiry_id}`,
+  //       { status: newStatus },
+  //       {
+  //         headers: {
+  //           Authorization: admin.token,
+  //         },
+  //       }
+  //     );
+  //     getEnquiry();
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     toast.error(error.message);
+  //     // Optionally revert the status if the request fails
+  //     // setEnquiryStatus(enquiry.status);
+  //   }
+  // };
 
   useEffect(() => {
     getEnquiry();
@@ -309,7 +309,7 @@ const ViewLeads = () => {
               <div className="fields">Status:</div>
               <div>{enquiryStatus}</div>
             </div>
-            <div className="btn1">
+            {/* <div className="btn1">
               <label>
                 <input
                   type="radio"
@@ -328,7 +328,7 @@ const ViewLeads = () => {
                 />
                 Not Replied
               </label>
-            </div>
+            </div> */}
           </div>
         ) : (
           <p>Loading...</p>
