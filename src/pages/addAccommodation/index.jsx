@@ -35,6 +35,7 @@ const AddAccommodation = () => {
   const [roomDetails, setRoomDetails] = useState(["", "", "", "", ""]);
   const [panCardImage, setPanCardImage] = useState(null);
   const [aadhaarImage, setAadhaarImage] = useState(null);
+  const [propertyImage, setPropertyImage] = useState([]);
   const [loading, setLoading] = useState(false);
   const [rooms, setRooms] = useState([
     {
@@ -426,12 +427,31 @@ const AddAccommodation = () => {
     }
   };
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    setFormData((prevState) => ({
-      ...prevState,
-      images: files,
-    }));
+    const files = Array.from(e.target.files); // Convert FileList to array
+
+    // If the images were removed previously, ensure the formData doesn't retain them
+    const previousImages = formData.images || []; // Get previously uploaded images
+
+    const newImages = [...previousImages, ...files]; // Merge previous images with new ones
+
+    // Limit the number of images to 10
+    if (newImages.length > 10) {
+      alert("You can upload a maximum of 10 images.");
+      const limitedImages = newImages.slice(0, 10); // Limit the total images to 10
+      setFormData((prevState) => ({
+        ...prevState,
+        images: limitedImages, // Update formData with limited images
+      }));
+      setPropertyImage(limitedImages); // Update propertyImage with limited images
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        images: newImages, // Update formData with all new images
+      }));
+      setPropertyImage(newImages); // Update propertyImage with all new images
+    }
   };
+
   useEffect(() => {
     console.log("Updated FormData: ", formData);
   }, [formData]);
@@ -461,6 +481,17 @@ const AddAccommodation = () => {
    }));
    document.getElementById('pan_card').value = '';
  };
+
+// New function to handle image removal
+const handleRemovePropertyImage = (index) => {
+  const updatedImages = formData.images.filter((_, i) => i !== index); // Remove the image by index
+  setFormData((prevState) => ({
+    ...prevState,
+    images: updatedImages, // Update formData without the removed image
+  }));
+  setPropertyImage(updatedImages); // Update propertyImage without the removed image
+};
+
 
   return (
     <div className="add-accomm-main">
@@ -530,78 +561,81 @@ const AddAccommodation = () => {
                 />
               </div>
               {/* aadhar card */}
-             <div className="row-form "
-      style={{
-        height: 200,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '2px dotted #BABABA',
-        position: 'relative',
-      }}
-    >
-      <input
-        type="file"
-        id="aadhar_card"
-        name="aadhar_card"
-        onChange={(e) => handleChange(e.target.files[0], 'owner.aadhar_card')}
-        style={{ display: 'none' }}
-      />
-      <label
-        htmlFor="aadhar_card"
-        style={{
-          width: 1000,
-          color: 'grey',
-          padding: '10px',
-          textAlign: 'center',
-          cursor: 'pointer',
-        }}
-      >
-        Upload Your Aadhaar Card here...
-      </label>
-    </div>
-<div className="row-form">
-{aadhaarImage && (
-        <div
-          style={{
-            // position: 'absolute',
-            // top: 'calc(100% + 10px)',
-            // maxHeight: '200px',
-            // border: '1px solid #BABABA',
-            padding: '10px',
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img
-            src={aadhaarImage}
-            alt="Aadhaar Card Preview"
-            style={{
-              maxHeight: '200px',
-              maxWidth: '100%',
-            }}
-          />
-          <CiCircleRemove 
-            onClick={handleRemoveAdharImage}
-            style={{
-              // position: 'absolute',
-              // top: '5px',
-              right: '5px',
-              border: 'none',
-              borderRadius: '50%',
-              width: '30px',
-              height: '30px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-         />
-        </div>
-      )}
-</div>
+              <div
+                className="row-form "
+                style={{
+                  height: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "2px dotted #BABABA",
+                  position: "relative",
+                }}
+              >
+                <input
+                  type="file"
+                  id="aadhar_card"
+                  name="aadhar_card"
+                  onChange={(e) =>
+                    handleChange(e.target.files[0], "owner.aadhar_card")
+                  }
+                  style={{ display: "none" }}
+                />
+                <label
+                  htmlFor="aadhar_card"
+                  style={{
+                    width: 1000,
+                    color: "grey",
+                    padding: "10px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  Upload Your Aadhaar Card here...
+                </label>
+              </div>
+              <div className="row-form">
+                {aadhaarImage && (
+                  <div
+                    style={{
+                      // position: 'absolute',
+                      // top: 'calc(100% + 10px)',
+                      // maxHeight: '200px',
+                      // border: '1px solid #BABABA',
+                      padding: "10px",
+                      backgroundColor: "white",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={aadhaarImage}
+                      alt="Aadhaar Card Preview"
+                      style={{
+                        maxHeight: "200px",
+                        maxWidth: "100%",
+                      }}
+                    />
+                    <CiCircleRemove
+                      onClick={handleRemoveAdharImage}
+                      style={{
+                        // position: 'absolute',
+                        // top: '5px',
+                        right: "5px",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
               {/* pan card */}
               <div
                 className="row-form"
@@ -639,57 +673,58 @@ const AddAccommodation = () => {
                 </label>
               </div>
               {/* adhar and pan card image ui */}
-      <div className="row-form">
-      {/* pan card */}
-       {panCardImage && (
-        <div
-          style={{
-            // position: 'absolute',
-            // top: 'calc(100% + 10px)',
-            // maxHeight: '200px',
-            // border: '1px solid #BABABA',
-            padding: '10px',
-            backgroundColor: 'white',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img
-            src={panCardImage}
-            alt="Aadhaar Card Preview"
-            style={{
-              maxHeight: '200px',
-              maxWidth: '100%',
-            }}
-          />
-          <CiCircleRemove 
-            onClick={handleRemovePanImage}
-            style={{
-              // position: 'absolute',
-              // top: '5px',
-              right: '5px',
-              border: 'none',
-              borderRadius: '50%',
-              width: '30px',
-              height: '30px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-         />
-        </div>
-      )}
+              <div className="row-form">
+                {/* pan card */}
+                {panCardImage && (
+                  <div
+                    style={{
+                      // position: 'absolute',
+                      // top: 'calc(100% + 10px)',
+                      // maxHeight: '200px',
+                      // border: '1px solid #BABABA',
+                      padding: "10px",
+                      backgroundColor: "white",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={panCardImage}
+                      alt="Aadhaar Card Preview"
+                      style={{
+                        maxHeight: "200px",
+                        maxWidth: "100%",
+                      }}
+                    />
+                    <CiCircleRemove
+                      onClick={handleRemovePanImage}
+                      style={{
+                        // position: 'absolute',
+                        // top: '5px',
+                        right: "5px",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-      </div>
           </div>
+
           <div className="property-info-main">
             <h2>Property Information: </h2>
             <div className="property-info-sub">
-
               {/* property images */}
-              <div className="row-form" 
+              <div
+                className="row-form"
                 style={{
                   height: 200,
                   display: "flex",
@@ -705,10 +740,10 @@ const AddAccommodation = () => {
                   name="files"
                   multiple={true}
                   onChange={handleImageChange}
-                style = {{
-                 display : "none",
-                 // backgroundColor : "red"
-                }}
+                  style={{
+                    display: "none",
+                    // backgroundColor : "red"
+                  }}
                 />
                 <label
                   htmlFor="files"
@@ -723,6 +758,153 @@ const AddAccommodation = () => {
                   Upload Your Property Images here...
                 </label>
               </div>
+
+              {/* <div
+                // className="row-form "
+                // style={{
+                //   height: 200,
+                //   display: "flex",
+                //   alignItems: "center",
+                //   justifyContent: "center",
+                //   border: "2px dotted #BABABA",
+                //   position: "relative",
+                // }}
+                className="row-form"
+                style={{
+                  height: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: "2px dotted #BABABA",
+                  position: "relative",
+                }}
+              >
+                <input
+                  type="file"
+                  id="files"
+                  name="files"
+                  multiple={true}
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                />
+
+                <label
+                  // htmlFor="aadhar_card"
+                  // style={{
+                  //   width: 1000,
+                  //   color: "grey",
+                  //   padding: "10px",
+                  //   textAlign: "center",
+                  //   cursor: "pointer",
+                  htmlFor="files"
+                  style={{
+                    width: 1000,
+                    color: "grey",
+                    padding: "10px",
+                    textAlign: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  Upload Your Property Images here...
+                </label>
+              </div> */}
+              {/* <div className="row-form">
+                {propertyImage > 0 && (
+                  <div
+                    style={{
+                      padding: "10px",
+                      backgroundColor: "white",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      position: "relative", // Allows positioning of the remove icon
+                    }}
+                  >
+                    <img
+                      src={propertyImage}
+                      alt={`Preview ${index + 1}`}
+                      style={{
+                        maxHeight: "200px",
+                        maxWidth: "100%",
+                      }}
+                    />
+
+                    <CiCircleRemove
+                      onClick={handleRemovePropertyImage(index)}
+                      style={{
+                        position: "absolute", // Position the remove icon on top of the image
+                        top: "5px",
+                        right: "5px",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "white", // Optional: add background for better visibility
+                        boxShadow: "0 0 5px rgba(0,0,0,0.2)", // Optional: shadow for depth
+                      }}
+                    />
+                  </div>
+                )}
+              </div> */}
+              {propertyImage && propertyImage.length > 0 && (
+                <div
+                  className="row-form"
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {propertyImage.map((image, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        padding: "10px",
+                        backgroundColor: "white",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "relative",
+                        border: "1px solid #BABABA",
+                      }}
+                    >
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt={`Preview ${index + 1}`}
+                        style={{
+                          maxHeight: "200px",
+                          maxWidth: "100%",
+                        }}
+                      />
+
+                      {/* Remove Icon */}
+                      <CiCircleRemove
+                        onClick={() => handleRemovePropertyImage(index)}
+                        style={{
+                          position: "absolute",
+                          top: "5px",
+                          right: "5px",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "30px",
+                          height: "30px",
+                          cursor: "pointer",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: "white",
+                          boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <div className="row-form">
                 <BasicTextField
                   onChange={(e) => handleChange(e.target.value, "name")}
@@ -735,19 +917,14 @@ const AddAccommodation = () => {
                   value={formData.direction}
                   placeholder="Direction URL"
                 />
-                 <div className="room-field total_beds">
-                      {/* Total Beds */}
-                      <BasicTextField
-                        onChange={(e) =>
-                         handleChange(
-                          e.target.value,
-                            "total_beds"
-                          )
-                        }
-                        value={formData.total_beds}
-                        placeholder="Total Beds"
-                      />
-                    </div>
+                <div className="room-field total_beds">
+                  {/* Total Beds */}
+                  <BasicTextField
+                    onChange={(e) => handleChange(e.target.value, "total_beds")}
+                    value={formData.total_beds}
+                    placeholder="Total Beds"
+                  />
+                </div>
               </div>
               <div className="row-form">
                 <BasicTextField

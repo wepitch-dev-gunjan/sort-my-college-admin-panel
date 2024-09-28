@@ -10,6 +10,7 @@ import { CgProfile } from "react-icons/cg";
 import { PiGenderIntersex } from "react-icons/pi";
 import { FcGallery } from "react-icons/fc";
 import { AccommodationContext } from "../../context/AccommodationContext";
+import { ImageList, ImageListItem } from "@mui/material";
 
 import prop_1 from "../../assets/prop-1.jpg";
 import prop_2 from "../../assets/prop-2.jpg";
@@ -22,7 +23,7 @@ import aadhar_card from "../../assets/A_sample_of_Aadhaar_card.jpg";
 import pan_card from "../../assets/sample-pan-card-front.jpg";
 import clock from "../../assets/clock_2997300.png";
 import { Link, useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
@@ -30,8 +31,10 @@ const { backend_url } = config;
 const AccommodationDetails = () => {
   const { showPropertyGallery, setShowPropertyGallery,editAccommodation,setEditAccommodation } =
     useContext(AccommodationContext);
+    const [isHovered, setIsHovered] = useState(false);
     const {accomodation_id} =useParams();
     const {admin} =useContext(AdminContext)
+      const galleryRef = useRef(null);
     const [property, setProperty] = useState({
      type: "",
      images: [],
@@ -197,11 +200,31 @@ const getAccommodation = async (req, res) => {
    console.log(error);
 
  }
-}
+};
 
 useEffect(() =>{
  getAccommodation();
 },[accomodation_id])
+
+  const handleClickOutside = (event) => {
+    if (galleryRef.current && !galleryRef.current.contains(event.target)) {
+      setShowPropertyGallery(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showPropertyGallery) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPropertyGallery]);
+
+
   return (
     <>
       <div className="accomm-dets-main">
@@ -211,17 +234,20 @@ useEffect(() =>{
               {property.name} in {property.address.area}
             </h1>
             <div className="property-main-btns">
-            <Link to={`/accommodation/edit/${accomodation_id}`}
-            onClick ={()=>setEditAccommodation(true)}
-              >Edit</Link> 
+              <Link
+                to={`/accommodation/edit/${accomodation_id}`}
+                onClick={() => setEditAccommodation(true)}
+              >
+                Edit
+              </Link>
             </div>
           </div>
           <div className="property-images">
             <div className="main-property-image">
-              <img src={property.images[1]} alt="" />
+              <img src={property.images[0]} alt="" />
             </div>
             <div className="property-image-col">
-              <img src={property.images[0]} alt="" />
+              <img src={property.images[1]} alt="" />
               <img src={property.images[2]} alt="" />
             </div>
             <div className="property-image-col">
@@ -229,10 +255,54 @@ useEffect(() =>{
               <img src={property.images[4]} alt="" />
             </div>
             <div className="gallery-btn">
-              <button onClick={() => setShowPropertyGallery(true)}>
-                {" "}
-                <FcGallery /> More...{" "}
-              </button>
+              <div>
+                {/* Button to toggle the gallery */}
+                <button
+                  className="toggle-gallery-btn"
+                  onClick={() => setShowPropertyGallery(true)}
+                  // onMouseOver={(e) => {
+                  //   e.target.style.backgroundColor = "#2980b9";
+                  //   e.target.style.boxShadow = "0 8px 12px rgba(0, 0, 0, 0.3)";
+                  // }}
+                  // onMouseOut={(e) => {
+                  //   e.target.style.backgroundColor = "#3498db";
+                  //   e.target.style.boxShadow = "0 5px 10px rgba(0, 0, 0, 0.2)";
+                  // }}
+                >
+                  <FcGallery /> more...
+                </button>
+
+                {/* Conditionally render the gallery */}
+                {showPropertyGallery && (
+                  <div className="property-gallery" ref={galleryRef}>
+                    {/* Close Button */}
+                    <button
+                      className="close-gallery-btn"
+                      onClick={() => setShowPropertyGallery(false)}
+                      onMouseOver={(e) =>
+                        (e.target.style.transform = "scale(1.1)")
+                      }
+                      onMouseOut={(e) =>
+                        (e.target.style.transform = "scale(1)")
+                      }
+                    >
+                      ✖
+                    </button>
+
+                    <div className="gallery-grid">
+                      {property.images.map((image, index) => (
+                        <div key={index} className="gallery-image-wrapper">
+                          <img
+                            src={image}
+                            alt={`Property ${index + 1}`}
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className="property-info">
@@ -244,7 +314,7 @@ useEffect(() =>{
               <p>
                 <span className="bubble-r">
                   {" "}
-                  Recommended for {property.recommended_for }{" "}
+                  Recommended for {property.recommended_for}{" "}
                 </span>
                 <LuDot />
                 <span className="bubble-r">{property.total_beds} Beds </span>
