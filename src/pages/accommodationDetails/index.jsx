@@ -27,49 +27,62 @@ import { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import config from "@/config";
 import { AdminContext } from "../../context/AdminContext";
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+} from "@mui/material";
 const { backend_url } = config;
 const AccommodationDetails = () => {
-  const { showPropertyGallery, setShowPropertyGallery,editAccommodation,setEditAccommodation } =
-    useContext(AccommodationContext);
-    const [isHovered, setIsHovered] = useState(false);
-    const {accomodation_id} =useParams();
-    const {admin} =useContext(AdminContext)
-      const galleryRef = useRef(null);
-    const [property, setProperty] = useState({
-     type: "",
-     images: [],
-     name: "Nameera",
-     address: {
-       area: "",
-       city: "",
-       state: "",
-       pin_code: "",
-     },
-     direction: "",
-     total_beds: 0,
-     recommended_for: "",
-     owner: {
-       full_name: "",
-       dob: "",
-       gender: "",
-       contact_numbers: [],
-       email: "",
-       aadhar_card: "",
-       pan_card: "",
-     },
-     nearby_locations: {
-       colleges: [],
-       hospitals: [],
-       metro_stations: [],
-     },
-     rooms: [],
-     rating: 0,
-     common_area_amenities: [],
-     house_rules: [],
-     gate_opening_time: "",
-     gate_closing_time: "",
-   });
-   
+  const {
+    showPropertyGallery,
+    setShowPropertyGallery,
+    editAccommodation,
+    setEditAccommodation,
+  } = useContext(AccommodationContext);
+  const [isHovered, setIsHovered] = useState(false);
+  const { accomodation_id } = useParams();
+  const { admin } = useContext(AdminContext);
+  const galleryRef = useRef(null);
+  const [status, setStatus] = useState();
+  const [property, setProperty] = useState({
+    type: "",
+    images: [],
+    name: "Nameera",
+    address: {
+      area: "",
+      city: "",
+      state: "",
+      pin_code: "",
+    },
+    direction: "",
+    total_beds: 0,
+    recommended_for: "",
+    owner: {
+      full_name: "",
+      dob: "",
+      gender: "",
+      contact_numbers: [],
+      email: "",
+      aadhar_card: "",
+      pan_card: "",
+    },
+    nearby_locations: {
+      colleges: [],
+      hospitals: [],
+      metro_stations: [],
+    },
+    rooms: [],
+    rating: 0,
+    common_area_amenities: [],
+    house_rules: [],
+    gate_opening_time: "",
+    gate_closing_time: "",
+  });
+
   // const property = {
   //   type: "PG",
 
@@ -185,26 +198,28 @@ const AccommodationDetails = () => {
   //       return 0;
   //   }
   // };
-// get acommodation
-const getAccommodation = async (req, res) => {
- try {
-   const {data} = await axios.get(`${backend_url}/admin/accommodation/${accomodation_id}`, {
-     headers: {
-       Authorization: admin.token,
-     }
-   });
-   console.log("Accommodation Data", data);
-   setProperty(data);
-   res.json(data); // Sending the response back to the client
- } catch (error) {
-   console.log(error);
+  // get acommodation
+  const getAccommodation = async (req, res) => {
+    try {
+      const { data } = await axios.get(
+        `${backend_url}/admin/accommodation/${accomodation_id}`,
+        {
+          headers: {
+            Authorization: admin.token,
+          },
+        }
+      );
+      console.log("Accommodation Data", data);
+      setProperty(data);
+      res.json(data); // Sending the response back to the client
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
- }
-};
-
-useEffect(() =>{
- getAccommodation();
-},[accomodation_id])
+  useEffect(() => {
+    getAccommodation();
+  }, [accomodation_id]);
 
   const handleClickOutside = (event) => {
     if (galleryRef.current && !galleryRef.current.contains(event.target)) {
@@ -223,6 +238,29 @@ useEffect(() =>{
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showPropertyGallery]);
+
+const changeStatus = async (newStatus) => {
+  const previousStatus = status; // Store the previous status to revert if needed
+  setStatus(newStatus); // Update local state immediately
+
+  try {
+    await axios.put(
+      `${backend_url}/admin/accommodation/${accomodation_id}/status`, // Fixed endpoint format
+      { status: newStatus },
+      {
+        headers: {
+          Authorization: admin.token,
+        },
+      }
+    );
+
+    // Fetch the latest data after successful update
+    getAccommodation(); // Ensure to call the function that fetches the latest accommodation data
+  } catch (error) {
+    console.error("Error:", error);
+    setStatus(previousStatus); 
+  }
+};
 
 
   return (
@@ -335,12 +373,55 @@ useEffect(() =>{
                 </span>
               </p>
             </div>
+            <FormControl
+              style={{
+                width: "160px",
+                marginBottom: "20px",
+                padding: "8px",
+                borderRadius: "8px", 
+          
+              }}
+            >
+              <InputLabel style={{ color: "#333", fontSize: "14px" }}>
+                Status
+              </InputLabel>
+              <Select
+                name="status"
+                label="Status"
+                value={status}
+                onChange={(e) => changeStatus(e.target.value)}
+                style={{
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#fff", // White background for the dropdown
+                  borderRadius: "4px",
+                  padding: "8px",
+                  fontSize: "14px",
+                }}
+              >
+                <MenuItem value="Pending">Pending</MenuItem>
+                <MenuItem value="Approved">Approved</MenuItem>
+                <MenuItem value="Rejected">Rejected</MenuItem>
+              </Select>
+              <p
+                style={{
+                  marginTop: "10px",
+                  color: "#555",
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                }}
+              >
+                Status: {property.status}
+              </p>
+            </FormControl>
+
             <div className="property-info-right">
               <a href={property.direction} target="_blank">
                 View Directions
               </a>
             </div>
           </div>
+
           <div className="property-common-amenities">
             <h2>What this place offers</h2>
             <div className="property-amenities-sub">
