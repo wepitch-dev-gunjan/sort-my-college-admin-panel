@@ -162,6 +162,7 @@
 
 .filters {
   display: flex;
+  flex-wrap: wrap; // Allow wrapping to create two lines
   gap: 1.5rem;
   padding: 1rem 0;
   margin-bottom: 20px;
@@ -172,6 +173,7 @@
   .location-filter,
   .rating-filter,
   .gender-filter,
+  .status-filter,
   .nearby-college-filter {
     display: flex;
     flex-direction: column;
@@ -237,11 +239,13 @@
     }
   }
 
+  // Updated reset-filters section to be positioned last
   .reset-filters {
     display: flex;
-     height : 3.9rem;;
-     align-items: flex-end;
+    height: 3.9rem;
+    align-items: flex-end;
     width: 12%; // Same width as .gender-filter
+    margin-left: auto; // Align to the right
 
     button {
       padding: 0.90rem; // Adjust padding to be consistent
@@ -313,10 +317,9 @@
                 right: 10px;
                 z-index: 1;
                 color: white;
-                font-size: 12px;
-                padding: 10px;
-                border-radius: 8px;
-        
+                font-size: 14px;
+                padding: 5px 10px 5px 10px;
+                border-radius: 5px;        
             }
           
 

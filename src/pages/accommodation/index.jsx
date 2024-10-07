@@ -168,7 +168,14 @@ import { AccommodationContext } from "../../context/AccommodationContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import config from "@/config";
-import { Box, Slider, Select, MenuItem } from "@mui/material";
+import {
+  Box,
+  Slider,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { AdminContext } from "../../context/AdminContext";
 
@@ -354,7 +361,7 @@ const Accommodation = () => {
 
         <div className="price-filter">
           <p>Price Range</p>
-          <Box sx={{ width: 250 }}>
+          <Box sx={{ width: 200 }}>
             <Slider
               value={priceRange}
               onChange={handlePriceChange}
@@ -377,7 +384,7 @@ const Accommodation = () => {
         </div>
         {/* Status Filter */}
         <div className="status-filter">
-          <p>Status</p>
+          {/* <p>Status</p>
           <Select
             value={status}
             onChange={handleStatusChange}
@@ -388,7 +395,36 @@ const Accommodation = () => {
             <MenuItem value="Approved">Approved</MenuItem>
             <MenuItem value="Pending">Pending</MenuItem>
             <MenuItem value="Rejected">Rejected</MenuItem>
-          </Select>
+          </Select> */}
+          <FormControl
+            style={{
+              width: "160px",
+              marginBottom: "10px", // Increase bottom margin to lower the position
+              padding: "8px",
+              borderRadius: "8px",
+            }}
+          >
+            <InputLabel style={{ color: "#333", fontSize: "14px" }}>
+              Status
+            </InputLabel>
+            <Select
+              value={status}
+              onChange={handleStatusChange}
+              style={{
+                width: "100%",
+                height: "50px", // Increase height of the dropdown
+                backgroundColor: "#fff", // White background for the dropdown
+                borderRadius: "4px",
+                padding: "8px",
+                fontSize: "14px",
+              }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="Pending">Pending</MenuItem>
+              <MenuItem value="Approved">Approved</MenuItem>
+              <MenuItem value="Rejected">Rejected</MenuItem>
+            </Select>
+          </FormControl>
         </div>
 
         <div className="location-filter">
@@ -438,11 +474,11 @@ const Accommodation = () => {
                   style={{
                     backgroundColor:
                       accommodation.status === "Pending"
-                        ? "blue"
+                        ? "rgba(0, 0, 255, 0.7)" // lighter blue
                         : accommodation.status === "Approved"
-                        ? "green"
+                        ? "rgba(0, 128, 0, 0.7)" // lighter green
                         : accommodation.status === "Rejected"
-                        ? "red"
+                        ? "rgba(255, 0, 0, 0.7)" // lighter red
                         : "transparent",
                   }}
                 >
