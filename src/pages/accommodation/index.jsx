@@ -168,7 +168,7 @@ import { AccommodationContext } from "../../context/AccommodationContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import config from "@/config";
-import { Box, Slider } from "@mui/material";
+import { Box, Slider, Select, MenuItem } from "@mui/material";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import { AdminContext } from "../../context/AdminContext";
 
@@ -184,6 +184,7 @@ const Accommodation = () => {
   const [gender, setGender] = useState(""); // Gender filter
   const [nearbyCollege, setNearbyCollege] = useState(""); // Nearby college search
   const [name, setName] = useState(""); // Name search filter
+  const [status, setStatus] = useState(""); // Status filter
   const { admin } = useContext(AdminContext);
 
   // Fetch accommodations from backend
@@ -209,16 +210,19 @@ const Accommodation = () => {
   const filterAccommodations = useCallback(() => {
     const filtered = accommodations.filter((accommodation) => {
       const lowestPrice = getLowestPrice(accommodation);
-      const isGenderMatch = gender === "" || accommodation.gender === gender; // Gender filter check
+      const isGenderMatch =
+        gender === "" || accommodation.recommended_for === gender; // Gender filter check
       const isNearbyCollegeMatch =
         nearbyCollege === "" ||
-        (accommodation.nearbyColleges &&
-          accommodation.nearbyColleges.some((college) =>
+        (accommodation.nearby_locations.colleges &&
+          accommodation.nearby_locations.colleges.some((college) =>
             college.toLowerCase().includes(nearbyCollege.toLowerCase())
           )); // Nearby college filter check
       const isNameMatch =
         name === "" ||
         accommodation.name.toLowerCase().includes(name.toLowerCase()); // Name filter check
+        
+      const isStatusMatch = status === "" || accommodation.status === status;
 
       return (
         lowestPrice >= priceRange[0] &&
@@ -230,7 +234,8 @@ const Accommodation = () => {
         accommodation.rating >= rating &&
         isGenderMatch &&
         isNearbyCollegeMatch &&
-        isNameMatch
+        isNameMatch &&
+        isStatusMatch
       );
     });
     setFilteredAccommodations(filtered);
@@ -242,6 +247,7 @@ const Accommodation = () => {
     gender,
     nearbyCollege,
     name,
+    status,
   ]);
 
   useEffect(() => {
@@ -253,6 +259,7 @@ const Accommodation = () => {
     gender,
     nearbyCollege,
     name,
+    status,
     filterAccommodations,
   ]);
 
@@ -292,6 +299,10 @@ const Accommodation = () => {
     setName(event.target.value);
   };
 
+  // Handle status change
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value); // Set the status filter value
+  };
   // Reset Filters functionality
   const resetFilters = () => {
     setPriceRange([0, 20000]);
@@ -300,6 +311,7 @@ const Accommodation = () => {
     setGender("");
     setNearbyCollege("");
     setName("");
+    setStatus("");
   };
 
   return (
@@ -363,6 +375,21 @@ const Accommodation = () => {
             </div>
           </Box>
         </div>
+        {/* Status Filter */}
+        <div className="status-filter">
+          <p>Status</p>
+          <Select
+            value={status}
+            onChange={handleStatusChange}
+            displayEmpty
+            sx={{ width: 120 }}
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="Approved">Approved</MenuItem>
+            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="Rejected">Rejected</MenuItem>
+          </Select>
+        </div>
 
         <div className="location-filter">
           <p>Location</p>
@@ -389,8 +416,9 @@ const Accommodation = () => {
           <p>Gender</p>
           <select value={gender} onChange={handleGenderChange}>
             <option value="">All</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="Boys">Boys</option>
+            <option value="Girls">Girls</option>
+            <option value="Both">Both</option>
           </select>
         </div>
 
@@ -406,6 +434,20 @@ const Accommodation = () => {
           <div className="accomm-children" key={i}>
             <div className="accomm-gallery">
               <div className="accomm-image-container">
+                <p
+                  style={{
+                    backgroundColor:
+                      accommodation.status === "Pending"
+                        ? "blue"
+                        : accommodation.status === "Approved"
+                        ? "green"
+                        : accommodation.status === "Rejected"
+                        ? "red"
+                        : "transparent",
+                  }}
+                >
+                  {accommodation.status}
+                </p>
                 <img src={accommodation.images[0]} alt="Accommodation" />
               </div>
             </div>
