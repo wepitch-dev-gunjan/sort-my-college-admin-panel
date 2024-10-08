@@ -203,21 +203,52 @@
                 align-items: flex-start;
                 align-content: flex-start;
             }
-            .property-info-right{
-                padding-right: 0.2em;
-                a{
-                    border: 2px solid #ffffff;
-                    padding: 0.5em 1.5em 0.5em 1.5em;
-                    border-radius: 10px;
-                    font-size: 0.8em;
-                    background-color: #ffffff;
-                    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-                }
-                a:hover{
-                    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-                    transition: all 0.3s ease;
-                }
-            }
+                        .property-info-right {
+                            padding-right: 0.2em;
+                            display: flex;
+                            align-items: center; // Ensures elements are vertically aligned to the center
+                            gap: 15px; // Adds a small gap between elements
+            
+                            .property-status {
+                                margin-bottom: 0; // Removes the bottom margin to keep them in the same line
+                                // flex-grow: 1; // Optional: makes sure it grows to fill available space
+                            }
+            
+                            .status-label {
+                                padding: 0.5em 1.5em;
+                                font-size: 14px;
+                                margin-bottom: 0; // Ensures they stay on the same line
+                                display: inline-block; // Keep elements inline
+                            }
+            
+                            .status-select {
+                                width: 132px;
+                                height: 30px;
+                                background-color: #fff;
+                                border-radius: 10px;
+                                padding-left: 10px;
+                                font-size: 12px;
+                                border: 1px solid #ccc;
+                                padding: auto;
+                            }
+            
+                            a {
+                                display: inline-flex; // Makes the link content horizontally aligned
+                                align-items: center; // Vertically centers the link’s content
+                                padding: 0.5em 1.5em;
+                                border-radius: 10px;
+                                font-size: 0.8em;
+                                background-color: #ffffff;
+                                box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                                width: auto; // Adjusts width to fit the content
+                            }
+            
+                            a:hover {
+                                box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                                transition: all 0.3s ease;
+                            }
+                        }
+                                   
         }
         .property-common-amenities{
             width: 100%;

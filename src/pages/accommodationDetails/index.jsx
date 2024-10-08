@@ -373,49 +373,23 @@ const changeStatus = async (newStatus) => {
                 </span>
               </p>
             </div>
-            <FormControl
-              style={{
-                width: "160px",
-                marginBottom: "20px",
-                padding: "8px",
-                borderRadius: "8px", 
-          
-              }}
-            >
-              <InputLabel style={{ color: "#333", fontSize: "14px" }}>
-                Status
-              </InputLabel>
-              <Select
-                name="status"
-                label="Status"
-                value={status}
-                onChange={(e) => changeStatus(e.target.value)}
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#fff", // White background for the dropdown
-                  borderRadius: "4px",
-                  padding: "8px",
-                  fontSize: "14px",
-                }}
-              >
-                <MenuItem value="Pending">Pending</MenuItem>
-                <MenuItem value="Approved">Approved</MenuItem>
-                <MenuItem value="Rejected">Rejected</MenuItem>
-              </Select>
-              <p
-                style={{
-                  marginTop: "10px",
-                  color: "#555",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                }}
-              >
-                Status: {property.status}
-              </p>
-            </FormControl>
-
             <div className="property-info-right">
+              <div className="property-status">
+                <label htmlFor="status" className="status-label">
+                </label>
+                <select
+                  id="status"
+                  name="status"
+                  value={property.status}
+                  onChange={(e) => changeStatus(e.target.value)}
+                  className="status-select"
+                >
+                  <option value="Pending">Pending</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </div>
+
               <a href={property.direction} target="_blank">
                 View Directions
               </a>
