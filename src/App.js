@@ -53,6 +53,7 @@ import AddCounsellorProfilePic from "./components/counsellorEditProfilePic";
 import InstituteLeads from "./pages/instituteLeads";
 import EditAccommodation from "./pages/editAccommodation";
 import AddEpCoverPhoto from "./components/epCoverPhoto/addEpCoverPhoto";
+import AccommodationLeads from "./components/accommodationLeads";
 
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
@@ -237,6 +238,10 @@ function App() {
                 <Route
                   path="/accommodationDetails"
                   element={<ViewAccoummDetails />}
+                />
+                <Route
+                  path="/accommodation/viewAccommodationLeads"
+                  element={<AccommodationLeads />}
                 />
 
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}

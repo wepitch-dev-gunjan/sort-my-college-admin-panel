@@ -326,8 +326,8 @@ const Accommodation = () => {
       <div className="accomm-heading">
         <h1>Accommodation</h1>
         <div className="accomm-buttons">
-          <Link to="/accommodation/add">
-            <button>Queries</button>
+          <Link to="/accommodation/viewAccommodationLeads">
+            <button>View Leads</button>
           </Link>
           <Link to="/accommodation/add">
             <button>Add New</button>
