@@ -166,6 +166,7 @@ import React, { useState, useEffect, useContext, useCallback } from "react";
 import { FaStar } from "react-icons/fa";
 import { AccommodationContext } from "../../context/AccommodationContext";
 import { Link } from "react-router-dom";
+import { LiaRupeeSignSolid } from "react-icons/lia";
 import axios from "axios";
 import config from "@/config";
 import {
@@ -192,6 +193,7 @@ const Accommodation = () => {
   const [nearbyCollege, setNearbyCollege] = useState(""); // Nearby college search
   const [name, setName] = useState(""); // Name search filter
   const [status, setStatus] = useState(""); // Status filter
+  const [sharing, setSharing] = useState("");
   const { admin } = useContext(AdminContext);
 
   // Fetch accommodations from backend
@@ -228,8 +230,15 @@ const Accommodation = () => {
       const isNameMatch =
         name === "" ||
         accommodation.name.toLowerCase().includes(name.toLowerCase()); // Name filter check
-        
+
       const isStatusMatch = status === "" || accommodation.status === status;
+
+      const isSharingMatch =
+        sharing === "" ||
+        (accommodation.rooms &&
+          accommodation.rooms.some((room) => room.sharing_type === sharing));
+
+
 
       return (
         lowestPrice >= priceRange[0] &&
@@ -242,7 +251,8 @@ const Accommodation = () => {
         isGenderMatch &&
         isNearbyCollegeMatch &&
         isNameMatch &&
-        isStatusMatch
+        isStatusMatch &&
+        isSharingMatch
       );
     });
     setFilteredAccommodations(filtered);
@@ -255,6 +265,7 @@ const Accommodation = () => {
     nearbyCollege,
     name,
     status,
+    sharing,
   ]);
 
   useEffect(() => {
@@ -267,6 +278,7 @@ const Accommodation = () => {
     nearbyCollege,
     name,
     status,
+    sharing,
     filterAccommodations,
   ]);
 
@@ -306,6 +318,10 @@ const Accommodation = () => {
     setName(event.target.value);
   };
 
+  const handleSharingChange = (event) => {
+    setSharing(event.target.value)
+  }
+
   // Handle status change
   const handleStatusChange = (event) => {
     setStatus(event.target.value); // Set the status filter value
@@ -319,6 +335,8 @@ const Accommodation = () => {
     setNearbyCollege("");
     setName("");
     setStatus("");
+    setSharing("");
+
   };
 
   return (
@@ -437,6 +455,50 @@ const Accommodation = () => {
           />
         </div>
 
+        <div className="status-sharing">
+          {/* <p>Status</p>
+          <Select
+            value={status}
+            onChange={handleStatusChange}
+            displayEmpty
+            sx={{ width: 120 }}
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="Approved">Approved</MenuItem>
+            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="Rejected">Rejected</MenuItem>
+          </Select> */}
+          <FormControl
+            style={{
+              width: "160px",
+              marginBottom: "10px", // Increase bottom margin to lower the position
+              padding: "8px",
+              borderRadius: "8px",
+            }}
+          >
+            <InputLabel style={{ color: "#333", fontSize: "14px" }}>
+              Sharing
+            </InputLabel>
+            <Select
+              value={sharing}
+              onChange={handleSharingChange}
+              style={{
+                width: "100%",
+                height: "50px", // Increase height of the dropdown
+                backgroundColor: "#fff", // White background for the dropdown
+                borderRadius: "4px",
+                padding: "8px",
+                fontSize: "14px",
+              }}
+            >
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="Single">Single</MenuItem>
+              <MenuItem value="Double">Double</MenuItem>
+              <MenuItem value="Triple">Triple</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
         <div className="rating-filter">
           <p>Rating</p>
           <select value={rating} onChange={handleRatingChange}>
@@ -495,6 +557,7 @@ const Accommodation = () => {
                   {accommodation.address.state}
                 </p>
               </div>
+
               <div className="accomm-child-1-r">
                 <p>
                   <FaStar /> {accommodation.rating} | (
@@ -508,6 +571,13 @@ const Accommodation = () => {
                 <p>
                   <span>{getLowestPrice(accommodation)} INR</span>/Month
                 </p>
+                <div className="property-rooms-main">
+                  {accommodation.rooms.map((room, i) => (
+                    <div className="room-details-sec sharing-n-available">
+                      <h5>{room.sharing_type} Sharing</h5>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="accomm-child-2-r">
                 <Link to={`/accommodation/details/${accommodation._id}`}>

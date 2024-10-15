@@ -233,7 +233,7 @@ const LeadsForAccommodation = () => {
                       </div>
                       <div className="link">
                         <Link to={``}>
-                          <p>View</p>
+                          <p>Send enquiries</p>
                         </Link>
                       </div>
                     </div>
