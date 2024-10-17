@@ -55,7 +55,7 @@ const AddWebinar = ({ setAddMode }) => {
   const [webinarDetails, setWebinarDetails] = useState(initialState);
   const [imageFile, setImageFile] = useState(null);
 
-  useClickOutside(Ref, () => handleCancel());
+  // useClickOutside(Ref, () => handleCancel());
 
   const handleChange = (e) => {
     const { name, value } = e.target;
