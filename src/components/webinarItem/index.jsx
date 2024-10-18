@@ -37,9 +37,17 @@ const WebinarItem = ({
     setShowMenu(false);
   });
 
+  // const formatDate = (date) => {
+  //   return dayjs(date).format("YYYY-MM-DD");
+  // };
+
   const formatDate = (date) => {
-    return dayjs(date).format("YYYY-MM-DD");
+    return dayjs(date)
+      .subtract(5, "hour")
+      .subtract(30, "minute")
+      .format("YYYY-MM-DD");
   };
+
 
   const handleJoinNow = () => {
     if (webinar_start_url) {

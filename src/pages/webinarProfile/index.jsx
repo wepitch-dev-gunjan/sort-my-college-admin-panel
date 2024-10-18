@@ -81,12 +81,24 @@ const WebinarProfile = () => {
     getWebinar();
   }, [admin, filteredParticipants]);
 
+  // const formatDate = (dateString) => {
+  //   const date = new Date(dateString);
+  //   const formattedDate = date.toLocaleDateString();
+  //   const formattedTime = date.toLocaleTimeString();
+  //   return { date: formattedDate, time: formattedTime };
+  // };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const formattedDate = date.toLocaleDateString();
-    const formattedTime = date.toLocaleTimeString();
-    return { date: formattedDate, time: formattedTime };
+    // Adjusting the time by subtracting 5 hours and 30 minutes
+    date.setHours(date.getHours() - 5);
+    date.setMinutes(date.getMinutes() - 30);
+
+    return {
+      date: date.toLocaleDateString(),
+      time: date.toLocaleTimeString(),
+    };
   };
+
 
   function convertTimestampTo12HourFormat(timestamp) {
     function convert24To12(time24) {
