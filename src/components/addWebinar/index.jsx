@@ -42,8 +42,9 @@ const AddWebinar = ({ setAddMode }) => {
 
   const initialState = {
     webinar_image: "",
-    webinar_title: `Webinar-${formatDate(getTomorrowDate())} at ${currentTime}`,
-    webinar_details: "",
+    // webinar_title: `Webinar-${formatDate(getTomorrowDate())} at ${currentTime}`, "",
+    webinar_title: "",
+    webinar_details: [""],
     what_will_you_learn: [""],
     webinar_date: formatDate(getTomorrowDate()),
     webinar_time: currentTime,
@@ -90,6 +91,33 @@ const AddWebinar = ({ setAddMode }) => {
       what_will_you_learn: newLearnings,
     }));
   };
+
+  const handleAddWebinarDetails = (index, e) => {
+    const { value } = e.target;
+    const newDetails = [...webinarDetails.webinar_details];
+    newDetails[index] = value;
+    setWebinarDetails((prevDetails) => ({
+      ...prevDetails,
+      webinar_details: newDetails,
+    }));
+  };
+
+  const handleAddWebinarDetail = () => {
+    setWebinarDetails((prevDetails) => ({
+      ...prevDetails,
+      webinar_details: [...prevDetails.webinar_details, ""],
+    }));
+  };
+
+  const handleRemoveWebinarDetail = (index) => {
+    const newDetails = [...webinarDetails.webinar_details];
+    newDetails.splice(index, 1);
+    setWebinarDetails((prevDetails) => ({
+      ...prevDetails,
+      webinar_details: newDetails,
+    }));
+  };
+
 
   // const handleSubmit = async () => {
   //   try {
@@ -219,6 +247,7 @@ const AddWebinar = ({ setAddMode }) => {
                   name="webinar_title"
                   value={webinarDetails.webinar_title}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -226,13 +255,37 @@ const AddWebinar = ({ setAddMode }) => {
               <div className="left-section">
                 <label htmlFor="webinar_details">Webinar Details:</label>
               </div>
-              <div className="right-section">
+              {/* <div className="right-section">
                 <textarea
                   id="webinar_details"
                   name="webinar_details"
                   value={webinarDetails.webinar_details}
                   onChange={handleChange}
                 />
+              </div> */}
+              <div className="right-section wwyl-inputs">
+                {webinarDetails.webinar_details.map((detail, index) => (
+                  <div key={index} className="learning-item">
+                    <textarea
+                      value={detail}
+                      onChange={(e) => handleAddWebinarDetails(index, e)}
+                    />
+                    <button
+                      className="wwyl-delete-btn"
+                      onClick={() => handleRemoveWebinarDetail(index)}
+                    >
+                      <span role="img" aria-label="Delete">
+                        <RiDeleteBin6Line />
+                      </span>
+                    </button>
+                  </div>
+                ))}
+                <button
+                  className="wwyl-add-btn"
+                  onClick={handleAddWebinarDetail}
+                >
+                  <FiPlus />
+                </button>
               </div>
             </div>
             <div className="webinar-section">
