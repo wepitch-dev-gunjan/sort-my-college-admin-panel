@@ -48,7 +48,7 @@ const AddWebinar = ({ setAddMode }) => {
     what_will_you_learn: [""],
     webinar_date: formatDate(getTomorrowDate()),
     webinar_time: currentTime,
-    speaker_profile: "",
+    speaker_profile: [""],
     webinar_by: "Sort My College",
     webinar_total_slots: 500,
   };
@@ -118,6 +118,30 @@ const AddWebinar = ({ setAddMode }) => {
     }));
   };
 
+
+    const handleRemoveFromArray = (index, key) => {
+      const updatedArray = [...webinarDetails[key]];
+      updatedArray.splice(index, 1);
+      setWebinarDetails((prevDetails) => ({
+        ...prevDetails,
+        [key]: updatedArray,
+      }));
+    };
+    const handleAddToArray = (key) => {
+      setWebinarDetails((prevDetails) => ({
+        ...prevDetails,
+        [key]: [...prevDetails[key], ""],
+      }));
+    };
+      const handleArrayChange = (index, e, key) => {
+        const { value } = e.target;
+        const updatedArray = [...webinarDetails[key]];
+        updatedArray[index] = value;
+        setWebinarDetails((prevDetails) => ({
+          ...prevDetails,
+          [key]: updatedArray,
+        }));
+      };
 
   // const handleSubmit = async () => {
   //   try {
@@ -348,7 +372,7 @@ const AddWebinar = ({ setAddMode }) => {
               <div className="left-section">
                 <label htmlFor="speaker_profile">Speaker Profile:</label>
               </div>
-              <div className="right-section">
+              {/* <div className="right-section">
                 <input
                   type="text"
                   id="speaker_profile"
@@ -356,6 +380,34 @@ const AddWebinar = ({ setAddMode }) => {
                   value={webinarDetails.speaker_profile}
                   onChange={handleChange}
                 />
+              </div> */}
+              <div className="right-section wwyl-inputs">
+                {webinarDetails.speaker_profile.map((profile, index) => (
+                  <div key={index} className="learning-item">
+                    <textarea
+                      value={profile}
+                      onChange={(e) =>
+                        handleArrayChange(index, e, "speaker_profile")
+                      }
+                    />
+                    <button
+                      className="wwyl-delete-btn"
+                      onClick={() =>
+                        handleRemoveFromArray(index, "speaker_profile")
+                      }
+                    >
+                      <span role="img" aria-label="Delete">
+                        <RiDeleteBin6Line />
+                      </span>
+                    </button>
+                  </div>
+                ))}
+                <button
+                  className="wwyl-add-btn"
+                  onClick={() => handleAddToArray("speaker_profile")}
+                >
+                  <FiPlus />
+                </button>
               </div>
             </div>
             <div className="webinar-section">
