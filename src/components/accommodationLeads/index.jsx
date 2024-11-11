@@ -3,7 +3,7 @@ import { AdminContext } from "../../context/AdminContext";
 import "./style.scss";
 import axios from "axios";
 import config from "@/config";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 import {
   TextField,
@@ -92,6 +92,24 @@ const LeadsForAccommodation = () => {
     } catch (error) {
       console.error("Error getting queries", error);
       setQueries([]); // Reset queries on error
+    }
+  };
+
+  const sendEnquiry = async (enquiry_id, accommodation_id) => {
+    try {
+      const response = await axios.post(
+        `${backend_url}/admin/accommodation/send-enquiry`,
+        { enquiry_id, accommodation_id },
+        {
+          headers: {
+            Authorization: admin.token,
+          },
+        }
+      );
+      alert(response.data.message);
+    } catch (error) {
+      console.error("Error sending enquiry:", error);
+      alert("Failed to send enquiry. Please try again.");
     }
   };
 
@@ -210,6 +228,9 @@ const LeadsForAccommodation = () => {
             <div className="col">
               <h4>Message</h4>
             </div>
+            <div className="col">
+              <h4>Action</h4>
+            </div>
           </div>
 
           {Array.isArray(queries) && queries.length === 0 ? (
@@ -257,10 +278,14 @@ const LeadsForAccommodation = () => {
                           <p>{message}</p>
                         </div>
                       </div>
-                      <div className="link">
-                        <Link to={``}>
-                          <p>Send enquiries</p>
-                        </Link>
+                      <div className="col link">
+                        <Button
+                          onClick={() => sendEnquiry(query._id, query.enquired_to._id)}
+                          variant="contained"
+                          color="primary"
+                        >
+                          Send Enquiries
+                        </Button>
                       </div>
                     </div>
                   );
