@@ -207,6 +207,9 @@ const LeadsForAccommodation = () => {
             <div className="col">
               <h4>Status</h4>
             </div>
+            <div className="col">
+              <h4>Message</h4>
+            </div>
           </div>
 
           {Array.isArray(queries) && queries.length === 0 ? (
@@ -220,6 +223,7 @@ const LeadsForAccommodation = () => {
                     : "N/A";
                   const enquiryStatus = query.enquiryStatus || "N/A";
                   const accommodationName = query.enquired_to?.name || "Unknown";
+                  const message = query.message?.[0] || "No message";
 
                   return (
                     <div className="row" key={query._id}>
@@ -248,6 +252,11 @@ const LeadsForAccommodation = () => {
                       >
                         <p>{enquiryStatus}</p>
                       </div>
+                      <div className="col message-col">
+                        <div className="scrollable-message">
+                          <p>{message}</p>
+                        </div>
+                      </div>
                       <div className="link">
                         <Link to={``}>
                           <p>Send enquiries</p>
@@ -260,6 +269,17 @@ const LeadsForAccommodation = () => {
           )}
         </div>
       </div>
+
+      {/* CSS for scrollable message */}
+      <style jsx>{`
+        .scrollable-message {
+          max-height: 50px;
+          overflow-y: auto;
+        }
+        .message-col {
+          max-width: 200px;
+        }
+      `}</style>
     </div>
   );
 };
