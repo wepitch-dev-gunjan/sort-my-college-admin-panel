@@ -54,6 +54,7 @@ import InstituteLeads from "./pages/instituteLeads";
 import EditAccommodation from "./pages/editAccommodation";
 import AddEpCoverPhoto from "./components/epCoverPhoto/addEpCoverPhoto";
 import AccommodationLeads from "./components/accommodationLeads";
+import LeadsForAccommodation from "./components/accommodationLeads";
 
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
@@ -243,6 +244,9 @@ function App() {
                   path="/accommodation/viewAccommodationLeads"
                   element={<AccommodationLeads />}
                 />
+
+                <Route path="/accommodation/:accommodation_id/leads" element={<LeadsForAccommodation />} />
+
 
                 {/* <Route path ="/help/faq-and-troubleshooting" element = {<FaqAndTroubleshooting />}/> */}
                 {/* <Route path="/question-forum" element={<QuestionForum />} /> */}

@@ -67,7 +67,7 @@ const LeadsForAccommodation = () => {
             Authorization: admin.token,
           },
           params: {
-            enquired_to: accommodation_id || undefined,
+            accommodation_id, // Pass accommodation_id directly
             status: filterParams.status,
             fromDate: filterParams.startDate
               ? convertToIST(filterParams.startDate)
@@ -76,22 +76,19 @@ const LeadsForAccommodation = () => {
               ? convertToIST(filterParams.endDate)
               : undefined,
             accommodationName: filterParams.accommodationName,
-            search: filterParams.search, // Pass search parameter
+            search: filterParams.search,
           },
         }
       );
 
-      console.log(data); // Log the response data
-
       if (Array.isArray(data.data)) {
         setQueries(data.data); // Set the queries from the API response
       } else {
-        console.error("Expected an array but got:", data);
-        setQueries([]); // Handle unexpected data type
+        setQueries([]);
       }
     } catch (error) {
-      console.error("Error getting queries", error);
-      setQueries([]); // Reset queries on error
+      console.error("Error fetching leads:", error);
+      setQueries([]);
     }
   };
 
@@ -114,7 +111,7 @@ const LeadsForAccommodation = () => {
   };
 
   useEffect(() => {
-    getAllQueriesForAdmin(); // Fetch data when filterParams change
+    getAllQueriesForAdmin();
   }, [filterParams]);
 
   const resetFilters = () => {
@@ -123,15 +120,14 @@ const LeadsForAccommodation = () => {
       startDate: null,
       endDate: null,
       accommodationName: "",
-      search: "", // Reset search
+      search: "",
     });
-    getAllQueriesForAdmin(); // Fetch data after resetting filters
+    getAllQueriesForAdmin();
   };
 
-  // Render the component
   return (
     <div className="RecentLeads-container">
-      <h1>All Accommodation Leads</h1>
+      <h1>Accommodation Leads</h1>
 
       {/* Filters */}
       <div className="main_Container">
@@ -210,27 +206,13 @@ const LeadsForAccommodation = () => {
       <div className="Leads-table-parent">
         <div className="table Leads-table">
           <div className="row">
-            <div className="col">
-              <h4>Sno</h4>
-            </div>
-            <div className="col">
-              <h4>Accommodation Name</h4>
-            </div>
-            <div className="col">
-              <h4>Date</h4>
-            </div>
-            <div className="col">
-              <h4>Preferred Time</h4>
-            </div>
-            <div className="col">
-              <h4>Status</h4>
-            </div>
-            <div className="col">
-              <h4>Message</h4>
-            </div>
-            <div className="col">
-              <h4>Action</h4>
-            </div>
+            <div className="col"><h4>Sno</h4></div>
+            <div className="col"><h4>Accommodation Name</h4></div>
+            <div className="col"><h4>Date</h4></div>
+            <div className="col"><h4>Preferred Time</h4></div>
+            <div className="col"><h4>Status</h4></div>
+            <div className="col"><h4>Message</h4></div>
+            <div className="col"><h4>Action</h4></div>
           </div>
 
           {Array.isArray(queries) && queries.length === 0 ? (
@@ -248,29 +230,15 @@ const LeadsForAccommodation = () => {
 
                   return (
                     <div className="row" key={query._id}>
-                      <div className="col">
-                        <p>{i + 1}</p>
-                      </div>
+                      <div className="col"><p>{i + 1}</p></div>
                       <div className="col instute-name-for-leads">
                         <p>{accommodationName}</p>
                       </div>
                       <div className="col">
                         <p>{new Date(query.createdAt).toLocaleString()}</p>
                       </div>
-                      <div className="col">
-                        <p>{preferredTime}</p>
-                      </div>
-                      <div
-                        className={`col ${
-                          enquiryStatus === "Unseen"
-                            ? "red"
-                            : enquiryStatus === "Pending"
-                            ? "blue"
-                            : enquiryStatus === "Sent"
-                            ? "green"
-                            : ""
-                        }`}
-                      >
+                      <div className="col"><p>{preferredTime}</p></div>
+                      <div className={`col ${enquiryStatus.toLowerCase()}`}>
                         <p>{enquiryStatus}</p>
                       </div>
                       <div className="col message-col">
@@ -280,7 +248,7 @@ const LeadsForAccommodation = () => {
                       </div>
                       <div className="col link">
                         <Button
-                          onClick={() => sendEnquiry(query._id, query.enquired_to._id)}
+                          onClick={() => sendEnquiry(query._id, accommodation_id)}
                           variant="contained"
                           color="primary"
                         >
@@ -295,7 +263,6 @@ const LeadsForAccommodation = () => {
         </div>
       </div>
 
-      {/* CSS for scrollable message */}
       <style jsx>{`
         .scrollable-message {
           max-height: 50px;

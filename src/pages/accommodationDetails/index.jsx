@@ -393,6 +393,10 @@ const changeStatus = async (newStatus) => {
               <a href={property.direction} target="_blank">
                 View Directions
               </a>
+
+              <Link to={`/accommodation/${accomodation_id}/leads`} >
+                View Leads
+              </Link>
             </div>
           </div>
 
@@ -529,13 +533,13 @@ const changeStatus = async (newStatus) => {
               </div>
             </div>
           </div>
-          <div className="property-enquiries-main">
+          {/* <div className="property-enquiries-main">
             <div className="enquiries-heading">
               <h2>Enquiries</h2>
               <Link to="#">View All</Link>
             </div>
             <div className="property-enquiries-sub"></div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
