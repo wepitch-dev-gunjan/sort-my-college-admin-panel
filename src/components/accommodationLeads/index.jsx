@@ -24,6 +24,7 @@ const LeadsForAccommodation = () => {
     startDate: null,
     endDate: null,
     accommodationName: "",
+    search: "", // New search field
   });
 
   const convertToIST = (date) => {
@@ -53,28 +54,29 @@ const LeadsForAccommodation = () => {
     const { value } = e.target;
     setFilterParams((prevState) => ({
       ...prevState,
-      accommodationName: value,
+      search: value, // Set search field value
     }));
   };
 
   const getAllQueriesForAdmin = async () => {
     try {
       const { data } = await axios.get(
-        `${backend_url}/admin/accommodation/${accommodation_id}/enquiries`,
+        `${backend_url}/admin/accommodation/enquiries`,
         {
           headers: {
             Authorization: admin.token,
           },
           params: {
-            enquired_to: accommodation_id,
+            enquired_to: accommodation_id || undefined,
             status: filterParams.status,
             fromDate: filterParams.startDate
               ? convertToIST(filterParams.startDate)
-              : null,
+              : undefined,
             toDate: filterParams.endDate
               ? convertToIST(filterParams.endDate)
-              : null,
+              : undefined,
             accommodationName: filterParams.accommodationName,
+            search: filterParams.search, // Pass search parameter
           },
         }
       );
@@ -103,6 +105,7 @@ const LeadsForAccommodation = () => {
       startDate: null,
       endDate: null,
       accommodationName: "",
+      search: "", // Reset search
     });
     getAllQueriesForAdmin(); // Fetch data after resetting filters
   };
@@ -114,12 +117,26 @@ const LeadsForAccommodation = () => {
 
       {/* Filters */}
       <div className="main_Container">
+        {/* Search by All Fields */}
+        <TextField
+          className="search_all_fields"
+          label="Search All Fields"
+          value={filterParams.search}
+          onChange={handleSearchChange}
+          name="search"
+        />
+
         {/* Search by Accommodation Name */}
         <TextField
           className="search_by_name"
           label="Search by Accommodation Name"
           value={filterParams.accommodationName}
-          onChange={handleSearchChange}
+          onChange={(e) =>
+            setFilterParams((prevState) => ({
+              ...prevState,
+              accommodationName: e.target.value,
+            }))
+          }
           name="accommodationName"
         />
 
@@ -185,7 +202,7 @@ const LeadsForAccommodation = () => {
               <h4>Date</h4>
             </div>
             <div className="col">
-              <h4>Preferred Date</h4>
+              <h4>Preferred Time</h4>
             </div>
             <div className="col">
               <h4>Status</h4>
@@ -198,38 +215,38 @@ const LeadsForAccommodation = () => {
             <div className="queries">
               {Array.isArray(queries) &&
                 queries.map((query, i) => {
-                  const preferredDate = query.preferredDate
-                    ? new Date(query.preferredDate).toLocaleString()
-                    : "N/A"; // Format preferred date
+                  const preferredTime = query.preferred_time?.[0]
+                    ? new Date(query.preferred_time[0]).toLocaleString()
+                    : "N/A";
+                  const enquiryStatus = query.enquiryStatus || "N/A";
+                  const accommodationName = query.enquired_to?.name || "Unknown";
 
                   return (
-                    <div className="row" key={query.id}>
+                    <div className="row" key={query._id}>
                       <div className="col">
                         <p>{i + 1}</p>
                       </div>
                       <div className="col instute-name-for-leads">
-                        <p>{query.accommodationName}</p>
+                        <p>{accommodationName}</p>
                       </div>
                       <div className="col">
-                        <p>{new Date(query.createdAt).toLocaleString()}</p>{" "}
-                        {/* Display date and time */}
+                        <p>{new Date(query.createdAt).toLocaleString()}</p>
                       </div>
                       <div className="col">
-                        <p>{preferredDate}</p>{" "}
-                        {/* Display formatted preferred date */}
+                        <p>{preferredTime}</p>
                       </div>
                       <div
                         className={`col ${
-                          query.status === "Unseen"
+                          enquiryStatus === "Unseen"
                             ? "red"
-                            : query.status === "Pending"
+                            : enquiryStatus === "Pending"
                             ? "blue"
-                            : query.status === "Sent"
+                            : enquiryStatus === "Sent"
                             ? "green"
                             : ""
                         }`}
                       >
-                        <p>{query.status}</p>
+                        <p>{enquiryStatus}</p>
                       </div>
                       <div className="link">
                         <Link to={``}>
