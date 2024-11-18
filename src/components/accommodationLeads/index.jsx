@@ -123,6 +123,22 @@ const LeadsForAccommodation = () => {
     }
   };
 
+  const updateStatus = async (enquiryId, newStatus) => {
+    try {
+      await axios.patch(
+        `${backend_url}/admin/accommodation/enquiry/${enquiryId}/status`,
+        { status: newStatus },
+        {
+          headers: { Authorization: admin.token },
+        }
+      );
+      // Refresh the table after updating
+      getAllQueriesForAdmin();
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
   // Debounce function to prevent excessive API calls
   const debounce = (func, delay) => {
     let timer;
@@ -293,8 +309,23 @@ const LeadsForAccommodation = () => {
                       <p>{new Date(query.createdAt).toLocaleString()}</p>
                     </div>
                     <div className="col"><p>{preferredTime}</p></div>
-                    <div className={`col ${enquiryStatus.toLowerCase()}`}>
-                      <p>{enquiryStatus}</p>
+                    <div className="col">
+
+                    <FormControl fullWidth size="small">
+                        <Select
+                          value={enquiryStatus}
+                          onChange={(e) =>
+                            updateStatus(query._id, e.target.value)
+                          }
+                        >
+                          <MenuItem value="Unseen">Unseen</MenuItem>
+                          <MenuItem value="Pending">Pending</MenuItem>
+                          <MenuItem value="Sent">Sent</MenuItem>
+                          <MenuItem value="Visited">Visited</MenuItem>
+                          <MenuItem value="Not Visited">Not Visited</MenuItem>
+                        </Select>
+                      </FormControl>
+
                     </div>
                     <div className="col message-col">
                       <div className="scrollable-message">
