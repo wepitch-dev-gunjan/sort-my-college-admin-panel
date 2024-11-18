@@ -259,7 +259,7 @@ const LeadsForAccommodation = () => {
         <div className="table Leads-table">
           <div className="row">
             <div className="col"><h4>Sno</h4></div>
-            <div className="col"><h4>Accommodation Name</h4></div>
+            <div className="col"><h4>Accommodation Name </h4></div>
             <div className="col"><h4>Enquirer Name</h4></div>
             <div className="col"><h4>Phone Number</h4></div>
             <div className="col"><h4>Date</h4></div>
