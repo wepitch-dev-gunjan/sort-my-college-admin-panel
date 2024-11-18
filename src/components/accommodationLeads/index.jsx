@@ -17,14 +17,18 @@ import {
 const { backend_url } = config;
 
 const LeadsForAccommodation = () => {
-  const { accommodation_id } = useParams(); // Get accommodation_id from URL parameters
+  const { accommodation_id } = useParams();
   const { queries, setQueries, admin } = useContext(AdminContext);
+
   const [filterParams, setFilterParams] = useState({
     status: "",
     startDate: null,
     endDate: null,
+    preferredFromDate: null,
+    preferredToDate: null,
     accommodationName: "",
-    search: "", // New search field
+    search: "",
+    phoneNumber: "",
   });
 
   const convertToIST = (date) => {
@@ -50,11 +54,11 @@ const LeadsForAccommodation = () => {
     }));
   };
 
-  const handleSearchChange = (e) => {
+  const handlePhoneNumberChange = (e) => {
     const { value } = e.target;
     setFilterParams((prevState) => ({
       ...prevState,
-      search: value, // Set search field value
+      phoneNumber: value,
     }));
   };
 
@@ -67,7 +71,7 @@ const LeadsForAccommodation = () => {
             Authorization: admin.token,
           },
           params: {
-            accommodation_id, // Pass accommodation_id directly
+            accommodation_id,
             status: filterParams.status,
             fromDate: filterParams.startDate
               ? convertToIST(filterParams.startDate)
@@ -75,14 +79,22 @@ const LeadsForAccommodation = () => {
             toDate: filterParams.endDate
               ? convertToIST(filterParams.endDate)
               : undefined,
+            preferredFromDate: filterParams.preferredFromDate
+              ? convertToIST(filterParams.preferredFromDate)
+              : undefined,
+            preferredToDate: filterParams.preferredToDate
+              ? convertToIST(filterParams.preferredToDate)
+              : undefined,
             accommodationName: filterParams.accommodationName,
             search: filterParams.search,
+            phoneNumber: filterParams.phoneNumber,
           },
         }
       );
+      console.log("Leads Data: ", data);
 
       if (Array.isArray(data.data)) {
-        setQueries(data.data); // Set the queries from the API response
+        setQueries(data.data);
       } else {
         setQueries([]);
       }
@@ -91,6 +103,7 @@ const LeadsForAccommodation = () => {
       setQueries([]);
     }
   };
+
 
   const sendEnquiry = async (enquiry_id, accommodation_id) => {
     try {
@@ -110,8 +123,20 @@ const LeadsForAccommodation = () => {
     }
   };
 
+  // Debounce function to prevent excessive API calls
+  const debounce = (func, delay) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  };
+
+  const debouncedGetAllQueriesForAdmin = debounce(getAllQueriesForAdmin, 500);
+
+  // Trigger API call whenever filterParams change
   useEffect(() => {
-    getAllQueriesForAdmin();
+    debouncedGetAllQueriesForAdmin();
   }, [filterParams]);
 
   const resetFilters = () => {
@@ -119,10 +144,12 @@ const LeadsForAccommodation = () => {
       status: "",
       startDate: null,
       endDate: null,
+      preferredFromDate: null,
+      preferredToDate: null,
       accommodationName: "",
       search: "",
+      phoneNumber: "",
     });
-    getAllQueriesForAdmin();
   };
 
   return (
@@ -131,16 +158,19 @@ const LeadsForAccommodation = () => {
 
       {/* Filters */}
       <div className="main_Container">
-        {/* Search by All Fields */}
         <TextField
           className="search_all_fields"
           label="Search All Fields"
           value={filterParams.search}
-          onChange={handleSearchChange}
+          onChange={(e) =>
+            setFilterParams((prevState) => ({
+              ...prevState,
+              search: e.target.value,
+            }))
+          }
           name="search"
         />
 
-        {/* Search by Accommodation Name */}
         <TextField
           className="search_by_name"
           label="Search by Accommodation Name"
@@ -154,19 +184,43 @@ const LeadsForAccommodation = () => {
           name="accommodationName"
         />
 
+        <TextField
+          className="search_phone_number"
+          label="Search by Phone Number"
+          value={filterParams.phoneNumber}
+          onChange={handlePhoneNumberChange}
+          name="phoneNumber"
+        />
+
         {/* Date Filters */}
         <DatePicker
           className="date_filter"
-          label="Start Date"
+          label="Enquiry Start Date"
           value={filterParams.startDate}
           onChange={handleDateChange("startDate")}
           renderInput={(params) => <TextField {...params} />}
         />
         <DatePicker
           className="date_filter"
-          label="End Date"
+          label="Enquiry End Date"
           value={filterParams.endDate}
           onChange={handleDateChange("endDate")}
+          renderInput={(params) => <TextField {...params} />}
+        />
+
+        {/* Preferred Time Date Filters */}
+        <DatePicker
+          className="date_filter"
+          label="Preferred Start Time"
+          value={filterParams.preferredFromDate}
+          onChange={handleDateChange("preferredFromDate")}
+          renderInput={(params) => <TextField {...params} />}
+        />
+        <DatePicker
+          className="date_filter"
+          label="Preferred End Time"
+          value={filterParams.preferredToDate}
+          onChange={handleDateChange("preferredToDate")}
           renderInput={(params) => <TextField {...params} />}
         />
 
@@ -186,13 +240,10 @@ const LeadsForAccommodation = () => {
           </Select>
         </FormControl>
 
-        {/* Buttons */}
+        {/* Reset Button */}
         <div className="btn_main">
           <Button sx={{ height: "55px" }} onClick={resetFilters}>
             Reset Filters
-          </Button>
-          <Button sx={{ height: "55px" }} onClick={getAllQueriesForAdmin}>
-            Apply Filters
           </Button>
         </div>
 
@@ -204,60 +255,66 @@ const LeadsForAccommodation = () => {
 
       {/* Leads Table */}
       <div className="Leads-table-parent">
+        {/* Table Structure */}
         <div className="table Leads-table">
           <div className="row">
             <div className="col"><h4>Sno</h4></div>
             <div className="col"><h4>Accommodation Name</h4></div>
+            <div className="col"><h4>Enquirer Name</h4></div>
+            <div className="col"><h4>Phone Number</h4></div>
             <div className="col"><h4>Date</h4></div>
-            <div className="col"><h4>Preferred Time</h4></div>
+            <div className="col"><h4>Preferred Date</h4></div>
             <div className="col"><h4>Status</h4></div>
             <div className="col"><h4>Message</h4></div>
-            <div className="col"><h4>Action</h4></div>
+            {/* <div className="col"><h4>Action</h4></div> */}
           </div>
 
           {Array.isArray(queries) && queries.length === 0 ? (
             <p>No Leads</p>
           ) : (
             <div className="queries">
-              {Array.isArray(queries) &&
-                queries.map((query, i) => {
-                  const preferredTime = query.preferred_time?.[0]
-                    ? new Date(query.preferred_time[0]).toLocaleString()
-                    : "N/A";
-                  const enquiryStatus = query.enquiryStatus || "N/A";
-                  const accommodationName = query.enquired_to?.name || "Unknown";
-                  const message = query.message?.[0] || "No message";
+              {queries.map((query, i) => {
+                const preferredTime = query.preferred_time?.[0]
+                  ? new Date(query.preferred_time[0]).toLocaleString()
+                  : "N/A";
+                const enquiryStatus = query.enquiryStatus || "N/A";
+                const accommodationName = query.enquired_to?.name || "Unknown";
+                const message = query.message?.[0] || "No message";
+                const enquirerName = query.enquirerDetails?.name || "Unknown";
+                const phoneNumber = query.enquirerDetails?.phone_number || "N/A";
 
-                  return (
-                    <div className="row" key={query._id}>
-                      <div className="col"><p>{i + 1}</p></div>
-                      <div className="col instute-name-for-leads">
-                        <p>{accommodationName}</p>
-                      </div>
-                      <div className="col">
-                        <p>{new Date(query.createdAt).toLocaleString()}</p>
-                      </div>
-                      <div className="col"><p>{preferredTime}</p></div>
-                      <div className={`col ${enquiryStatus.toLowerCase()}`}>
-                        <p>{enquiryStatus}</p>
-                      </div>
-                      <div className="col message-col">
-                        <div className="scrollable-message">
-                          <p>{message}</p>
-                        </div>
-                      </div>
-                      <div className="col link">
-                        <Button
-                          onClick={() => sendEnquiry(query._id, accommodation_id)}
-                          variant="contained"
-                          color="primary"
-                        >
-                          Send Enquiries
-                        </Button>
+                return (
+                  <div className="row" key={query._id}>
+                    <div className="col"><p>{i + 1}</p></div>
+                    <div className="col"><p>{accommodationName}</p></div>
+                    <div className="col"><p>{enquirerName}</p></div>
+                    <div className="col"><p>{phoneNumber}</p></div>
+                    <div className="col">
+                      <p>{new Date(query.createdAt).toLocaleString()}</p>
+                    </div>
+                    <div className="col"><p>{preferredTime}</p></div>
+                    <div className={`col ${enquiryStatus.toLowerCase()}`}>
+                      <p>{enquiryStatus}</p>
+                    </div>
+                    <div className="col message-col">
+                      <div className="scrollable-message">
+                        <p>{message}</p>
                       </div>
                     </div>
-                  );
-                })}
+                    {/* <div className="col link">
+                      <Button
+                        onClick={() =>
+                          sendEnquiry(query._id, accommodation_id)
+                        }
+                        variant="contained"
+                        color="primary"
+                      >
+                        Send Enquiries
+                      </Button>
+                    </div> */}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
