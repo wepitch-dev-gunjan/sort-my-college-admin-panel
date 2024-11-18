@@ -8,7 +8,12 @@
         gap: 20px;
         padding: 20px;
         align-items: center; // Align items vertically
+        flex-wrap: wrap;
 
+
+        TextField, DatePicker{
+            width: 100px;
+        }
         .search_by_name {
             width: 30%; // 30% width for the search input
         }
@@ -22,7 +27,7 @@
         .noofenquiries {
             display: flex;
             align-items: flex-end;
-            height: 100%;
+            // height: 100%;
 
             p {
                 font-weight: 100;
@@ -53,6 +58,9 @@
         display: flex;
         justify-content: end;
         font-size: var(--fs-sm);
+    }
+    .Leads-table-parent{
+        margin-top: 100px !important;
     }
 
     .Leads-table p {
@@ -91,4 +99,9 @@
 
 .RecentLeads-container .table .row .link{
     border: 0px !important;
+}
+
+.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+    box-sizing: initial;
+
 }
