@@ -159,18 +159,9 @@ const EditAccommodation = () => {
       },
     }));
   };
-
   const addNearbyColleges = () => {
     setNearbyColleges([...nearbyColleges, ""]);
-    setProperty((prevState) => ({
-      ...prevState,
-      nearby_locations: {
-        ...prevState.nearby_locations,
-        colleges: [...nearbyColleges, ""],
-      },
-    }));
   };
-
   const removeNearbyColleges = (index) => {
     const newNearbyColleges = [...nearbyColleges];
     newNearbyColleges.splice(index, 1);
@@ -501,23 +492,10 @@ const EditAccommodation = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
-    getAccommodation();
     console.log("Updated property: ", property);
+    getAccommodation();
   }, [accomodation_id]);
-
-  useEffect(() => {
-    if (property) {
-      setNearbyColleges(property.nearby_locations.colleges || []);
-      setNearbyHospitals(property.nearby_locations.hospitals || []);
-      setNearbyMetroStations(property.nearby_locations.metro_stations || []);
-      setCommonAmenities(property.common_area_amenities || []);
-      setHouseRules(property.house_rules || []);
-      setRooms(property.rooms || []);
-      console.log("Property in 2 ue: ", property);
-    }
-  }, [property]);
 
   return (
     <div className="add-accomm-main">
@@ -798,21 +776,24 @@ const EditAccommodation = () => {
               <h4>Nearby Colleges:</h4>
               <div className="nearby-locations-sub">
                 <div className="nearby-colleges">
-
                   {nearbyColleges.map((college, index) => (
-                    <div key={index} className="nearby-colleges-child">
+                    <div className="nearby-colleges-child">
                       <input
                         type="text"
                         value={college}
-                        onChange={(e) => handleNearbyCollegesChange(index, e.target.value)} 
+                        onChange={(e) =>
+                          handleNearbyCollegesChange(index, e.target.value)
+                        }
                       />
-                      <button 
-                        className="remove-nearby-college-button"
-                        type="button"
-                        onClick={() => removeNearbyColleges(index)}
-                      >
-                        <MdDeleteOutline />
-                      </button>
+                      {index >= 0 && (
+                        <button
+                          className="remove-nearby-college-button"
+                          type="button"
+                          onClick={() => removeNearbyColleges(index)}
+                        >
+                          <MdDeleteOutline />
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
