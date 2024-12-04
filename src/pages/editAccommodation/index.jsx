@@ -145,6 +145,9 @@ const EditAccommodation = () => {
     }
     console.log("New Property: ", property);
   };
+  ////////////////////////////////////////////////////////
+  //////////////WWWWOOOOORRRKKKIIIIINNNGGGGGGGGG//////////
+  ////////////////////////////////////////////////////////
   // Nearby Colleges
   const handleNearbyCollegesChange = (index, value) => {
     const newNearbyColleges = [...nearbyColleges];
@@ -185,6 +188,8 @@ const EditAccommodation = () => {
     }));
   };
   // Nearby Colleges
+  //////////////WWWWOOOOORRRKKKIIIIINNNGGGGGGGGG
+
 
   // Nearby Hospitals
   const handleNearbyHospitalsChange = (index, value) => {
@@ -341,7 +346,7 @@ const EditAccommodation = () => {
     newRooms[index][field] = value;
     setRooms(newRooms);
     // Update formData here
-    setFormData((prevState) => ({
+    setProperty((prevState) => ({
       ...prevState,
       rooms: newRooms,
     }));
@@ -594,15 +599,6 @@ const EditAccommodation = () => {
                   </div>
                 ))}
 
-                {/* <BasicTextField 
-    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers[]")}
-    value={formData.owner.contact_numbers}
-                placeholder="Phone Number" />
-
-                <BasicTextField 
-    onChange={(e) => handleChange(e.target.value, "owner.contact_numbers")}
-    value={formData.owner.contact_numbers}
-                placeholder="Alternate Phone Number" /> */}
 
                 {/* email */}
                 <BasicTextField
@@ -691,15 +687,6 @@ const EditAccommodation = () => {
           <div className="property-info-main">
             <h2>Property Information: </h2>
             <div className="property-info-sub">
-              {/* <div className="row-form">
-                <DragAndDropUploader
-                multiple = {true}
-                  action=""
-                 onChange = {handleImageChange}
-                  placeholder="Upload Photos of the Property here..."
-                />
-              </div> */}
-
               {/* property images */}
               <div className="row-form"
                 style={{
@@ -928,11 +915,10 @@ const EditAccommodation = () => {
                     <div className="room-field available-select">
                       {/* Availability */}
                       <RoomAvailableSelect
-                        onChange={(e) =>
-                          handleChangeRoom(index, "available", e.target.value)
-                        }
+                        onChange={(newValue) => handleChangeRoom(index, "available", newValue)}
                         value={room.available}
                       />
+
                     </div>
                     <div className="room-field deposit-amount">
                       {/* Deposit Amount */}
