@@ -963,7 +963,7 @@ const EditAccommodation = () => {
                       />
                     </div>
                     <div className="room-details-main">
-                      <p className="room-details-para">Room Amenities: </p>
+                      <p className="room-details-para">Room Amenities:  </p>
                       <div className="room-details-sub">
                         {/* Room Details */}
                         {room.details.map((detail, detailIndex) => (
