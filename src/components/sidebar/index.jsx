@@ -1,7 +1,7 @@
 import "./style.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PaymentIcon from "@mui/icons-material/Payment";
-import React, { useContext, useState ,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import SidebarMenuButton from "../buttons/sidebarMenuButton";
 import RightLeftArrow from "../buttons/rightLeftArrow";
 import PersonIcon from "@mui/icons-material/Person";
@@ -9,6 +9,7 @@ import { ProfileContext } from "../../context/ProfileContext";
 import GroupIcon from '@mui/icons-material/Group';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { PiFlagBannerFill } from "react-icons/pi";
+import { PiBell } from "react-icons/pi";
 import { FaBuildingColumns } from "react-icons/fa6";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { FaChalkboardTeacher } from "react-icons/fa";
@@ -33,30 +34,30 @@ import { FiUsers } from "react-icons/fi";
 const Sidebar = () => {
   const [expand, setExpand] = useState(true);
   const { profile } = useContext(ProfileContext)
- // edited
- const [isSmallScreen, setIsSmallScreen] = useState(false);
- useEffect(() => {
-   const handleResize = () => {
-     setIsSmallScreen(window.innerWidth <= 768); // Adjust the breakpoint as needed
-   };
+  // edited
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
 
-   handleResize(); // Call once to set initial state
+    handleResize(); // Call once to set initial state
 
-   window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-   return () => {
-     window.removeEventListener("resize", handleResize);
-   };
- }, []);
- useEffect(() => {
-   // Automatically minimize the sidebar on small screens
-   if (isSmallScreen) {
-     setExpand(false);
-   } else {
-     setExpand(true);
-   }
- }, [isSmallScreen]);
- // edited
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  useEffect(() => {
+    // Automatically minimize the sidebar on small screens
+    if (isSmallScreen) {
+      setExpand(false);
+    } else {
+      setExpand(true);
+    }
+  }, [isSmallScreen]);
+  // edited
   return (
     // edited
     <div className={`sidebar ${expand ? "expanded" : "collapsed"}`}>
@@ -128,6 +129,12 @@ const Sidebar = () => {
           href="/banners"
           icon={PiFlagBannerFill}
           text="Banners"
+          expand={expand}
+        />
+        <SidebarMenuButton
+          href="/sendNotification"
+          icon={PiBell}
+          text="Send Notification"
           expand={expand}
         />
       </div>

@@ -55,6 +55,7 @@ import EditAccommodation from "./pages/editAccommodation";
 import AddEpCoverPhoto from "./components/epCoverPhoto/addEpCoverPhoto";
 import AccommodationLeads from "./components/accommodationLeads";
 import LeadsForAccommodation from "./components/accommodationLeads";
+import SendNotification from "./pages/sendNotification";
 
 
 // import FaqAndTroubleshooting from "./pages/faqAndTroubleshooting";
@@ -70,10 +71,10 @@ function App() {
     useContext(WebinarContext);
   const { notificationsEnable, setNotificationsEnable, notificationsRef } =
     useContext(NotificationContext);
-  const { profilePicEditMode, setProfilePicEditMode , epProfilePicEditMode, 
-   setEpProfilePicEditMode,counsellorProfilePicEditMode,
-   setCounsellorProfilePicEditMode,
-   setEpCoverPhotoEditMode, epCoverPhotoEditMode} =
+  const { profilePicEditMode, setProfilePicEditMode, epProfilePicEditMode,
+    setEpProfilePicEditMode, counsellorProfilePicEditMode,
+    setCounsellorProfilePicEditMode,
+    setEpCoverPhotoEditMode, epCoverPhotoEditMode } =
     useContext(ProfileContext);
   const { addBannerMode } = useContext(BannerContext);
 
@@ -89,7 +90,7 @@ function App() {
     setAdmin({ ...admin, isLoggedIn: false });
     navigate("/login");
   };
-  
+
   useClickOutside(addEpProfilePicRef, () => {
     setEpProfilePicEditMode(false);
   })
@@ -172,6 +173,8 @@ function App() {
                   element={<PaymentDetails />}
                 />
                 <Route path="/user" element={<User />} />
+                <Route path="/sendNotification" element={<SendNotification />} />
+
                 <Route
                   path="/user/user-details/:user_id"
                   element={<UserDetails />}
