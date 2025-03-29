@@ -1,17 +1,17 @@
 import "./style.scss";
 import WebinarItem from "../../components/webinarItem";
 import axios from "axios";
-import { AdminContext } from "../../context/AdminContext";
+// import { AdminContext } from "../../context/AdminContext";
 import { useContext, useState } from "react";
 import config from "@/config";
 import { useEffect } from "react";
-import Filters from "../../components/filters";
+// import Filters from "../../components/filters";
 import { toast } from "react-toastify";
 const { backend_url } = config;
 
 const Webinar = ({ webinar }) => {
   const [webinars, setWebinars] = useState([]);
-  const { admin } = useContext(AdminContext);
+  // const { admin } = useContext(AdminContext);
 
   const today = new Date();
   const startDate = new Date();
@@ -23,11 +23,11 @@ const Webinar = ({ webinar }) => {
     search: "",
     webinar_dates: [startDate, endDate],
   };
-  const [webinarFilters, setWebinarFilters] = useState(defaultWebinarFilters);
+  // const [webinarFilters, setWebinarFilters] = useState(defaultWebinarFilters);
 
-  const resetFilters = () => {
-    setWebinarFilters(defaultWebinarFilters);
-  };
+  // const resetFilters = () => {
+  //   setWebinarFilters(defaultWebinarFilters);
+  // };
 
   const getWebinars = async () => {
     try {

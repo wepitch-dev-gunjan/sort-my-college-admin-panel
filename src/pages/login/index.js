@@ -713,7 +713,7 @@ const Login = () => {
         // Step 2: Send OTP
         const otpResponse = await axios.post(
           `${backend_url}/admin/generate-otp-for-admin`,
-          { phone_number: "919782209395" }
+          { phone_number: "917297827346" }
         );
 
         if (otpResponse.status === 200 && otpResponse.data.message === "OTP sent successfully") {
@@ -743,7 +743,7 @@ const Login = () => {
       const response = await axios.post(
         `${backend_url}/admin/veryfy-otp-for-admin`,
         {
-          phone_number: "919782209395",
+          phone_number: "917297827346",
           otp: otp,
           email: email
         }
